@@ -1,0 +1,17 @@
+{
+  "hash": "49f057db93f51b9072e8b33267c0e4d9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands-on Exercise 00: working with tidyverse\"\nauthor: \"Cathy Chu\"\ndate-modified: \"last-modified\" \nexecute:\n  echo: true #will display all code.\n  eval: true #eval the code chunk.\n  warning: false #won't show all warnings.\n  freeze: true #will take note if content not changed, rendering won't make changes. save time. \n---\n\n\n\nGetting started.\n\nLoading tidyverse onto r environment by using the code chunk below.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(tidyverse)\n```\n:::\n\n\n\nImporting data\n\nCode chunk below uses read_csv() of readr to import REALIS2019.csv into r environment as a tibble data.frame.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrealis_csv <- read.csv(\"data/REALIS2019.csv\") #old way - utility > avoid using this.\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nrealis2019 <- read_csv(\"data/REALIS2019.csv\")\nrealis2019 <- read_csv2(\"data/REALIS2019.csv\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\npopdata_fat <- read_csv(\"data/PopData2019_fat.csv\")\n```\n:::\n\n\n\nPivoting data\n\n\n::: {.cell}\n\n```{.r .cell-code}\npopdata_long <- popdata_fat %>% \n  #what is %>%? allows to combine functions together. e.g. call this file and do pivot_longer.\n  pivot_longer(c(3:21),\n               names_to = \"Age Group\",\n               values_to = \"Population\") \n```\n:::\n\n\n\nCreate rds file\n\n\n::: {.cell}\n\n```{.r .cell-code}\nwrite_rds(popdata_long, \"data/rds/popdata_long.rds\") #reading rds is faster.\n```\n:::\n\n::: {.cell}\n\n:::",
+    "supporting": [
+      "Hands-on_Ex00_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

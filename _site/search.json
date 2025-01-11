@@ -12,5 +12,12 @@
     "title": "About",
     "section": "",
     "text": "My name is Cathy. This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands on_Ex00/Hands-on_Ex00.html",
+    "href": "Hands-on_Ex/Hands on_Ex00/Hands-on_Ex00.html",
+    "title": "Hands-on Exercise 00: working with tidyverse",
+    "section": "",
+    "text": "Getting started.\nLoading tidyverse onto r environment by using the code chunk below.\n\npacman::p_load(tidyverse)\n\nImporting data\nCode chunk below uses read_csv() of readr to import REALIS2019.csv into r environment as a tibble data.frame.\n\nrealis_csv &lt;- read.csv(\"data/REALIS2019.csv\") #old way - utility &gt; avoid using this.\n\n\nrealis2019 &lt;- read_csv(\"data/REALIS2019.csv\")\nrealis2019 &lt;- read_csv2(\"data/REALIS2019.csv\")\n\n\npopdata_fat &lt;- read_csv(\"data/PopData2019_fat.csv\")\n\nPivoting data\n\npopdata_long &lt;- popdata_fat %&gt;% \n  #what is %&gt;%? allows to combine functions together. e.g. call this file and do pivot_longer.\n  pivot_longer(c(3:21),\n               names_to = \"Age Group\",\n               values_to = \"Population\") \n\nCreate rds file\n\nwrite_rds(popdata_long, \"data/rds/popdata_long.rds\") #reading rds is faster."
   }
 ]
