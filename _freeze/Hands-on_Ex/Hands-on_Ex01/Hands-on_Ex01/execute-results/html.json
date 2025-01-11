@@ -3,9 +3,7 @@
   "result": {
     "engine": "knitr",
     "markdown": "---\ntitle: \"Hands-on_Ex01\"\nauthor: \"Cathy Chu\"\ndate-modified: \"last-modified\" \nexecute:\n  echo: true \n  eval: true \n  warning: false \n  freeze: true  \n---\n\n\n\n## A Layered Grammar of Graphics: ggplot2 methods\n\n### 1.2 Getting started\n\n#### **1.2.1 Installing and loading the required libraries**\n\npacman package has been installed in the workshop, using the following code.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(tidyverse)\n```\n:::\n\n\n\n#### **1.2.2 Importing data**\n\n*read_csv* is a function of **readr** package, which is from the tidyverse package.\n\nThe dataset Exam_data.csv, containing exam grades of P3 students from a Singapore local school is imported into R environment. The code chunk below was used to import the dataset.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nexam_data <- read_csv(\"data/Exam_data.csv\")\n```\n:::\n\n\n\n|            |           |            |          |           |             |             |\n|------------|-----------|------------|----------|-----------|-------------|-------------|\n| **ID**     | **CLASS** | **GENDER** | **RACE** | **MATHS** | **ENGLISH** | **SCIENCE** |\n| Student321 | 3I        | Male       | Malay    | 21        | 9           | 15          |\n| Student305 | 3I        | Female     | Malay    | 24        | 22          | 1           |\n\n: {.striped .hover}\n\n------------------------------------------------------------------------\n\n### **1.3 Introducing ggplot**\n\n**ggplot2** is part of the tidyverse family specially designed for visual exploration and communication. It creates graphics based on The Grammar of Graphics.\n\n#### 📝 Cheatsheet for ggplot2 ([learn more...](https://ggplot2.tidyverse.org/#cheatsheet))\n\n![](images/data-visualization-01.pdf){width=\"400\" height=\"250\"}\n",
-    "supporting": [
-      "Hands-on_Ex01_files"
-    ],
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
