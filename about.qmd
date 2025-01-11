@@ -1,0 +1,8 @@
+---
+title: "About"
+---
+
+My name is Cathy. This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.
+---
+
+![](images/banner_tomatohead-01.png)
