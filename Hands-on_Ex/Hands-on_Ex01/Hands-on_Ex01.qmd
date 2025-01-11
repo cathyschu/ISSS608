@@ -1,0 +1,50 @@
+---
+title: "Hands-on_Ex01"
+author: "Cathy Chu"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+## A Layered Grammar of Graphics: ggplot2 methods
+
+### 1.2 Getting started
+
+#### **1.2.1 Installing and loading the required libraries**
+
+pacman package has been installed in the workshop, using the following code.
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+#### **1.2.2 Importing data**
+
+*read_csv* is a function of **readr** package, which is from the tidyverse package.
+
+The dataset Exam_data.csv, containing exam grades of P3 students from a Singapore local school is imported into R environment. The code chunk below was used to import the dataset.
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+|            |           |            |          |           |             |             |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| **ID**     | **CLASS** | **GENDER** | **RACE** | **MATHS** | **ENGLISH** | **SCIENCE** |
+| Student321 | 3I        | Male       | Malay    | 21        | 9           | 15          |
+| Student305 | 3I        | Female     | Malay    | 24        | 22          | 1           |
+
+: {.striped .hover}
+
+------------------------------------------------------------------------
+
+### **1.3 Introducing ggplot**
+
+**ggplot2** is part of the tidyverse family specially designed for visual exploration and communication. It creates graphics based on The Grammar of Graphics.
+
+#### 📝 Cheatsheet for ggplot2 ([learn more...](https://ggplot2.tidyverse.org/#cheatsheet))
+
+![](images/data-visualization-01.pdf){width="400" height="250"}

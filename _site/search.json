@@ -54,5 +54,19 @@
     "title": "Hands-on Exercise 00: working with tidyverse",
     "section": "Working with dplyr",
     "text": "Working with dplyr\nselect, filter, arrange, mutate (compute), group_by, summarise, join.\n\nrealis2019_selected &lt;- realis2019 %&gt;%\n  select(`Project Name`,\n         `Transacted Price ($)`,\n         `Type of Sale`,\n         `Unit Price ($ psm)`,\n         `Property Type`)\nrealis2019_selected\n\n# A tibble: 19,515 × 5\n   `Project Name`     `Transacted Price ($)` `Type of Sale` `Unit Price ($ psm)`\n   &lt;chr&gt;                               &lt;dbl&gt; &lt;chr&gt;                         &lt;dbl&gt;\n 1 PEIRCE VIEW                        840000 Resale                         7434\n 2 FLORIDA PARK                      3040000 Resale                         9737\n 3 BULLION PARK                       860000 Resale                        11467\n 4 CASTLE GREEN                      1000000 Resale                         9346\n 5 HAPPY ESTATE                      7000000 Resale                        10183\n 6 TEACHER'S HOUSING…                2880000 Resale                        12659\n 7 THE PANORAMA                      1510000 Resale                        16064\n 8 THE PANORAMA                       710000 Resale                        16905\n 9 CHIP THYE GARDEN                  2800000 Resale                        13500\n10 TEACHER'S HOUSING…                2300000 Resale                         9935\n# ℹ 19,505 more rows\n# ℹ 1 more variable: `Property Type` &lt;chr&gt;\n\n\n\nrealis2019_filtered &lt;- realis2019_selected %&gt;%\n  filter(`Property Type` == \"Condominium\" | \n           `Property Type` == \"Apartment\") %&gt;%\n  filter(`Type of Sale` == \"New Sale\") %&gt;%\n  filter(`Unit Price ($ psm)` &lt;= 13000)\n\n\nPutting all together"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
+    "title": "Hands-on_Ex01",
+    "section": "",
+    "text": "pacman package has been installed in the workshop, using the following code.\n\npacman::p_load(tidyverse)\n\n\n\n\nread_csv is a function of readr package, which is from the tidyverse package.\nThe dataset Exam_data.csv, containing exam grades of P3 students from a Singapore local school is imported into R environment. The code chunk below was used to import the dataset.\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nID\nCLASS\nGENDER\nRACE\nMATHS\nENGLISH\nSCIENCE\n\n\nStudent321\n3I\nMale\nMalay\n21\n9\n15\n\n\nStudent305\n3I\nFemale\nMalay\n24\n22\n1\n\n\n\n\n\n\n\n\nggplot2 is part of the tidyverse family specially designed for visual exploration and communication. It creates graphics based on The Grammar of Graphics."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-layered-grammar-of-graphics-ggplot2-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-layered-grammar-of-graphics-ggplot2-methods",
+    "title": "Hands-on_Ex01",
+    "section": "",
+    "text": "pacman package has been installed in the workshop, using the following code.\n\npacman::p_load(tidyverse)\n\n\n\n\nread_csv is a function of readr package, which is from the tidyverse package.\nThe dataset Exam_data.csv, containing exam grades of P3 students from a Singapore local school is imported into R environment. The code chunk below was used to import the dataset.\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nID\nCLASS\nGENDER\nRACE\nMATHS\nENGLISH\nSCIENCE\n\n\nStudent321\n3I\nMale\nMalay\n21\n9\n15\n\n\nStudent305\n3I\nFemale\nMalay\n24\n22\n1\n\n\n\n\n\n\n\n\nggplot2 is part of the tidyverse family specially designed for visual exploration and communication. It creates graphics based on The Grammar of Graphics."
   }
 ]
