@@ -27,7 +27,7 @@ realis_csv <- read.csv("data/REALIS2019.csv") #old way - utility > avoid using t
 
 ```{r}
 realis2019 <- read_csv("data/REALIS2019.csv")
-realis2019 <- read_csv2("data/REALIS2019.csv")
+
 ```
 
 ```{r}
@@ -79,6 +79,7 @@ realis2019_filtered <- realis2019_selected %>%
            `Property Type` == "Apartment") %>%
   filter(`Type of Sale` == "New Sale") %>%
   filter(`Unit Price ($ psm)` <= 13000)
+
 ```
 
 ### Putting all together

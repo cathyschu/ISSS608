@@ -8,15 +8,15 @@ website:
     - text: "Hands-on Exercise"
       menu:
       - text: "Hands-on Exercise 0"
-        herf: Hands-on_Ex/Hands-on_Ex00.html
+        href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
     - text: "In-class Exercise"
       menu:
       - text: "In-class Exercise 1"
-        herf: In-class_Ex1.html
+        href: In-class_Ex1.html
     - text: "Take-home Exercise"
       menu: 
       - text: "Take-home Exercise 1"
-        herf: Take-home_Ex1.html
+        href: Take-home_Ex1.html
     right:
       - href: index.qmd
         text: Home
