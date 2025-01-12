@@ -1,7 +1,9 @@
 ---
-title: "ISSS608"
+title: "ISSS608 Visual Analytics and Applications"
 ---
 
-**Welcome to ISSS608 Visual Analytics and Applications.**
+**Welcome to Cathy's portfolio for ISSS608 Visual Analytics and Applications.**
+
+In this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!
 
 ![](images/AdobeStock_85482744.jpeg)

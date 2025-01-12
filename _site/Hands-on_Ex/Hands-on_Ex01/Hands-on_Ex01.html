@@ -190,12 +190,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">1.2 Getting started</a></li>
   <li><a href="#introducing-ggplot" id="toc-introducing-ggplot" class="nav-link" data-scroll-target="#introducing-ggplot"><strong>1.3 Introducing ggplot</strong></a></li>
+  <li><a href="#grammar-of-graphics" id="toc-grammar-of-graphics" class="nav-link" data-scroll-target="#grammar-of-graphics">1.4 Grammar of Graphics</a></li>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-data" id="toc-essential-grammatical-elements-in-ggplot2-data" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-data">1.5 Essential Grammatical Elements in ggplot2: data</a></li>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-aesthetic-mappings" id="toc-essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-aesthetic-mappings">1.6 Essential Grammatical Elements in ggplot2: Aesthetic mappings</a></li>
+  <li><a href="#essential-grammatical-elements-in-ggplot2-geom" id="toc-essential-grammatical-elements-in-ggplot2-geom" class="nav-link" data-scroll-target="#essential-grammatical-elements-in-ggplot2-geom">1.7 Essential Grammatical Elements in ggplot2: geom</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -228,13 +232,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="a-layered-grammar-of-graphics-ggplot2-methods" class="level2">
+<section id="a-layered-grammar-of-graphics-ggplot2-methods" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="a-layered-grammar-of-graphics-ggplot2-methods">A Layered Grammar of Graphics: ggplot2 methods</h2>
 <section id="getting-started" class="level3">
 <h3 class="anchored" data-anchor-id="getting-started">1.2 Getting started</h3>
 <section id="installing-and-loading-the-required-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="installing-and-loading-the-required-libraries"><strong>1.2.1 Installing and loading the required libraries</strong></h4>
-<p>pacman package has been installed in the workshop, using the following code.</p>
+<p>🔑 <strong>pacman</strong> package has been installed in the workshop, using the following code.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -242,19 +246,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="importing-data" class="level4">
 <h4 class="anchored" data-anchor-id="importing-data"><strong>1.2.2 Importing data</strong></h4>
 <p><em>read_csv</em> is a function of <strong>readr</strong> package, which is from the tidyverse package.</p>
-<p>The dataset Exam_data.csv, containing exam grades of P3 students from a Singapore local school is imported into R environment. The code chunk below was used to import the dataset.</p>
+<p>The dataset Exam_data.csv, containing exam grades of P3 students from a Singapore local school is imported into R environment.</p>
+<p>🔑 The code chunk below was used to import the dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <table class="table-striped table-hover caption-top table">
 <colgroup>
 <col style="width: 14%">
-<col style="width: 13%">
 <col style="width: 14%">
-<col style="width: 12%">
-<col style="width: 13%">
-<col style="width: 15%">
-<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -292,12 +297,243 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introducing-ggplot" class="level3">
 <h3 class="anchored" data-anchor-id="introducing-ggplot"><strong>1.3 Introducing ggplot</strong></h3>
 <p><strong>ggplot2</strong> is part of the tidyverse family specially designed for visual exploration and communication. It creates graphics based on The Grammar of Graphics.</p>
-<section id="cheatsheet-for-ggplot2-learn-more" class="level4">
-<h4 class="anchored" data-anchor-id="cheatsheet-for-ggplot2-learn-more">📝 Cheatsheet for ggplot2 (<a href="https://ggplot2.tidyverse.org/#cheatsheet">learn more…</a>)</h4>
-<p><embed src="images/data-visualization-01.pdf" width="400" height="250"></p>
-
-
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cheatsheet for ggplot2 (<a href="https://ggplot2.tidyverse.org/#cheatsheet">Learn more</a>)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><embed src="images/data-visualization-01.pdf" class="quarto-figure quarto-figure-center" width="700" height="350"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="r-graphics-vs.-ggplot" class="level4">
+<h4 class="anchored" data-anchor-id="r-graphics-vs.-ggplot"><strong>1.3.1 R Graphics vs.&nbsp;ggplot</strong></h4>
+<p>🔑 Observe how R Graphics and ggplot are different when plotting a simple histogram. An example below:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R Grahpics</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">ggplot2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(exam_data<span class="sc">$</span>MATHS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">boundary=</span><span class="dv">100</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"snow4"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">"mistyrose"</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribution of Math Scores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+R colors
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Color codes for R as a resource.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><embed src="images/Rcolor.pdf" class="quarto-figure quarto-figure-center" width="700" height="350"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
 </section>
+</section>
+<section id="grammar-of-graphics" class="level3">
+<h3 class="anchored" data-anchor-id="grammar-of-graphics">1.4 Grammar of Graphics</h3>
+<p>❓ <strong><code>What is a statistical graphic?</code></strong></p>
+<p>Understanding the principles of grammar of graphics: a general scheme for data visualisation which breaks up graphs into semantic components such as scales and layers.</p>
+<p>It was introduced by Leland Wlkinson (1999). It defines the rules of structural mathematical and aesthetic elements into a meaningful graph.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Two principles in grammar of graphics are:</p>
+<ol type="1">
+<li><strong><code>Graphics</code> = distinct layers of grammatical elements</strong></li>
+<li><strong><code>Meaningful plots</code> through aesthetic mapping</strong></li>
+</ol>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>A good grammar of graphics has the following characters:</strong></p>
+<ol type="1">
+<li>Allows us to gain insights into the composition of complicated graphics.</li>
+<li>Reveals unexpected connections between seemingly different graphics (Cox 1978).</li>
+<li>Provides a strong foundation for understanding a diverse range of graphics.</li>
+<li>May also help guide us on what a well-formed or correct graphic looks like, but there will still be many grammatically correct but nonsensical graphics.</li>
+</ol>
+</div>
+</div>
+<section id="a-layered-grammar-of-graphics" class="level4">
+<h4 class="anchored" data-anchor-id="a-layered-grammar-of-graphics">1.4.1 A Layered Grammar of Graphics</h4>
+<p><strong>ggplot2</strong> is an implementation of Leland Wilkinson’s Grammar of Graphics. Figure below shows the seven grammars of ggplot2.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/grammar_of_graphics.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1200"></p>
+</figure>
+</div>
+<p>Reference: Hadley Wickham (2010) <a href="https://vita.had.co.nz/papers/layered-grammar.html">“A layered grammar of graphics.”</a> <em>Journal of Computational and Graphical Statistics</em>, vol.&nbsp;19, no. 1, pp.&nbsp;3–28.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A short description of each building blocks:</p>
+<ul>
+<li><p><strong><code>Data</code></strong>: the dataset being plotted.</p></li>
+<li><p><code>Aesthetic</code>: takes attributes of the data and use them to influence visual characteristics, such as position, colours, size, shape, or transparency.</p></li>
+<li><p><code>Geometrics</code>: the visual elements used for our data, such as point, bar or line.</p></li>
+<li><p><code>Facets</code>: split the data into subsets to create multiple variations of the same graph (paneling, multiple plots).</p></li>
+<li><p><code>Statistics</code>: statistical transformations that summarise data (e.g.&nbsp;mean, confidence intervals).</p></li>
+<li><p><code>Coordinate systems</code>: define the plan on which data are mapped on the graphic.</p></li>
+<li><p><code>Themes</code>: modify all non-data components of a plot, such as main title, sub-title, y-axis title, or legend background.</p></li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-data" class="level3">
+<h3 class="anchored" data-anchor-id="essential-grammatical-elements-in-ggplot2-data">1.5 Essential Grammatical Elements in ggplot2: data</h3>
+<p>🔑 Calling the <code>ggplot()</code> function, using the code chunk below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex01_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>A blank canvas appears.</li>
+<li><code>ggplot</code> initializes a ggplot object.</li>
+<li>The data argument defines the dataset to be used for plotting.</li>
+<li>If the dataset is not aleady a data.frame, it will be converted to one by <code>fortify()</code>.</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="essential-grammatical-elements-in-ggplot2-aesthetic-mappings">1.6 Essential Grammatical Elements in ggplot2: Aesthetic mappings</h3>
+<p>The aesthetic mappings take attributes of the data and use them to influence visual characteristics, such as <em>position</em>, <em>colour</em>, <em>size</em>, <em>shape</em>, or <em>transparency</em>. Each visual characteristic can this encode an aspect of the data and be used to convey information.</p>
+<ul>
+<li>All aesthetic of a plot are specified in the <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html"><code>aes()</code></a> function call.</li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>🚀 Usage <code>aes(x,y,…)</code></p>
+<p>The names for x and y aesthetics are typically omitted because they are so common; all other aesthetics must be named.</p>
+</div></div><ul>
+<li>Each <em>geom</em> layer can have its own <strong>aes</strong> specification.</li>
+</ul>
+<p>🔑 Code chunk below adds the aesthetic element into the plot.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>🚀 To display <a href="::: {.column-margin} to display line numbers alongside the code block, can use the code-line-numbers attribute. For example, {.r code-line-numbers=&quot;true&quot;} :::">line numbers</a> alongside the code block, can use the <code>code-line-numbers attribute.</code></p>
+<p>For example, <code>{.r code-line-numbers="true"}</code></p>
+</div></div><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>ggplot includes the x-axis and the axis’s label.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Aesthetic specifications">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Aesthetic specifications
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">Resources</a></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="essential-grammatical-elements-in-ggplot2-geom" class="level3">
+<h3 class="anchored" data-anchor-id="essential-grammatical-elements-in-ggplot2-geom">1.7 Essential Grammatical Elements in ggplot2: geom</h3>
+
+
 </section>
 </section>
 
