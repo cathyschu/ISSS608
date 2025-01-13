@@ -11,9 +11,9 @@ execute:
 
 ## A Layered Grammar of Graphics: ggplot2 methods
 
-### 1.2 Getting started
+## [1.2]{style="color:skyblue"} Getting started
 
-#### **1.2.1 Installing and loading the required libraries**
+### [1.2.1]{style="color:skyblue"} Installing and loading the required libraries
 
 🔑 **pacman** package has been installed in the workshop, using the following code.
 
@@ -21,7 +21,7 @@ execute:
 pacman::p_load(tidyverse)
 ```
 
-#### **1.2.2 Importing data**
+### [1.2.2]{style="color:skyblue"} Importing data
 
 *read_csv* is a function of **readr** package, which is from the tidyverse package.
 
@@ -43,17 +43,17 @@ exam_data <- read_csv("data/Exam_data.csv")
 
 ------------------------------------------------------------------------
 
-### **1.3 Introducing ggplot**
+## [1.3]{style="color:skyblue"} Introducing ggplot
 
 **ggplot2** is part of the tidyverse family specially designed for visual exploration and communication. It creates graphics based on The Grammar of Graphics.
 
 ::: callout-tip
-## Cheatsheet for ggplot2 ([Learn more](https://ggplot2.tidyverse.org/#cheatsheet))
+# Cheatsheet for ggplot2 ([Learn more](https://ggplot2.tidyverse.org/#cheatsheet))
 
 ![](images/data-visualization-01.pdf){fig-align="center" width="700" height="350"}
 :::
 
-#### **1.3.1 R Graphics vs. ggplot**
+### [1.3.1]{style="color:skyblue"} R Graphics vs. ggplot
 
 🔑 Observe how R Graphics and ggplot are different when plotting a simple histogram. An example below:
 
@@ -76,17 +76,9 @@ ggplot(data=exam_data, aes(x = MATHS)) +
 ```
 :::
 
-::: callout-tip
-## R colors
-
-Color codes for R as a resource.
-
-![](images/Rcolor.pdf){fig-align="center" width="700" height="350"}
-:::
-
 ------------------------------------------------------------------------
 
-### 1.4 Grammar of Graphics
+## [1.4]{style="color:skyblue"} Grammar of Graphics
 
 ❓ **`What is a statistical graphic?`**
 
@@ -110,7 +102,7 @@ Two principles in grammar of graphics are:
 4.  May also help guide us on what a well-formed or correct graphic looks like, but there will still be many grammatically correct but nonsensical graphics.
 :::
 
-#### 1.4.1 A Layered Grammar of Graphics
+### [1.4.1]{style="color:skyblue"} A Layered Grammar of Graphics
 
 **ggplot2** is an implementation of Leland Wilkinson's Grammar of Graphics. Figure below shows the seven grammars of ggplot2.
 
@@ -138,7 +130,7 @@ A short description of each building blocks:
 
 ------------------------------------------------------------------------
 
-### 1.5 Essential Grammatical Elements in ggplot2: data
+## [1.5]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: data
 
 🔑 Calling the `ggplot()` function, using the code chunk below:
 
@@ -155,7 +147,7 @@ ggplot(data=exam_data)
 
 ------------------------------------------------------------------------
 
-### 1.6 Essential Grammatical Elements in ggplot2: Aesthetic mappings
+## [1.6]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: Aesthetic mappings
 
 The aesthetic mappings take attributes of the data and use them to influence visual characteristics, such as *position*, *colour*, *size*, *shape*, or *transparency*. Each visual characteristic can this encode an aspect of the data and be used to convey information.
 
@@ -171,16 +163,15 @@ The names for x and y aesthetics are typically omitted because they are so commo
 
 🔑 Code chunk below adds the aesthetic element into the plot.
 
-::: {.column-margin}
-🚀 To display [line numbers](::: {.column-margin} to display line numbers alongside the code block, can use the code-line-numbers attribute. For example, {.r code-line-numbers="true"} :::) alongside the code block, can use the `code-line-numbers attribute.`
+::: column-margin
+🚀 To display [line numbers](:::%20%7B.column-margin%7D%20to%20display%20line%20numbers%20alongside%20the%20code%20block,%20can%20use%20the%20code-line-numbers%20attribute.%20For%20example,%20%7B.r%20code-line-numbers=%22true%22%7D%20:::) alongside the code block, can use the `code-line-numbers attribute.`
 
 For example, `{.r code-line-numbers="true"}`
 :::
 
-```{.r code-line-numbers="true"}
+``` {.r code-line-numbers="true"}
 ggplot(data=exam_data,
        aes(x = MATHS))
-
 ```
 
 ::: callout-note
@@ -188,11 +179,439 @@ ggplot(data=exam_data,
 :::
 
 ::: {.callout-tip title="Aesthetic specifications"}
-
 [Resources](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
-
 :::
 
 ------------------------------------------------------------------------
 
-### 1.7 Essential Grammatical Elements in ggplot2: geom
+## [1.7]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: geom
+
+Geometric objects are the actual marks we put on a plot. Examples include:
+
+-   *geom_point* for drawing individual points (e.g., a scatter plot)
+-   *geom_line* for drawing lines (e.g., for a line charts)
+-   *geom_smooth* for drawing smoothed lines (e.g., for simple trends or approximations)
+-   *geom_bar* for drawing bars (e.g., for bar charts)
+-   *geom_histogram* for drawing binned values (e.g., a histogram)
+-   *geom_polygon* for drawing arbitrary shapes
+-   *geom_map* for drawing polygons in the shape of a map! (data can be accessed for these maps by using the `map_data()` function).
+-   A plot must have one geom, but there is no limit. Add a geom to a plot using the **+** operator.
+
+::: column-margin
+🦄 [Complete list](https://ggplot2.tidyverse.org/reference/#section-layer-geoms) of geom layers
+:::
+
+![](images/geom_.jpg)
+
+::: {.callout-tip title="R colors"}
+Color codes for R as a resource. ![](images/Rcolor.pdf){fig-align="center" width="700" height="350"}
+
+```{r}
+cl <- colors()
+length(cl); cl[1:20] #display 1-20
+
+```
+:::
+
+### [1.7.1]{style="color:skyblue"} Geometric Objects: geom_bar
+
+🔑 Code chunk below to plot a bar chart using [`geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)
+
+```{r}
+
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar()
+```
+
+::: column-margin
+❓ Code won't run when using `{r code-line-numbers="true"}`
+:::
+
+### [1.7.2]{style="color:skyblue"} Geometric Objects: geom_dotplot
+
+In a dot plot, the width of a dot corresponds to the bin width (or maximum width, depending on the binning algorithm), and dots are stacked, with each dot representing one observation.
+
+🔑 [`geom_dotplot()`](https://ggplot2.tidyverse.org/reference/geom_dotplot.html) of ggplot2 is used to plot a dot plot with the code chunk below.
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_dotplot(dotsize = 0.5)
+```
+
+::: callout-warning
+## Be warned
+
+The y scale could be misleading, so isn't useful.
+:::
+
+::: callout-note
+The code chunk below performs the following 2 steps:
+
+1.  `scale_y_continuous()` is sued to turn off the y-axis, and
+2.  *binwidth argument* is used to change the binwidth to 2.5.
+:::
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_dotplot(binwidth = 2.5,
+               dotsize = 0.5) +
+  scale_y_continuous(NULL,
+                     breaks = NULL)
+```
+
+### [1.7.3]{style="color:skyblue"} Geometric Objects: **`geom_histogram()`**
+
+🔑 In the code chunk below, [`geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html) is used to create a simple histogram by using values in *MATHS* field of *exam_data*.
+
+::: column-margin
+🚀 Histograms (`geom_histogram()`) display the counts with bars; frequency polygons (`geom_freqpoly()`) display the counts with lines.
+
+Frequency polygons are more suitable when you want to compare the distribution across the levels of a categorical variable.
+:::
+
+```{r}
+ggplot(data = exam_data,
+       aes(x = MATHS)) +
+  geom_histogram()
+```
+
+::: callout-note
+Note that the default bin is **30**.
+:::
+
+### [1.7.4]{style="color:skyblue"} Modify a geometric object by changing **`geom()`**
+
+In the code chunk below,
+
+-   *bins* argument is used to change the number of of bins to 20,
+-   *fill* argument is used to shade the histogram with light blue color, and
+-   *color* argument is used to change the outline colour of the bars in black.
+
+``` {.r code-line-numbers="true"}
+ggplot(data=exam_data,
+       aes(x = MATHS)) + 
+  geom_histogram(bins=20,
+                 color="black",
+                 fill="light blue")
+```
+
+```{r addition, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS)) + 
+  geom_histogram(bins=20,
+                 color="black",
+                 fill="light blue",
+                 size=0.3)
+```
+
+### [1.7.5]{style="color:skyblue"} Modify a geometric object by changing `aes()`
+
+The code chunk below changes the interior colour of t he histogram (i.e. *fill*) by using sub-group of *`aesthetic()`*.
+
+``` {.r code-line-numbers="true"}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           fill = GENDER)) +
+  geom_histogram(bins=20,
+                 color="grey30")
+```
+
+```{r, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           fill = GENDER,)) +
+  geom_histogram(bins=20,
+                 color="grey30",
+                 size = 0.3)
+```
+
+::: callout-note
+The approach can be used to colour, fill and alpha of the geometric.
+:::
+
+### [1.7.6]{style="color:skyblue"} Geometric Objects: `geom_density()`
+
+`geom_density()` computes and plots [kernel density estimate](https://en.wikipedia.org/wiki/Kernel_density_estimation), which is a **smoothed version of the histogram**.
+
+::: column-margin
+🦄 `geom-density()` understands the following aesthetics: `x`, `y`, `alpha`, `colour`, `fill`, `group`, `linetype`, `linewidth`, `weight`.
+:::
+
+It is a useful alternative to the histogram for continuous data that comes from an underlying smooth distribution.
+
+🔑 The code below plots the distribution of Maths scores in a kernel density estimate plot.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x = MATHS)) + 
+  geom_density()
+```
+
+```{r, echo = FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS)) + 
+  geom_density(size = 0.2)
+```
+
+🔑 The code chunk below plots two kernel density lines by using *colour* or *fill* arguments of *`aes()`*
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           colour = GENDER)) +
+  geom_density()
+```
+
+```{r, echo = FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           colour = GENDER)) +
+  geom_density()
+```
+
+### [1.7.7]{style="color:skyblue"} Geometric Objects: geom_boxplot
+
+[`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html) displays continuous value list. It visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
+
+::: column-margin
+🦄 `geom_boxplot()` understands the following aesthetics:
+
+`x` or `y`, `lower` or `xlower`, `upper` or `xupper`, `middle` or `xmiddle`, `ymin` or `xmin`, `ymax` or `xmax`, `alpha`, `colour`, `fill`, `group`, `linetype`, `linewidth`, `shape`, `size`, `weight`.
+:::
+
+The code chunk below plots boxplots by using `geom_boxplot()`
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) + 
+  geom_boxplot()
+```
+
+```{r, echo = FALSE}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) + 
+  geom_boxplot(size = 0.3,
+               outlier.size = 1)
+```
+
+Notches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.
+
+The code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) +
+  geom_boxplot(notch=TRUE)
+```
+
+```{r, echo = FALSE}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) +
+  geom_boxplot(notch=TRUE,
+               size = 0.4,
+               outlier.size = 1)
+```
+
+### [1.7.8]{style="color:skyblue"} Geometric Objects: geom_violin
+
+`geom_violin()` is designed for creating violin plot. Violin plots are a way of comparing multiple data distributions. With ordinary density curves, it is difficult to compare more than just a few distributions because the lines visually interfere with each other. With a violin plot, it's easier to **compare several distributions** since they're placed side by side.
+
+::: column-margin
+geom_violin() understands the following aesthetics:
+
+`x`, `y`, `alpha`, `colour`, `fill`, `group`, `linetype`, `linewidth`,`weight`.
+:::
+
+The code below plot the distribution of Maths score by gender in violin plot.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) +
+  geom_violin()
+```
+
+```{r, echo = FALSE}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) +
+  geom_violin(linewidth=0.2)
+```
+
+### [1.7.9]{style="color:skyblue"} Geometric Objects: geom_point()
+
+[`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html) is especially useful for creating scatterplot. The scatterplot is most useful for displaying the relationship between two continuous variables.
+
+::: column-margin
+🦄 `geom_point()` can be used to compare one continuous and one categorical variable, or two categorical variables, but a variation like [`geom_jitter()`](https://ggplot2.tidyverse.org/reference/geom_jitter.html), [`geom_count()`](https://ggplot2.tidyverse.org/reference/geom_count.html), or [`geom_bin_2d()`](https://ggplot2.tidyverse.org/reference/geom_bin_2d.html) is usually more appropriate.
+
+A *bubblechart* is a scatterplot with a third variable mapped to the size of points.
+:::
+
+🔑 The code chunk below plots a scatterplot showing that Maths and English grades of pupils by using `geom_point()`.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x= MATHS,
+           y= ENGLISH)) +
+  geom_point()
+```
+
+```{r, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x= MATHS,
+           y= ENGLISH)) +
+  geom_point(size=1)
+```
+
+### [1.7.10]{style="color:skyblue"} Geometric objects can be combined
+
+#### 🐳 [AMAZING]{style="color:pink"}
+
+🔑 The code chunk below plots the data points on the boxplots by using both `geom_boxplot()` and `geom_point().`
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) +
+  geom_boxplot() +
+  geom_point(position = "jitter",
+             size = 0.5)
+```
+
+```{r echo = FALSE}
+ggplot(data=exam_data,
+       aes(y = MATHS,
+           x = GENDER)) +
+  geom_boxplot() +
+  geom_point(position = "jitter",
+             size = 0.3)
+```
+
+::: column-margin
+💊 *Point size in actual figure = 0.3*
+:::
+
+------------------------------------------------------------------------
+
+## 1.8 Essential Grammatical Elements in ggplot2: stat
+
+The Statistics functions statistically transform data, usually as some form of summary. For example:
+
+-   Frequencey of values of a variable (bar graph)
+    -   a mean
+    -   a confidence limit
+-   There are two ways to use these functions:
+    -   add a `stat_()` function and override the default geom, or
+    -   add a `geom_()` function and override the default stat.
+
+### 1.8.1 Working with `stat()`
+
+The boxplots below are incomplete because the positions of the means were not shown.
+
+```{r}
+ggplot(data=exam_data,
+       aes(y = MATHS, x = GENDER)) + 
+  geom_boxplot()
+```
+
+### 1.8.2 Working with stat - the `stat_summary()` method
+
+The code chunk below adds mean values by using [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) function and overriding the default geom.
+
+`stat_summary()` operates on unique x or y; `stat_summary_bin()` operates on binned x or y. They are more flexible versions of stat_bin(): instead of just counting, they can compute any aggregate.
+
+```{r}
+ggplot(data=exam_data,
+       aes(y = MATHS, x = GENDER)) + 
+  geom_boxplot() +
+  stat_summary(geom = "point",
+               fun = "mean",
+               colour = "red",
+               size = 4)
+```
+
+### 1.8.3 Working with the stat - the `geom()` method
+
+The code chunk below adds mean values by using `geom_()` function and overriding the default stat.
+
+```{r}
+ggplot(data=exam_data,
+       aes(y = MATHS, x = GENDER)) + 
+  geom_boxplot() +
+  geom_point(stat = "summary",
+             fun = "mean",
+             colour = "red",
+             size = 4)
+```
+
+### 1.8.4 Adding a best fit curve on a scatterplot?
+
+The scatterplot below shows the relationship of Maths and English grades of pupils. The interpretability of this graph can be improved by adding a best fit curve.
+
+::: column-margin
+❓ Unable to adjust scale
+:::
+
+```{r, echo = FALSE}
+library(ggplot2)
+
+options(repr.plot.width = 2, repr.plot.height =3)
+
+ggplot(data=exam_data,
+       aes(x= MATHS,
+           y= ENGLISH)) +
+  geom_point(size=1)
+
+```
+
+🔑 In the code chunk below, geom_smooth() is used to plot a best fit curve on the scatterplot.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(linewidth = 0.5)
+```
+
+```{r echo = FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(linewidth = 0.5)
+```
+
+::: callout-note
+The default method used is *loess*.
+
+`geom_smooth(method = "loess")`
+:::
+
+🔑 The default smoothing method can be overridden as shown below.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5)
+```
+
+```{r, echo = FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5)
+```
+
+------------------------------------------------------------------------
+
+## 1.9 Essential Grammatical Elements in ggplot2: Facets
