@@ -501,7 +501,7 @@ ggplot(data=exam_data,
 
 ------------------------------------------------------------------------
 
-## 1.8 Essential Grammatical Elements in ggplot2: stat
+## [1.8]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: stat
 
 The Statistics functions statistically transform data, usually as some form of summary. For example:
 
@@ -512,7 +512,7 @@ The Statistics functions statistically transform data, usually as some form of s
     -   add a `stat_()` function and override the default geom, or
     -   add a `geom_()` function and override the default stat.
 
-### 1.8.1 Working with `stat()`
+### [1.8.1]{style="color:skyblue"} Working with `stat()`
 
 The boxplots below are incomplete because the positions of the means were not shown.
 
@@ -522,7 +522,7 @@ ggplot(data=exam_data,
   geom_boxplot()
 ```
 
-### 1.8.2 Working with stat - the `stat_summary()` method
+### [1.8.2]{style="color:skyblue"} Working with stat - the `stat_summary()` method
 
 The code chunk below adds mean values by using [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) function and overriding the default geom.
 
@@ -538,7 +538,7 @@ ggplot(data=exam_data,
                size = 4)
 ```
 
-### 1.8.3 Working with the stat - the `geom()` method
+### [1.8.3]{style="color:skyblue"} Working with the stat - the `geom()` method
 
 The code chunk below adds mean values by using `geom_()` function and overriding the default stat.
 
@@ -552,7 +552,7 @@ ggplot(data=exam_data,
              size = 4)
 ```
 
-### 1.8.4 Adding a best fit curve on a scatterplot?
+### [1.8.4]{style="color:skyblue"} Adding a best fit curve on a scatterplot?
 
 The scatterplot below shows the relationship of Maths and English grades of pupils. The interpretability of this graph can be improved by adding a best fit curve.
 
@@ -614,4 +614,4 @@ ggplot(data=exam_data,
 
 ------------------------------------------------------------------------
 
-## 1.9 Essential Grammatical Elements in ggplot2: Facets
+## [1.9]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: Facets
