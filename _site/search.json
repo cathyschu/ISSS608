@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "ISSS608 Visual Analytics and Applications",
     "section": "",
-    "text": "Welcome to Cathy’s portfolio for ISSS608 Visual Analytics and Applications.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!"
+    "text": "Welcome to Cathy’s portfolio for ISSS608 Visual Analytics and Applications.\nThis webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Cathy Chu",
     "section": "",
-    "text": "My name is Cathy. This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University."
+    "text": "My name is Cathy.\nCreating cute illustrations in my spare time is one of my favourite hobbies."
   },
   {
     "objectID": "Hands-on_Ex/Hands on_Ex00/Hands-on_Ex00.html",
@@ -187,5 +187,19 @@
     "title": "Hands-on_Ex01",
     "section": "1.12 Reference",
     "text": "1.12 Reference\n\nHadley Wickham (2023) ggplot2: Elegant Graphics for Data Analysis. Online 3rd edition.\nWinston Chang (2013) R Graphics Cookbook 2nd edition. Online version.\nHealy, Kieran (2019) Data Visualization: A practical introduction. Online version\nLearning ggplot2 on Paper – Components\nLearning ggplot2 on Paper – Layer\nLearning ggplot2 on Paper – Scale"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Cathy Chu",
+    "section": "Education",
+    "text": "Education\nSingapore Management University | Masters of IT in Business | Expected Dec 2025"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Cathy Chu",
+    "section": "Experience",
+    "text": "Experience\nMultiple MNCs | Program Manager, Training instructor | Singapore"
   }
 ]

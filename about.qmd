@@ -1,7 +1,36 @@
 ---
-title: "About"
+title: "Cathy Chu"
+image: cathy_profile.jpeg
+about:
+  template: trestles
+  image-width: 15em
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/cathyschu
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/cathycrimson/
 ---
 
-My name is Cathy. This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.
+My name is Cathy.
 
-![](images/banner_tomatohead-01.png)
+::: {#hero-heading}
+I’ve had the privilege of working in training, project & program management roles across both public institutions and the private sector. What I’ve enjoyed most about these diverse experiences is meeting incredible people, making lasting friendships, and constantly being inspired by new perspectives. This inspiration sparked my official journey into Analytics, a field I’m deeply passionate about. I’m always excited to explore both the possible and the impossible in this ever-evolving discipline.
+
+## Education
+
+**Singapore Management University** \|
+Masters of IT in Business \| Expected Dec 2025
+
+## Experience
+
+**Multiple MNCs** \|
+Program Manager, Training instructor \| Singapore
+:::
+
+------------------------------------------------------------------------
+
+![](images/banner_tomatohead-01.png){width="1000"}
+
+*Creating cute illustrations in my spare time is one of my favourite hobbies.*
