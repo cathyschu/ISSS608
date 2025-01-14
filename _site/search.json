@@ -207,14 +207,14 @@
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#learning-outcome",
     "title": "Hands-on_Ex03_1",
     "section": "3.1 Learning Outcome",
-    "text": "3.1 Learning Outcome"
+    "text": "3.1 Learning Outcome\nIn this hands-on exercise, you will learn how to create interactive data cisualisation by using functions provided by ggiraph and plotlyr packages."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#getting-started",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#getting-started",
     "title": "Hands-on_Ex03_1",
     "section": "3.2 Getting Started",
-    "text": "3.2 Getting Started"
+    "text": "3.2 Getting Started\nFirst, write a code chunk to check, install and launch t he following R packages:\n\nggiraph for making ‘ggplot’ graphics interactive.\nplotly, R library for plotting interactive statistical graphs\nDT provides an R interface to the JavaScript library DataTables that create interactive table on html page.\ntidyverse, a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\npatchwork for combining multple ggplot2 graphs into one figure."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#importing-data",
