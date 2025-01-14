@@ -1,0 +1,30 @@
+---
+title: "Hands-on_Ex03_1"
+author: "Cathy Chu"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true
+---
+
+## **Programming Interactive Data Visualisation with R**
+
+## [3.1]{style="color:skyblue"} Learning Outcome
+
+## [3.2]{style="color:skyblue"} Getting Started
+
+## [3.3]{style="color:skyblue"} Importing Data
+
+## [3.4]{style="color:skyblue"} Interactive Data Visualisation - ggiraph methods
+
+## [3.5]{style="color:skyblue"} Interactivity
+
+## [3.6]{style="color:skyblue"} Interactivity - customisation
+
+## [3.7]{style="color:skyblue"} Interactive Data Visualisation - plotly methods!
+
+## [3.8]{style="color:skyblue"} Interactive Data Visualisation - crosstalk methods!
+
+## [3.9]{style="color:skyblue"} Reference
