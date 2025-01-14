@@ -34,7 +34,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 ```
 
 |            |           |            |          |           |             |             |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+|------------|-----------|------------|----------|-----------|-------------|-------------|
 | **ID**     | **CLASS** | **GENDER** | **RACE** | **MATHS** | **ENGLISH** | **SCIENCE** |
 | Student321 | 3I        | Male       | Malay    | 21        | 9           | 15          |
 | Student305 | 3I        | Female     | Malay    | 24        | 22          | 1           |
@@ -382,7 +382,7 @@ ggplot(data=exam_data,
 `x` or `y`, `lower` or `xlower`, `upper` or `xupper`, `middle` or `xmiddle`, `ymin` or `xmin`, `ymax` or `xmax`, `alpha`, `colour`, `fill`, `group`, `linetype`, `linewidth`, `shape`, `size`, `weight`.
 :::
 
-The code chunk below plots boxplots by using `geom_boxplot()`
+🔑 The code chunk below plots boxplots by using `geom_boxplot()`
 
 ``` {.r code-line-numbers="True"}
 ggplot(data=exam_data,
@@ -401,7 +401,7 @@ ggplot(data=exam_data,
 
 Notches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.
 
-The code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.
+🔑 The code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.
 
 ``` {.r code-line-numbers="True"}
 ggplot(data=exam_data,
@@ -429,7 +429,7 @@ geom_violin() understands the following aesthetics:
 `x`, `y`, `alpha`, `colour`, `fill`, `group`, `linetype`, `linewidth`,`weight`.
 :::
 
-The code below plot the distribution of Maths score by gender in violin plot.
+🔑 The code below plot the distribution of Maths score by gender in violin plot.
 
 ``` {.r code-line-numbers="True"}
 ggplot(data=exam_data,
@@ -473,7 +473,7 @@ ggplot(data=exam_data,
 
 ### [1.7.10]{style="color:skyblue"} Geometric objects can be combined
 
-#### 🐳 [AMAZING]{style="color:pink"}
+### 🐳 [AMAZING]{style="color:pink"}
 
 🔑 The code chunk below plots the data points on the boxplots by using both `geom_boxplot()` and `geom_point().`
 
@@ -615,3 +615,177 @@ ggplot(data=exam_data,
 ------------------------------------------------------------------------
 
 ## [1.9]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: Facets
+
+Facetting generates small multiples (sometimes also called treillis plot), each displaying a different subset of the data. They are an alternative to aesthetics for displaying additional discrete variables. ggplot suppoorts two types of facets, namely: `facet_grid()` and `facet_wrap()`.
+
+### [1.9.1]{style="color:skyblue"} Working with `facet_wrap()`
+
+[`facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html) wraps a 1d sequence of panels into 2d. This is generally a better use of screen space than facet_grid because most displays are roughly rectangular.
+
+🔑 The code chunk below plots a trellis plot using `facet_wrap()`.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins=20) + 
+  facet_wrap(~ CLASS)
+```
+
+```{r echo = FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins=20) + 
+  facet_wrap(~ CLASS)
+```
+
+### [1.9.2]{style="color:skyblue"} `facet_grid()` function
+
+[`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) forms a matrix of panels defined by row and columns facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.
+
+🔑 The code chunk below plots a trellis plot using `facet_grid()` .
+
+::: column-margin
+🦄 If you have only one variable with many levels, try [`facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html).
+:::
+
+``` {.r code-line-number="True"}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins=20) +
+  facet_grid(~ CLASS)
+```
+
+```{r, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS)) +
+  geom_histogram(bins=20) +
+  facet_grid(~ CLASS)
+```
+
+### 🦖 [PRACTICE]{style="color:coral"}
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point(size=0.8, colour="skyblue") +
+  facet_wrap(~ CLASS)
+```
+
+------------------------------------------------------------------------
+
+## [1.10]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: Coordinates
+
+The *Coordinates* functions map the position of objects onto the plane of the plot. There are a number of different possible coordinate systems to use, they are:
+
+-   [`coord_cartesian()`](https://ggplot2.tidyverse.org/reference/coord_cartesian.html): the default cartesian coordinate systems, where you specify x and y values (e.g. allows you to zoom in or out.)
+-   [`coord_flip()`](https://ggplot2.tidyverse.org/reference/coord_flip.html): a cartesian system with the x and y flipped.
+-   [`coord_fixed()`](https://ggplot2.tidyverse.org/reference/coord_fixed.html): a cartesian system with a "fixed" aspect ratio (e.g. 1.78 for a "widescreen" plot).
+-   [`coord_quickmap()`](https://ggplot2.tidyverse.org/reference/coord_map.html): a coordinate system that approximates a good aspect ratio for maps.
+
+### [1.10.1]{style="color:skyblue"} Working with Coordinate
+
+By the default, the bar chart of ggplot2 is in vertical form.
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = RACE)) +
+  geom_bar()
+```
+
+🔑 The code chunk below flips the horizontal bar chart into vertical bar chart by using `coord_flip()`.
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = RACE)) +
+  geom_bar(color="gray",fill="skyblue") +
+  coord_flip()
+```
+
+### [1.10.2]{style="color:skyblue"} Changing the y- and x-axis range
+
+The scatterplot on the right is slightly misleading because the y-axis range are not equal.
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS, y = ENGLISH)) +
+  geom_point(size = 1) +
+  geom_smooth(method = lm, size = 0.5)
+```
+
+## [1.11]{style="color:skyblue"} Essential Grammatical Elements in ggplot2: themes
+
+Themes control elements of the graph **not related to the data**. For example:
+
+-   background colour
+-   size fnts
+-   gridlines
+-   colour of labels
+
+Built-in themes include `-theme_gray()`(default)-`theme_bw()`-`theme_classic()`
+
+A list of theme can be found at this l[ink](https://ggplot2.tidyverse.org/reference/ggtheme.html). Each theme element can be conceived f as either a line (e.g. x-axis), a rectangle (e.g. graph background), or text (e.g. axis title).
+
+### [1.11.1]{style="color:skyblue"} Working with theme
+
+🔑 The code chunk below plot a horizontal bar chart using `theme_gray()`.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_gray()
+```
+
+```{r, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_gray()
+```
+
+🔑 A horizontal bar chart plotted using `theme_classic()`.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_classic()
+```
+
+```{r echo=FALSE}
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_classic()
+```
+
+🔑 A horizontal bar chart plotted using `theme_minimal()`.
+
+``` {.r code-line-numbers="True"}
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data=exam_data,
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_minimal()
+```
+
+## [1.12]{style="color:skyblue"} Reference
+
+-   Hadley Wickham (2023) [**ggplot2: Elegant Graphics for Data Analysis**](https://ggplot2-book.org/). Online 3rd edition.
+-   Winston Chang (2013) [**R Graphics Cookbook 2nd edition**](https://r-graphics.org/). Online version.
+-   Healy, Kieran (2019) [**Data Visualization: A practical introduction**](https://socviz.co/). Online version
+-   [Learning ggplot2 on Paper -- Components](https://henrywang.nl/learning-ggplot2-on-paper-components/)
+-   [Learning ggplot2 on Paper -- Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
+-   [Learning ggplot2 on Paper -- Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)
