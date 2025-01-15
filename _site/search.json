@@ -214,35 +214,35 @@
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#getting-started",
     "title": "Hands-on_Ex03_1",
     "section": "3.2 Getting Started",
-    "text": "3.2 Getting Started\nFirst, write a code chunk to check, install and launch t he following R packages:\n\nggiraph for making ‘ggplot’ graphics interactive.\nplotly, R library for plotting interactive statistical graphs\nDT provides an R interface to the JavaScript library DataTables that create interactive table on html page.\ntidyverse, a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\npatchwork for combining multple ggplot2 graphs into one figure."
+    "text": "3.2 Getting Started\nFirst, write a code chunk to check, install and launch t he following R packages:\n\nggiraph for making ‘ggplot’ graphics interactive.\nplotly, R library for plotting interactive statistical graphs\nDT provides an R interface to the JavaScript library DataTables that create interactive table on html page.\ntidyverse, a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\npatchwork for combining multiple ggplot2 graphs into one figure.\n\n🔑 The code chunk below will be used to accomplish the task."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#importing-data",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#importing-data",
     "title": "Hands-on_Ex03_1",
     "section": "3.3 Importing Data",
-    "text": "3.3 Importing Data"
+    "text": "3.3 Importing Data\nIn this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.\nThe code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.\n\nlibrary(readr)\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactive-data-visualisation---ggiraph-methods",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactive-data-visualisation---ggiraph-methods",
     "title": "Hands-on_Ex03_1",
     "section": "3.4 Interactive Data Visualisation - ggiraph methods",
-    "text": "3.4 Interactive Data Visualisation - ggiraph methods"
+    "text": "3.4 Interactive Data Visualisation - ggiraph methods\nggiraph  is an htmlwidget and a ggplot2 extension. It allows ggplot graphics to be interactive.\nInteractive is made with ggplot geometries that can understand three arguments:\n\nTooltip: a column of data-sets that contain tooltips to be displayed when the mouse is over elements.\nOnclick: a column of data-sets that contain a JavaScript function to be executed when elements are clicked.\nData_id: a column of data-sets that contain an id to be associated with elements.\n\n\n\n🎯 Onclick, Data_id\nIf it is used within a shiny application, elements associated with an id(data_id) can be selected and manipulated on client and server sides. Refer to this article for more detail explanation.\n\n\n❗article not found.\n\n3.4.1 Tooltip effect with tooltip aesthetic\nBelow shows a typical code chunk to plot an interactive statistical graph by using ggiraph package. Notice that the code chunk consists of two parts. First, a ggplot object will be created. Next, girafe() of ggiraph will be used to create an interactive svg object.\n\np &lt;- ggplot(data=exam_data,\n            aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = ID),\n    stackgroups = TRUE,\n    binwidth = 1,\n    method = \"histodot\") +\n  scale_y_continuous(NULL,\n                     breaks = NULL\n  )\ngirafe(\n  ggobj = p,\n  width_svg = 6,\n  height_svg = 6*0.618\n)\n\n\n\n\n\nNotice that two steps are involved.\nFirst, an interactive vrsion of ggplot2 geom (i.e. geom_dotplot_interactive()) will be used to create the basic graph. Then, girafe() will be used to generate an svg object to be displayed on an html page."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactivity",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactivity",
     "title": "Hands-on_Ex03_1",
     "section": "3.5 Interactivity",
-    "text": "3.5 Interactivity"
+    "text": "3.5 Interactivity\nBy hovering the mouse pointer on an data point of interest, the student’s ID will be displayed.\n\n\n\n\n\n\n\n3.5.1 Displaying multiple information on tooltip\n🔑 The content of the tooltip can be customised by including a list object as shown in the code chunk below.\n\nexam_data$tooltip &lt;- c(paste0(\n  \"Name = \", exam_data$ID,\n  \"\\n Class =\", exam_data$CLASS))\n\np &lt;- ggplot(data=exam_data,\n            aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = exam_data$tooltip),\n    stackgroups = TRUE,\n    binwidth = 1,\n    method = \"histodot\") +\n  scale_y_continuous(NULL,\n                     breaks=NULL)\n\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8*0.618\n)\n\n\n\n\n\nThe first three lines of codes in the code chunk create a new field called tooltip. At the same time, it populates text in ID and CLASS fields into the newly created field. Next, this newly created field is used as tooltip field as shown in the code of line 7."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactivity---customisation",
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactivity---customisation",
     "title": "Hands-on_Ex03_1",
     "section": "3.6 Interactivity - customisation",
-    "text": "3.6 Interactivity - customisation"
+    "text": "3.6 Interactivity - customisation\nBy hovering the mouse pointer on a data point of interest, the student’s ID and CLASS are displayed.\n\n\n\n\n\n\n\n3.7.1 Customising Tooltip style\nCode chunk below uses opts_tooltip() of ggiraph to customise tooltip rendering by adding css declarations."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactive-data-visualisation---plotly-methods",
