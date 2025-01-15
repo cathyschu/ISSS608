@@ -54,3 +54,6 @@ format:
 
 editor: visual
 
+brand:
+  color:
+    background: "#ebf5fb"

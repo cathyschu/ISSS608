@@ -1,5 +1,15 @@
 ---
 title: "ISSS608 Visual Analytics and Applications"
+brand:
+  color:
+    palette:
+      dark-grey: "#222222"
+      white: "#fdfefe"
+      grey: "#5d6d7e"
+      blue: "#ddeaf1"
+    background: blue
+    foreground: grey
+    primary: white
 ---
 
 **Welcome to Cathy's portfolio for ISSS608 Visual Analytics and Applications.**
