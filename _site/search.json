@@ -249,7 +249,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactive-data-visualisation---plotly-methods",
     "title": "Hands-on_Ex03_1",
     "section": "3.7 Interactive Data Visualisation - plotly methods!",
-    "text": "3.7 Interactive Data Visualisation - plotly methods!"
+    "text": "3.7 Interactive Data Visualisation - plotly methods!\nPlotly’s R graphing library create interactive web graphics from ggplot2 graphs and/or a custom interface to the (MIT-licensed) JavaScript library plotly.js inspired by the grammar of graphics. Different from other plotly platform, plot.R is free and open source.\n\nThere are two ways to create interactive graph by using plotly, they are:\n\nby using plot_ly(), and\nby using ggplotly()\n\n\n3.7.1 Creating an interactive scatter plot: plot_ly() method\n\n\n3.7.2 Working with visual variable: plot_ly() method\n\n\n3.7.3 Creating an interactive scatter plot: ggplotly() method\n\n\n3.7.4 Coordinated multiple views with plotly"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html#interactive-data-visualisation---crosstalk-methods",

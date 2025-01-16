@@ -267,7 +267,7 @@ girafe(ggobj = gg_point,
 
 🔑 Code chunk below shows the second interactive feature of ggiraph, namely `data_id`.
 
-```{.r}
+``` r
 p <- ggplot(data=exam_data,
             aes(x = MATHS)) +
   geom_dotplot_interactive(
@@ -307,10 +307,8 @@ girafe(
 )
 ```
 
-:::{.callout-note}
-
+::: callout-note
 Note that the default value of the hover css is *hover_css = "fill:orange;"*
-
 :::
 
 ### [3.6.4]{style="color:skyblue"} Styling hover effect
@@ -342,10 +340,8 @@ girafe(
 
 Interactivity: Elements associated with a *data_id (i.e. CLASS)* will be highlighted upon mouse hover.
 
-:::{.callout-note}
-
+::: callout-note
 Different from previous example, in this example the css customisation request are encoded directly.
-
 :::
 
 ### [3.6.5]{style="color:skyblue"} Combining tooltip and hover effect
@@ -405,10 +401,8 @@ girafe(
 )
 ```
 
-:::{.callout-warning}
-
+::: callout-warning
 Note that click actions must be a string column in the dataset containing valid JavaScript instructions.
-
 :::
 
 ::: column-margin
@@ -459,13 +453,11 @@ In order to build a coordinated multiple views as shown in the example above, th
 1.  Appropriate interactive functions of **ggiraph** will be used to create the multiple views.
 2.  *patchwork* function of [patchwork](https://patchwork.data-imaginist.com/) package will be used inside girafe function to create the interactive coordinated multiple views.
 
-:::column-margin
-
+::: column-margin
 🦄 The goal of `patchwork` is to make it ridiculously simple to combine separate ggplots into the same graphic. As such it tries to solve the same problem as [`gridExtra::grid.arrange()`](https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html) and `cowplot::plot_grid` but using an API that incites exploration and iteration, and scales to arbitrarily complex layouts.
-
 :::
 
-```{.r}
+``` r
 p1 <- ggplot(data=exam_data,
              aes(x = MATHS)) +
   geom_dotplot_interactive(
@@ -495,12 +487,28 @@ girafe(code = print(p1 + p2),
          opts_hover(css = "fill:#202020;"),
          opts_hover_inv(css = "opacity:0.2;")
        ))
-
 ```
 
 The *data_id* aesthetic is critical to link observations between plots and the tooltip aesthetic is optional but nice to have when mouse over a point.
 
 ## [3.7]{style="color:skyblue"} Interactive Data Visualisation - plotly methods!
+
+Plotly's R graphing library create interactive web graphics from **ggplot2** graphs and/or a custom interface to the (MIT-licensed) JavaScript library [plotly.js](https://plotly.com/javascript/) inspired by the grammar of graphics. Different from other plotly platform, plot.R is free and open source.
+
+![](images/3.7%20plotly.jpg)
+
+There are two ways to create interactive graph by using plotly, they are:
+
+-   by using *`plot_ly()`*, and
+-   by using *`ggplotly()`*
+
+### [3.7.1]{style="color:skyblue"} Creating an interactive scatter plot: plot_ly() method
+
+### [3.7.2]{style="color:skyblue"} Working with visual variable: plot_ly() method
+
+### [3.7.3]{style="color:skyblue"} Creating an interactive scatter plot: ggplotly() method
+
+### [3.7.4]{style="color:skyblue"} Coordinated multiple views with plotly
 
 ## [3.8]{style="color:skyblue"} Interactive Data Visualisation - crosstalk methods!
 
