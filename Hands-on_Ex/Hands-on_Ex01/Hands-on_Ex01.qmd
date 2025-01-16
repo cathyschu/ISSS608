@@ -34,7 +34,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 ```
 
 |            |           |            |          |           |             |             |
-|------------|-----------|------------|----------|-----------|-------------|-------------|
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
 | **ID**     | **CLASS** | **GENDER** | **RACE** | **MATHS** | **ENGLISH** | **SCIENCE** |
 | Student321 | 3I        | Male       | Malay    | 21        | 9           | 15          |
 | Student305 | 3I        | Female     | Malay    | 24        | 22          | 1           |
@@ -58,7 +58,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 🔑 Observe how R Graphics and ggplot are different when plotting a simple histogram. An example below:
 
 ::: panel-tabset
-## R Grahpics
+## R Graphics
 
 ```{r}
 hist(exam_data$MATHS)
@@ -77,6 +77,42 @@ ggplot(data=exam_data, aes(x = MATHS)) +
 :::
 
 ------------------------------------------------------------------------
+
+### 🦖 [PRACTICE]{style="color:coral"}
+
+Practice plotting the different charts for English.
+
+::: panel-tabset
+## G graphics
+
+```{r}
+hist(exam_data$ENGLISH)
+```
+
+## histogram
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = ENGLISH)) +
+  geom_histogram(bins = 10,
+                 boundary = 100,
+                 color = "black",
+                 fill = "skyblue") +
+  ggtitle("Distribution of English Scores")
+
+```
+
+## boxplot
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = GENDER,
+           y = ENGLISH)) +
+  geom_boxplot(outlier.colour = "skyblue",
+               outlier.fill = "skyblue",) +
+  ggtitle("Distribution of English Scores")
+```
+:::
 
 ## [1.4]{style="color:skyblue"} Grammar of Graphics
 
