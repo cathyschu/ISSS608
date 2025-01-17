@@ -8,3 +8,32 @@ execute:
   warning: false 
   freeze: true
 ---
+
+# **Programming Animated Statistical Graphics with R** 
+
+## [3-2.1]{style="color:skyblue"} Overview
+
+### [3-2.1.1]{style="color:skyblue"} Basic concepts of animation
+
+### [3-2.1.2]{style="color:skyblue"} Terminology
+
+## [3-2.2]{style="color:skyblue"} Getting started
+
+### [3-2.2.1]{style="color:skyblue"} Loading the R packages
+
+### [3-2.2.2]{style="color:skyblue"} Importing the data
+
+## [3-2.3]{style="color:skyblue"} Animated Data Visualisation: gganimate methods
+
+### [3-2.3.1]{style="color:skyblue"} Building a static population bubble plot
+
+### [3-2.3.2]{style="color:skyblue"} Building the animated bubble plot
+
+
+## [3-2.4]{style="color:skyblue"} Animated Data Visualisation: plotly
+
+### [3-2.4.1]{style="color:skyblue"} Building an animated bubble plot: `ggplotly()` method
+
+### [3-2.3.1]{style="color:skyblue"} Building an animated bubble plot: `plot_ly()` method
+
+## [3-2.5]{style="color:skyblue"} Reference
