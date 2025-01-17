@@ -504,12 +504,291 @@ There are two ways to create interactive graph by using plotly, they are:
 
 ### [3.7.1]{style="color:skyblue"} Creating an interactive scatter plot: `plot_ly()` method
 
+🔑 The tabset below shows an example of a basic interactive plot created with *`plot_ly()`*.
+
+::: panel-tabset
+## Plot
+
+```{r echo=FALSE}
+plot_ly(
+  data=exam_data,
+  x = ~MATHS,
+  y = ~ENGLISH) 
+
+```
+
+## Code chunk
+
+``` r
+plot_ly(
+  data=exam_data,
+  x = ~MATHS,
+  y = ~ENGLISH
+)
+```
+:::
+
 ### [3.7.2]{style="color:skyblue"} Working with visual variable: `plot_ly()` method
+
+In the code chunk below, *color* argument is mapped to a qualitative visual variable (i.e. RACE).
+
+::: panel-tabset
+## Plot
+
+```{r, echo = FALSE}
+plot_ly(data=exam_data,
+        x = ~ENGLISH,
+        y = ~MATHS,
+        color = ~RACE)
+```
+
+## Code chunk
+
+``` r
+plot_ly(data=exam_data,
+        x = ~ENGLISH,
+        y = ~MATHS,
+        color = ~RACE)
+```
+:::
 
 ### [3.7.3]{style="color:skyblue"} Creating an interactive scatter plot: `ggplotly()` method
 
+The code chunk below plots an interactive scatter plot by using *`ggplot()`*.
+
+::: panel-tabset
+## Plot
+
+```{r, echo=FALSE}
+p <- ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point(size = 1) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100))
+ggplotly(p)
+
+```
+
+## Code chunk
+
+``` r
+p <- ggplot(data=exam_data, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+ggplotly(p)
+```
+
+Notice that the only extra line needed in the code chunk is ggplotly()
+
+## 🦖 Practice
+
+```{r}
+p <- ggplot(data=exam_data, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+ggplotly(p)
+```
+:::
+
 ### [3.7.4]{style="color:skyblue"} Coordinated multiple views with plotly
+
+The creation of a coordinated linked plot by using plotly involves three steps:
+
+1.  [`highlight_key()`](https://www.rdocumentation.org/packages/plotly/versions/4.9.2/topics/highlight_key) of **plotly** package is used as **shared data**.
+2.  two scatter plots will be created by using ggplot2 functions.
+3.  lastly, [`subplot()`](https://plotly.com/r/subplots/) of **plotly** package is used to place them next to each other **side-by-side**.
+
+:::: column-margin
+<div>
+
+🦄 **`highlight_key()`**: This function simply creates an object of class [**crosstalk::SharedData**](https://www.rdocumentation.org/link/crosstalk%3A%3ASharedData?package=plotly&version=4.9.2&to=crosstalk%3ASharedData). The reason it exists is to make it easier to teach others how to leverage its functionality in plotly. It also makes it more discoverable if one is already aware of [**highlight**](https://www.rdocumentation.org/link/highlight?package=plotly&version=4.9.2).
+
+🎯 Read more on [`subplot()`](https://plotly.com/r/subplots/)
+
+</div>
+::::
+
+::: panel-tabset
+## Plot
+
+```{r, echo=FALSE}
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+
+-   Hover over on a data point in one of the scatterplots. A tooltip will appear and show its scores.
+-   Click on a data point in one of the scatterplots, and the corresponding point in the other plot will appear.
+
+## Code chunk
+
+``` r
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+
+## 🦖 Practice I
+
+```{r}
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = GENDER)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE,
+                color = GENDER)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+
+## 🦖 Practice II
+
+```{r}
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = RACE)) +
+  geom_point(size=0.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE,
+                color = RACE)) +
+  geom_point(size=0.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+:::
+
+Things to learn from the code chunk:
+
+-   `highlight_key()` simply creates object of class [crosstalk::SharedData](https://rdrr.io/cran/crosstalk/man/SharedData.html).
+-   Learn more about [crosswalk](https://rstudio.github.io/crosstalk/).
 
 ## [3.8]{style="color:skyblue"} Interactive Data Visualisation - crosstalk methods!
 
+[Crosstalk](https://rstudio.github.io/crosstalk/) is an add-on to the htmlwidgets package. It extends htmlwidgets with a set of classes, functions, and conventions for implementing cross-widget interactions (currently, linked brushing and filtering).
+
+### [3.8.1]{style="color:skyblue"} Interactive Data Table: DT package
+
+-   A wrapper of the JavaScript Library [DataTables](https://datatables.net/)
+-   Data objects in R can be rendered as HTML tables using the JavaScript Library 'DataTables' (typically via R Markdown or Shiny).
+
+```{r}
+DT::datatable(exam_data, class = "compact")
+
+```
+
+### [3.8.2]{style="color:skyblue"} Linked brushing: crosstalk method
+
+::: panel-tabset
+## Plot
+
+```{r, echo=FALSE}
+d <- highlight_key(exam_data) 
+p <- ggplot(d, 
+            aes(ENGLISH, 
+                MATHS)) + 
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+gg <- highlight(ggplotly(p),        
+                "plotly_selected")  
+
+crosstalk::bscols(gg,               
+                  DT::datatable(d), 
+                  widths = 5)        
+```
+
+## Code chunk
+
+``` r
+d <- highlight_key(exam_data)
+p <- ggplot(d,
+            aes(ENGLISH,
+                MATHS)) +
+  geom_point(size = 1) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100))
+
+gg <- highlight(ggplotly(p),
+                "plotly_selected")
+
+crosstalk::bscols(gg,
+                  DT::datatable(d),
+                  widths = 5)       
+```
+:::
+
 ## [3.9]{style="color:skyblue"} Reference
+
+### [3.9.1]{style="color:skyblue"} ggiraph
+
+This [link](https://davidgohel.github.io/ggiraph/) provides online version of the reference gude and several useful articles. Use this [link](https://cran.r-project.org/web/packages/ggiraph/ggiraph.pdf) to download the PDF version of the reference guide.
+
+-   [How to plot with ggiraph](https://www.r-bloggers.com/2018/04/how-to-plot-with-ggiraph/)
+-   [Interactive map of France with ggiraph](http://rstudio-pubs-static.s3.amazonaws.com/152833_56a4917734204de7b37881d164cf8051.html)
+-   [Custom interactive sunbursts with ggplot in R](https://www.pipinghotdata.com/posts/2021-06-01-custom-interactive-sunbursts-with-ggplot-in-r/)
+-   This [link](https://github.com/d-qn/2016_08_02_rioOlympicsAthletes) provides code example on how ggiraph is used to create interactive graphs for [Swiss Olympians - the solo specialists](https://www.swissinfo.ch/eng/rio-2016-_swiss-olympiansthe-solo-specialists-/42349156?utm_content=bufferd148b&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer).
+
+### [3.9.2]{style="color:skyblue"} plotly for R
+
+-   Getting started with Plotly in R
+-   A collection of plotly R graphs are available via this \[link\]
+-   Carson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this \[link\]
+-   [Plotly R Figure Reference](https://plotly.com/r/reference/index/) provides a comprehensive discussion of each visual representations.
+-   [Plotly R Library Fundamentals](https://plotly.com/r/plotly-fundamentals/) is a good place to learn the fundamental features of Plotly's R API.
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
+-   A interesting implementation of gganimate by SMU senior: [How has Singapore changed since 2011](https://rpubs.com/raymondteo/dataviz8)?
+-   [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/).
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)
