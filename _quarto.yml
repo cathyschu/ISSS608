@@ -17,25 +17,21 @@ website:
         href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html
       - text: "Hands-on Exercise 3-2"
         href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html
-      - text: "Hands-on Exercise 4"
-        menu:
-        - text: "4-1"
-          href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html
-        - text: "4-2"
-          href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html
-        - text: "4-3"
-          href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html
-        - text: "4-4"
-          href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html
+      - text: "Hands-on Exercise 4-1"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html
+      - text: "Hands-on Exercise 4-2"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html
+      - text: "Hands-on Exercise 4-3"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html
+      - text: "Hands-on Exercise 4-4"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html
       - text: "Hands-on Exercise 5"
-        menu:
-        - text: "5-1"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_1.html
-        - text: "5-2"
+      - text: "Hands-on Exercise 5-2"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_2.html
-        - text: "5-3"
+      - text: "Hands-on Exercise 5-3"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_3.html
-        - text: "5-4"
+      - text: "Hands-on Exercise 5-4"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_4.html
       - text: "Hands-on Exercise 6"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex06.html
