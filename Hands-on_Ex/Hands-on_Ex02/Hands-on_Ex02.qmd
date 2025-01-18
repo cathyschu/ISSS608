@@ -1,0 +1,204 @@
+---
+title: "Hands-on_Ex02"
+author: "Cathy"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true
+---
+
+# Beyond ggplot2 Fundamentals
+
+## [2.1]{style="color:skyblue"} Overview
+
+Several **ggplot2 extensions** for creating more elegant and effective statistical graphics. By the end of this exercise, one will be able to:
+
+-   control the placement of annotation on a graph by using functions provided in **ggrepel** package.
+-   create professional publication quality figure by using functions provided in **ggthemes** and **hrbrthemes** packages; and
+-   plot composite figure by combing ggplot2 graphs by using **patchwork** package.
+
+## [2.2]{style="color:skyblue"} Getting started
+
+### [2.2.1]{style="color:skyblue"} Installing and loading the required libraries
+
+In this exercise, besides **tidyverse**, four R packages will be used.
+
+They are:
+
+1.  **ggrepel:** a R package provides geoms for ggplot2 to repel overlapping text labels.
+2.  **ggthemes:** a R package provides some extra themes, geoms, and scales for ggplot.
+3.  **hrbrthemes**: a R package provides typographu-centric themes and theme components for ggplot2.
+4.  **patchwork:** a R package for preparing composite figure created using ggplot2.
+
+Code chunk below will be used to **check** if these packages have been installed and **also load them** onto the working R environment.
+
+```{r}
+pacman::p_load(ggrepel, patchwork,
+               ggthemes, hrbrthemes,
+               tidyverse) #all packages are then installed.
+```
+
+### [2.2.2]{style="color:skyblue"} Importing data
+
+For the purpose of this exercise, a data file called Exam_data will be used. It consists of year end examination grades of a cohort of primary 3 students from a local school. It is in csv file format.
+
+The code chunk below imports exam_data.csv into R environment by using [`read_csv()`](https://readr.tidyverse.org/reference/read_delim.html) function of [**readr**](https://readr.tidyverse.org/) package. **readr** is one of the tidyversepackage.
+
+```{r}
+library(readr)
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
+
+-   The categorical attributes are ID, CLASS, GENDER and RACE.
+-   The continuous attributes are MATHS, ENGLISH and SCIENCE.
+
+## [2.3]{style="color:skyblue"} Beyond ggplot Annotation: ggrepel
+
+One of the challenge in plotting statistical graph is annotation, especially with large number of data points.
+
+::: panel-tabset
+## Plot
+
+```{r, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm,
+              linewidth=0.5) +
+  geom_label(aes(label = ID),
+             hjust = .5,
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+## Code
+
+``` r
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm,
+              linewidth=0.5) +
+  geom_label(aes(label = ID),
+             hjust = .5,
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+## 🦖 Practice
+
+🦖 **Used colours to differentiate genders.**
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm,
+              linewidth=0.5) +
+  geom_label(aes(label = ID,
+                 colour = GENDER), #added colours
+             hjust = .5,
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+:::
+
+[**ggrepel**](https://ggrepel.slowkow.com/) ![](/Hands-on_Ex/Hands-on_Ex03/images/ggrepel_logo.jpg){width="40"} is an extension of **ggplot2** package which provides `geoms` for **ggplot2** to repel overlapping text as in the examples below.
+
+![](/Hands-on_Ex/Hands-on_Ex03/images/ggrepel.jpg){fig-align="center" width="700"}
+
+We simply replace `geom_text()` by [`geom_text_repel()`](https://ggrepel.slowkow.com/reference/geom_text_repel.html) and `geom_label()` with [`geom_label_repel()`](https://ggrepel.slowkow.com/reference/geom_text_repel.html).
+
+### [2.3.1]{style="color:skyblue"} Working with ggrepel
+
+::: panel-tabset
+## Plot
+
+```{.r}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  geom_label_repel(aes(label = ID),
+                   fontface = "bold") +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100)) +
+  ggtitle("English scores vs Maths scores for P3")
+```
+
+## Code
+
+```{r, echo=FALSE}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  geom_label_repel(aes(label = ID),
+                   fontface = "bold") +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100)) +
+  ggtitle("English scores vs Maths scores for P3")
+```
+
+## 🦖 Practice
+
+🦖 Applied colours to differentiate genders.
+
+```{r}
+ggplot(data=exam_data,
+       aes(x = MATHS,
+           y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  geom_label_repel(aes(label = ID,
+                       colour = GENDER), #colour for gender
+                   fontface = "bold") +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100)) +
+  ggtitle("English scores vs Maths scores for P3")
+```
+:::
+
+## [2.4]{style="color:skyblue"} Beyond ggplot2 Themes
+
+ggplot2 comes with eight built-in themes. They are:
+
+`theme_gray()`, `theme_bw()`, `theme_classic()`, `theme_dark()`, `theme_light()`, `theme_linedraw()`, `theme_minimal()`, `theme_void()`.
+
+### [2.4.1]{style="color:skyblue"} Working with ggtheme package
+
+### [2.4.2]{style="color:skyblue"} Working with hrbthemes package
+
+## [2.5]{style="color:skyblue"} Beyond Single Graph
+
+### [2.5.1]{style="color:skyblue"} Creating Composite Graphics: patchwork methods
+
+### [2.5.2]{style="color:skyblue"} Combing two ggplot2 graphs
+
+### [2.5.3]{style="color:skyblue"} Combining three ggplot2 graphs
+
+### [2.5.4]{style="color:skyblue"} Creating a composite figure with tag
+
+### [2.5.5]{style="color:skyblue"} Creating figure with insert
+
+### [2.5.6]{style="color:skyblue"} Creating a composite figure by using patchwork and ggtheme
+
+## [2.6]{style="color:skyblue"} Reference
