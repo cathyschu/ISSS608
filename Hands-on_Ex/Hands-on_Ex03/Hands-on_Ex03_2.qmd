@@ -9,7 +9,7 @@ execute:
   freeze: true
 ---
 
-# **Programming Animated Statistical Graphics with R** 
+# **Programming Animated Statistical Graphics with R**
 
 ## [3-2.1]{style="color:skyblue"} Overview
 
@@ -28,7 +28,6 @@ execute:
 ### [3-2.3.1]{style="color:skyblue"} Building a static population bubble plot
 
 ### [3-2.3.2]{style="color:skyblue"} Building the animated bubble plot
-
 
 ## [3-2.4]{style="color:skyblue"} Animated Data Visualisation: plotly
 
