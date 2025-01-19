@@ -606,7 +606,7 @@ The creation of a coordinated linked plot by using plotly involves three steps:
 2.  two scatter plots will be created by using ggplot2 functions.
 3.  lastly, [`subplot()`](https://plotly.com/r/subplots/) of **plotly** package is used to place them next to each other **side-by-side**.
 
-:::: column-margin
+::: column-margin
 <div>
 
 🦄 **`highlight_key()`**: This function simply creates an object of class [**crosstalk::SharedData**](https://www.rdocumentation.org/link/crosstalk%3A%3ASharedData?package=plotly&version=4.9.2&to=crosstalk%3ASharedData). The reason it exists is to make it easier to teach others how to leverage its functionality in plotly. It also makes it more discoverable if one is already aware of [**highlight**](https://www.rdocumentation.org/link/highlight?package=plotly&version=4.9.2).
@@ -614,7 +614,7 @@ The creation of a coordinated linked plot by using plotly involves three steps:
 🎯 Read more on [`subplot()`](https://plotly.com/r/subplots/)
 
 </div>
-::::
+:::
 
 ::: panel-tabset
 ## Plot
