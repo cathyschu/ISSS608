@@ -296,6 +296,8 @@ ggplot(data=exam_data,
 ```
 :::
 
+It also provides some extra geoms and scales fpr ggplot2. Consult [this vignette](https://mran.microsoft.com/snapshot/2016-12-28/web/packages/ggthemes/vignettes/ggthemes.html) to learn more. *\*Link is broken as of Jan 19.*
+
 ### [2.4.2]{style="color:skyblue"} Working with hrbthemes package
 
 ## [2.5]{style="color:skyblue"} Beyond Single Graph
