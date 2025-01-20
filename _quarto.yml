@@ -2,9 +2,10 @@ project:
   type: website
 
 website:
-  title: "ISSS608 Coursework"
+  title: "Visual Analytics"
   page-footer: "Made with 💚 and Quarto"
   navbar:
+    logo: "images/dino.png"
     left: 
     - text: "Hands-on Exercise"
       menu:
@@ -76,6 +77,7 @@ format:
       - cosmo
       - brand
     css: styles.css
+    logo: dino.png
     toc: true
 
 editor: visual

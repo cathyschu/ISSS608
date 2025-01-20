@@ -1,1 +1,6 @@
 /* css styles */
+/* Adjust logo size on the menu bar */
+nav.navbar img {
+    max-height: 100px; /* Set the height of the logo */
+    max-width: auto;  /* Maintain aspect ratio */
+}
