@@ -698,7 +698,7 @@ patchwork & theme_economist()
 ```
 :::
 
-## [2.6]{style="color:skyblue"} Reference
+## [2.6]{style="color:skyblue"} Reference 
 
 -   [Patchwork R package goes nerd viral](https://www.littlemissdata.com/blog/patchwork)
 -   [ggrepel](https://ggrepel.slowkow.com/)
