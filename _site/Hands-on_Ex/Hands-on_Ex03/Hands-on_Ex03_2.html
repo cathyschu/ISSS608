@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -132,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_1.html">
- <span class="dropdown-text">Hands-on Exercise 5</span></a>
+ <span class="dropdown-text">Hands-on Exercise 5-1</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_2.html">
@@ -282,7 +316,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 18, 2025</p>
+      <p class="date-modified">January 20, 2025</p>
     </div>
   </div>
     
@@ -297,20 +331,63 @@ ul.task-list li input[type="checkbox"] {
 <h1><strong>Programming Animated Statistical Graphics with R</strong></h1>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview"><span style="color:skyblue">3-2.1</span> Overview</h2>
+<p>When telling a visually-driven data story, animated graphics tends to attract the interest of the audience and make deeper impression than static graphics. In this hands-on exercise, I will create animated data visualisation with <strong>gganimate</strong> and <strong>plotly r</strong> packages. At the same time, I will learn how to 1/ reshape data by using <strong>tidyr</strong> package, and 2/ process, wrangle and transform datawith <strong>dplyr</strong> package.</p>
 <section id="basic-concepts-of-animation" class="level3">
 <h3 class="anchored" data-anchor-id="basic-concepts-of-animation"><span style="color:skyblue">3-2.1.1</span> Basic concepts of animation</h3>
+<p>When creating animations, the plot does not actually move. Instead, many individual plots are built and then stitched together as movie frames - like an old-school flip book or cartoon. Each frame is a different plot when conveying motion, which is built using some relevant subset of the aggregated data.The subset drives the flow of the animation when stitched back together.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/animation.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" width="800"></p>
+</figure>
+</div>
 </section>
 <section id="terminology" class="level3">
 <h3 class="anchored" data-anchor-id="terminology"><span style="color:skyblue">3-2.1.2</span> Terminology</h3>
+<p>Before diving into the steps for creating an animated statistical graph, it’s important to understand some of the key concepts and terminology related to this type of visualisation.</p>
+<ol type="1">
+<li><strong>Frame:</strong> In an animated line graph, each frame represents a different point in time or a different category. When the frame changes, the data points on the graph are updated to reflect the new data.</li>
+<li><strong>Animation attributes:</strong> The animation attributes are the settings that control how the animation behaves. For example, you can specify the duration of each frame, the easing function used to transition between frames, and whether to start the animation from the current frame or from the beginning.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before starting making animated graphs, think of the question first:</p>
+<p><em>Does it make sense to go through the effort?</em></p>
+<p>If you are conducting an exploratory data analysis, an animated graphic may not be worth the time investment. However, if you are giving a presentation, a few well-placed animated graphics can help an audience connect with your topic remarkably better than static counterparts.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started"><span style="color:skyblue">3-2.2</span> Getting started</h2>
 <section id="loading-the-r-packages" class="level3">
 <h3 class="anchored" data-anchor-id="loading-the-r-packages"><span style="color:skyblue">3-2.2.1</span> Loading the R packages</h3>
+<p>First, write a code chunk to check, install and load the following R packages:</p>
+<ul>
+<li><p><a href="https://plotly.com/r/"><strong>plotly</strong></a>: R library for plotting interactive statistical graphs.</p></li>
+<li><p><a href="https://gganimate.com/"><strong>gganimate</strong></a>: a ggplot extension for creating animated statistical graphs.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/gifski/"><strong>gifski</strong></a>: converts video frames to GIF animations using pngquant’s fancy features for efficient cross-frame palettes and temporal dithering. It produces animated GIFs that use thousands of colors per frame.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/gapminder/"><strong>gapminer</strong></a>: an excerpt of the data available at Gapminder.org. We just want to use its <em>country_colors</em> scheme.</p></li>
+<li><p><a href="https://www.tidyverse.org/"><strong>tidyverse</strong></a>: a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(readxl, gifski, gapminder,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               plotly, gganimate, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="importing-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="importing-the-data"><span style="color:skyblue">3-2.2.2</span> Importing the data</h3>
+<p>In this hands-on exercise, the Data worksheet from GlobalPopulation Excel workbook will be used.</p>
+<p>Write a code chunk to import Data worksheet from GlobalPopulation Excel worksbook by using appropriate R package from tidyverse family.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Continent"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>globalpop <span class="ot">&lt;-</span> <span class="fu">read_cxls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="animated-data-visualisation-gganimate-methods" class="level2">
