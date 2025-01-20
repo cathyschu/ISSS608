@@ -3,6 +3,7 @@ project:
 
 website:
   title: "ISSS608 Coursework"
+  page-footer: "Made with 💚 and Quarto"
   navbar:
     left: 
     - text: "Hands-on Exercise"
@@ -64,9 +65,13 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+    tools:
+      - icon: github
+        href: https://github.com/cathyschu
 
 format:
   html:
+    linkcolor: "pink"
     theme:
       - cosmo
       - brand

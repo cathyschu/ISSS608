@@ -1,5 +1,6 @@
 ---
 title: "Cathy Chu"
+subtitle: "Data Analytics"
 image: cathy_profile.jpeg
 about:
   template: trestles
