@@ -53,21 +53,21 @@ website:
     - text: "In-class Exercise"
       menu:
       - text: "In-class Exercise 1"
-        href: In-class_Ex01.html
+        href: In-class_Ex/In-class_Ex01.html
       - text: "In-class Exercise 2"
-        href: In-class_Ex02.html
+        href: In-class_Ex/In-class_Ex02.html
       - text: "In-class Exercise 3"
-        href: In-class_Ex03.html
+        href: In-class_Ex/In-class_Ex03.html
       - text: "In-class Exercise 4"
-        href: In-class_Ex04.html
+        href: In-class_Ex/In-class_Ex04.html
     - text: "Take-home Exercise"
       menu: 
       - text: "Take-home Exercise 1"
-        href: Take-home_Ex1.html
+        href: Take-home_Ex/Take-home_Ex1.html
       - text: "Take-home Exercise 2"
-        href: Take-home_Ex2.html
+        href: Take-home_Ex/Take-home_Ex2.html
       - text: "Take-home Exercise 3"
-        href: Take-home_Ex3.html
+        href: Take-home_Ex/Take-home_Ex3.html
 
     right:
       - href: index.qmd

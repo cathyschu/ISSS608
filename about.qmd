@@ -17,7 +17,9 @@ about:
 My name is Cathy.
 
 ::: {#hero-heading}
-I've had the privilege of working in training, project & program management roles across both public institutions and the private sector. What I've enjoyed most about these diverse experiences is meeting incredible people, making lasting friendships, and constantly being inspired by new perspectives. This inspiration sparked my official journey into Analytics, a field I'm deeply passionate about. I'm always excited to explore both the possible and the impossible in this ever-evolving discipline.
+I've had the privilege of working in training, project & program management roles across both public institutions and the private sector. What I've enjoyed most about these diverse experiences is meeting incredible people from different cultures and background, making lasting friendships, and constantly being inspired by new perspectives. This inspiration sparked my official journey into Analytics, a field I'm deeply passionate about. I'm always excited to explore both the possible and the impossible in this ever-evolving discipline.
+
+With data, I learn a great deal about solving business problems and am inspired to think differently for life.
 
 ## Education
 
