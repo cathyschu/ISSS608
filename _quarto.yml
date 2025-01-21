@@ -5,6 +5,12 @@ project:
 website:
   title: "Visual Analytics"
   page-footer: "Made with 💚 and Quarto"
+  announcement:
+    content: "**NEW** - **Hands-on Exercise 02** and **In-class Exercise 01** are published!"
+    position: below-navbar
+    icon: rocket
+
+    
   navbar:
     logo: "images/dino.png"
     left: 
@@ -47,13 +53,13 @@ website:
     - text: "In-class Exercise"
       menu:
       - text: "In-class Exercise 1"
-        href: In-class_Ex1.html
+        href: In-class_Ex01.html
       - text: "In-class Exercise 2"
-        href: In-class_Ex2.html
+        href: In-class_Ex02.html
       - text: "In-class Exercise 3"
-        href: In-class_Ex3.html
+        href: In-class_Ex03.html
       - text: "In-class Exercise 4"
-        href: In-class_Ex4.html
+        href: In-class_Ex04.html
     - text: "Take-home Exercise"
       menu: 
       - text: "Take-home Exercise 1"
@@ -73,7 +79,7 @@ website:
 
 format:
   html:
-    linkcolor: "pink"
+    linkcolor: "#db7093"
     theme:
       - cosmo
       - brand

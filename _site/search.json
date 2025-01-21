@@ -446,5 +446,12 @@
     "title": "Hands-on_Ex03_2",
     "section": "",
     "text": "ggplot(globalPop, aes(x = Old, y = Young, \n                      size = Population, \n                      colour = Country)) +\n  geom_point(alpha = 0.7, \n             show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(title = 'Year: {frame_time}', \n       x = '% Aged', \n       y = '% Young') +\n  transition_time(Year) +       \n  ease_aes('linear')"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01.html",
+    "href": "In-class_Ex/In-class_Ex01.html",
+    "title": "In-class_Ex01",
+    "section": "",
+    "text": "View my Tableau profile"
   }
 ]
