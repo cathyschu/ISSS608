@@ -1,5 +1,5 @@
 ---
-title: "Cathy Chu"
+title: "Cathy C."
 subtitle: "Data Analytics"
 image: cathy_profile.jpeg
 about:
