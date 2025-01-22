@@ -298,11 +298,11 @@ ggplot(data=exam_data,
 ```
 :::
 
-It also provides some extra geoms and scales fpr ggplot2. Consult [this vignette](https://mran.microsoft.com/snapshot/2016-12-28/web/packages/ggthemes/vignettes/ggthemes.html) to learn more. *\*Link is broken as of Jan 19.*
+It also provides some extra geoms and scales fpr ggplot2. Consult [this vignette](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) to learn more. *\*Link is broken as of Jan 19.*
 
 ### [2.4.2]{style="color:skyblue"} Working with hrbrthemes package
 
-[**hrbrthemes**](https://cinc.rud.is/web/packages/hrbrthemes/) package provides a base theme that focuses on typographic elements, including where various labels are placed as well as the fonts that are used.
+[**hrbrthemes**](https://cran.r-project.org/package=hrbrthemes) package provides a base theme that focuses on typographic elements, including where various labels are placed as well as the fonts that are used.
 
 ::: panel-tabset
 ## 🦖 Practice
