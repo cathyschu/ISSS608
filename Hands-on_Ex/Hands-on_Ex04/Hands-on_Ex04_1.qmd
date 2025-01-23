@@ -605,9 +605,9 @@ Lastly, [`coord_flit()`](https://ggplot2.tidyverse.org/reference/coord_flip.html
 ::: panel-tabset
 ## Practice
 
-used a different theme `theme_stata()` and changed colours for the slab and dots.
+Used a different theme `theme_stata()` and changed colours for the slab and dots.
 
-```{r}
+```{r, echo=FALSE}
 ggplot(exam,
        aes(x = RACE,
            y = ENGLISH)) +
@@ -628,6 +628,26 @@ ggplot(exam,
             dotsize = 1.2,
             aes(color = CLASS)) +
               
+  coord_flip() +
+  theme_stata()
+```
+
+🕵️ Notice the there are fewer dots when using colours to display CLASS.
+
+```{r, echo=FALSE}
+ggplot(exam,
+       aes(x = RACE,
+           y = ENGLISH)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = 0.2,
+               outlier.shape = NA) +
+  stat_dots(side = "left",
+            justification = 1.2,
+            binwidth = .5,
+            dotsize = 1.2) +
   coord_flip() +
   theme_stata()
 ```
