@@ -1,0 +1,58 @@
+---
+title: "Hands-on Ex04-2"
+author: "Cathy C"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+# Visualising Distribution
+
+## [4-2.1]{style="color:skyblue"} Learning Outcome
+
+## [4-2.2]{style="color:skyblue"} Visual Statistical Analysis with **ggstatsplot**
+
+## [4-2.3]{style="color:skyblue"} Getting started
+
+### [4-2.3.1]{style="color:skyblue"} Installing and launching R packages
+
+### [4-2.3.2]{style="color:skyblue"} Importing data
+
+### [4-2.3.3]{style="color:skyblue"} One-sample test: *`gghistostats()`* method
+
+### [4-2.3.4]{style="color:skyblue"} Unpacking the Bayes Factor
+
+### [4-2.3.5]{style="color:skyblue"} How to interpret Bayes Factor
+
+### [4-2.3.6]{style="color:skyblue"} Two-sample mean test: *`ggbetweenstats()`* 
+
+### [4-2.3.7]{style="color:skyblue"} Oneway ANOVA Test: *`ggbetweenstats()`* method
+
+### [4-2.3.8]{style="color:skyblue"} Significant test of correlation: *`ggscatterstats()`*
+
+### [4-2.3.9]{style="color:skyblue"} Significant test of association (dependence): *`ggbarstats()`*
+
+## [4-2.4]{style="color:skyblue"} Visualsing Models
+
+## [4-2.5]{style="color:skyblue"} Getting started
+
+## [4-2.6]{style="color:skyblue"} Installing and loading the required libraries
+
+### [4-2.6.1]{style="color:skyblue"} Importing Excel file: readxl methods
+
+### [4-2.6.2]{style="color:skyblue"} Multiple regression model using `lm()` 
+
+### [4-2.6.3]{style="color:skyblue"} Model diagnostic: checking for multicolinearity
+
+### [4-2.6.4]{style="color:skyblue"} Model diagnostic: checking normality assumption
+
+### [4-2.6.5]{style="color:skyblue"} Model diagnostic: check model for homogeneity of variances
+
+### [4-2.6.6]{style="color:skyblue"} Model diagnostic: complete check
+
+### [4-2.6.7]{style="color:skyblue"} Visualising regression parameters: see methods
+
+### [4-2.6.8]{style="color:skyblue"} Visualising regression parameters: *`ggcoefstats()`* methods
