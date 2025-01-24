@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Ex04-2"
+title: "Hands-on Ex03"
 author: "Cathy C"
 date-modified: "last-modified" 
 execute:
@@ -39,7 +39,7 @@ execute:
 
 ## [4-3.6]{style="color:skyblue"} Installing and loading the required libraries
 
-### [4-3.6.2]{style="color:skyblue"} Multiple regression model using `lm()` 
+### [4-3.6.2]{style="color:skyblue"} Multiple regression model using `lm()`
 
 ### [4-3.6.3]{style="color:skyblue"} Model diagnostic: checking for multicolinearity
 
