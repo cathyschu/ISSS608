@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -68,6 +102,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -116,54 +179,6 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html">
  <span class="dropdown-text">Hands-on Exercise 3-2</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html">
- <span class="dropdown-text">Hands-on Exercise 4-1</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html">
- <span class="dropdown-text">Hands-on Exercise 4-2</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html">
- <span class="dropdown-text">Hands-on Exercise 4-3</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html">
- <span class="dropdown-text">Hands-on Exercise 4-4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_1.html">
- <span class="dropdown-text">Hands-on Exercise 5-1</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_2.html">
- <span class="dropdown-text">Hands-on Exercise 5-2</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_3.html">
- <span class="dropdown-text">Hands-on Exercise 5-3</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_4.html">
- <span class="dropdown-text">Hands-on Exercise 5-4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex06.html">
- <span class="dropdown-text">Hands-on Exercise 6</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex07.html">
- <span class="dropdown-text">Hands-on Exercise 7</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex08.html">
- <span class="dropdown-text">Hands-on Exercise 8</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex09.html">
- <span class="dropdown-text">Hands-on Exercise 9</span></a>
   </li>  
     </ul>
   </li>
@@ -239,7 +254,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#visualising-distribution" id="toc-visualising-distribution" class="nav-link active" data-scroll-target="#visualising-distribution">Visualising Distribution</a>
+  <li><a href="#visual-statistical-analysis" id="toc-visual-statistical-analysis" class="nav-link active" data-scroll-target="#visual-statistical-analysis">Visual Statistical Analysis</a>
   <ul class="collapse">
   <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link" data-scroll-target="#learning-outcome"><span style="color:skyblue">4-2.1</span> Learning Outcome</a></li>
   <li><a href="#visual-statistical-analysis-with-ggstatsplot" id="toc-visual-statistical-analysis-with-ggstatsplot" class="nav-link" data-scroll-target="#visual-statistical-analysis-with-ggstatsplot"><span style="color:skyblue">4-2.2</span> Visual Statistical Analysis with <strong>ggstatsplot</strong></a></li>
@@ -251,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#unpacking-the-bayes-factor" id="toc-unpacking-the-bayes-factor" class="nav-link" data-scroll-target="#unpacking-the-bayes-factor"><span style="color:skyblue">4-2.3.4</span> Unpacking the Bayes Factor</a></li>
   <li><a href="#how-to-interpret-bayes-factor" id="toc-how-to-interpret-bayes-factor" class="nav-link" data-scroll-target="#how-to-interpret-bayes-factor"><span style="color:skyblue">4-2.3.5</span> How to interpret Bayes Factor</a></li>
   <li><a href="#two-sample-mean-test-ggbetweenstats" id="toc-two-sample-mean-test-ggbetweenstats" class="nav-link" data-scroll-target="#two-sample-mean-test-ggbetweenstats"><span style="color:skyblue">4-2.3.6</span> Two-sample mean test: <em><code>ggbetweenstats()</code></em></a></li>
-  <li><a href="#oneway-anova-test-ggbetweenstats-method" id="toc-oneway-anova-test-ggbetweenstats-method" class="nav-link" data-scroll-target="#oneway-anova-test-ggbetweenstats-method"><span style="color:skyblue">4-2.3.7</span> Oneway ANOVA Test: <em><code>ggbetweenstats()</code></em> method</a></li>
+  <li><a href="#oneway-anova-test-ggbetweentats-method" id="toc-oneway-anova-test-ggbetweentats-method" class="nav-link" data-scroll-target="#oneway-anova-test-ggbetweentats-method"><span style="color:skyblue">4-2.3.7</span> Oneway ANOVA Test: <em><code>ggbetweentats()</code></em> method</a></li>
   <li><a href="#significant-test-of-correlation-ggscatterstats" id="toc-significant-test-of-correlation-ggscatterstats" class="nav-link" data-scroll-target="#significant-test-of-correlation-ggscatterstats"><span style="color:skyblue">4-2.3.8</span> Significant test of correlation: <em><code>ggscatterstats()</code></em></a></li>
   <li><a href="#significant-test-of-association-dependence-ggbarstats" id="toc-significant-test-of-association-dependence-ggbarstats" class="nav-link" data-scroll-target="#significant-test-of-association-dependence-ggbarstats"><span style="color:skyblue">4-2.3.9</span> Significant test of association (dependence): <em><code>ggbarstats()</code></em></a></li>
   </ul></li>
@@ -295,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 22, 2025</p>
+      <p class="date-modified">January 24, 2025</p>
     </div>
   </div>
     
@@ -306,39 +321,257 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="visualising-distribution" class="level1">
-<h1>Visualising Distribution</h1>
+<section id="visual-statistical-analysis" class="level1">
+<h1>Visual Statistical Analysis</h1>
 <section id="learning-outcome" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcome"><span style="color:skyblue">4-2.1</span> Learning Outcome</h2>
+<p>In this hands-on exercise, we will gain hands-on experience on using:</p>
+<ul>
+<li><strong>ggstatsplot</strong> package to create visual graphics with rich statistical information.</li>
+<li><strong>performance</strong> package to visualise model diagnostics.</li>
+<li><strong>parameters</strong> package to visualise model parameters.</li>
+</ul>
 </section>
 <section id="visual-statistical-analysis-with-ggstatsplot" class="level2">
 <h2 class="anchored" data-anchor-id="visual-statistical-analysis-with-ggstatsplot"><span style="color:skyblue">4-2.2</span> Visual Statistical Analysis with <strong>ggstatsplot</strong></h2>
+<p><a href="https://indrajeetpatil.github.io/ggstatsplot/index.html"><strong>ggstatsplot</strong></a> <img src="images/ggstatsplot.png" class="img-fluid" width="40">is an extension of <a href="https://ggplot2.tidyverse.org/"><strong>ggplot2</strong></a> package for creating graphics with details from statistical tests included in the information-rich plots themselves.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> to provide alternative statistical inference methods by default.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> to follow best practices <span class="cf">for</span> statistical reporting. For all statistical tests reported <span class="cf">in</span> the plots, the default template abides by the [APA](https<span class="sc">:</span><span class="er">//</span>my.ilstu.edu<span class="sc">/</span><span class="er">~</span>jhkahn<span class="sc">/</span>apastats.html) gold standard <span class="cf">for</span> statistical reporting. </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>For example, here are results from a robust t<span class="sc">-</span>test<span class="sc">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="images/stats_reporting_format.png" class="img-fluid"></p>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started"><span style="color:skyblue">4-2.3</span> Getting started</h2>
 <section id="installing-and-launching-r-packages" class="level3">
 <h3 class="anchored" data-anchor-id="installing-and-launching-r-packages"><span style="color:skyblue">4-2.3.1</span> Installing and launching R packages</h3>
+<p>In this exercise, g<strong>gstatsplot</strong> and <strong>tidyverse</strong> will be used.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggstatsplot, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="importing-data" class="level3">
 <h3 class="anchored" data-anchor-id="importing-data"><span style="color:skyblue">4-2.3.2</span> Importing data</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+DIY
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Import Exam-csv data by using appropriate tidyverse package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>exam <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="one-sample-test-gghistostats-method" class="level3">
 <h3 class="anchored" data-anchor-id="one-sample-test-gghistostats-method"><span style="color:skyblue">4-2.3.3</span> One-sample test: <em><code>gghistostats()</code></em> method</h3>
+<p>In the code chunk below, <a href="https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html"><em><code>gghistostats()</code></em></a> is used to build an visual of one-sample test on English scores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gghistostats</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> exam,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> ENGLISH,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"bayes"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">test.value =</span> <span class="dv">60</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"English scores"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex04_2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Default information:</p>
+<p>statistical details / Bayes Factor / sample sizes / distribution summary</p>
 </section>
 <section id="unpacking-the-bayes-factor" class="level3">
 <h3 class="anchored" data-anchor-id="unpacking-the-bayes-factor"><span style="color:skyblue">4-2.3.4</span> Unpacking the Bayes Factor</h3>
+<ul>
+<li><p>A Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favour of one theory among two competing theories.</p></li>
+<li><p>That’s because the Bayes factor gives us a way to evaluate the data in favour of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favour of a given hypothesis.</p></li>
+<li><p>When we are comparing two hypotheses, <strong><em>H1</em></strong> (the alternate hypothesis) and <strong><em>H0</em></strong> (the null hypothesis), the Bayes factor is often written as <strong>B10</strong>. It can be defined mathematically as:</p>
+<p><span class="math display">\[
+\frac{likelihood-of-data-given-H_1}{likelihood-of-data-given-H_0} = \frac{P(D|H_1)}{P(D/H_0)}
+\]</span></p></li>
+<li><p>The <a href="https://www.statisticshowto.com/bayesian-information-criterion/"><strong>Schwarz criterion</strong></a> is one of the easiest ways to calculate rough estimation of the Bayes factor.</p></li>
+</ul>
 </section>
 <section id="how-to-interpret-bayes-factor" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-interpret-bayes-factor"><span style="color:skyblue">4-2.3.5</span> How to interpret Bayes Factor</h3>
+<p>A Bayes Factor can be any positive number.</p>
+<p>One of the most common interpretation is this one - first proposed by Harold Jeffereys (1961) and slightly modified by <a href="https://www-tandfonline-com.libproxy.smu.edu.sg/doi/pdf/10.1080/00031305.1999.10474443?needAccess=true">Lee and Wagemakers</a> in 2013.</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Bayes Factor</caption>
+<thead>
+<tr class="header">
+<th>IF B10 IS…</th>
+<th>THEN YOU HAVE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&gt;100</td>
+<td>Extreme evidence for H1</td>
+</tr>
+<tr class="even">
+<td>30 - 100</td>
+<td>Very strong evidence for H1</td>
+</tr>
+<tr class="odd">
+<td>10 - 30</td>
+<td>Strong evidence for H1</td>
+</tr>
+<tr class="even">
+<td>3 - 10</td>
+<td>Moderate evidence for H1</td>
+</tr>
+<tr class="odd">
+<td>1 - 3</td>
+<td>Anecdotal evidence for H1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>No evidence</td>
+</tr>
+<tr class="odd">
+<td>1/3 - 1</td>
+<td>Anecdotal evidence for H1</td>
+</tr>
+<tr class="even">
+<td>1/3 - 1/10</td>
+<td>Moderate evidence for H1</td>
+</tr>
+<tr class="odd">
+<td>1/10 - 1/30</td>
+<td>Strong evidence for H1</td>
+</tr>
+<tr class="even">
+<td>1/30 - 1/100</td>
+<td>Very Strong evidence for H1</td>
+</tr>
+<tr class="odd">
+<td>&lt;1/100</td>
+<td>Extreme evidence for H1</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="two-sample-mean-test-ggbetweenstats" class="level3">
 <h3 class="anchored" data-anchor-id="two-sample-mean-test-ggbetweenstats"><span style="color:skyblue">4-2.3.6</span> Two-sample mean test: <em><code>ggbetweenstats()</code></em></h3>
+<p>In the code chunk below, <a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html">ggbetweenstats()</a> is used to build a visual for two-sample mean test of Maths scores by gender.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> exam,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> GENDER,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> MATHS,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"np"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex04_2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Default information: statistical details / Bayes factor / samples sizes / distribution summary</p>
 </section>
-<section id="oneway-anova-test-ggbetweenstats-method" class="level3">
-<h3 class="anchored" data-anchor-id="oneway-anova-test-ggbetweenstats-method"><span style="color:skyblue">4-2.3.7</span> Oneway ANOVA Test: <em><code>ggbetweenstats()</code></em> method</h3>
+<section id="oneway-anova-test-ggbetweentats-method" class="level3">
+<h3 class="anchored" data-anchor-id="oneway-anova-test-ggbetweentats-method"><span style="color:skyblue">4-2.3.7</span> Oneway ANOVA Test: <em><code>ggbetweentats()</code></em> method</h3>
+<p>In the code chunk below, <a href="https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html">ggbetweenstats()</a> is used to build a visual for One-way ANOVA test on English scores by race.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbetweenstats</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> exam,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> RACE,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> ENGLISH,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"p"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean.ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pariwise.comparisons =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pairwise.display =</span> <span class="st">"s"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.adjust.methods =</span> <span class="st">"fdr"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex04_2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>“na” -&gt; only non-significant</li>
+<li>“s” -&gt; only significant</li>
+<li>“all” -&gt; everything</li>
+</ul>
+<section id="ggbetweentats---summary-of-tests" class="level4">
+<h4 class="anchored" data-anchor-id="ggbetweentats---summary-of-tests"><span style="color:skyblue">4-2.3.7.1</span> <em><code>ggbetweentats()</code></em> - Summary of tests</h4>
+<p>Following (between-subjects) tests are carried out for each type of analyses.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>TYPE</th>
+<th>NO. OF GROUPS</th>
+<th>TEST</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Parametric</td>
+<td>&gt;2</td>
+<td>Fisher’s or Welch’s one-way ANOVA</td>
+</tr>
+<tr class="even">
+<td>Non-Parametric</td>
+<td>&gt;2</td>
+<td>Kruskal-Wallis one-way ANOVA</td>
+</tr>
+<tr class="odd">
+<td>Robust</td>
+<td>&gt;2</td>
+<td>Heteroscedastic one-way ANOVA for trimmed means</td>
+</tr>
+<tr class="even">
+<td>Bayes Factor</td>
+<td>&gt;2</td>
+<td>Fisher’s ANOVA</td>
+</tr>
+<tr class="odd">
+<td>Parametric</td>
+<td>2</td>
+<td>Student’s or Welch’s <em>t</em>-test</td>
+</tr>
+<tr class="even">
+<td>Non-Parametric</td>
+<td>2</td>
+<td>Mann-Whitney <em>U</em> test</td>
+</tr>
+<tr class="odd">
+<td>Robust</td>
+<td>2</td>
+<td>Yuen’s test for trimmed means</td>
+</tr>
+<tr class="even">
+<td>Bayes Factor</td>
+<td>2</td>
+<td>Student’s <em>t</em>-test</td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="significant-test-of-correlation-ggscatterstats" class="level3">
 <h3 class="anchored" data-anchor-id="significant-test-of-correlation-ggscatterstats"><span style="color:skyblue">4-2.3.8</span> Significant test of correlation: <em><code>ggscatterstats()</code></em></h3>
+<p>In the code chunk below,</p>
 </section>
 <section id="significant-test-of-association-dependence-ggbarstats" class="level3">
 <h3 class="anchored" data-anchor-id="significant-test-of-association-dependence-ggbarstats"><span style="color:skyblue">4-2.3.9</span> Significant test of association (dependence): <em><code>ggbarstats()</code></em></h3>
@@ -375,6 +608,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="visualising-regression-parameters-ggcoefstats-methods" class="level3">
 <h3 class="anchored" data-anchor-id="visualising-regression-parameters-ggcoefstats-methods"><span style="color:skyblue">4-2.6.8</span> Visualising regression parameters: <em><code>ggcoefstats()</code></em> methods</h3>
+<p>:::</p>
 
 
 </section>
