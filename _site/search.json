@@ -550,6 +550,6 @@
     "href": "In-class_Ex/In-class_Ex02.html",
     "title": "In-class_Ex02",
     "section": "",
-    "text": "View my Tableau profile"
+    "text": "&lt;script type='text/javascript'&gt;                    var divElement = document.getElementById('viz1737804825152');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth &gt; 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth &gt; 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1227px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                &lt;/script&gt;"
   }
 ]
