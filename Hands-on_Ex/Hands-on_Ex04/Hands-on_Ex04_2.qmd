@@ -181,7 +181,7 @@ Summary of multiple pairwise comparison tests supported in `ggbetweenstats()`
 
 ### [4-2.3.8]{style="color:skyblue"} Significant test of correlation: *`ggscatterstats()`*
 
-In the code chunk below, `ggscatterstats()` is used to build a visual for Significant Test of Correlation between Maths scores and English scores. Practice using various subjects from the data.
+In the code chunk below, [`ggscatterstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html) is used to build a visual for Significant Test of Correlation between Maths scores and English scores. Practice using various subjects from the data and labeling functions.
 
 ::: panel-tabset
 ## 🦖 Practice I
@@ -228,6 +228,101 @@ ggscatterstats(
 :::
 
 ### [4-2.3.9]{style="color:skyblue"} Significant test of association (dependence): *`ggbarstats()`*
+
+Code chunk below, the Maths scores are binned into a 4-class variable with [`cut()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut)
+
+```{r}
+#load library
+library(dplyr)
+
+exam1 <- exam |>
+  mutate(MATHS_bins = 
+           cut(MATHS,
+               breaks = c(0,60,75,85,100)))
+```
+
+[`ggbarstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html) is used to build a visual for Significant Test of Association in the code below.
+
+::: column-margin
+Usage
+
+``` r
+ggbarstats(
+  data,
+  x,
+  y,
+  counts = NULL,
+  type = "parametric",
+  paired = FALSE,
+  results.subtitle = TRUE,
+  label = "percentage",
+  label.args = list(alpha = 1, fill = "white"),
+  sample.size.label.args = list(size = 4),
+  digits = 2L,
+  proportion.test = results.subtitle,
+  digits.perc = 0L,
+  bf.message = TRUE,
+  ratio = NULL,
+  conf.level = 0.95,
+  sampling.plan = "indepMulti",
+  fixed.margin = "rows",
+  prior.concentration = 1,
+  title = NULL,
+  subtitle = NULL,
+  caption = NULL,
+  legend.title = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  ggtheme = ggstatsplot::theme_ggstatsplot(),
+  package = "RColorBrewer",
+  palette = "Dark2",
+  ggplot.component = NULL,
+  ...
+)
+```
+:::
+
+::: panel-tabset
+## 🦖 Practice I
+
+To see English scores by genders.
+
+```{r}
+exam_E <- exam |>
+  mutate(ENGLISH_bins = 
+           cut(ENGLISH,
+               breaks = c(0,60,75,85,100)))
+
+ggbarstats(exam_E,
+           x = ENGLISH_bins,
+           y = GENDER)
+
+```
+
+## 🦖 Practice II
+
+To see Science scores by races.
+
+```{r}
+exam_S <- exam |>
+  mutate(SCIENCE_bins = 
+           cut(SCIENCE,
+               breaks = c(0,60,75,85,100)))
+
+ggbarstats(exam_S,
+           x = SCIENCE_bins,
+           y = RACE)
+
+```
+
+## Example
+
+```{r}
+ggbarstats(exam1,
+           x = MATHS_bins,
+           y = GENDER)
+```
+:::
 
 ## [4-2.4]{style="color:skyblue"} Visualsing Models
 
