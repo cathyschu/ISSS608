@@ -26,14 +26,14 @@ website:
         href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html
       - text: "Hands-on Exercise 3-2"
         href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html
-      # - text: "Hands-on Exercise 4-1"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html
-      # - text: "Hands-on Exercise 4-2"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html
-      # - text: "Hands-on Exercise 4-3"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html
-      # - text: "Hands-on Exercise 4-4"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html
+      - text: "Hands-on Exercise 4-1"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html
+      - text: "Hands-on Exercise 4-2"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html
+      - text: "Hands-on Exercise 4-3"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html
+      - text: "Hands-on Exercise 4-4"
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html
       # - text: "Hands-on Exercise 5-1"
       #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_1.html
       # - text: "Hands-on Exercise 5-2"
@@ -63,11 +63,11 @@ website:
     - text: "Take-home Exercise"
       menu: 
       - text: "Take-home Exercise 1"
-        href: Take-home_Ex/Take-home_Ex1.html
+        href: Take-home_Ex/Take-home_Ex01.html
       - text: "Take-home Exercise 2"
-        href: Take-home_Ex/Take-home_Ex2.html
+        href: Take-home_Ex/Take-home_Ex02.html
       - text: "Take-home Exercise 3"
-        href: Take-home_Ex/Take-home_Ex3.html
+        href: Take-home_Ex/Take-home_Ex03.html
 
     right:
       - href: index.qmd

@@ -1,0 +1,15 @@
+{
+  "hash": "0973d7b4b94635c076465ea399fa3d9d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Take-home Exercise 1\"\nauthor: \"Cathy C.\"\ndate: \"February 1, 2025\"\ndate-modified: \"last-modified\"\nexecute:\n  echo: true \n  eval: true #no more rendering if no further changes\n  warning: false \n  freeze: true \n---\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(readr)\nheart <- read_csv(\"data/jp_heart_attack_dataset.csv\")\nship <- read_csv(\"data/Ship_Pfm_Dataset.csv\")\nship\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n# A tibble: 2,736 × 18\n   Date       Ship_Type      Route_Type   Engine_Type         Maintenance_Status\n   <date>     <chr>          <chr>        <chr>               <chr>             \n 1 2023-06-04 Container Ship None         Heavy Fuel Oil (HF… Critical          \n 2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine       Good              \n 3 2023-06-18 Container Ship Long-haul    Diesel              Fair              \n 4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine       Fair              \n 5 2023-07-02 Fish Carrier   Transoceanic Diesel              Fair              \n 6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HF… Fair              \n 7 2023-07-16 Fish Carrier   Transoceanic Heavy Fuel Oil (HF… Critical          \n 8 2023-07-23 Container Ship Short-haul   Diesel              Critical          \n 9 2023-07-30 None           Coastal      Heavy Fuel Oil (HF… Good              \n10 2023-08-06 Container Ship Long-haul    Diesel              Fair              \n# ℹ 2,726 more rows\n# ℹ 13 more variables: Speed_Over_Ground_knots <dbl>, Engine_Power_kW <dbl>,\n#   Distance_Traveled_nm <dbl>, Draft_meters <dbl>, Weather_Condition <chr>,\n#   Cargo_Weight_tons <dbl>, Operational_Cost_USD <dbl>,\n#   Revenue_per_Voyage_USD <dbl>, Turnaround_Time_hours <dbl>,\n#   Efficiency_nm_per_kWh <dbl>, Seasonal_Impact_Score <dbl>,\n#   Weekly_Voyage_Count <dbl>, Average_Load_Percentage <dbl>\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

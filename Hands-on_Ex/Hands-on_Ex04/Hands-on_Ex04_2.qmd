@@ -150,6 +150,9 @@ ggbetweenstats(
 
 #### [4-2.3.7.1]{style="color:skyblue"} *`ggbetweentats()`* - Summary of tests
 
+::: panel-tabset
+## Test
+
 Following (between-subjects) tests are carried out for each type of analyses.
 
 | TYPE | NO. OF GROUPS | TEST |
@@ -163,9 +166,66 @@ Following (between-subjects) tests are carried out for each type of analyses.
 | Robust | 2 | Yuen's test for trimmed means |
 | Bayes Factor | 2 | Student's *t*-test |
 
+## CI
+
+The following effect sizes (and confidence intervals) are available for each type of test
+
+![](images/effect_sizes.jpg)
+
+## Summary
+
+Summary of multiple pairwise comparison tests supported in `ggbetweenstats()`
+
+![](images/summary.jpg)
+:::
+
 ### [4-2.3.8]{style="color:skyblue"} Significant test of correlation: *`ggscatterstats()`*
 
-In the code chunk below,
+In the code chunk below, `ggscatterstats()` is used to build a visual for Significant Test of Correlation between Maths scores and English scores. Practice using various subjects from the data.
+
+::: panel-tabset
+## 🦖 Practice I
+
+Maths x Science; use labels to indicate races scoring 90 for both subjects.
+
+```{r}
+ggscatterstats(
+  data = exam,
+  x = MATHS,
+  y = SCIENCE,
+  label.var = RACE,
+  label.expression = MATHS >= 90 & SCIENCE >= 90,
+  marginal = FALSE
+)
+  
+```
+
+## 🦖 Practice II
+
+English x Science; use labels to indicate genders scoring 90 for both subjects.
+
+```{r}
+ggscatterstats(
+  data = exam,
+  x = ENGLISH,
+  y = SCIENCE,
+  label.var = GENDER,
+  label.expression = ENGLISH >= 90 & SCIENCE >= 90,
+  marginal = FALSE
+)
+```
+
+## Example
+
+```{r}
+ggscatterstats(
+  data = exam,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = FALSE
+)
+```
+:::
 
 ### [4-2.3.9]{style="color:skyblue"} Significant test of association (dependence): *`ggbarstats()`*
 

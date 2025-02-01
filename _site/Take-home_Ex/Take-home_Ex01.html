@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Cathy C.">
+<meta name="dcterms.date" content="2025-02-01">
 
-<title>In-class_Ex02 – Visual Analytics</title>
+<title>Take-home Exercise 1 – Visual Analytics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -39,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c7b37eb84f15aa98dde8cb966e6badd0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a6a0340ad4e0f0311e1880b832929af1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -210,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">In-class_Ex02</h1>
+<h1 class="title">Take-home Exercise 1</h1>
 </div>
 
 
@@ -224,11 +259,17 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 1, 2025</p>
+    </div>
+  </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 25, 2025</p>
+      <p class="date-modified">February 2, 2025</p>
     </div>
   </div>
     
@@ -239,7 +280,34 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="tableauPlaceholder" id="viz1737804825152" style="position: relative"><noscript><a href="#"><img alt="Superstore Sales and Profit Report " src="https://public.tableau.com/static/images/In/In-class_Ex02_17377898238670/Dashboard1/1_rss.png" style="border: none"></a></noscript><object class="tableauViz" style="display:none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"> <param name="embed_code_version" value="3"> <param name="site_root" value=""><param name="name" value="In-class_Ex02_17377898238670/Dashboard1"><param name="tabs" value="no"><param name="toolbar" value="yes"><param name="static_image" value="https://public.tableau.com/static/images/In/In-class_Ex02_17377898238670/Dashboard1/1.png"> <param name="animate_transition" value="yes"><param name="display_static_image" value="yes"><param name="display_spinner" value="yes"><param name="display_overlay" value="yes"><param name="display_count" value="yes"><param name="language" value="en-GB"><param name="filter" value="publish=yes"></object></div>                <script type="text/javascript">                    var divElement = document.getElementById('viz1737804825152');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1227px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/jp_heart_attack_dataset.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ship <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Ship_Pfm_Dataset.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ship</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,736 × 18
+   Date       Ship_Type      Route_Type   Engine_Type         Maintenance_Status
+   &lt;date&gt;     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;               &lt;chr&gt;             
+ 1 2023-06-04 Container Ship None         Heavy Fuel Oil (HF… Critical          
+ 2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine       Good              
+ 3 2023-06-18 Container Ship Long-haul    Diesel              Fair              
+ 4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine       Fair              
+ 5 2023-07-02 Fish Carrier   Transoceanic Diesel              Fair              
+ 6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HF… Fair              
+ 7 2023-07-16 Fish Carrier   Transoceanic Heavy Fuel Oil (HF… Critical          
+ 8 2023-07-23 Container Ship Short-haul   Diesel              Critical          
+ 9 2023-07-30 None           Coastal      Heavy Fuel Oil (HF… Good              
+10 2023-08-06 Container Ship Long-haul    Diesel              Fair              
+# ℹ 2,726 more rows
+# ℹ 13 more variables: Speed_Over_Ground_knots &lt;dbl&gt;, Engine_Power_kW &lt;dbl&gt;,
+#   Distance_Traveled_nm &lt;dbl&gt;, Draft_meters &lt;dbl&gt;, Weather_Condition &lt;chr&gt;,
+#   Cargo_Weight_tons &lt;dbl&gt;, Operational_Cost_USD &lt;dbl&gt;,
+#   Revenue_per_Voyage_USD &lt;dbl&gt;, Turnaround_Time_hours &lt;dbl&gt;,
+#   Efficiency_nm_per_kWh &lt;dbl&gt;, Seasonal_Impact_Score &lt;dbl&gt;,
+#   Weekly_Voyage_Count &lt;dbl&gt;, Average_Load_Percentage &lt;dbl&gt;</code></pre>
+</div>
+</div>
 
 
 
