@@ -326,15 +326,139 @@ ggbarstats(exam1,
 
 ## [4-2.4]{style="color:skyblue"} Visualsing Models
 
+Learn how to visualise model diagnostic and model parameters by using parameters package.
+
+🚙 🚙 🚙 🚙 🚙 Toyota Corolla case study will be used to build a model to discover factor affecting practices of used-cars by taking into consideration of a set of explanatory variables.
+
 ## [4-2.5]{style="color:skyblue"} Getting started
 
 ## [4-2.6]{style="color:skyblue"} Installing and loading the required libraries
 
+```{r}
+pacman::p_load(readxl, performance, parameters, see)
+```
+
 ### [4-2.6.1]{style="color:skyblue"} Importing Excel file: readxl methods
+
+[`read_xls()`](https://readxl.tidyverse.org/reference/read_excel.html) of [`readxl`](https://readxl.tidyverse.org/) package is used to import the data worksheet of `ToyotaCorolla.xls` worksbook into R.
+
+::: column-margin
+`read_xls()` Usage
+
+```{.r}
+read_excel(
+  path,
+  sheet = NULL,
+  range = NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = readxl_progress(),
+  .name_repair = "unique"
+)
+
+read_xls(
+  path,
+  sheet = NULL,
+  range = NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = readxl_progress(),
+  .name_repair = "unique"
+)
+
+read_xlsx(
+  path,
+  sheet = NULL,
+  range = NULL,
+  col_names = TRUE,
+  col_types = NULL,
+  na = "",
+  trim_ws = TRUE,
+  skip = 0,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  progress = readxl_progress(),
+  .name_repair = "unique"
+)
+```
+:::
+
+```{r}
+car_resale <- read_xls("data/ToyotaCorolla.xls",
+                       "data")
+car_resale
+```
+
+::: callout-warning
+The output object `car_resale` is a tibble data frame.
+
+*Tibble is a modern data frame that is similar to data frames in R Programming Language but with some enhancements to make them easier to use and more consistent. Tibble is a part of the tidyverse package in R. Using tibbles we can **view and understand the data very easily especially when working with large datasets***
+:::
 
 ### [4-2.6.2]{style="color:skyblue"} Multiple regression model using `lm()`
 
+Code chunk below is used to calibrate a multiple linear regression model by using `lm()` of Base Stats of R.
+
+```{r}
+model <- lm(Price~Age_08_04 + Mfg_Year + KM +
+              Weight + Guarantee_Period, data = car_resale)
+model
+```
+
+🦄 Can see how the variables affecting price positively or negatively.
+
 ### [4-2.6.3]{style="color:skyblue"} Model diagnostic: checking for multicolinearity
+
+Code below checks for Multicollinearity using [`check_collinearity()`](https://easystats.github.io/performance/reference/check_collinearity.html) of `performance` package.
+
+::: column-margin
+`check_collinearity()` Usage
+
+```{.r}
+check_collinearity(x, ...)
+
+multicollinearity(x, ...)
+
+# Default S3 method
+check_collinearity(x, ci = 0.95, verbose = TRUE, ...)
+
+# S3 method for class 'glmmTMB'
+check_collinearity(
+  x,
+  component = c("all", "conditional", "count", "zi", "zero_inflated"),
+  ci = 0.95,
+  verbose = TRUE,
+  ...
+)
+
+check_concurvity(x, ...)
+```
+:::
+
+```{r}
+check_collinearity(model)
+```
+
+Next to plot the result:
+
+```{r}
+#install.packages("bayestestR")
+#remotes::install_github("easystats/see")
+#library("bayestestR")
+#library("see")
+check_c <- check_collinearity(model)
+plot(check_c)
+```
 
 ### [4-2.6.4]{style="color:skyblue"} Model diagnostic: checking normality assumption
 
