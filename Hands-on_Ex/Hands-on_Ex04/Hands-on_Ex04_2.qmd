@@ -503,7 +503,7 @@ Check model for constant error variance using [`check_heteroscedasticity()`](htt
 ::: column-margin
 `check_heteroscedasticity()` usage
 
-```{.r}
+``` r
 check_heteroscedasticity(x, ...)
 
 check_heteroskedasticity(x, ...)
@@ -525,7 +525,7 @@ Visual check of various model assumptions (normality of residuals, normality of 
 If `check_model()` doesn't work as expected, try setting `verbose = TRUE` to get hints about possible problems.
 
 ::: column-margin
-```{.r}
+``` r
 check_model(x, ...)
 
 # Default S3 method
