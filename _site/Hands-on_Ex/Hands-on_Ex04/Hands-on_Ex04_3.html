@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -207,37 +241,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#visualising-distribution" id="toc-visualising-distribution" class="nav-link active" data-scroll-target="#visualising-distribution">Visualising Distribution</a>
+  <li><a href="#visualising-uncertainty" id="toc-visualising-uncertainty" class="nav-link active" data-scroll-target="#visualising-uncertainty">Visualising Uncertainty</a>
   <ul class="collapse">
   <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link" data-scroll-target="#learning-outcome"><span style="color:skyblue">4-3.1</span> Learning Outcome</a></li>
-  <li><a href="#visual-statistical-analysis-with-ggstatsplot" id="toc-visual-statistical-analysis-with-ggstatsplot" class="nav-link" data-scroll-target="#visual-statistical-analysis-with-ggstatsplot"><span style="color:skyblue">4-3.2</span> Visual Statistical Analysis with <strong>ggstatsplot</strong></a>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span style="color:skyblue">4-3.2</span> Getting Started</a>
   <ul class="collapse">
-  <li><a href="#installing-and-launching-r-packages" id="toc-installing-and-launching-r-packages" class="nav-link" data-scroll-target="#installing-and-launching-r-packages"><span style="color:skyblue">4-3.2.1</span> Installing and launching R packages</a></li>
+  <li><a href="#installing-and-loading-packages" id="toc-installing-and-loading-packages" class="nav-link" data-scroll-target="#installing-and-loading-packages"><span style="color:skyblue">4-3.2.1</span> Installing and loading packages</a></li>
   <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data"><span style="color:skyblue">4-3.2.2</span> Importing data</a></li>
   </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span style="color:skyblue">4-3.3</span> Getting started</a>
+  <li><a href="#visualising-the-uncertainty-of-point-estimates-ggplot2-methods" id="toc-visualising-the-uncertainty-of-point-estimates-ggplot2-methods" class="nav-link" data-scroll-target="#visualising-the-uncertainty-of-point-estimates-ggplot2-methods"><span style="color:skyblue">4-3.3</span> Visualising the uncertainty of point estimates: ggplot2 methods</a>
   <ul class="collapse">
-  <li><a href="#installing-and-launching-r-packages-1" id="toc-installing-and-launching-r-packages-1" class="nav-link" data-scroll-target="#installing-and-launching-r-packages-1"><span style="color:skyblue">4-3.3.1</span> Installing and launching R packages</a></li>
-  <li><a href="#importing-data-1" id="toc-importing-data-1" class="nav-link" data-scroll-target="#importing-data-1"><span style="color:skyblue">4-3.3.2</span> Importing data</a></li>
-  <li><a href="#one-sample-test-gghistostats-method" id="toc-one-sample-test-gghistostats-method" class="nav-link" data-scroll-target="#one-sample-test-gghistostats-method"><span style="color:skyblue">4-3.3.3</span> One-sample test: <em><code>gghistostats()</code></em> method</a></li>
+  <li><a href="#plotting-standard-error-bars-of-point-estimates" id="toc-plotting-standard-error-bars-of-point-estimates" class="nav-link" data-scroll-target="#plotting-standard-error-bars-of-point-estimates"><span style="color:skyblue">4-3.3.1</span> Plotting standard error bars of point estimates</a></li>
+  <li><a href="#plotting-confidence-interval-of-point-estimates" id="toc-plotting-confidence-interval-of-point-estimates" class="nav-link" data-scroll-target="#plotting-confidence-interval-of-point-estimates"><span style="color:skyblue">4-3.3.2</span> Plotting confidence interval of point estimates</a></li>
+  <li><a href="#visualising-the-uncertainty-of-point-estimates-with-interactive-error-bars" id="toc-visualising-the-uncertainty-of-point-estimates-with-interactive-error-bars" class="nav-link" data-scroll-target="#visualising-the-uncertainty-of-point-estimates-with-interactive-error-bars"><span style="color:skyblue">4-3.3.3</span> Visualising the uncertainty of point estimates with interactive error bars</a></li>
   </ul></li>
-  <li><a href="#visualsing-models" id="toc-visualsing-models" class="nav-link" data-scroll-target="#visualsing-models"><span style="color:skyblue">4-3.4</span> Visualsing Models</a>
+  <li><a href="#visualsing-undertainty-ggdist-package" id="toc-visualsing-undertainty-ggdist-package" class="nav-link" data-scroll-target="#visualsing-undertainty-ggdist-package"><span style="color:skyblue">4-3.4</span> Visualsing Undertainty: <code>ggdist</code> package</a>
   <ul class="collapse">
-  <li><a href="#installing-and-launching-r-packages-2" id="toc-installing-and-launching-r-packages-2" class="nav-link" data-scroll-target="#installing-and-launching-r-packages-2"><span style="color:skyblue">4-3.4.1</span> Installing and launching R packages</a></li>
-  <li><a href="#importing-data-2" id="toc-importing-data-2" class="nav-link" data-scroll-target="#importing-data-2"><span style="color:skyblue">4-3.4.2</span> Importing data</a></li>
-  <li><a href="#one-sample-test-gghistostats-method-1" id="toc-one-sample-test-gghistostats-method-1" class="nav-link" data-scroll-target="#one-sample-test-gghistostats-method-1"><span style="color:skyblue">4-3.4.3</span> One-sample test: <em><code>gghistostats()</code></em> method</a></li>
+  <li><a href="#visualising-the-uncertainty-of-point-estimates-ggdist-methods-i" id="toc-visualising-the-uncertainty-of-point-estimates-ggdist-methods-i" class="nav-link" data-scroll-target="#visualising-the-uncertainty-of-point-estimates-ggdist-methods-i"><span style="color:skyblue">4-3.4.1</span> Visualising the uncertainty of point estimates: <code>ggdist</code> methods (I)</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice"><span style="color:skyblue">4-3.4.2</span> Practice</a></li>
+  <li><a href="#visualising-the-uncertainty-of-point-estimates-ggdist-methods-ii" id="toc-visualising-the-uncertainty-of-point-estimates-ggdist-methods-ii" class="nav-link" data-scroll-target="#visualising-the-uncertainty-of-point-estimates-ggdist-methods-ii"><span style="color:skyblue">4-3.4.3</span> Visualising the uncertainty of point estimates: <code>ggdist</code> methods (II)</a></li>
   </ul></li>
-  <li><a href="#getting-started-1" id="toc-getting-started-1" class="nav-link" data-scroll-target="#getting-started-1"><span style="color:skyblue">4-3.5</span> Getting started</a></li>
-  <li><a href="#installing-and-loading-the-required-libraries" id="toc-installing-and-loading-the-required-libraries" class="nav-link" data-scroll-target="#installing-and-loading-the-required-libraries"><span style="color:skyblue">4-3.6</span> Installing and loading the required libraries</a>
-  <ul class="collapse">
-  <li><a href="#multiple-regression-model-using-lm" id="toc-multiple-regression-model-using-lm" class="nav-link" data-scroll-target="#multiple-regression-model-using-lm"><span style="color:skyblue">4-3.6.2</span> Multiple regression model using <code>lm()</code></a></li>
-  <li><a href="#model-diagnostic-checking-for-multicolinearity" id="toc-model-diagnostic-checking-for-multicolinearity" class="nav-link" data-scroll-target="#model-diagnostic-checking-for-multicolinearity"><span style="color:skyblue">4-3.6.3</span> Model diagnostic: checking for multicolinearity</a></li>
-  <li><a href="#model-diagnostic-checking-normality-assumption" id="toc-model-diagnostic-checking-normality-assumption" class="nav-link" data-scroll-target="#model-diagnostic-checking-normality-assumption"><span style="color:skyblue">4-3.6.4</span> Model diagnostic: checking normality assumption</a></li>
-  <li><a href="#model-diagnostic-check-model-for-homogeneity-of-variances" id="toc-model-diagnostic-check-model-for-homogeneity-of-variances" class="nav-link" data-scroll-target="#model-diagnostic-check-model-for-homogeneity-of-variances"><span style="color:skyblue">4-3.6.5</span> Model diagnostic: check model for homogeneity of variances</a></li>
-  <li><a href="#model-diagnostic-complete-check" id="toc-model-diagnostic-complete-check" class="nav-link" data-scroll-target="#model-diagnostic-complete-check"><span style="color:skyblue">4-3.6.6</span> Model diagnostic: complete check</a></li>
-  <li><a href="#visualising-regression-parameters-see-methods" id="toc-visualising-regression-parameters-see-methods" class="nav-link" data-scroll-target="#visualising-regression-parameters-see-methods"><span style="color:skyblue">4-3.6.7</span> Visualising regression parameters: see methods</a></li>
-  <li><a href="#visualising-regression-parameters-ggcoefstats-methods" id="toc-visualising-regression-parameters-ggcoefstats-methods" class="nav-link" data-scroll-target="#visualising-regression-parameters-ggcoefstats-methods"><span style="color:skyblue">4-3.6.8</span> Visualising regression parameters: <em><code>ggcoefstats()</code></em> methods</a></li>
-  </ul></li>
+  <li><a href="#visualising-uncertainty-with-hypothetical-outcome-plots-hops" id="toc-visualising-uncertainty-with-hypothetical-outcome-plots-hops" class="nav-link" data-scroll-target="#visualising-uncertainty-with-hypothetical-outcome-plots-hops"><span style="color:skyblue">4-3.5</span> <strong>Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -265,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">January 24, 2025</p>
+      <p class="date-modified">February 3, 2025</p>
     </div>
   </div>
     
@@ -276,72 +300,291 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="visualising-distribution" class="level1">
-<h1>Visualising Distribution</h1>
+<section id="visualising-uncertainty" class="level1">
+<h1>Visualising Uncertainty</h1>
 <section id="learning-outcome" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcome"><span style="color:skyblue">4-3.1</span> Learning Outcome</h2>
+<p>In this chapter, we will do hands-on in creating statistical graphics for visualising uncertainty.</p>
+<ul>
+<li>to plot statistics error bars by using <code>ggplot2</code></li>
+<li>to plot interactive error bars by combining <code>ggplot2</code>, <code>plotly</code> and <code>DT</code></li>
+<li>to create advanced using <code>ggdist</code></li>
+<li>to create hypothetical outcome plots (HOPs) with <code>ungeviz</code> package</li>
+</ul>
 </section>
-<section id="visual-statistical-analysis-with-ggstatsplot" class="level2">
-<h2 class="anchored" data-anchor-id="visual-statistical-analysis-with-ggstatsplot"><span style="color:skyblue">4-3.2</span> Visual Statistical Analysis with <strong>ggstatsplot</strong></h2>
-<section id="installing-and-launching-r-packages" class="level3">
-<h3 class="anchored" data-anchor-id="installing-and-launching-r-packages"><span style="color:skyblue">4-3.2.1</span> Installing and launching R packages</h3>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started"><span style="color:skyblue">4-3.2</span> Getting Started</h2>
+<section id="installing-and-loading-packages" class="level3">
+<h3 class="anchored" data-anchor-id="installing-and-loading-packages"><span style="color:skyblue">4-3.2.1</span> Installing and loading packages</h3>
+<p>The following R packages will be used for this exercise:</p>
+<ul>
+<li><p><code>tidyverse</code>: a family of R packages for data science process</p></li>
+<li><p><code>plotly</code>: can create interactive plot</p></li>
+<li><p><code>gganimate</code>: can create animation plot</p></li>
+<li><p><code>DT</code>: can display interactive HTML table</p></li>
+<li><p><code>crosstalk</code>: to implement cross-widget interactions (currently linked brushing and filtering)</p></li>
+<li><p><code>ggdist</code>: to visualise distribution and uncertainty</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"wilkelab/ungeviz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ungeviz, plotly, corsstalk,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               DT, ggdist, ggridges,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               colorspace, gganimate, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="importing-data" class="level3">
 <h3 class="anchored" data-anchor-id="importing-data"><span style="color:skyblue">4-3.2.2</span> Importing data</h3>
+<p>The <em>Exam_data.csv</em> dataset will be used for this exercise.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>exam <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started"><span style="color:skyblue">4-3.3</span> Getting started</h2>
-<section id="installing-and-launching-r-packages-1" class="level3">
-<h3 class="anchored" data-anchor-id="installing-and-launching-r-packages-1"><span style="color:skyblue">4-3.3.1</span> Installing and launching R packages</h3>
-</section>
-<section id="importing-data-1" class="level3">
-<h3 class="anchored" data-anchor-id="importing-data-1"><span style="color:skyblue">4-3.3.2</span> Importing data</h3>
-</section>
-<section id="one-sample-test-gghistostats-method" class="level3">
-<h3 class="anchored" data-anchor-id="one-sample-test-gghistostats-method"><span style="color:skyblue">4-3.3.3</span> One-sample test: <em><code>gghistostats()</code></em> method</h3>
-</section>
-</section>
-<section id="visualsing-models" class="level2">
-<h2 class="anchored" data-anchor-id="visualsing-models"><span style="color:skyblue">4-3.4</span> Visualsing Models</h2>
-<section id="installing-and-launching-r-packages-2" class="level3">
-<h3 class="anchored" data-anchor-id="installing-and-launching-r-packages-2"><span style="color:skyblue">4-3.4.1</span> Installing and launching R packages</h3>
-</section>
-<section id="importing-data-2" class="level3">
-<h3 class="anchored" data-anchor-id="importing-data-2"><span style="color:skyblue">4-3.4.2</span> Importing data</h3>
-</section>
-<section id="one-sample-test-gghistostats-method-1" class="level3">
-<h3 class="anchored" data-anchor-id="one-sample-test-gghistostats-method-1"><span style="color:skyblue">4-3.4.3</span> One-sample test: <em><code>gghistostats()</code></em> method</h3>
-</section>
-</section>
-<section id="getting-started-1" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started-1"><span style="color:skyblue">4-3.5</span> Getting started</h2>
-</section>
-<section id="installing-and-loading-the-required-libraries" class="level2">
-<h2 class="anchored" data-anchor-id="installing-and-loading-the-required-libraries"><span style="color:skyblue">4-3.6</span> Installing and loading the required libraries</h2>
-<section id="multiple-regression-model-using-lm" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-regression-model-using-lm"><span style="color:skyblue">4-3.6.2</span> Multiple regression model using <code>lm()</code></h3>
-</section>
-<section id="model-diagnostic-checking-for-multicolinearity" class="level3">
-<h3 class="anchored" data-anchor-id="model-diagnostic-checking-for-multicolinearity"><span style="color:skyblue">4-3.6.3</span> Model diagnostic: checking for multicolinearity</h3>
-</section>
-<section id="model-diagnostic-checking-normality-assumption" class="level3">
-<h3 class="anchored" data-anchor-id="model-diagnostic-checking-normality-assumption"><span style="color:skyblue">4-3.6.4</span> Model diagnostic: checking normality assumption</h3>
-</section>
-<section id="model-diagnostic-check-model-for-homogeneity-of-variances" class="level3">
-<h3 class="anchored" data-anchor-id="model-diagnostic-check-model-for-homogeneity-of-variances"><span style="color:skyblue">4-3.6.5</span> Model diagnostic: check model for homogeneity of variances</h3>
-</section>
-<section id="model-diagnostic-complete-check" class="level3">
-<h3 class="anchored" data-anchor-id="model-diagnostic-complete-check"><span style="color:skyblue">4-3.6.6</span> Model diagnostic: complete check</h3>
-</section>
-<section id="visualising-regression-parameters-see-methods" class="level3">
-<h3 class="anchored" data-anchor-id="visualising-regression-parameters-see-methods"><span style="color:skyblue">4-3.6.7</span> Visualising regression parameters: see methods</h3>
-</section>
-<section id="visualising-regression-parameters-ggcoefstats-methods" class="level3">
-<h3 class="anchored" data-anchor-id="visualising-regression-parameters-ggcoefstats-methods"><span style="color:skyblue">4-3.6.8</span> Visualising regression parameters: <em><code>ggcoefstats()</code></em> methods</h3>
+<section id="visualising-the-uncertainty-of-point-estimates-ggplot2-methods" class="level2">
+<h2 class="anchored" data-anchor-id="visualising-the-uncertainty-of-point-estimates-ggplot2-methods"><span style="color:skyblue">4-3.3</span> Visualising the uncertainty of point estimates: ggplot2 methods</h2>
+<p>A <strong>point estimate</strong> is a single number, such as a mean score. <strong>Uncertainty</strong>, is expressed as standard error, confidence interval, or credible interval. Don’t confuse the uncertainty of a point estimate with the variation in the sample.</p>
+<p>Now, we will plot error bars of MATHS scores by RACE using the data provided in <em>exam</em> tibble data frame.</p>
+<p>Code below will be used to derive the necessary summary statistics:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Mathematics</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_sum <span class="ot">&lt;-</span> exam <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group the observation by RACE; group_by() from dplyr package</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(RACE) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#compute the count of observations, mean, standard deviation</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>( </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n=</span><span class="fu">n</span>(),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean=</span><span class="fu">mean</span>(MATHS),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd=</span><span class="fu">sd</span>(MATHS)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#derive standard error of Maths by RACE</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se=</span>sd<span class="sc">/</span><span class="fu">sqrt</span>(n<span class="dv">-1</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The output is saved as a tibble data table called <em>my_sum</em>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary of code above
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>group_by()</code> from <strong>dplyr</strong> package is used to group the observation by RACE</li>
+<li><code>summarise()</code> is used to compute count of observations, mean, standard deviation</li>
+<li><code>mutate()</code> is used to derive standard error of MATHS by RACE</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><img src="images/SD calc.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>🔑🔑🔑 Next code is used to display <em>my_sum</em> tibble data frame in an HTML table format.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Table</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">:::</span><span class="fu">kable</span>(<span class="fu">head</span>(my_sum),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">format =</span> <span class="st">'html'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">RACE</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chinese</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">76.50777</td>
+<td style="text-align: right;">15.69040</td>
+<td style="text-align: right;">1.132357</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indian</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">60.66667</td>
+<td style="text-align: right;">23.35237</td>
+<td style="text-align: right;">7.041005</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Malay</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">57.44444</td>
+<td style="text-align: right;">21.13478</td>
+<td style="text-align: right;">2.043177</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Others</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">69.66667</td>
+<td style="text-align: right;">10.72381</td>
+<td style="text-align: right;">3.791438</td>
+</tr>
+</tbody>
+</table>
 
 
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="plotting-standard-error-bars-of-point-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-standard-error-bars-of-point-estimates"><span style="color:skyblue">4-3.3.1</span> Plotting standard error bars of point estimates</h3>
+<p>Now, plotting the standard error bars for the mean score of MATHS by RACE.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex04_3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary of code above
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The error bars are computed by using the formula <code>mean +/- se</code></li>
+<li>For <code>geom_point()</code>, it is important to indicate <code>stat="identity"</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my_sum) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> RACE,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymin=</span>mean<span class="sc">-</span>se,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax=</span>mean<span class="sc">+</span>se),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.2</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"blue"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.9</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">0.5</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> RACE,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> mean),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="dv">1</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Standard Error of Mean MATHS Score by RACE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </section>
+<section id="plotting-confidence-interval-of-point-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-confidence-interval-of-point-estimates"><span style="color:skyblue">4-3.3.2</span> Plotting confidence interval of point estimates</h3>
+<p>Instead of plotting error bars of point estimates, we can also plot <strong>Confidence Intervals</strong> of the mean scores of MATHS by RACE.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex04_3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my_sum) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(RACE, <span class="sc">-</span>mean),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymin=</span>mean<span class="fl">-1.96</span><span class="sc">*</span>se,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ymax=</span>mean<span class="fl">+1.96</span><span class="sc">*</span>se),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">width=</span><span class="fl">0.2</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour=</span><span class="st">"darkgreen"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="fl">0.9</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">size=</span><span class="dv">1</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> RACE,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mean),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat=</span><span class="st">"identity"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"red"</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha=</span><span class="dv">1</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">size=</span><span class="dv">5</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"MATHS score"</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"95% Confidence Interval of Mean MATHS Score by RACE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary of code
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The Confidence Intervals are computed by using the formula mean +/- 1.96*se</li>
+<li>The error bars are sorted using the average maths scores</li>
+<li><code>labs()</code> argument of <code>ggplot2</code> is used to change the x-axis label</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualising-the-uncertainty-of-point-estimates-with-interactive-error-bars" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-the-uncertainty-of-point-estimates-with-interactive-error-bars"><span style="color:skyblue">4-3.3.3</span> Visualising the uncertainty of point estimates with interactive error bars</h3>
+</section>
+</section>
+<section id="visualsing-undertainty-ggdist-package" class="level2">
+<h2 class="anchored" data-anchor-id="visualsing-undertainty-ggdist-package"><span style="color:skyblue">4-3.4</span> Visualsing Undertainty: <code>ggdist</code> package</h2>
+<section id="visualising-the-uncertainty-of-point-estimates-ggdist-methods-i" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-the-uncertainty-of-point-estimates-ggdist-methods-i"><span style="color:skyblue">4-3.4.1</span> Visualising the uncertainty of point estimates: <code>ggdist</code> methods (I)</h3>
+</section>
+<section id="practice" class="level3">
+<h3 class="anchored" data-anchor-id="practice"><span style="color:skyblue">4-3.4.2</span> Practice</h3>
+</section>
+<section id="visualising-the-uncertainty-of-point-estimates-ggdist-methods-ii" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-the-uncertainty-of-point-estimates-ggdist-methods-ii"><span style="color:skyblue">4-3.4.3</span> Visualising the uncertainty of point estimates: <code>ggdist</code> methods (II)</h3>
+</section>
+</section>
+<section id="visualising-uncertainty-with-hypothetical-outcome-plots-hops" class="level2">
+<h2 class="anchored" data-anchor-id="visualising-uncertainty-with-hypothetical-outcome-plots-hops"><span style="color:skyblue">4-3.5</span> <strong>Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)</strong></h2>
+
+
 </section>
 </section>
 

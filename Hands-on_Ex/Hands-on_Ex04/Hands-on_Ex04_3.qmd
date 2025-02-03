@@ -9,46 +9,248 @@ execute:
   freeze: true  
 ---
 
-# Visualising Distribution
+# Visualising Uncertainty
 
 ## [4-3.1]{style="color:skyblue"} Learning Outcome
 
-## [4-3.2]{style="color:skyblue"} Visual Statistical Analysis with **ggstatsplot**
+In this chapter, we will do hands-on in creating statistical graphics for visualising uncertainty.
 
-### [4-3.2.1]{style="color:skyblue"} Installing and launching R packages
+-   to plot statistics error bars by using `ggplot2`
+-   to plot interactive error bars by combining `ggplot2`, `plotly` and `DT`
+-   to create advanced using `ggdist`
+-   to create hypothetical outcome plots (HOPs) with `ungeviz` package
+
+## [4-3.2]{style="color:skyblue"} Getting Started
+
+### [4-3.2.1]{style="color:skyblue"} Installing and loading packages
+
+The following R packages will be used for this exercise:
+
+-   `tidyverse`: a family of R packages for data science process
+
+-   `plotly`: can create interactive plot
+
+-   `gganimate`: can create animation plot
+
+-   `DT`: can display interactive HTML table
+
+-   `crosstalk`: to implement cross-widget interactions (currently linked brushing and filtering)
+
+-   `ggdist`: to visualise distribution and uncertainty
+
+```{r}
+devtools::install_github("wilkelab/ungeviz")
+```
+
+```{r}
+pacman::p_load(ungeviz, plotly, corsstalk,
+               DT, ggdist, ggridges,
+               colorspace, gganimate, tidyverse)
+```
 
 ### [4-3.2.2]{style="color:skyblue"} Importing data
 
-## [4-3.3]{style="color:skyblue"} Getting started
+The *Exam_data.csv* dataset will be used for this exercise.
 
-### [4-3.3.1]{style="color:skyblue"} Installing and launching R packages
+```{r}
+exam <- read_csv("data/Exam_data.csv")
+```
 
-### [4-3.3.2]{style="color:skyblue"} Importing data
+## [4-3.3]{style="color:skyblue"} Visualising the uncertainty of point estimates: ggplot2 methods
 
-### [4-3.3.3]{style="color:skyblue"} One-sample test: *`gghistostats()`* method
+A **point estimate** is a single number, such as a mean score. **Uncertainty**, is expressed as standard error, confidence interval, or credible interval. Don't confuse the uncertainty of a point estimate with the variation in the sample.
 
-## [4-3.4]{style="color:skyblue"} Visualsing Models
+Now, we will plot error bars of MATHS scores by RACE using the data provided in *exam* tibble data frame.
 
-### [4-3.4.1]{style="color:skyblue"} Installing and launching R packages
+Code below will be used to derive the necessary summary statistics:
 
-### [4-3.4.2]{style="color:skyblue"} Importing data
+:::: panel-tabset
+## Code
 
-### [4-3.4.3]{style="color:skyblue"} One-sample test: *`gghistostats()`* method
+```{r}
+my_sum <- exam %>%
+  #group the observation by RACE; group_by() from dplyr package
+  group_by(RACE) %>% 
+  
+  #compute the count of observations, mean, standard deviation
+  summarise( 
+    n=n(),
+    mean=mean(MATHS),
+    sd=sd(MATHS)
+  ) %>%
+  
+  #derive standard error of Maths by RACE
+  mutate(se=sd/sqrt(n-1)) 
 
-## [4-3.5]{style="color:skyblue"} Getting started
+```
 
-## [4-3.6]{style="color:skyblue"} Installing and loading the required libraries
+The output is saved as a tibble data table called *my_sum*.
 
-### [4-3.6.2]{style="color:skyblue"} Multiple regression model using `lm()`
+::: callout-note
+## Summary of code above
 
-### [4-3.6.3]{style="color:skyblue"} Model diagnostic: checking for multicolinearity
+-   `group_by()` from **dplyr** package is used to group the observation by RACE
+-   `summarise()` is used to compute count of observations, mean, standard deviation
+-   `mutate()` is used to derive standard error of MATHS by RACE
+:::
 
-### [4-3.6.4]{style="color:skyblue"} Model diagnostic: checking normality assumption
+## Mathematics
 
-### [4-3.6.5]{style="color:skyblue"} Model diagnostic: check model for homogeneity of variances
+![](images/SD%20calc.png)
+::::
 
-### [4-3.6.6]{style="color:skyblue"} Model diagnostic: complete check
+🔑🔑🔑 Next code is used to display *my_sum* tibble data frame in an HTML table format.
 
-### [4-3.6.7]{style="color:skyblue"} Visualising regression parameters: see methods
+::: panel-tabset
+## Code
 
-### [4-3.6.8]{style="color:skyblue"} Visualising regression parameters: *`ggcoefstats()`* methods
+``` r
+knitr:::kable(head(my_sum),
+              format = 'html')
+```
+
+## Table
+
+```{r, echo=FALSE}
+knitr:::kable(head(my_sum),
+              format = 'html')
+```
+:::
+
+### [4-3.3.1]{style="color:skyblue"} Plotting standard error bars of point estimates
+
+Now, plotting the standard error bars for the mean score of MATHS by RACE.
+
+:::: panel-tabset
+## Plot
+
+```{r, echo=FALSE}
+ggplot(my_sum) + 
+  geom_errorbar(
+    aes(x = RACE,
+        ymin=mean-se,
+        ymax=mean+se),
+    width = 0.2,
+    colour = "blue",
+    alpha = 0.9,
+    size = 0.5
+  ) +
+  geom_point(
+    aes(x = RACE,
+        y = mean),
+    stat = "identity",
+    color = "red",
+    size = 2.5,
+    alpha = 1
+  ) +
+  ggtitle("Standard Error of Mean MATHS Score by RACE")
+```
+
+::: callout-note
+## Summary of code above
+
+-   The error bars are computed by using the formula `mean +/- se`
+-   For `geom_point()`, it is important to indicate `stat="identity"`
+:::
+
+## Code
+
+``` r
+ggplot(my_sum) + 
+  geom_errorbar(
+    aes(x = RACE,
+        ymin=mean-se,
+        ymax=mean+se),
+    width = 0.2,
+    colour = "blue",
+    alpha = 0.9,
+    size = 0.5
+  ) +
+  geom_point(
+    aes(x = RACE,
+        y = mean),
+    stat = "identity",
+    color = "red",
+    size = 2.5,
+    alpha = 1
+  ) +
+  ggtitle("Standard Error of Mean MATHS Score by RACE")
+```
+::::
+
+### [4-3.3.2]{style="color:skyblue"} Plotting confidence interval of point estimates
+
+Instead of plotting error bars of point estimates, we can also plot **Confidence Intervals** of the mean scores of MATHS by RACE.
+
+:::: panel-tabset
+## Plot
+
+```{r, echo=FALSE}
+ggplot(my_sum) +
+  geom_errorbar(
+    aes(x = reorder(RACE, -mean),
+        ymin=mean-1.96*se,
+        ymax=mean+1.96*se),
+    width=0.2,
+    colour="darkgreen",
+    alpha=0.9,
+    size=0.5
+  ) + 
+  geom_point(aes(
+    x = RACE,
+    y = mean),
+    stat="identity",
+    color="red",
+    size=5,
+    alpha=1
+    ) +
+  labs(x = "MATHS score",
+       title = "95% Confidence Interval of Mean MATHS Score by RACE")
+  
+```
+
+## Code
+
+``` r
+ggplot(my_sum) +
+  geom_errorbar(
+    aes(x = reorder(RACE, -mean),
+        ymin=mean-1.96*se,
+        ymax=mean+1.96*se),
+    width=0.2,
+    colour="darkgreen",
+    alpha=0.9,
+    size=1
+  ) + 
+  geom_point(aes(
+    x = RACE,
+    y = mean),
+    stat="identity",
+    color="red",
+    alpha=1,
+    size=5
+    ) +
+  labs(x = "MATHS score",
+       title = "95% Confidence Interval of Mean MATHS Score by RACE")
+```
+
+::: callout-note
+## Summary of code
+
+-   The Confidence Intervals are computed by using the formula mean +/- 1.96\*se
+-   The error bars are sorted using the average maths scores
+-   `labs()` argument of `ggplot2` is used to change the x-axis label
+:::
+::::
+
+### [4-3.3.3]{style="color:skyblue"} Visualising the uncertainty of point estimates with interactive error bars
+
+## [4-3.4]{style="color:skyblue"} Visualsing Undertainty: `ggdist` package
+
+### [4-3.4.1]{style="color:skyblue"} Visualising the uncertainty of point estimates: `ggdist` methods (I)
+
+### [4-3.4.2]{style="color:skyblue"} Practice
+
+### [4-3.4.3]{style="color:skyblue"} Visualising the uncertainty of point estimates: `ggdist` methods (II)
+
+## [4-3.5]{style="color:skyblue"} **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
