@@ -570,7 +570,7 @@ plot(parameters(model1))
 
 ### [4-2.6.8]{style="color:skyblue"} Visualising regression parameters: *`ggcoefstats()`* methods
 
-Use `ggcoefstats()` from `ggstatsplot` package to visualise the parameters of a regression model.
+Use [`ggcoefstats()`](https://indrajeetpatil.github.io/ggstatsplot/articles/web_only/ggcoefstats.html) from `ggstatsplot` package to visualise the parameters of a regression model.
 
 ```{r}
 ggcoefstats(model1,
