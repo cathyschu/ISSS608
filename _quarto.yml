@@ -74,38 +74,38 @@ website:
       - text: "Home"
         href: index.qmd
       - section: "Hands-on Exercise"
-        href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
+        href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
         contents:
           - text: "Hands-on_Ex00"
-            href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
+            href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
           - text: "Hands-on_Ex01"
-            href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
+            href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html
           - text: "Hands-on_Ex02"
-            href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd
+            href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html
           - text: "Hands-on_Ex03_1"
-            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.qmd
+            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html
           - text: "Hands-on_Ex03_2"
-            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.qmd
+            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html
           - text: "Hands-on_Ex04_1"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.qmd
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html
           - text: "Hands-on_Ex04_2"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.qmd
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html
           - text: "Hands-on_Ex04_3"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.qmd
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html
           - text: "Hands-on_Ex04_4"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.qmd
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html
       - section: "In-class Exercise"
         contents:
           - text: "In-class_Ex1"
-            href: In-class_Ex/In-class_Ex01.qmd
+            href: In-class_Ex/In-class_Ex01.html
           - text: "In-class_Ex2"
-            href: In-class_Ex/In-class_Ex02.qmd
+            href: In-class_Ex/In-class_Ex02.html
           - text: "In-class_Ex3"
-            href: In-class_Ex/In-class_Ex03.qmd
+            href: In-class_Ex/In-class_Ex03.html
       - section: "Take-home Exercise"
         contents:
           - text: "Take-home_Ex01"
-            href: Take-home_Ex/Take-home_Ex01.qmd
+            href: Take-home_Ex/Take-home_Ex01.html
       - text: "About"
         href: about.qmd
       
