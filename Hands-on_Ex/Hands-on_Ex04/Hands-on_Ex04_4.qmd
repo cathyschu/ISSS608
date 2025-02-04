@@ -1,0 +1,38 @@
+---
+title: "Hands-on_Ex04-4"
+author: "Cathy C."
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true 
+---
+
+# **Funnel Plots for Fair Comparisons**
+
+## [4-4.1]{style="color:skyblue"} Overview
+
+## [4-4.2]{style="color:skyblue"} Install and Launch R Packages
+
+## [4-4.3]{style="color:skyblue"} Import Data
+
+## [4-4.4]{style="color:skyblue"} `FunnelPlotR` Methods
+
+### [4-4.4.1]{style="color:skyblue"} `FunnelPlotR` methods: Basic plot
+
+### [4-4.4.2]{style="color:skyblue"} `FunnelPlotR` methods: Makeover 1
+
+### [4-4.4.3]{style="color:skyblue"} `FunnelPlotR` methods: Makeover 2
+
+## [4-4.5]{style="color:skyblue"} Funnel Plot for Fair Visual Comparison: `ggplot2` methods
+
+### [4-4.5.1]{style="color:skyblue"} Computing the basic derived fields
+
+### [4-4.5.2]{style="color:skyblue"} Calculate lower and upper limits for 95% and 99.9% CI
+
+### [4-4.5.3]{style="color:skyblue"} Plot a static funnel plot
+
+
+### [4-4.5.4]{style="color:skyblue"} Interactive funnel plot: `plotly` + `ggplot2`
+
+## [4-4.6]{style="color:skyblue"} References

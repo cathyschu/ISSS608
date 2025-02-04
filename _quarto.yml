@@ -10,11 +10,10 @@ website:
     position: below-navbar
     icon: rocket
 
-    
   navbar:
     logo: "images/dino.png"
     left: 
-    - text: "Hands-on Exercise"
+    - text: "**Hands-on Exercise**"
       menu:
       - text: "Hands-on Exercise 0"
         href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
@@ -50,7 +49,7 @@ website:
       #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex08.html
       # - text: "Hands-on Exercise 9"
       #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex09.html
-    - text: "In-class Exercise"
+    - text: "**In-class Exercise**"
       menu:
       - text: "In-class Exercise 1"
         href: In-class_Ex/In-class_Ex01.html
@@ -60,7 +59,7 @@ website:
         href: In-class_Ex/In-class_Ex03.html
       - text: "In-class Exercise 4"
         href: In-class_Ex/In-class_Ex04.html
-    - text: "Take-home Exercise"
+    - text: "**Take-home Exercise**"
       menu: 
       - text: "Take-home Exercise 1"
         href: Take-home_Ex/Take-home_Ex01.html
@@ -68,7 +67,48 @@ website:
         href: Take-home_Ex/Take-home_Ex02.html
       - text: "Take-home Exercise 3"
         href: Take-home_Ex/Take-home_Ex03.html
-
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Home"
+        href: index.qmd
+      - section: "Hands-on Exercise"
+        href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
+        contents:
+          - text: "Hands-on_Ex00"
+            href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
+          - text: "Hands-on_Ex01"
+            href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
+          - text: "Hands-on_Ex02"
+            href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd
+          - text: "Hands-on_Ex03_1"
+            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.qmd
+          - text: "Hands-on_Ex03_2"
+            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.qmd
+          - text: "Hands-on_Ex04_1"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.qmd
+          - text: "Hands-on_Ex04_2"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.qmd
+          - text: "Hands-on_Ex04_3"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.qmd
+          - text: "Hands-on_Ex04_4"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.qmd
+      - section: "In-class Exercise"
+        contents:
+          - text: "In-class_Ex1"
+            href: In-class_Ex/In-class_Ex01.qmd
+          - text: "In-class_Ex2"
+            href: In-class_Ex/In-class_Ex02.qmd
+          - text: "In-class_Ex3"
+            href: In-class_Ex/In-class_Ex03.qmd
+      - section: "Take-home Exercise"
+        contents:
+          - text: "Take-home_Ex01"
+            href: Take-home_Ex/Take-home_Ex01.qmd
+      - text: "About"
+        href: about.qmd
+      
     right:
       - href: index.qmd
         text: Home
