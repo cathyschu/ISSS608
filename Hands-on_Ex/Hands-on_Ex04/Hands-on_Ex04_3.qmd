@@ -497,4 +497,89 @@ exam %>%
 
 ### [4-3.4.3]{style="color:skyblue"} Visualising the uncertainty of point estimates: `ggdist` methods (II)
 
+[`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of `ggdist` is used in the code below to build a visualisation for displaying distribution of MATHS scores by RACE.
+
+```{r}
+exam %>%
+  ggplot(
+    aes(x = RACE,
+        y = MATHS)) +
+  stat_gradientinterval(
+    fill = "skyblue",
+    show.legend = TRUE
+  ) +
+  labs(
+    title = "Visualising Confidence Intervals of Mean Score for MATHS by RACE",
+    subtitle = "Gradient + interval plot"
+  )
+```
+
 ## [4-3.5]{style="color:skyblue"} **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
+
+1️⃣ Step 1: Install `ungeviz` package
+
+```{.r}
+devtools::install_github("wilkelab/ungeviz")
+```
+
+2️⃣ Step 2: Launch the application in R
+
+```{r}
+library(ungeviz)
+```
+
+::: panel-tabset
+## MATHS by RACE
+
+```{r}
+ggplot(data = exam,
+       aes(x = factor(RACE), y = MATHS)) +
+  geom_point(position = position_jitter(
+    height = 0.3, width = 0.05),
+    size = 0.4, color = "pink", alpha = 0.6) +
+  geom_hpline(data = sampler(25, group = RACE),
+              height = 0.6, color = "skyblue") +
+  theme_bw() +
+  transition_states(.draw, 1, 3)
+  
+#.draw is a generated column indicating the sample draw.
+```
+
+## ENGLISH by RACE
+
+```{r}
+ggplot(data = exam,
+       aes(x = factor(RACE), y = ENGLISH)) +
+  geom_point(position = position_jitter(
+    height = 0.3, width = 0.05),
+    size = 0.4, color = "skyblue", alpha = 0.6) +
+  geom_hpline(data = sampler(25, group = RACE),
+              height = 0.6, color = "azure4") +
+  theme_bw() +
+  transition_states(.draw, 1, 3)
+  
+#.draw is a generated column indicating the sample draw.
+```
+
+## SCIENCE by RACE
+
+```{r}
+ggplot(data = exam,
+       aes(x = factor(RACE), y = SCIENCE)) +
+  geom_point(position = position_jitter(
+    height = 0.3, width = 0.05),
+    size = 0.4, color = "tan1", alpha = 0.6) +
+  geom_hpline(data = sampler(25, group = RACE),
+              height = 0.6, color = "pink1") +
+  theme_bw() +
+  transition_states(.draw, 1, 3)
+  
+#.draw is a generated column indicating the sample draw.
+```
+:::
+
+::: column-margin
+🔖 Reading resource for HOPs:
+
+<https://medium.com/hci-design-at-uw/hypothetical-outcomes-plots-experiencing-the-uncertain-b9ea60d7c740>
+:::
