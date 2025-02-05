@@ -3,15 +3,21 @@ project:
   output-dir: _site #for the logo to appear
 
 website:
-  title: "Visual Analytics"
+  title: ""
   page-footer: "Made with 💚 and Quarto"
   announcement:
     content: "**NEW** - [**Hands-on Exercise 04**](https://cathyc.netlify.app/hands-on_ex/hands-on_ex04/hands-on_ex04_1) and [**In-class Exercise 03**](https://cathyc.netlify.app/in-class_ex/in-class_ex03) are published!"
     position: below-navbar
-    icon: rocket
-
+    icon: rocket-takeoff-fill
+    
   navbar:
     logo: "images/dino.png"
+    right:
+    - href: index.qmd
+      text: "![](images/home.svg)"
+    - href: about.qmd
+      text: "![](images/paw2.svg)"
+
     left: 
     - text: "**Hands-on Exercise**"
       menu:
@@ -108,14 +114,6 @@ website:
             href: Take-home_Ex/Take-home_Ex01.html
       - text: "About"
         href: about.qmd
-      
-    right:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-    tools:
-      - icon: github
-        href: https://github.com/cathyschu
 
 format:
   html:
