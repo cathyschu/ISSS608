@@ -90,7 +90,7 @@
     "section": "",
     "text": "View my Tableau profile",
     "crumbs": [
-      "![](images/home.svg)",
+      "![](/images/home.svg)",
       "In-class Exercise",
       "In-class_Ex1"
     ]
@@ -102,7 +102,7 @@
     "section": "Dashboard 2: Sync dashboards",
     "text": "Dashboard 2: Sync dashboards\nClick on one state in the dotplot, the corresponding state Sales and Profit will be highlighted in the barcharts.",
     "crumbs": [
-      "![](images/home.svg)",
+      "![](/images/home.svg)",
       "In-class Exercise",
       "In-class_Ex3"
     ]
@@ -114,7 +114,7 @@
     "section": "Dashboard 3: Interactive Visualisation by Month and Year",
     "text": "Dashboard 3: Interactive Visualisation by Month and Year\nLeverage the filters on the right to observe the history using animation. Click on one dot (state), and play the animation button on the right.",
     "crumbs": [
-      "![](images/home.svg)",
+      "![](/images/home.svg)",
       "In-class Exercise",
       "In-class_Ex3"
     ]
@@ -126,7 +126,7 @@
     "section": "Dashboard 4: Story",
     "text": "Dashboard 4: Story\nUse a Story board to compile a worksheet and/or a dashboard to observe a roadmap.",
     "crumbs": [
-      "![](images/home.svg)",
+      "![](/images/home.svg)",
       "In-class Exercise",
       "In-class_Ex3"
     ]
@@ -784,6 +784,17 @@
       "![](/images/home.svg)",
       "Hands-on Exercise",
       "Hands-on_Ex04_1"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ISSS608 Visual Analytics and Applications",
+    "section": "",
+    "text": "Welcome to Cathy’s portfolio for ISSS608 Visual Analytics and Applications.\nThis webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!",
+    "crumbs": [
+      "![](/images/home.svg)",
+      "Home"
     ]
   }
 ]

@@ -11,7 +11,7 @@ execute:
 
 # **Funnel Plots for Fair Comparisons**
 
-## [1]{style="color:skyblue"} Overview
+## 1. Overview
 
 Funnel plot is a specially designed data visualisation for unbiased comparison between outlets, stores or business entities. We will learn the following in this chapter:
 
@@ -19,7 +19,7 @@ Funnel plot is a specially designed data visualisation for unbiased comparison b
 -   Plot static funnel plot with `ggplot2` package
 -   plot interactive funnel plot by using both **`plotly R`** and **`ggplot2`** packages
 
-## [2]{style="color:skyblue"} Install and Launch R Packages
+## 2. Install and Launch R Packages
 
 Four R packages will be used in this exercise:
 
@@ -33,7 +33,7 @@ Four R packages will be used in this exercise:
 pacman::p_load(tidyverse, FunnelPlotR, plotly, knitr)
 ```
 
-## [3]{style="color:skyblue"} Import Data
+## 3. Import Data
 
 We use a new set of data for this exercise - COVID-19_DKI_Jakarta as of 31st July 2021 from [Open Data Covid-19 Provinsi DKI Jakarta portal](https://riwayat-file-covid-19-dki-jakarta-jakartagis.hub.arcgis.com/). In this exercise, we will compare the cumulative COVID-19 cases and death by sub-district (i.e. kelurahan).
 
@@ -57,7 +57,7 @@ covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
 
 : {.striped .hover}
 
-## [4]{style="color:skyblue"} FunnelPlotR Methods
+## 4. FunnelPlotR Methods
 
 [**FunnelPlotR**](https://nhs-r-community.github.io/FunnelPlotR/) package uses `ggplot` to generate funner plots. It requires `numerator` (events of interest), `denominator` (population considered) and `group`. The key arguments selected for customisation are:
 
@@ -76,7 +76,7 @@ install.packages("FunnelPlotR")
 -   `xrange` and `yrange`: to specify the range to display for axes, acts like a zoom function
 -   Other aesthetic components, such as `graph title`, `axis labels` etc.
 
-### [4.1]{style="color:skyblue"} FunnelPlotR methods: Basic plot
+### 4.1 FunnelPlotR methods: Basic plot
 
 The code below plots a funnel plot.
 
@@ -97,7 +97,7 @@ funnel_plot(
 -   `limit`: Plot limits, accepted values are 95 or 99, corresponding to 95% or 99.8% quantiles of the distribution.
 :::
 
-### [4.2]{style="color:skyblue"} FunnelPlotR methods: Makeover 1
+### 4.2 FunnelPlotR methods: Makeover 1
 
 Adjust code to make over the previous plot.
 
@@ -122,7 +122,7 @@ funnel_plot(
 -   \+`xrange` and `yrange` are used to set the range of x-axis and y-axis.
 :::
 
-### [4.3]{style="color:skyblue"} FunnelPlotR methods: Makeover 2
+### 4.3 FunnelPlotR methods: Makeover 2
 
 Makeover 2 is to add titles for x axis and y axis.
 
@@ -153,11 +153,11 @@ funnel_plot(
 -   `x_label` and `y_label` arguments are used to add/edit x-axis and y-axis titles.
 :::
 
-## [5]{style="color:skyblue"} Funnel Plot for Fair Visual Comparison: `ggplot2` methods
+## 5 Funnel Plot for Fair Visual Comparison: `ggplot2` methods
 
 In this exercise, we will build funnel plots step-by-step with `ggplot2`. This will enhance the skills using ggplot2 to customise specialised data visualisation like Funnel Plot.
 
-### [5.1]{style="color:skyblue"} Computing the basic derived fields
+### 5.1 Computing the basic derived fields
 
 To plot the funnel plot from scratch:
 
@@ -179,7 +179,7 @@ fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
 
 ```
 
-### [5.2]{style="color:skyblue"} Calculate lower and upper limits for 95% and 99.9% CI
+### 5.2 Calculate lower and upper limits for 95% and 99.9% CI
 
 Next, we will compute the **lower and upper limits** for 95% Confidence Interval.
 
@@ -202,7 +202,7 @@ dfCI <- data.frame(number.ll95, number.ul95,
 99.9% of the data falls within 3.29 standard deviations of the mean.
 :::
 
-### [5.3]{style="color:skyblue"} Plot a static funnel plot
+### 5.3 Plot a static funnel plot
 
 Use the following code to plot a static funnel plot with **ggplot2**.
 
@@ -255,7 +255,7 @@ p
 
 ```
 
-### [5.4]{style="color:skyblue"} Interactive funnel plot: `plotly` + `ggplot2`
+### 5.4 Interactive funnel plot: `plotly` + `ggplot2`
 
 to make the funnel plot **interactive**, we can use ggplot2 together with `ggplotly()` from **plotly** R package.
 
@@ -269,7 +269,7 @@ fp_ggplotly <- ggplotly(p,
 fp_ggplotly
 ```
 
-## [6]{style="color:skyblue"} References
+## 6 References
 
 -   [funnelPlotR](https://nhs-r-community.github.io/FunnelPlotR/index.html) package.
 -   [Funnel Plots for Indirectly-standardised ratios](https://nhs-r-community.github.io/FunnelPlotR/articles/funnel_plots.html).

@@ -1,6 +1,93 @@
 /* css styles */
 /* Adjust logo size on the menu bar */
 nav.navbar img {
-    max-height: 100px; /* Set the height of the logo */
+    max-height: 80px; /* Set the height of the logo */
     max-width: auto;  /* Maintain aspect ratio */
+}
+    
+
+/* Customize the announcement bar background color */
+.announcement {
+    background-color: #496977 !important;  
+    color: #ffffff !important;  
+}
+
+/* General Body Styling */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #2c3e50;
+    background-color: #ced6da;
+}
+
+/* Headings */
+h1 {
+    font-size: 32px;
+    color: #3d4f5c;  /* dark navy*/
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 28px;
+    color: #3d4f5c;  /* lagoon */
+    text-align: left;
+    border-bottom: 1px solid #fff9f2;
+    padding-bottom: 5px;
+}
+
+h3 {
+    font-size: 24px;
+    color: #225566;  /* lagoon */
+}
+
+/* Code Blocks */
+pre {
+    background-color: #a0adb5; /* Slightly darker gray-blue */
+    color: #f8f8f2; /* Light text for contrast */
+    padding: 10px;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+/* Inline code style */
+code {
+    background-color: #ced6da; /* Light gray-blue to match theme */
+    color: #2c3e50; /* Dark navy text for contrast */
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+}
+
+/* Ensure inline code in text body (paragraphs) is styled */
+p code, span code, li code {
+    background-color: #ced6da !important;
+    color:#e91e63 !important;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background-color: #ced6da;
+    padding: 15px;
+}
+
+/* Links */
+a {
+    color: #e91e63;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #fff9f2;
+    text-decoration: underline;
+}
+
+/* Navbar background color */
+body .navbar {
+    background-color: #496977 !important;  /* Light gray-blue background */
+    color: #ffffff !important;  
+    
+/* Ensure that active links in the navbar have a color that contrasts well */
+.navbar-nav .nav-link.active {
+    color: #ff79c6 !important;  /* Change this to the color you want for active links */
+    background-color: #4f5b66 !important;  /* Ensure the active link has the same background color as the navbar */
 }

@@ -11,7 +11,7 @@ execute:
 
 # Visualising Uncertainty
 
-## [4-3.1]{style="color:skyblue"} Learning Outcome
+## 1. Learning Outcome
 
 In this chapter, we will do hands-on in creating statistical graphics for visualising uncertainty.
 
@@ -20,22 +20,17 @@ In this chapter, we will do hands-on in creating statistical graphics for visual
 -   to create advanced using `ggdist`
 -   to create hypothetical outcome plots (HOPs) with `ungeviz` package
 
-## [4-3.2]{style="color:skyblue"} Getting Started
+## 2. Getting Started
 
-### [4-3.2.1]{style="color:skyblue"} Installing and loading packages
+### 2.1 Installing and loading packages
 
 The following R packages will be used for this exercise:
 
 -   `tidyverse`: a family of R packages for data science process
-
 -   `plotly`: can create interactive plot
-
 -   `gganimate`: can create animation plot
-
 -   `DT`: can display interactive HTML table
-
 -   `crosstalk`: to implement cross-widget interactions (currently linked brushing and filtering)
-
 -   `ggdist`: to visualise distribution and uncertainty
 
 ```{r}
@@ -48,7 +43,7 @@ pacman::p_load(ungeviz, plotly, corsstalk,
                colorspace, gganimate, tidyverse)
 ```
 
-### [4-3.2.2]{style="color:skyblue"} Importing data
+### 2.2 Importing data
 
 The *Exam_data.csv* dataset will be used for this exercise.
 
@@ -56,7 +51,7 @@ The *Exam_data.csv* dataset will be used for this exercise.
 exam <- read_csv("data/Exam_data.csv")
 ```
 
-## [4-3.3]{style="color:skyblue"} Visualising the uncertainty of point estimates: ggplot2 methods
+## 3 Visualising the uncertainty of point estimates: ggplot2 methods
 
 A **point estimate** is a single number, such as a mean score. **Uncertainty**, is expressed as standard error, confidence interval, or credible interval. Don't confuse the uncertainty of a point estimate with the variation in the sample.
 
@@ -117,7 +112,7 @@ knitr:::kable(head(my_sum),
 ```
 :::
 
-### [4-3.3.1]{style="color:skyblue"} Plotting standard error bars of point estimates
+### 3.1 Plotting standard error bars of point estimates
 
 Now, plotting the standard error bars for the mean score of MATHS by RACE.
 
@@ -178,7 +173,7 @@ ggplot(my_sum) +
 ```
 ::::
 
-### [4-3.3.2]{style="color:skyblue"} Plotting confidence interval of point estimates
+### 3.2 Plotting confidence interval of point estimates
 
 Instead of plotting error bars of point estimates, we can also plot **Confidence Intervals** of the mean scores of MATHS by RACE.
 
@@ -243,7 +238,7 @@ ggplot(my_sum) +
 :::
 ::::
 
-### [4-3.3.3]{style="color:skyblue"} Visualising the uncertainty of point estimates with interactive error bars
+### 3.3 Visualising the uncertainty of point estimates with interactive error bars
 
 To plot interactive error bars for the 99% Confidence Interval of the mean score for MATHS by RACE.
 
@@ -367,7 +362,7 @@ bscols(widths = c(4.5,8),
 ```
 :::
 
-## [4-3.4]{style="color:skyblue"} Visualsing Uncertainty: `ggdist` package
+## 4 Visualsing Uncertainty: `ggdist` package
 
 [`ggdist`](https://mjskay.github.io/ggdist/index.html) for distribution and uncertainty visualisation:
 
@@ -404,7 +399,7 @@ theme_set(theme_ggdist())
 ![](images/cheatsheet.png){width="678"}
 :::
 
-### [4-3.4.1]{style="color:skyblue"} Visualising the uncertainty of point estimates: `ggdist` methods (I)
+### 4.1 Visualising the uncertainty of point estimates: `ggdist` methods (I)
 
 [`stat_pointinterval()`](https://mjskay.github.io/ggdist/reference/stat_pointinterval.html) of **`ggdist`** is used in the code below to build a visualisation to display distribution of MATHS scores by RACE.
 
@@ -470,7 +465,7 @@ exam %>%
 ```
 ::::
 
-### [4-3.4.2]{style="color:skyblue"} Practice
+### 4.2 Practice
 
 ::: callout-tip
 DIY to show 95% and 99% confidence intervals.
@@ -495,7 +490,7 @@ exam %>%
   )
 ```
 
-### [4-3.4.3]{style="color:skyblue"} Visualising the uncertainty of point estimates: `ggdist` methods (II)
+### 4.3 Visualising the uncertainty of point estimates: `ggdist` methods (II)
 
 [`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of `ggdist` is used in the code below to build a visualisation for displaying distribution of MATHS scores by RACE.
 
@@ -514,11 +509,11 @@ exam %>%
   )
 ```
 
-## [4-3.5]{style="color:skyblue"} **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
+## 5 **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 1️⃣ Step 1: Install `ungeviz` package
 
-```{.r}
+``` r
 devtools::install_github("wilkelab/ungeviz")
 ```
 
