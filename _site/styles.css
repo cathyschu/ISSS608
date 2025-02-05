@@ -17,7 +17,7 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: #2c3e50;
-    background-color: #ced6da;
+    background-color: #ddeaf1;
 }
 
 /* Headings */
@@ -60,13 +60,13 @@ code {
 
 /* Ensure inline code in text body (paragraphs) is styled */
 p code, span code, li code {
-    background-color: #ced6da !important;
+    background-color: #ddeaf1 !important;
     color:#e91e63 !important;
 }
 
 /* Sidebar Styling */
 .sidebar {
-    background-color: #ced6da;
+    background-color: #ddeaf1;
     padding: 15px;
 }
 
@@ -83,11 +83,11 @@ a:hover {
 
 /* Navbar background color */
 body .navbar {
-    background-color: #496977 !important;  /* Light gray-blue background */
-    color: #ffffff !important;  
-    
-/* Ensure that active links in the navbar have a color that contrasts well */
-.navbar-nav .nav-link.active {
-    color: #ff79c6 !important;  /* Change this to the color you want for active links */
-    background-color: #4f5b66 !important;  /* Ensure the active link has the same background color as the navbar */
+    background-color: #496977 !important; 
+    color: #ffffff;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #ffffff;
+  font-size: 20px;
 }

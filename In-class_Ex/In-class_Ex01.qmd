@@ -9,7 +9,7 @@ brand:
       white: "#fdfefe"
       grey: "#5d6d7e"
       pink: "#ffe4e1"
-    background: pink
+    background: white
     foreground: grey
     primary: white
 execute:

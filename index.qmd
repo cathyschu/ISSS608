@@ -10,9 +10,6 @@ brand:
     background: blue
     foreground: grey
     primary: white
-output:
-  html_document:
-    css: style.css
 ---
 
 ![](images/AdobeStock_284734871.jpeg)
