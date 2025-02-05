@@ -11,7 +11,7 @@ execute:
 
 # Visual Statistical Analysis
 
-## [4-2.1]{style="color:skyblue"} Learning Outcome
+## 1 Learning Outcome
 
 In this hands-on exercise, we will gain hands-on experience on using:
 
@@ -19,7 +19,7 @@ In this hands-on exercise, we will gain hands-on experience on using:
 -   **performance** package to visualise model diagnostics.
 -   **parameters** package to visualise model parameters.
 
-## [4-2.2]{style="color:skyblue"} Visual Statistical Analysis with **ggstatsplot**
+## 2 Visual Statistical Analysis with **ggstatsplot**
 
 [**ggstatsplot**](https://indrajeetpatil.github.io/ggstatsplot/index.html) ![](images/ggstatsplot.png){width="40"}is an extension of [**ggplot2**](https://ggplot2.tidyverse.org/) package for creating graphics with details from statistical tests included in the information-rich plots themselves.
 
@@ -31,9 +31,9 @@ For example, here are results from a robust t-test:
 
 ![](images/stats_reporting_format.png)
 
-## [4-2.3]{style="color:skyblue"} Getting started
+## 3 Getting started
 
-### [4-2.3.1]{style="color:skyblue"} Installing and launching R packages
+### 3.1 Installing and launching R packages
 
 In this exercise, g**gstatsplot** and **tidyverse** will be used.
 
@@ -41,7 +41,7 @@ In this exercise, g**gstatsplot** and **tidyverse** will be used.
 pacman::p_load(ggstatsplot, tidyverse)
 ```
 
-### [4-2.3.2]{style="color:skyblue"} Importing data
+### 3.2 Importing data
 
 ::: callout-note
 ## DIY
@@ -53,7 +53,7 @@ exam <- read_csv("data/Exam_data.csv")
 ```
 :::
 
-### [4-2.3.3]{style="color:skyblue"} One-sample test: *`gghistostats()`* method
+### 3.3 One-sample test: *`gghistostats()`* method
 
 In the code chunk below, [*`gghistostats()`*](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) is used to build an visual of one-sample test on English scores.
 
@@ -73,7 +73,7 @@ Default information:
 
 statistical details / Bayes Factor / sample sizes / distribution summary
 
-### [4-2.3.4]{style="color:skyblue"} Unpacking the Bayes Factor
+### 3.4 Unpacking the Bayes Factor
 
 -   A Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favour of one theory among two competing theories.
 
@@ -87,7 +87,7 @@ statistical details / Bayes Factor / sample sizes / distribution summary
 
 -   The [**Schwarz criterion**](https://www.statisticshowto.com/bayesian-information-criterion/) is one of the easiest ways to calculate rough estimation of the Bayes factor.
 
-### [4-2.3.5]{style="color:skyblue"} How to interpret Bayes Factor
+### 3.5 How to interpret Bayes Factor
 
 A Bayes Factor can be any positive number.
 
@@ -109,7 +109,7 @@ One of the most common interpretation is this one - first proposed by Harold Jef
 
 : Bayes Factor {.striped .hover}
 
-### [4-2.3.6]{style="color:skyblue"} Two-sample mean test: *`ggbetweenstats()`*
+### 3.6 Two-sample mean test: *`ggbetweenstats()`*
 
 In the code chunk below, [ggbetweenstats()](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
 
@@ -126,7 +126,7 @@ ggbetweenstats(
 
 Default information: statistical details / Bayes factor / samples sizes / distribution summary
 
-### [4-2.3.7]{style="color:skyblue"} Oneway ANOVA Test: *`ggbetweentats()`* method
+### 3.7 Oneway ANOVA Test: *`ggbetweentats()`* method
 
 In the code chunk below, [ggbetweenstats()](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for One-way ANOVA test on English scores by race.
 
@@ -148,7 +148,7 @@ ggbetweenstats(
 -   "s" -\> only significant
 -   "all" -\> everything
 
-#### [4-2.3.7.1]{style="color:skyblue"} *`ggbetweentats()`* - Summary of tests
+#### 3.7.1 *`ggbetweentats()`* - Summary of tests
 
 ::: panel-tabset
 ## Test
@@ -179,7 +179,7 @@ Summary of multiple pairwise comparison tests supported in `ggbetweenstats()`
 ![](images/summary.jpg)
 :::
 
-### [4-2.3.8]{style="color:skyblue"} Significant test of correlation: *`ggscatterstats()`*
+### 3.8 Significant test of correlation: *`ggscatterstats()`*
 
 In the code chunk below, [`ggscatterstats()`](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html) is used to build a visual for Significant Test of Correlation between Maths scores and English scores. Practice using various subjects from the data and labeling functions.
 
@@ -189,6 +189,8 @@ In the code chunk below, [`ggscatterstats()`](https://indrajeetpatil.github.io/g
 Maths x Science; use labels to indicate races scoring 90 for both subjects.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggscatterstats(
   data = exam,
   x = MATHS,
@@ -205,6 +207,8 @@ ggscatterstats(
 English x Science; use labels to indicate genders scoring 90 for both subjects.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggscatterstats(
   data = exam,
   x = ENGLISH,
@@ -218,6 +222,8 @@ ggscatterstats(
 ## Example
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggscatterstats(
   data = exam,
   x = MATHS,
@@ -227,7 +233,7 @@ ggscatterstats(
 ```
 :::
 
-### [4-2.3.9]{style="color:skyblue"} Significant test of association (dependence): *`ggbarstats()`*
+### 3.9 Significant test of association (dependence): *`ggbarstats()`*
 
 Code chunk below, the Maths scores are binned into a 4-class variable with [`cut()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut)
 
@@ -283,11 +289,13 @@ ggbarstats(
 :::
 
 ::: panel-tabset
-## 🦖 Practice I
+## 🦖 English by GENDER
 
 To see English scores by genders.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 exam_E <- exam |>
   mutate(ENGLISH_bins = 
            cut(ENGLISH,
@@ -299,11 +307,13 @@ ggbarstats(exam_E,
 
 ```
 
-## 🦖 Practice II
+## 🦖 Science by RACE
 
 To see Science scores by races.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 exam_S <- exam |>
   mutate(SCIENCE_bins = 
            cut(SCIENCE,
@@ -324,21 +334,21 @@ ggbarstats(exam1,
 ```
 :::
 
-## [4-2.4]{style="color:skyblue"} Visualsing Models
+## 4 Visualsing Models
 
 Learn how to visualise model diagnostic and model parameters by using parameters package.
 
 🚙 🚙 🚙 🚙 🚙 Toyota Corolla case study will be used to build a model to discover factor affecting practices of used-cars by taking into consideration of a set of explanatory variables.
 
-## [4-2.5]{style="color:skyblue"} Getting started
+## 5 Getting started
 
-## [4-2.6]{style="color:skyblue"} Installing and loading the required libraries
+## 6 Installing and loading the required libraries
 
 ```{r}
 pacman::p_load(readxl, performance, parameters, see)
 ```
 
-### [4-2.6.1]{style="color:skyblue"} Importing Excel file: readxl methods
+### 6.1 Importing Excel file: readxl methods
 
 [`read_xls()`](https://readxl.tidyverse.org/reference/read_excel.html) of [`readxl`](https://readxl.tidyverse.org/) package is used to import the data worksheet of `ToyotaCorolla.xls` worksbook into R.
 
@@ -405,7 +415,7 @@ The output object `car_resale` is a tibble data frame.
 *Tibble is a modern data frame that is similar to data frames in R Programming Language but with some enhancements to make them easier to use and more consistent. Tibble is a part of the tidyverse package in R. Using tibbles we can **view and understand the data very easily especially when working with large datasets***
 :::
 
-### [4-2.6.2]{style="color:skyblue"} Multiple regression model using `lm()`
+### 6.2 Multiple regression model using `lm()`
 
 Code chunk below is used to calibrate a multiple linear regression model by using `lm()` of Base Stats of R.
 
@@ -417,7 +427,7 @@ model
 
 🦄 Can see how the variables affecting price positively or negatively.
 
-### [4-2.6.3]{style="color:skyblue"} Model diagnostic: checking for multicolinearity
+### 6.3 Model diagnostic: checking for multicolinearity
 
 Code below checks for Multicollinearity using [`check_collinearity()`](https://easystats.github.io/performance/reference/check_collinearity.html) of `performance` package.
 
@@ -463,7 +473,7 @@ check_c <- check_collinearity(model)
 plot(check_c)
 ```
 
-### [4-2.6.4]{style="color:skyblue"} Model diagnostic: checking normality assumption
+### 6.4 Model diagnostic: checking normality assumption
 
 Checking normality using [`check_normality()`](https://easystats.github.io/performance/reference/check_normality.html) from the [`performance`](https://easystats.github.io/performance/index.html) package.
 
@@ -480,6 +490,8 @@ check_normality(x, effects =
 :::
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 model1 <- lm(Price ~ Age_08_04 + KM +
                Weight + Guarantee_Period, 
              data = car_resale)
@@ -496,7 +508,7 @@ plot(check_n)
 ![](images/figure_workflow.png){fig-align="center"}
 :::
 
-### [4-2.6.5]{style="color:skyblue"} Model diagnostic: check model for homogeneity of variances
+### 6.5] Model diagnostic: check model for homogeneity of variances
 
 Check model for constant error variance using [`check_heteroscedasticity()`](https://easystats.github.io/performance/reference/check_heteroscedasticity.html) from the `performance` package.
 
@@ -516,7 +528,7 @@ check_h <- check_heteroscedasticity(model1)
 plot(check_h)
 ```
 
-### [4-2.6.6]{style="color:skyblue"} Model diagnostic: complete check
+### 6.6 Model diagnostic: complete check
 
 Use [`check_model()`](https://easystats.github.io/performance/reference/check_model.html) to perform a complete model check.
 
@@ -554,13 +566,15 @@ check_model(
 :::
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 #| fig-width: 12
 #| fig-height: 12
 check_model(model1)
 
 ```
 
-### [4-2.6.7]{style="color:skyblue"} Visualising regression parameters: see methods
+### 6.7 Visualising regression parameters: see methods
 
 Use `plot()` from the `see` package and `parameters()` from the `parameters` package to visualise the parameters of a regression model.
 
@@ -568,11 +582,13 @@ Use `plot()` from the `see` package and `parameters()` from the `parameters` pac
 plot(parameters(model1))
 ```
 
-### [4-2.6.8]{style="color:skyblue"} Visualising regression parameters: *`ggcoefstats()`* methods
+### 6.8 Visualising regression parameters: *`ggcoefstats()`* methods
 
 Use [`ggcoefstats()`](https://indrajeetpatil.github.io/ggstatsplot/articles/web_only/ggcoefstats.html) from `ggstatsplot` package to visualise the parameters of a regression model.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggcoefstats(model1,
             output = "plot")
 ```

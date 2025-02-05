@@ -61,7 +61,7 @@ code {
 /* Ensure inline code in text body (paragraphs) is styled */
 p code, span code, li code {
     background-color: #ddeaf1 !important;
-    color:#e91e63 !important;
+    color:#0b5394 !important;
 }
 
 /* Sidebar Styling */
@@ -72,7 +72,7 @@ p code, span code, li code {
 
 /* Links */
 a {
-    color: #e91e63;
+    color: #3d85c6;
     text-decoration: none;
 }
 
@@ -94,7 +94,7 @@ body .navbar {
 
 pre {
   background-color: #F6F8FB !important;  /* Light cream */
-  color: #c27d10 !important; 
+  color: #134f5c !important; 
 }
 code span.kw { color: #859900 !important; } /* Keywords */
 code span.dt { color: #268bd2 !important; } /* Data types */

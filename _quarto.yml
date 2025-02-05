@@ -124,7 +124,6 @@ format:
     css: styles.css
     logo: dino.png
     toc: true
-    highlight-style: pygments
 
 editor: visual
 
