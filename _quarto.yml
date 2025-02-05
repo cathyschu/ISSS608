@@ -77,7 +77,7 @@ website:
     style: "docked"
     search: true
     contents:
-      - text: "![](images/spinners.svg)"
+      - text: "Home"
         href: index.qmd
       - section: "Hands-on Exercise"
         href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
