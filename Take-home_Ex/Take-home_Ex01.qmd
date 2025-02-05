@@ -10,20 +10,40 @@ execute:
   freeze: true 
 ---
 
-```{r}
-pacman::p_load(tidyverse)
-library(readr)
-heart <- read_csv("data/jp_heart_attack_dataset.csv")
-ship <- read_csv("data/Ship_Pfm_Dataset.csv")
-ship
+## 1 Overview
 
+### 1.1 Abstract
 
+### 1.2 Task
 
-```
+An international media company that publishes weekly content on digital platforms is planning to release articles on "Heart Attach in Japan". As a graphical editor of the media company, I am going to prepare data visualisation for the article.
 
-```{r}
-ggplot(data=ship,
-       aes(x = Engine_Type,
-           fill = Route_Type)) +
-  geom_bar()
-```
+### 1.3 Data set
+
+-   [Heart Attack in Japan Youth Vs Adult](https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult)
+
+## 2 Getting Started
+
+## 3 Data Preparation
+
+### 3.1 Data Exploration
+
+### 3.2 Data Wrangling
+
+### 3.3 Variable Selection
+
+### 3.4 Data cleaning
+
+### 3.5 Recoding Variables
+
+## 4 Exploratory Data Analysis
+
+### 4.1 Univariate Analysis
+
+### 4.2 Bivariate Analysis
+
+### 4.3 Multivariate Analysis
+
+## 5 Summary
+
+## 6 References

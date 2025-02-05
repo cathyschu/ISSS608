@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Cathy C.">
-<meta name="dcterms.date" content="2025-02-01">
 
-<title>Take-home Exercise 1</title>
+<title>Take-home_Ex01_working</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -186,7 +219,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Take-home_Ex/Take-home_Ex01.html">Take-home Exercise</a></li><li class="breadcrumb-item"><a href="../Take-home_Ex/Take-home_Ex01.html">Take-home_Ex01</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Take-home_Ex01_working</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -320,7 +353,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Take-home_Ex/Take-home_Ex01.html" class="sidebar-item-text sidebar-link active">
+  <a href="../Take-home_Ex/Take-home_Ex01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Take-home_Ex01</span></a>
   </div>
 </li>
@@ -337,43 +370,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a>
-  <ul class="collapse">
-  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">1.1 Abstract</a></li>
-  <li><a href="#task" id="toc-task" class="nav-link" data-scroll-target="#task">1.2 Task</a></li>
-  <li><a href="#data-set" id="toc-data-set" class="nav-link" data-scroll-target="#data-set">1.3 Data set</a></li>
-  </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting Started</a></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">3 Data Preparation</a>
-  <ul class="collapse">
-  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration">3.1 Data Exploration</a></li>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">3.2 Data Wrangling</a></li>
-  <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">3.3 Variable Selection</a></li>
-  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">3.4 Data cleaning</a></li>
-  <li><a href="#recoding-variables" id="toc-recoding-variables" class="nav-link" data-scroll-target="#recoding-variables">3.5 Recoding Variables</a></li>
-  </ul></li>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">4 Exploratory Data Analysis</a>
-  <ul class="collapse">
-  <li><a href="#univariate-analysis" id="toc-univariate-analysis" class="nav-link" data-scroll-target="#univariate-analysis">4.1 Univariate Analysis</a></li>
-  <li><a href="#bivariate-analysis" id="toc-bivariate-analysis" class="nav-link" data-scroll-target="#bivariate-analysis">4.2 Bivariate Analysis</a></li>
-  <li><a href="#multivariate-analysis" id="toc-multivariate-analysis" class="nav-link" data-scroll-target="#multivariate-analysis">4.3 Multivariate Analysis</a></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">5 Summary</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">6 References</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Take-home_Ex/Take-home_Ex01.html">Take-home Exercise</a></li><li class="breadcrumb-item"><a href="../Take-home_Ex/Take-home_Ex01.html">Take-home_Ex01</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Take-home Exercise 1</h1>
+<h1 class="title">Take-home_Ex01_working</h1>
 </div>
 
 
@@ -387,19 +392,7 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 1, 2025</p>
-    </div>
-  </div>
   
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 6, 2025</p>
-    </div>
-  </div>
     
   </div>
   
@@ -408,63 +401,267 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">1 Overview</h2>
-<section id="abstract" class="level3">
-<h3 class="anchored" data-anchor-id="abstract">1.1 Abstract</h3>
-</section>
-<section id="task" class="level3">
-<h3 class="anchored" data-anchor-id="task">1.2 Task</h3>
-<p>An international media company that publishes weekly content on digital platforms is planning to release articles on “Heart Attach in Japan”. As a graphical editor of the media company, I am going to prepare data visualisation for the article.</p>
-</section>
-<section id="data-set" class="level3">
-<h3 class="anchored" data-anchor-id="data-set">1.3 Data set</h3>
-<ul>
-<li><a href="https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult">Heart Attack in Japan Youth Vs Adult</a></li>
-</ul>
-</section>
-</section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">2 Getting Started</h2>
-</section>
-<section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">3 Data Preparation</h2>
-<section id="data-exploration" class="level3">
-<h3 class="anchored" data-anchor-id="data-exploration">3.1 Data Exploration</h3>
-</section>
-<section id="data-wrangling" class="level3">
-<h3 class="anchored" data-anchor-id="data-wrangling">3.2 Data Wrangling</h3>
-</section>
-<section id="variable-selection" class="level3">
-<h3 class="anchored" data-anchor-id="variable-selection">3.3 Variable Selection</h3>
-</section>
-<section id="data-cleaning" class="level3">
-<h3 class="anchored" data-anchor-id="data-cleaning">3.4 Data cleaning</h3>
-</section>
-<section id="recoding-variables" class="level3">
-<h3 class="anchored" data-anchor-id="recoding-variables">3.5 Recoding Variables</h3>
-</section>
-</section>
-<section id="exploratory-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis">4 Exploratory Data Analysis</h2>
-<section id="univariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-analysis">4.1 Univariate Analysis</h3>
-</section>
-<section id="bivariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="bivariate-analysis">4.2 Bivariate Analysis</h3>
-</section>
-<section id="multivariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="multivariate-analysis">4.3 Multivariate Analysis</h3>
-</section>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">5 Summary</h2>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">6 References</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>heart <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/jp_heart_attack_dataset.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 30000 Columns: 32
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (10): Gender, Region, Smoking_History, Diabetes_History, Hypertension_Hi...
+dbl (22): Age, Cholesterol_Level, Stress_Levels, BMI, Heart_Rate, Systolic_B...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ship <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Ship_Pfm_Dataset.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2736 Columns: 18
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (5): Ship_Type, Route_Type, Engine_Type, Maintenance_Status, Weather_C...
+dbl  (12): Speed_Over_Ground_knots, Engine_Power_kW, Distance_Traveled_nm, D...
+date  (1): Date
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>heart </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30,000 × 32
+     Age Gender Region Smoking_History Diabetes_History Hypertension_History
+   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;               
+ 1    56 Male   Urban  Yes             No               No                  
+ 2    69 Male   Urban  No              No               No                  
+ 3    46 Male   Rural  Yes             No               No                  
+ 4    32 Female Urban  No              No               No                  
+ 5    60 Female Rural  No              No               No                  
+ 6    25 Female Rural  No              No               No                  
+ 7    78 Male   Urban  No              Yes              Yes                 
+ 8    38 Female Urban  Yes             No               No                  
+ 9    56 Male   Rural  No              No               Yes                 
+10    75 Male   Urban  No              No               No                  
+# ℹ 29,990 more rows
+# ℹ 26 more variables: Cholesterol_Level &lt;dbl&gt;, Physical_Activity &lt;chr&gt;,
+#   Diet_Quality &lt;chr&gt;, Alcohol_Consumption &lt;chr&gt;, Stress_Levels &lt;dbl&gt;,
+#   BMI &lt;dbl&gt;, Heart_Rate &lt;dbl&gt;, Systolic_BP &lt;dbl&gt;, Diastolic_BP &lt;dbl&gt;,
+#   Family_History &lt;chr&gt;, Heart_Attack_Occurrence &lt;chr&gt;, Extra_Column_1 &lt;dbl&gt;,
+#   Extra_Column_2 &lt;dbl&gt;, Extra_Column_3 &lt;dbl&gt;, Extra_Column_4 &lt;dbl&gt;,
+#   Extra_Column_5 &lt;dbl&gt;, Extra_Column_6 &lt;dbl&gt;, Extra_Column_7 &lt;dbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ship</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,736 × 18
+   Date       Ship_Type      Route_Type   Engine_Type         Maintenance_Status
+   &lt;date&gt;     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;               &lt;chr&gt;             
+ 1 2023-06-04 Container Ship None         Heavy Fuel Oil (HF… Critical          
+ 2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine       Good              
+ 3 2023-06-18 Container Ship Long-haul    Diesel              Fair              
+ 4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine       Fair              
+ 5 2023-07-02 Fish Carrier   Transoceanic Diesel              Fair              
+ 6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HF… Fair              
+ 7 2023-07-16 Fish Carrier   Transoceanic Heavy Fuel Oil (HF… Critical          
+ 8 2023-07-23 Container Ship Short-haul   Diesel              Critical          
+ 9 2023-07-30 None           Coastal      Heavy Fuel Oil (HF… Good              
+10 2023-08-06 Container Ship Long-haul    Diesel              Fair              
+# ℹ 2,726 more rows
+# ℹ 13 more variables: Speed_Over_Ground_knots &lt;dbl&gt;, Engine_Power_kW &lt;dbl&gt;,
+#   Distance_Traveled_nm &lt;dbl&gt;, Draft_meters &lt;dbl&gt;, Weather_Condition &lt;chr&gt;,
+#   Cargo_Weight_tons &lt;dbl&gt;, Operational_Cost_USD &lt;dbl&gt;,
+#   Revenue_per_Voyage_USD &lt;dbl&gt;, Turnaround_Time_hours &lt;dbl&gt;,
+#   Efficiency_nm_per_kWh &lt;dbl&gt;, Seasonal_Impact_Score &lt;dbl&gt;,
+#   Weekly_Voyage_Count &lt;dbl&gt;, Average_Load_Percentage &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>local_missing <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(heart))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>count_missing <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(heart))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>local_missing</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>integer(0)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (count_missing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(heart)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Age           Gender             Region          Smoking_History   
+ Min.   :18.00   Length:30000       Length:30000       Length:30000      
+ 1st Qu.:33.00   Class :character   Class :character   Class :character  
+ Median :48.00   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :48.49                                                           
+ 3rd Qu.:64.00                                                           
+ Max.   :79.00                                                           
+ Diabetes_History   Hypertension_History Cholesterol_Level Physical_Activity 
+ Length:30000       Length:30000         Min.   : 80.02    Length:30000      
+ Class :character   Class :character     1st Qu.:179.55    Class :character  
+ Mode  :character   Mode  :character     Median :199.77    Mode  :character  
+                                         Mean   :199.90                      
+                                         3rd Qu.:220.16                      
+                                         Max.   :336.86                      
+ Diet_Quality       Alcohol_Consumption Stress_Levels         BMI       
+ Length:30000       Length:30000        Min.   : 0.000   Min.   : 5.58  
+ Class :character   Class :character    1st Qu.: 3.644   1st Qu.:21.63  
+ Mode  :character   Mode  :character    Median : 4.993   Median :24.96  
+                                        Mean   : 5.002   Mean   :25.00  
+                                        3rd Qu.: 6.353   3rd Qu.:28.36  
+                                        Max.   :10.000   Max.   :46.10  
+   Heart_Rate      Systolic_BP      Diastolic_BP    Family_History    
+ Min.   : 30.03   Min.   : 56.23   Min.   : 39.95   Length:30000      
+ 1st Qu.: 63.25   1st Qu.:109.79   1st Qu.: 73.26   Class :character  
+ Median : 69.95   Median :119.90   Median : 80.12   Mode  :character  
+ Mean   : 69.98   Mean   :119.91   Mean   : 80.03                     
+ 3rd Qu.: 76.66   3rd Qu.:130.02   3rd Qu.: 86.76                     
+ Max.   :108.78   Max.   :178.77   Max.   :117.67                     
+ Heart_Attack_Occurrence Extra_Column_1     Extra_Column_2     
+ Length:30000            Min.   :0.000007   Min.   :0.0000052  
+ Class :character        1st Qu.:0.253308   1st Qu.:0.2473606  
+ Mode  :character        Median :0.500820   Median :0.4961980  
+                         Mean   :0.501939   Mean   :0.4978940  
+                         3rd Qu.:0.750529   3rd Qu.:0.7473954  
+                         Max.   :0.999965   Max.   :0.9999894  
+ Extra_Column_3      Extra_Column_4      Extra_Column_5     Extra_Column_6     
+ Min.   :0.0000227   Min.   :0.0000934   Min.   :0.000105   Min.   :0.0000531  
+ 1st Qu.:0.2483093   1st Qu.:0.2522110   1st Qu.:0.251803   1st Qu.:0.2559989  
+ Median :0.4976104   Median :0.4976175   Median :0.501987   Median :0.5017726  
+ Mean   :0.4981949   Mean   :0.5005952   Mean   :0.501410   Mean   :0.5027631  
+ 3rd Qu.:0.7476807   3rd Qu.:0.7505662   3rd Qu.:0.753657   3rd Qu.:0.7511886  
+ Max.   :0.9999694   Max.   :0.9999869   Max.   :0.999995   Max.   :0.9998892  
+ Extra_Column_7      Extra_Column_8      Extra_Column_9     
+ Min.   :0.0000678   Min.   :0.0000449   Min.   :0.0000305  
+ 1st Qu.:0.2482839   1st Qu.:0.2509790   1st Qu.:0.2502452  
+ Median :0.4988157   Median :0.4985698   Median :0.4984491  
+ Mean   :0.4980753   Mean   :0.5003557   Mean   :0.5002292  
+ 3rd Qu.:0.7456378   3rd Qu.:0.7507293   3rd Qu.:0.7512186  
+ Max.   :0.9999900   Max.   :0.9999300   Max.   :0.9999852  
+ Extra_Column_10     Extra_Column_11     Extra_Column_12    
+ Min.   :0.0000133   Min.   :0.0000008   Min.   :0.0000713  
+ 1st Qu.:0.2484256   1st Qu.:0.2538092   1st Qu.:0.2505341  
+ Median :0.5031040   Median :0.5067589   Median :0.5038609  
+ Mean   :0.5010694   Mean   :0.5044949   Mean   :0.5008624  
+ 3rd Qu.:0.7522686   3rd Qu.:0.7556257   3rd Qu.:0.7511780  
+ Max.   :0.9999928   Max.   :0.9999578   Max.   :0.9999484  
+ Extra_Column_13     Extra_Column_14     Extra_Column_15    
+ Min.   :0.0000204   Min.   :0.0000025   Min.   :0.0000241  
+ 1st Qu.:0.2473108   1st Qu.:0.2482152   1st Qu.:0.2482573  
+ Median :0.5041162   Median :0.4943841   Median :0.5009406  
+ Mean   :0.5004557   Mean   :0.4976507   Mean   :0.4999634  
+ 3rd Qu.:0.7497094   3rd Qu.:0.7456212   3rd Qu.:0.7487379  
+ Max.   :0.9999451   Max.   :0.9999779   Max.   :0.9999913  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">color =</span> Region)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Age)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Region, <span class="at">y =</span> Age)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Diabetes_History, <span class="at">y =</span> Age)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">y =</span> Cholesterol_Level)) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">y =</span> Stress_Levels)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Heart_Attack_Occurrence, <span class="at">y =</span> Heart_Rate)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Heart_Rate)) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Family_History, <span class="at">y =</span> Heart_Rate)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-4-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> heart,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> BMI)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_working_files/figure-html/unnamed-chunk-4-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

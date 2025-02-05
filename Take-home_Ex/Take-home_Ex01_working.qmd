@@ -1,0 +1,75 @@
+---
+title: "Take-home_Ex01_working"
+author: "Cathy C."
+---
+
+```{r}
+pacman::p_load(tidyverse)
+library(readr)
+heart <- read_csv("data/jp_heart_attack_dataset.csv")
+ship <- read_csv("data/Ship_Pfm_Dataset.csv")
+
+heart 
+
+ship
+```
+
+```{r}
+local_missing <- which(is.na(heart))
+count_missing <- sum(is.na(heart))
+
+local_missing
+print (count_missing)
+
+summary(heart)
+```
+
+```{r}
+ggplot(data = heart,
+  aes(x = Gender, color = Region)) +
+    geom_bar()
+
+ggplot(data = heart,
+  aes(x = Gender, y = Age)) +
+    geom_boxplot()
+
+ggplot(data = heart,
+  aes(x = Region, y = Age)) +
+    geom_boxplot()
+
+ggplot(data = heart,
+  aes(x = Diabetes_History, y = Age)) +
+    geom_boxplot()
+
+```
+
+```{r}
+library(tidyr)
+library(ggplot2)
+
+ggplot(data = heart,
+       aes(x = Heart_Attack_Occurrence, y = Cholesterol_Level)) +
+  geom_boxplot()
+
+ggplot(data = heart,
+       aes(x = Heart_Attack_Occurrence, y = Stress_Levels)) +
+  geom_boxplot()
+
+ggplot(data = heart,
+       aes(x = Heart_Attack_Occurrence, y = Heart_Rate)) +
+  geom_boxplot()
+
+ggplot(data = heart,
+       aes(x = Gender, y = Heart_Rate)) +
+  geom_boxplot()
+
+ggplot(data = heart,
+       aes(x = Family_History, y = Heart_Rate)) +
+  geom_boxplot()
+
+ggplot(data = heart,
+       aes(x = Gender, y = BMI)) +
+  geom_boxplot()
+
+
+```

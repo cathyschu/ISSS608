@@ -60,8 +60,8 @@ code {
 
 /* Ensure inline code in text body (paragraphs) is styled */
 p code, span code, li code {
-    background-color: #ddeaf1 !important;
-    color:#0b5394 !important;
+    background-color: #f0f6fa !important;
+    color:#852258 !important;
 }
 
 /* Sidebar Styling */
