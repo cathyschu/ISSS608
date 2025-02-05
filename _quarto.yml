@@ -14,7 +14,7 @@ website:
     logo: "images/dino.png"
     right:
     - href: index.qmd
-      text: "![](images/spinners.svg)"
+      text: "![](images/home.svg)"
     - href: about.qmd
       text: "![](images/paw2.svg)"
 
