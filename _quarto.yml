@@ -14,7 +14,7 @@ website:
     logo: "images/dino.png"
     right:
     - href: index.qmd
-      text: "![](images/home.svg)"
+      text: "![](images/spinners.svg)"
     - href: about.qmd
       text: "![](images/paw2.svg)"
 
@@ -77,7 +77,7 @@ website:
     style: "docked"
     search: true
     contents:
-      - text: "Home"
+      - text: "![](images/spinners.svg)"
         href: index.qmd
       - section: "Hands-on Exercise"
         href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
