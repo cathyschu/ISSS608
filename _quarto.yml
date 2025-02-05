@@ -22,53 +22,53 @@ website:
     - text: "**Hands-on Exercise**"
       menu:
       - text: "Hands-on Exercise 0"
-        href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.amd
+        href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
       - text: "Hands-on Exercise 1"
-        href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.amd
+        href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
       - text: "Hands-on Exercise 2"
-        href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.amd
+        href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd
       - text: "Hands-on Exercise 3-1"
-        href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.amd
+        href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.qmd
       - text: "Hands-on Exercise 3-2"
-        href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.amd
+        href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.qmd
       - text: "Hands-on Exercise 4-1"
-        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.amd
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.qmd
       - text: "Hands-on Exercise 4-2"
-        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.amd
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.qmd
       - text: "Hands-on Exercise 4-3"
-        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.amd
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.qmd
       - text: "Hands-on Exercise 4-4"
-        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.amd
+        href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.qmd
       # - text: "Hands-on Exercise 5-1"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_1.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_1.qmd
       # - text: "Hands-on Exercise 5-2"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_2.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_2.qmd
       # - text: "Hands-on Exercise 5-3"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_3.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_3.qmd
       # - text: "Hands-on Exercise 5-4"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_4.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex05_4.qmd
       # - text: "Hands-on Exercise 6"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex06.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex06.qmd
       # - text: "Hands-on Exercise 7"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex07.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex07.qmd
       # - text: "Hands-on Exercise 8"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex08.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex08.qmd
       # - text: "Hands-on Exercise 9"
-      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex09.amd
+      #   href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex09.qmd
     - text: "**In-class Exercise**"
       menu:
       - text: "In-class Exercise 1"
-        href: In-class_Ex/In-class_Ex01.amd
+        href: In-class_Ex/In-class_Ex01.qmd
       - text: "In-class Exercise 2"
-        href: In-class_Ex/In-class_Ex02.amd
+        href: In-class_Ex/In-class_Ex02.qmd
       - text: "In-class Exercise 3"
-        href: In-class_Ex/In-class_Ex03.amd
+        href: In-class_Ex/In-class_Ex03.qmd
 #      - text: "In-class Exercise 4"
- #       href: In-class_Ex/In-class_Ex04.amd
+ #       href: In-class_Ex/In-class_Ex04.qmd
     - text: "**Take-home Exercise**"
       menu: 
       - text: "Take-home Exercise 1"
-        href: Take-home_Ex/Take-home_Ex01.amd
+        href: Take-home_Ex/Take-home_Ex01.qmd
       - text: "Take-home Exercise 2"
 
       - text: "Take-home Exercise 3"
