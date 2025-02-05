@@ -10,11 +10,14 @@ brand:
     background: blue
     foreground: grey
     primary: white
+css: tile.css
 ---
 
 ![](images/AdobeStock_284734871.jpeg)
 
 **Welcome to Cathy's portfolio for ISSS608 Visual Analytics and Applications.**
+
+
 
 This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.
 

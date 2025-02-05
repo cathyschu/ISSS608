@@ -450,6 +450,8 @@ This function comes with many arguments. See next tab for example.
 -   color = red
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 theme_set(theme_bw())
 
 exam %>%
@@ -471,23 +473,34 @@ exam %>%
 DIY to show 95% and 99% confidence intervals.
 :::
 
-```{r}
-theme_set(theme_linedraw())
-
+```{r fig.bg='transparent'}
+#| code-fold: true
+#| code-summary: "Show the code"
 exam %>%
-  ggplot(aes(x = RACE, y = MATHS)) +
+ggplot(aes(x = RACE, y = MATHS)) +
   stat_pointinterval(
     show.legend = FALSE,
     .width = c(0.95, 0.99),
-    color = "steelblue3",
-    point_fill = "pink",
-    point_colour = "pink",
+    aes(interval_color = stat(level)),
+    point_fill = "grey",
+    point_colour = "grey",
     point_size = 5
+  ) +
+  #Define colors of the intervals
+  scale_color_manual(
+    values = c("steelblue", "pink"),
+    aesthetics = "interval_color"
   ) +
   labs(
     title = "Visualising Confidence Intervals of Mean Scores for MATHS by RACE",
     subtitle = "Mean point + multiple-interval plot"
+  ) +
+  theme(
+    panel.background = element_rect(fill = "transparent", color = NA),
+    plot.background = element_rect(fill = "transparent", color = NA),
+    legend.background = element_rect(fill = "transparent", color = NA)
   )
+
 ```
 
 ### 4.3 Visualising the uncertainty of point estimates: `ggdist` methods (II)
@@ -495,6 +508,8 @@ exam %>%
 [`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of `ggdist` is used in the code below to build a visualisation for displaying distribution of MATHS scores by RACE.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 exam %>%
   ggplot(
     aes(x = RACE,
@@ -527,13 +542,15 @@ library(ungeviz)
 ## MATHS by RACE
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggplot(data = exam,
        aes(x = factor(RACE), y = MATHS)) +
   geom_point(position = position_jitter(
     height = 0.3, width = 0.05),
-    size = 0.4, color = "pink", alpha = 0.6) +
+    size = 0.6, color = "darkolivegreen", alpha = 0.6) +
   geom_hpline(data = sampler(25, group = RACE),
-              height = 0.6, color = "skyblue") +
+              height = 0.6, color = "pink") +
   theme_bw() +
   transition_states(.draw, 1, 3)
   
@@ -543,11 +560,13 @@ ggplot(data = exam,
 ## ENGLISH by RACE
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggplot(data = exam,
        aes(x = factor(RACE), y = ENGLISH)) +
   geom_point(position = position_jitter(
     height = 0.3, width = 0.05),
-    size = 0.4, color = "skyblue", alpha = 0.6) +
+    size = 0.5, color = "skyblue", alpha = 0.6) +
   geom_hpline(data = sampler(25, group = RACE),
               height = 0.6, color = "azure4") +
   theme_bw() +
@@ -559,6 +578,8 @@ ggplot(data = exam,
 ## SCIENCE by RACE
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggplot(data = exam,
        aes(x = factor(RACE), y = SCIENCE)) +
   geom_point(position = position_jitter(

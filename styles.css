@@ -42,7 +42,7 @@ h3 {
 
 /* Code Blocks */
 pre {
-    background-color: #a0adb5; /* Slightly darker gray-blue */
+    background-color: #F6F8FB !important; 
     color: #f8f8f2; /* Light text for contrast */
     padding: 10px;
     border-radius: 6px;
@@ -91,3 +91,12 @@ body .navbar {
   color: #ffffff;
   font-size: 20px;
 }
+
+pre {
+  background-color: #F6F8FB !important;  /* Light cream */
+  color: #c27d10 !important; 
+}
+code span.kw { color: #859900 !important; } /* Keywords */
+code span.dt { color: #268bd2 !important; } /* Data types */
+code span.co { color: #F3692F !important; font-style: italic; } /* Comments */
+code span.st { color: #5b5b5b !important; } /* Strings */
