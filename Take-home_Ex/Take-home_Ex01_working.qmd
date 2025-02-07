@@ -6,70 +6,88 @@ author: "Cathy C."
 ```{r}
 pacman::p_load(tidyverse)
 library(readr)
-heart <- read_csv("data/jp_heart_attack_dataset.csv")
-ship <- read_csv("data/Ship_Pfm_Dataset.csv")
+data_heart <- read_csv("data/jp_heart_attack_dataset.csv")
+data_ship <- read_csv("data/Ship_Pfm_Dataset.csv")
 
-heart 
+data_heart 
 
-ship
+data_ship
 ```
 
 ```{r}
-local_missing <- which(is.na(heart))
-count_missing <- sum(is.na(heart))
-
-local_missing
-print (count_missing)
-
-summary(heart)
+names(data_ship)
 ```
 
 ```{r}
-ggplot(data = heart,
-  aes(x = Gender, color = Region)) +
-    geom_bar()
+summary(data_ship)
+```
 
-ggplot(data = heart,
-  aes(x = Gender, y = Age)) +
-    geom_boxplot()
+```{.r}
+# Select a subset of variables using [ ] 
+heart <- subset(data_heart, 
+                 select = Age:Heart_Attack_Occurrence)
 
-ggplot(data = heart,
-  aes(x = Region, y = Age)) +
-    geom_boxplot()
+names(heart)
+```
 
-ggplot(data = heart,
-  aes(x = Diabetes_History, y = Age)) +
-    geom_boxplot()
+```{.r}
+#extract data age 65 and above
+heart_elder <- heart[heart$Age >= 65, ]
+head(heart_elder)
 
 ```
 
-```{r}
-library(tidyr)
-library(ggplot2)
+```{.r}
+heart_young <- heart[heart$Age < 65, ]
+head(heart_young)
+```
 
-ggplot(data = heart,
-       aes(x = Heart_Attack_Occurrence, y = Cholesterol_Level)) +
-  geom_boxplot()
+```{.r}
+library(ggrepel)
+ggplot(data=data_heart,
+       aes(x = Stress_Levels,
+           y = BMI)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  geom_label_repel(aes(label = Age,
+                       colour = Gender), #colour for gender
+                   fontface = "bold") +
+  coord_cartesian(xlim = c(0,10),
+                  ylim = c(0,50)) +
+  ggtitle("English")
+    
+```
 
-ggplot(data = heart,
-       aes(x = Heart_Attack_Occurrence, y = Stress_Levels)) +
-  geom_boxplot()
+```{.r}
+ggplot(data=heart_elder,
+       aes(x = Stress_Levels)) +
+  geom_histogram(bins = 20,
+                 boundary = 10,
+                 color = "grey90",
+                 fill = "pink") +
+  theme_light() +
+  ggtitle("Distribution stress")
+```
 
-ggplot(data = heart,
-       aes(x = Heart_Attack_Occurrence, y = Heart_Rate)) +
-  geom_boxplot()
+```{.r}
+ggplot(data=heart_young,
+       aes(x = Stress_Levels)) +
+  geom_histogram(bins = 20,
+                 boundary = 10,
+                 color = "grey90",
+                 fill = "skyblue") +
+  theme_light() +
+  ggtitle("Distribution stress")
+```
 
-ggplot(data = heart,
-       aes(x = Gender, y = Heart_Rate)) +
-  geom_boxplot()
-
-ggplot(data = heart,
-       aes(x = Family_History, y = Heart_Rate)) +
-  geom_boxplot()
-
-ggplot(data = heart,
-       aes(x = Gender, y = BMI)) +
-  geom_boxplot()
-
-
+```{.r}
+ggplot(data=heart,
+       aes(x = Age)) +
+  geom_histogram(bins = 20,
+                 boundary = 110,
+                 color = "grey90",
+                 fill = "skyblue") +
+  theme_light() +
+  ggtitle("Distribution age")
 ```
