@@ -1,0 +1,60 @@
+---
+title: "Hands-on_Ex05-5"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true 
+---
+
+# **Treemap Visualisation with R**
+
+## 1 Overview
+
+## 2 Install and Launch R Packages
+
+## 3 Data Preparation
+
+### 3.1 Import data
+
+### 3.2 Data wrangling and manipulation
+
+### 3.3 Grouped summaries without the Pipe
+
+### 3.4 Grouped summaries with the Pipe
+
+## 4 Design Treemap with treemap Package
+
+### 4.1 Design a static treemap
+
+### 4.2 Use the basic arguments
+
+### 4.3 Work with *vColor* and *type* arguments 
+
+### 4.4 Colours in treemap package
+
+### 4.5 The "value" type treemap
+
+### 4.6 The "manual" type treemap
+
+### 4.7 Treemap layout
+
+### 4.8 Work with algorithm argument
+
+### 4.9 Using *sortID*
+
+## 5 Design Treemap Using treemapify Package
+
+### 5.1 Design a basic treemap
+
+### 5.2 Define hierarchy
+
+## 6 Design Interactive Treemap using d3treeR
+
+### 6.1 Install d3treeR package
+
+### 6.2 Design an interactive treemap
+
+## 

@@ -22,7 +22,7 @@ names(data_ship)
 summary(data_ship)
 ```
 
-```{.r}
+``` r
 # Select a subset of variables using [ ] 
 heart <- subset(data_heart, 
                  select = Age:Heart_Attack_Occurrence)
@@ -30,19 +30,18 @@ heart <- subset(data_heart,
 names(heart)
 ```
 
-```{.r}
+``` r
 #extract data age 65 and above
 heart_elder <- heart[heart$Age >= 65, ]
 head(heart_elder)
-
 ```
 
-```{.r}
+``` r
 heart_young <- heart[heart$Age < 65, ]
 head(heart_young)
 ```
 
-```{.r}
+``` r
 library(ggrepel)
 ggplot(data=data_heart,
        aes(x = Stress_Levels,
@@ -59,7 +58,7 @@ ggplot(data=data_heart,
     
 ```
 
-```{.r}
+``` r
 ggplot(data=heart_elder,
        aes(x = Stress_Levels)) +
   geom_histogram(bins = 20,
@@ -70,7 +69,7 @@ ggplot(data=heart_elder,
   ggtitle("Distribution stress")
 ```
 
-```{.r}
+``` r
 ggplot(data=heart_young,
        aes(x = Stress_Levels)) +
   geom_histogram(bins = 20,
@@ -81,7 +80,7 @@ ggplot(data=heart_young,
   ggtitle("Distribution stress")
 ```
 
-```{.r}
+``` r
 ggplot(data=heart,
        aes(x = Age)) +
   geom_histogram(bins = 20,

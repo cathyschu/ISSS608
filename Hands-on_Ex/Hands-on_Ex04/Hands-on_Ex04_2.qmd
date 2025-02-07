@@ -58,6 +58,8 @@ exam <- read_csv("data/Exam_data.csv")
 In the code chunk below, [*`gghistostats()`*](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) is used to build an visual of one-sample test on English scores.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 set.seed(1234)
 
 gghistostats(
@@ -114,6 +116,8 @@ One of the most common interpretation is this one - first proposed by Harold Jef
 In the code chunk below, [ggbetweenstats()](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggbetweenstats(
   data = exam,
   x = GENDER,
@@ -131,6 +135,8 @@ Default information: statistical details / Bayes factor / samples sizes / distri
 In the code chunk below, [ggbetweenstats()](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for One-way ANOVA test on English scores by race.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 ggbetweenstats(
   data = exam,
   x = RACE,
@@ -508,7 +514,7 @@ plot(check_n)
 ![](images/figure_workflow.png){fig-align="center"}
 :::
 
-### 6.5] Model diagnostic: check model for homogeneity of variances
+### 6.5\] Model diagnostic: check model for homogeneity of variances
 
 Check model for constant error variance using [`check_heteroscedasticity()`](https://easystats.github.io/performance/reference/check_heteroscedasticity.html) from the `performance` package.
 
