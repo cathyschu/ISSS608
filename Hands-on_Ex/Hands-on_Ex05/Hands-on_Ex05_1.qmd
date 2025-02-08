@@ -130,6 +130,7 @@ Use ***ggtern()*** function of **ggtern** package to create a simple ternary plo
 
 ::: panel-tabset
 ## Classic
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -151,14 +152,11 @@ ggtern(data = agpop_mutated, aes(
   theme_rgbw()
 ```
 
-## plot_ly()
+## Interactive
+
+Use plot_ly() to create an interactive plot.:
 
 ```{r}
 
 ```
-
 :::
-
-### 4.2 Plot an interactive ternary diagram
-
-### 

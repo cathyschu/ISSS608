@@ -9,6 +9,8 @@ execute:
   freeze: true  
 ---
 
+🎯 Use Tool to install packages first before running the code. Helps reduce missing packages.
+
 ```{r}
 pacman:::p_load(haven, SmartEDA, tidyverse, ggdist,
                 tidymodels, ggridges, colorspace, ggthemes)
