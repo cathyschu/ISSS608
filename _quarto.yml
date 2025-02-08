@@ -6,7 +6,7 @@ website:
   title: ""
   page-footer: "Made with 💚 and Quarto"
   announcement:
-    content: "**NEW** - [**Hands-on Exercise 04**](https://cathyc.netlify.app/hands-on_ex/hands-on_ex04/hands-on_ex04_1) and [**In-class Exercise 03**](https://cathyc.netlify.app/in-class_ex/in-class_ex03) are published!"
+    content: "**NEW** - [**Hands-on Exercise 04**](https://cathyc.netlify.app/hands-on_ex/hands-on_ex04/hands-on_ex04_1) and [**In-class Exercise 04**](https://cathyc.netlify.app/in-class_ex/in-class_ex04) are published!"
     position: below-navbar
     icon: rocket-takeoff-fill
     
