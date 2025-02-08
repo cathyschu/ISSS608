@@ -1010,6 +1010,11 @@
     "href": "In-class_Ex/In-class_Ex04.html",
     "title": "In-class_Ex04",
     "section": "",
-    "text": "pacman:::p_load(haven, SmartEDA, tidyverse, ggdist,\n                tidymodels, ggridges, colorspace, ggthemes)\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\n\nggplot(exam_data,\n       aes(x = ENGLISH,\n           y = CLASS)) +\n  geom_boxplot() +\n  labs(title = \"Boxplot showing distribution\")\n\n\n\n\n\n\n\n\n\nggplot(exam_data,\n       aes(x = ENGLISH,\n           y = CLASS)) +\n  #create ridgeline\n  geom_density_ridges( \n    scale = 3,\n    rel_min_height = 0.01,\n    bandwidth = 2.5,\n    fill = lighten(\"pink\", .3),\n    color = \"white\"\n  ) +\n  #extension of ggplot\n  scale_x_continuous(\n    name = \"English grades\",\n    expand = c(0,0),\n  ) +\n  scale_y_discrete(name = \"Class\", expand = expansion(add=c(0.2, 2.6))) +\n  theme_ridges()\n\n\n\n\n\n\n\n\n\nggplot(exam_data,\n       aes(x = ENGLISH, \n           y = CLASS, \n           fill = factor(stat(quantile))\n           )) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\",\n    calc_ecdf = TRUE, \n    quantiles = 4,\n    quantile_lines = TRUE) +\n  scale_fill_viridis_d(name = \"Quartiles\") +\n  theme_ridges()"
+    "text": "pacman:::p_load(haven, SmartEDA, tidyverse, ggdist,\n                tidymodels, ggridges, colorspace, ggthemes)\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\n\nggplot(exam_data,\n       aes(x = ENGLISH,\n           y = CLASS)) +\n  geom_boxplot() +\n  labs(title = \"Boxplot showing distribution\")\n\n\n\n\n\n\n\n\n\nggplot(exam_data,\n       aes(x = ENGLISH,\n           y = CLASS)) +\n  #create ridgeline\n  geom_density_ridges( \n    scale = 3,\n    rel_min_height = 0.01,\n    bandwidth = 2.5,\n    fill = lighten(\"pink\", .3),\n    color = \"white\"\n  ) +\n  #extension of ggplot\n  scale_x_continuous(\n    name = \"English grades\",\n    expand = c(0,0),\n  ) +\n  scale_y_discrete(name = \"Class\", expand = expansion(add=c(0.2, 2.6))) +\n  theme_ridges()\n\n\n\n\n\n\n\n\n\nggplot(exam_data,\n       aes(x = ENGLISH, \n           y = CLASS, \n           fill = factor(stat(quantile))\n           )) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\",\n    calc_ecdf = TRUE, \n    quantiles = 4,\n    quantile_lines = TRUE) +\n  scale_fill_viridis_d(name = \"Quartiles\") +\n  theme_ridges()",
+    "crumbs": [
+      "![](/images/house.svg)",
+      "In-class Exercise",
+      "In-class_Ex4"
+    ]
   }
 ]

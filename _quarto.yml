@@ -14,9 +14,9 @@ website:
     logo: "images/dino.png"
     right:
     - href: index.qmd
-      text: "![](/images/home.svg)"
+      text: "![](/images/house.svg)"
     - href: about.qmd
-      text: "![](/images/paw2.svg)"
+      text: "![](/images/person.svg)"
 
     left: 
     - text: "**Hands-on Exercise**"
@@ -109,6 +109,9 @@ website:
             href: In-class_Ex/In-class_Ex02.html
           - text: "In-class_Ex3"
             href: In-class_Ex/In-class_Ex03.html
+          - text: "In-class_Ex4"
+            href: In-class_Ex/In-class_Ex04.html
+          
       - section: "Take-home Exercise"
         contents:
           - text: "Take-home_Ex01"
