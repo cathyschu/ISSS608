@@ -15,78 +15,176 @@ data_ship
 ```
 
 ```{r}
-names(data_ship)
+
+df_65plus <- data_heart %>% filter(Age >= 65)
+df_40plus <- data_heart %>% filter(Age >= 40)
+df_65below <- data_heart %>% filter(Age < 65)
+
+ggplot(df_65plus,
+       aes(x = Gender,
+           y = BMI, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(x = "Gender", y = "BMI")
+
+
 ```
 
 ```{r}
-summary(data_ship)
+ggplot(df_65plus,
+       aes(x = Gender,
+           y = Heart_Rate, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Heart rate by gender for 65plus",
+  x = "Gender", y = "Heart_Rate")
+
 ```
 
-``` r
-# Select a subset of variables using [ ] 
-heart <- subset(data_heart, 
-                 select = Age:Heart_Attack_Occurrence)
+```{r}
+ggplot(df_65below,
+       aes(x = Gender,
+           y = Heart_Rate, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Heart rate by gender for 65below",
+  x = "Gender", y = "Heart_Rate")
 
-names(heart)
 ```
 
-``` r
-#extract data age 65 and above
-heart_elder <- heart[heart$Age >= 65, ]
-head(heart_elder)
+```{r}
+ggplot(df_65plus,
+       aes(x = Region,
+           y = Cholesterol_Level, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Cholesterol_Level by region for 65below",
+  x = "Region", y = "Cholesterol_Level")
 ```
 
-``` r
-heart_young <- heart[heart$Age < 65, ]
-head(heart_young)
+```{r}
+ggplot(df_65plus,
+       aes(x = Gender,
+           y = Cholesterol_Level, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Cholesterol_Level by gender for 65below",
+  x = "Gender", y = "Cholesterol_Level")
 ```
 
-``` r
-library(ggrepel)
-ggplot(data=data_heart,
-       aes(x = Stress_Levels,
-           y = BMI)) +
-  geom_point() +
-  geom_smooth(method = lm,
-              size = 0.5) +
-  geom_label_repel(aes(label = Age,
-                       colour = Gender), #colour for gender
-                   fontface = "bold") +
-  coord_cartesian(xlim = c(0,10),
-                  ylim = c(0,50)) +
-  ggtitle("English")
-    
+```{r}
+ggplot(df_65plus,
+       aes(x = Gender,
+           y = Diastolic_BP, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Diastolic_BP by gender for 65plus",
+  x = "Gender", y = "Diastolic_BP")
 ```
 
-``` r
-ggplot(data=heart_elder,
-       aes(x = Stress_Levels)) +
-  geom_histogram(bins = 20,
-                 boundary = 10,
-                 color = "grey90",
-                 fill = "pink") +
-  theme_light() +
-  ggtitle("Distribution stress")
+```{r}
+ggplot(df_65below,
+       aes(x = Gender,
+           y = Diastolic_BP, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Diastolic_BP by gender for 65below",
+  x = "Gender", y = "Diastolic_BP")
 ```
 
-``` r
-ggplot(data=heart_young,
-       aes(x = Stress_Levels)) +
-  geom_histogram(bins = 20,
-                 boundary = 10,
-                 color = "grey90",
-                 fill = "skyblue") +
-  theme_light() +
-  ggtitle("Distribution stress")
+```{r}
+ggplot(df_65plus,
+       aes(x = Region,
+           y = Diastolic_BP, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Diastolic_BP by Region for 65plus",
+  x = "Region", y = "Diastolic_BP")
 ```
 
-``` r
-ggplot(data=heart,
-       aes(x = Age)) +
-  geom_histogram(bins = 20,
-                 boundary = 110,
-                 color = "grey90",
-                 fill = "skyblue") +
-  theme_light() +
-  ggtitle("Distribution age")
+```{r}
+ggplot(df_65plus,
+       aes(x = Region,
+           y = Stress_Levels, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Stress level by region for 65plus",
+       x = "Region", y = "Stress")
+```
+
+```{r}
+ggplot(df_40plus,
+       aes(x = Gender,
+           y = Stress_Levels, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Stress level by gender for 40plus",
+       x = "Gender", y = "Stress")
+```
+
+```{r}
+ggplot(df_65below,
+       aes(x = Gender,
+           y = Stress_Levels, 
+           fill = Heart_Attack_Occurrence)) + 
+  geom_boxplot() +
+  labs(title = "Stress level by gender for 65below",
+    x = "Gender", y = "Stress")
+```
+
+```{r}
+ggplot(df_65plus,
+       aes(x = Heart_Attack_Occurrence,
+           fill = Gender)) + 
+  geom_bar() +
+  labs(x = "Gender", y = "Count")
+```
+
+```{r}
+ggplot(df_65below,
+       aes(x = Heart_Attack_Occurrence,
+           fill = Gender)) + 
+  geom_bar() +
+  labs(x = "Gender", y = "Count")
+```
+
+```{r}
+ggplot(df_65plus,
+       aes(x = Heart_Attack_Occurrence,
+           fill = Family_History)) + 
+  geom_bar() +
+  labs(x = "Family_History", y = "Count")
+```
+
+```{r}
+ggplot(df_65plus,
+       aes(x = Heart_Attack_Occurrence,
+           fill = Physical_Activity)) + 
+  geom_bar() +
+  labs(x = "Physical_Activity", y = "Count")
+```
+
+Age
+
+```{r}
+df_agegrp <- data_heart %>%
+  mutate(Age_Group = cut(Age, 
+                         breaks = c(-Inf, 15, 25, 40, 65, Inf),
+                         labels = c("0-15", "16-25", "26-40","41-65", "65+")))
+
+ggplot(df_agegrp,
+       aes(x = Heart_Attack_Occurrence,
+           fill = Age_Group)) + 
+  geom_bar() +
+  labs(x = "Age", y = "Count")
+```
+
+```{r}
+ggplot(data_heart,
+       aes(x = Heart_Attack_Occurrence,
+           y = Age, 
+           fill = Gender)) + 
+  geom_boxplot() +
+  labs(title = "Age by gender",
+       x = "Ht attack", y = "Age")
 ```

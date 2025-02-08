@@ -1,0 +1,45 @@
+---
+title: "In-class_Ex04"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+```{r}
+pacman:::p_load(haven, SmartEDA, tidyverse,
+                tidymodels, ggridges)
+
+```
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+```{r}
+ggplot(exam_data,
+       aes(x = ENGLISH,
+           y = CLASS)) +
+  geom_boxplot() +
+  labs(title = "Boxplot showing distribution") 
+```
+
+```{r}
+ggplot(exam_data,
+       aes(x = ENGLISH,
+           y = CLASS)) +
+  geom_density_ridges(
+    scale = 3,
+    rel_min_height = 0.01,
+    bandwidth = 2.5,
+  ) +
+  scale_x_continuous(
+    name = "English grades",
+    expand = c(0,0),
+  ) +
+  scale_y_discrete(name = "Class", expand = expansion(add=c(0.2, 2.6))) +
+  theme_ridges()
+```
