@@ -10,8 +10,8 @@ execute:
 ---
 
 ```{r}
-pacman:::p_load(haven, SmartEDA, tidyverse,
-                tidymodels, ggridges)
+pacman:::p_load(haven, SmartEDA, tidyverse, ggdist,
+                tidymodels, ggridges, colorspace, ggthemes)
 
 ```
 
@@ -24,22 +24,40 @@ ggplot(exam_data,
        aes(x = ENGLISH,
            y = CLASS)) +
   geom_boxplot() +
-  labs(title = "Boxplot showing distribution") 
+  labs(title = "Boxplot showing distribution")
 ```
 
 ```{r}
 ggplot(exam_data,
        aes(x = ENGLISH,
            y = CLASS)) +
-  geom_density_ridges(
+  #create ridgeline
+  geom_density_ridges( 
     scale = 3,
     rel_min_height = 0.01,
     bandwidth = 2.5,
+    fill = lighten("pink", .3),
+    color = "white"
   ) +
   scale_x_continuous(
     name = "English grades",
     expand = c(0,0),
   ) +
   scale_y_discrete(name = "Class", expand = expansion(add=c(0.2, 2.6))) +
+  theme_ridges()
+```
+
+```{r}
+ggplot(exam_data,
+       aes(x = ENGLISH, 
+           y = CLASS, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
   theme_ridges()
 ```
