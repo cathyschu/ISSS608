@@ -39,6 +39,7 @@ ggplot(exam_data,
     fill = lighten("pink", .3),
     color = "white"
   ) +
+  #extension of ggplot
   scale_x_continuous(
     name = "English grades",
     expand = c(0,0),
