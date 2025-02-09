@@ -135,7 +135,8 @@ Use ***ggtern()*** function of **ggtern** package to create a simple ternary plo
 #| code-fold: true
 #| code-summary: "Show the code"
 #Building the static ternary plot
-ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+ggtern(data=agpop_mutated, 
+       aes(x=YOUNG,y=ACTIVE, z=OLD)) +
   geom_point()
 ```
 
@@ -144,8 +145,9 @@ ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
-ggtern(data = agpop_mutated, aes(
-  x = YOUNG, y = ACTIVE, z = OLD
+ggtern(data = agpop_mutated, 
+       aes(
+         x = YOUNG, y = ACTIVE, z = OLD
 )) +
   geom_point() +
   labs(title = "Popultation structure, 2015") +
@@ -154,9 +156,52 @@ ggtern(data = agpop_mutated, aes(
 
 ## Interactive
 
-Use plot_ly() to create an interactive plot.:
+Use `plot_ly()` to create an interactive plot.:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 
+# Function for creating annotation object too
+label <- function(txt) {
+  list(
+    text = txt, 
+    x = 0.1, y = 1, #Position of the annotation in the plot
+    ax = 0, ay = 0, #annotation has no arrow
+    xref = "paper", yref = "paper",  #Positioning is relative to the entire figure, not data points
+    align = "center",
+    font = list(family = "Calibri", size = 15, color = "white"),
+    bgcolor = "#000000", # Background color of the annotation box (light gray)
+    bordercolor = "black", 
+    borderwidth = 2
+  )
+}
+
+# Function for creating axis formatting too
+axis <- function(txt) {
+  list(
+    title = txt, tickformat = ".0%", tickfont = list(size = 10)
+  )
+}
+
+ternaryAxes <- list(
+  aaxis = axis("Young"), 
+  baxis = axis("Active"), 
+  caxis = axis("Old")
+)
+
+# Initiate a plotly visualization
+plot_ly(
+  agpop_mutated, 
+  a = ~YOUNG, 
+  b = ~ACTIVE, 
+  c = ~OLD, 
+  color = I("black"), 
+  type = "scatterternary"
+) %>%
+  layout(
+    annotations = label("Ternary Markers"), 
+    ternary = ternaryAxes
+  )
 ```
 :::
