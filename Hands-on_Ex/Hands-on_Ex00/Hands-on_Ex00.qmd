@@ -1,0 +1,85 @@
+---
+title: "Hands-on Exercise 00: working with tidyverse"
+author: "Cathy Chu"
+date-modified: "last-modified" 
+execute:
+  echo: true #will display all code.
+  eval: true #eval the code chunk.
+  warning: false #won't show all warnings.
+  freeze: true #will take note if content not changed, rendering won't make changes. save time. 
+---
+
+## Getting started.
+
+Loading tidyverse onto r environment by using the code chunk below.
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+## Importing data
+
+Code chunk below uses read_csv() of readr to import REALIS2019.csv into r environment as a tibble data.frame.
+
+```{r}
+realis_csv <- read.csv("data/REALIS2019.csv") #old way - utility > avoid using this.
+```
+
+```{r}
+realis2019 <- read_csv("data/REALIS2019.csv")
+
+```
+
+```{r}
+#| eval: FALSE #now closing popdata_fat
+
+popdata_fat <- read_csv("data/PopData2019_fat.csv")
+```
+
+## Pivoting data
+
+```{r}
+#| eval: FALSE #now closing popdata_fat
+popdata_long <- popdata_fat %>% 
+  #what is %>%? allows to combine functions together. e.g. call this file and do pivot_longer.
+  pivot_longer(c(3:21),
+               names_to = "Age Group",
+               values_to = "Population") 
+```
+
+Create rds file
+
+```{r}
+#| eval: FALSE #now closing popdata_fat (after all these are run and got data files.)
+write_rds(popdata_long, "data/rds/popdata_long.rds") #reading rds is faster.
+```
+
+```{r}
+#| echo: FALSE #this won't show code.
+popdata_long <- read_rds("data/rds/popdata_long.rds")
+```
+
+## Working with dplyr
+
+select, filter, arrange, mutate (compute), group_by, summarise, join.
+
+```{r}
+realis2019_selected <- realis2019 %>%
+  select(`Project Name`,
+         `Transacted Price ($)`,
+         `Type of Sale`,
+         `Unit Price ($ psm)`,
+         `Property Type`)
+realis2019_selected
+```
+
+```{r}
+realis2019_filtered <- realis2019_selected %>%
+  filter(`Property Type` == "Condominium" | 
+           `Property Type` == "Apartment") %>%
+  filter(`Type of Sale` == "New Sale") %>%
+  filter(`Unit Price ($ psm)` <= 13000)
+
+```
+
+### Putting all together
