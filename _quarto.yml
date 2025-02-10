@@ -21,34 +21,34 @@ website:
     left: 
     - text: "**Hands-on Exercise**"
       menu:
-      - text: "Hands-on Exercise 0"
+      - text: "Hands-on_Ex00"
         href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
-      - text: "Hands-on Exercise 1"
+      - text: "1 A Layered Grammar of Graphics: ggplot2 methods."
         href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
-      - text: "Hands-on Exercise 2"
+      - text: "2 Beyond ggplot2 Fundamentals"
         href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd
-      - text: "Hands-on Exercise 3-1"
+      - text: "3_1 Interactive Data Visualisation with R"
         href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.qmd
-      - text: "Hands-on Exercise 3-2"
+      - text: "3_2 Animated Statistical Graphics with R"
         href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.qmd
-      - text: "Hands-on Exercise 4-1"
+      - text: "4_1 Visualising Distribution"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.qmd
-      - text: "Hands-on Exercise 4-2"
+      - text: "4_2 Visual Statistical Analysis"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.qmd
-      - text: "Hands-on Exercise 4-3"
+      - text: "4_3 Visualising Uncertainty"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.qmd
-      - text: "Hands-on Exercise 4-4"
+      - text: "4_4 Building Funnel Plot with R"
         href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.qmd
-      - text: "Hands-on Exercise 5-1"
+      - text: "5_1 Building Ternary Plot with R"
         href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.qmd
-      - text: "Hands-on Exercise 5-2"
+      - text: "5_2 Visual Correlation Analysis"
         href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.qmd
-      - text: "Hands-on Exercise 5-3"
+      - text: "5_3 Visual Multivariate Analysis with Heatmap"
         href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.qmd
-      - text: "Hands-on Exercise 5-4"
+      - text: "5_4 Visual Multivariate Analysis with Parallel Coordinates Plot"
         href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.qmd
-      - text: "Hands-on Exercise 5-5"
-        href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_.qmd
+      - text: "5_5 Treemap Visualisation with R"
+        href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.qmd
       # - text: "Hands-on Exercise 6"
       #   href: Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.qmd
       # - text: "Hands-on Exercise 7"
@@ -87,32 +87,34 @@ website:
         contents:
           - text: "Hands-on_Ex00"
             href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html
-          - text: "1 A Layered Grammar of Graphics: ggplot2 methods."
-            href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html
-          - text: "2 Beyond ggplot2 Fundamentals"
-            href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html
-          - text: "3_1 Interactive Data Visualisation with R"
-            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html
-          - text: "3_2 Animated Statistical Graphics with R"
-            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html
-          - text: "4_1 Visualising Distribution"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html
-          - text: "4_2 Visual Statistical Analysis"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html
-          - text: "4_3 Visualising Uncertainty"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html
-          - text: "4_4 Building Funnel Plot with R"
-            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html
-          - text: "5_1 Building Ternary Plot with R"
+          - text: "Hands-on Exercise 0"
+            href: Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.qmd
+          - text: "Hands-on Exercise 1"
+            href: Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
+          - text: "Hands-on Exercise 2"
+            href: Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd
+          - text: "Hands-on Exercise 3-1"
+            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.qmd
+          - text: "Hands-on Exercise 3-2"
+            href: Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.qmd
+          - text: "Hands-on Exercise 4-1"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.qmd
+          - text: "Hands-on Exercise 4-2"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.qmd
+          - text: "Hands-on Exercise 4-3"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.qmd
+          - text: "Hands-on Exercise 4-4"
+            href: Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.qmd
+          - text: "Hands-on Exercise 5-1"
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.qmd
-          - text: "5_2 Visual Correlation Analysis"
+          - text: "Hands-on Exercise 5-2"
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.qmd
-          - text: "5_3 Visual Multivariate Analysis with Heatmap"
+          - text: "Hands-on Exercise 5-3"
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.qmd
-          - text: "5_4 Visual Multivariate Analysis with Parallel Coordinates Plot"
+          - text: "Hands-on Exercise 5-4"
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.qmd
-          - text: "5_5 Treemap Visualisation with R"
-            href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.qmd
+          - text: "Hands-on Exercise 5-5"
+            href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_.qmd
             
       - section: "In-class Exercise"
         contents:

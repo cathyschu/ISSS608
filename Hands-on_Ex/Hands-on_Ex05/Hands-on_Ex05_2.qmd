@@ -249,7 +249,7 @@ ggstasplot is an extension of ggplot2, so also supports faceting. However the fe
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#| fig-width: 30
+#| fig-width: 15
 #| fig-height: 10
 
 grouped_ggcorrmat(
