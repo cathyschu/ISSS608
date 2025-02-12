@@ -444,4 +444,4 @@ d3tree(tm,rootname = "Singapore")
 
 ## Reference
 
-[R for Visual Analytics](https://r4va.netlify.app/chap16)
+-   [R for Visual Analytics](https://r4va.netlify.app/chap16)
