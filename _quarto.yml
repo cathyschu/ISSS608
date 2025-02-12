@@ -3,6 +3,7 @@ project:
   output-dir: _site #for the logo to appear
 
 website:
+  favicon: /images/dragon.svg
   title: ""
   page-footer: "Made with 💚 and Quarto"
   announcement:

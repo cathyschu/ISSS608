@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,6 +66,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="..//images/dragon.svg" rel="icon" type="image/svg+xml">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -412,25 +447,39 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">1.1 Abstract</a></li>
   <li><a href="#task" id="toc-task" class="nav-link" data-scroll-target="#task">1.2 Task</a></li>
-  <li><a href="#data-set" id="toc-data-set" class="nav-link" data-scroll-target="#data-set">1.3 Data set</a></li>
   </ul></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting Started</a></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">3 Data Preparation</a>
+  <li><a href="#install-and-load-packages" id="toc-install-and-load-packages" class="nav-link" data-scroll-target="#install-and-load-packages">2 Install and Load Packages</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">3 Dataset</a>
   <ul class="collapse">
-  <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration">3.1 Data Exploration</a></li>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">3.2 Data Wrangling</a></li>
-  <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">3.3 Variable Selection</a></li>
-  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">3.4 Data cleaning</a></li>
-  <li><a href="#recoding-variables" id="toc-recoding-variables" class="nav-link" data-scroll-target="#recoding-variables">3.5 Recoding Variables</a></li>
+  <li><a href="#import-file-and-check" id="toc-import-file-and-check" class="nav-link" data-scroll-target="#import-file-and-check">3.1 Import file and check</a></li>
   </ul></li>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">4 Exploratory Data Analysis</a>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">4 Data Wrangling</a>
   <ul class="collapse">
-  <li><a href="#univariate-analysis" id="toc-univariate-analysis" class="nav-link" data-scroll-target="#univariate-analysis">4.1 Univariate Analysis</a></li>
-  <li><a href="#bivariate-analysis" id="toc-bivariate-analysis" class="nav-link" data-scroll-target="#bivariate-analysis">4.2 Bivariate Analysis</a></li>
-  <li><a href="#multivariate-analysis" id="toc-multivariate-analysis" class="nav-link" data-scroll-target="#multivariate-analysis">4.3 Multivariate Analysis</a></li>
+  <li><a href="#add-a-variable" id="toc-add-a-variable" class="nav-link" data-scroll-target="#add-a-variable">4.1 Add a variable</a></li>
+  <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">4.1 Variable selection</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">4.2 Missing values</a></li>
+  <li><a href="#convert-data-type" id="toc-convert-data-type" class="nav-link" data-scroll-target="#convert-data-type">4.3 Convert data type</a></li>
   </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">5 Summary</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">6 References</a></li>
+  <li><a href="#voyage-profile" id="toc-voyage-profile" class="nav-link" data-scroll-target="#voyage-profile">5 Voyage profile</a>
+  <ul class="collapse">
+  <li><a href="#ship-conditions-routes" id="toc-ship-conditions-routes" class="nav-link" data-scroll-target="#ship-conditions-routes">5.1 Ship conditions &amp; routes</a></li>
+  <li><a href="#weather" id="toc-weather" class="nav-link" data-scroll-target="#weather">5.2 Weather</a></li>
+  <li><a href="#operations" id="toc-operations" class="nav-link" data-scroll-target="#operations">5.3 Operations</a></li>
+  </ul></li>
+  <li><a href="#profit-performance" id="toc-profit-performance" class="nav-link" data-scroll-target="#profit-performance">6 Profit Performance</a>
+  <ul class="collapse">
+  <li><a href="#performance-over-time" id="toc-performance-over-time" class="nav-link" data-scroll-target="#performance-over-time">6.1 Performance over time</a></li>
+  <li><a href="#finance-overview" id="toc-finance-overview" class="nav-link" data-scroll-target="#finance-overview">6.2 Finance overview</a></li>
+  <li><a href="#profit-performance-by-ship-types" id="toc-profit-performance-by-ship-types" class="nav-link" data-scroll-target="#profit-performance-by-ship-types">6.3 Profit performance by ship types</a></li>
+  <li><a href="#comparing-profit-revenue-against-average-load" id="toc-comparing-profit-revenue-against-average-load" class="nav-link" data-scroll-target="#comparing-profit-revenue-against-average-load">6.4 Comparing profit &amp; revenue against average load</a></li>
+  </ul></li>
+  <li><a href="#multi-facets-comparison" id="toc-multi-facets-comparison" class="nav-link" data-scroll-target="#multi-facets-comparison">7 Multi Facets Comparison</a>
+  <ul class="collapse">
+  <li><a href="#comparing-profit-performance-with-ship-conditions-by-ship-type" id="toc-comparing-profit-performance-with-ship-conditions-by-ship-type" class="nav-link" data-scroll-target="#comparing-profit-performance-with-ship-conditions-by-ship-type">7.1 Comparing profit performance with ship conditions by ship type</a></li>
+  <li><a href="#comparing-profit-performance-with-external-factors-by-ship-type" id="toc-comparing-profit-performance-with-external-factors-by-ship-type" class="nav-link" data-scroll-target="#comparing-profit-performance-with-external-factors-by-ship-type">7.2 Comparing profit performance with external factors by ship type</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">8 Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">9 References</a></li>
   </ul>
 </nav>
     </div>
@@ -463,7 +512,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 6, 2025</p>
+      <p class="date-modified">February 12, 2025</p>
     </div>
   </div>
     
@@ -478,60 +527,1462 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="overview">1 Overview</h2>
 <section id="abstract" class="level3">
 <h3 class="anchored" data-anchor-id="abstract">1.1 Abstract</h3>
+<p>[placeholder]</p>
 </section>
 <section id="task" class="level3">
 <h3 class="anchored" data-anchor-id="task">1.2 Task</h3>
-<p>An international media company that publishes weekly content on digital platforms is planning to release articles on “Heart Attach in Japan”. As a graphical editor of the media company, I am going to prepare data visualisation for the article focusing on assessing gender/age-specific health risks.</p>
-</section>
-<section id="data-set" class="level3">
-<h3 class="anchored" data-anchor-id="data-set">1.3 Data set</h3>
+<p>An international media company that publishes weekly content on digital platforms is planning to release articles on “Ship Performance in the Gulf of Guinea”. As a graphical editor of the media company, I am going to prepare data visualisation for the article focusing on ship performance assessment.</p>
+<p>This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functions to visualise insights on:</p>
 <ul>
-<li><a href="https://www.kaggle.com/datasets/ashaychoudhary/heart-attack-in-japan-youth-vs-adult">Heart Attack in Japan Youth Vs Adult</a></li>
+<li>Ships’ energy efficiency</li>
+<li>Ships’ profitability</li>
+<li>Operational factors affecting voyage performance</li>
 </ul>
 </section>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">2 Getting Started</h2>
+<section id="install-and-load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="install-and-load-packages">2 Install and Load Packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes, ggridges, gganimate,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggdist, ggtext, colorspace, magrittr, patchwork, RColorBrewer,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               ggstatsplot, egg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">3 Data Preparation</h2>
-<section id="data-exploration" class="level3">
-<h3 class="anchored" data-anchor-id="data-exploration">3.1 Data Exploration</h3>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">3 Dataset</h2>
+<p>The dataset <a href="https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset">Ship Performance Clustering Dataset</a> downloaded from Kaggle. This file contains a detailed dataset focusing on the operational performance of various ship types across different routes. Each row represents the performance metrics and attributes for a specific voyage or ship over a given timeframe.</p>
+<section id="import-file-and-check" class="level3">
+<h3 class="anchored" data-anchor-id="import-file-and-check">3.1 Import file and check</h3>
+<p>Import the csv file using <code>read_csv()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_ship <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Ship_Pfm_Dataset.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_ship)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
+</div>
+</div>
+<p>Next I would like to observe the variables and their data type and understand the dataset.</p>
+<p>The dataset consists of 18 columns and 2,736 rows (observations). Each observation contains an entry recording a voyage for which the ship’s profile and operational information. As the result of code shows, there are 5 categorical variables, 1 date variable and 12 numerical variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data_ship)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,736
+Columns: 18
+$ Date                    &lt;date&gt; 2023-06-04, 2023-06-11, 2023-06-18, 2023-06-2…
+$ Ship_Type               &lt;chr&gt; "Container Ship", "Fish Carrier", "Container S…
+$ Route_Type              &lt;chr&gt; "None", "Short-haul", "Long-haul", "Transocean…
+$ Engine_Type             &lt;chr&gt; "Heavy Fuel Oil (HFO)", "Steam Turbine", "Dies…
+$ Maintenance_Status      &lt;chr&gt; "Critical", "Good", "Fair", "Fair", "Fair", "F…
+$ Speed_Over_Ground_knots &lt;dbl&gt; 12.59756, 10.38758, 20.74975, 21.05510, 13.742…
+$ Engine_Power_kW         &lt;dbl&gt; 2062.9840, 1796.0574, 1648.5567, 915.2618, 108…
+$ Distance_Traveled_nm    &lt;dbl&gt; 1030.9436, 1060.4864, 658.8741, 1126.8225, 144…
+$ Draft_meters            &lt;dbl&gt; 14.132284, 14.653083, 7.199261, 11.789063, 9.7…
+$ Weather_Condition       &lt;chr&gt; "Moderate", "Rough", "Moderate", "Moderate", "…
+$ Cargo_Weight_tons       &lt;dbl&gt; 1959.0179, 162.3947, 178.0409, 1737.3853, 260.…
+$ Operational_Cost_USD    &lt;dbl&gt; 483832.35, 483388.00, 448543.40, 261349.61, 28…
+$ Revenue_per_Voyage_USD  &lt;dbl&gt; 292183.27, 883765.79, 394018.75, 87551.38, 676…
+$ Turnaround_Time_hours   &lt;dbl&gt; 25.86708, 63.24820, 49.41815, 22.40911, 64.158…
+$ Efficiency_nm_per_kWh   &lt;dbl&gt; 1.4551789, 0.2903614, 0.4995945, 0.7029057, 1.…
+$ Seasonal_Impact_Score   &lt;dbl&gt; 1.4156533, 0.8856478, 1.4058132, 1.3707043, 0.…
+$ Weekly_Voyage_Count     &lt;dbl&gt; 1, 6, 9, 1, 8, 7, 3, 6, 8, 2, 9, 4, 3, 7, 7, 3…
+$ Average_Load_Percentage &lt;dbl&gt; 93.76925, 93.89537, 96.21824, 66.19370, 80.008…</code></pre>
+</div>
+</div>
 </section>
-<section id="data-wrangling" class="level3">
-<h3 class="anchored" data-anchor-id="data-wrangling">3.2 Data Wrangling</h3>
-<ul>
-<li><p>Age groups</p></li>
-<li></li>
-</ul>
+</section>
+<section id="data-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="data-wrangling">4 Data Wrangling</h2>
+<p>The diagram below shows the variables selected for this study:</p>
+<p>[placeholder]</p>
+<section id="add-a-variable" class="level3">
+<h3 class="anchored" data-anchor-id="add-a-variable">4.1 Add a variable</h3>
+<p>To assess the ships’ performance in profit, I will add a variable <strong>Profit</strong>, to be derived from Revenue_per_Voyage_USD subtracing Operational_Cost_USD.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data_ship <span class="ot">&lt;-</span> data_ship <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Profit =</span> Revenue_per_Voyage_USD <span class="sc">-</span> Operational_Cost_USD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, I will use <code>head()</code> to have a look and confirm <strong>Profit</strong> is added to the data frame and the data type is numeric.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_ship)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 19
+  Date       Ship_Type      Route_Type   Engine_Type          Maintenance_Status
+  &lt;date&gt;     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;                &lt;chr&gt;             
+1 2023-06-04 Container Ship None         Heavy Fuel Oil (HFO) Critical          
+2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine        Good              
+3 2023-06-18 Container Ship Long-haul    Diesel               Fair              
+4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine        Fair              
+5 2023-07-02 Fish Carrier   Transoceanic Diesel               Fair              
+6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HFO) Fair              
+# ℹ 14 more variables: Speed_Over_Ground_knots &lt;dbl&gt;, Engine_Power_kW &lt;dbl&gt;,
+#   Distance_Traveled_nm &lt;dbl&gt;, Draft_meters &lt;dbl&gt;, Weather_Condition &lt;chr&gt;,
+#   Cargo_Weight_tons &lt;dbl&gt;, Operational_Cost_USD &lt;dbl&gt;,
+#   Revenue_per_Voyage_USD &lt;dbl&gt;, Turnaround_Time_hours &lt;dbl&gt;,
+#   Efficiency_nm_per_kWh &lt;dbl&gt;, Seasonal_Impact_Score &lt;dbl&gt;,
+#   Weekly_Voyage_Count &lt;dbl&gt;, Average_Load_Percentage &lt;dbl&gt;, Profit &lt;dbl&gt;</code></pre>
+</div>
+</div>
 </section>
 <section id="variable-selection" class="level3">
-<h3 class="anchored" data-anchor-id="variable-selection">3.3 Variable Selection</h3>
+<h3 class="anchored" data-anchor-id="variable-selection">4.1 Variable selection</h3>
+<p>To perform an analysis to achieve the objectives in 1.2, I will keep the following variables.</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Variable Selection<br>
+:</caption>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 30%">
+<col style="width: 10%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Variable</th>
+<th>Recoded</th>
+<th>Description</th>
+<th>Type</th>
+<th>Encoding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>apple</td>
+<td>Date</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>pear</td>
+<td>Ship_Type</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Route_Type</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Engine_Type</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Maintenance_Status</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Speed_Over_Ground_knots</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Engine_Power_kW</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Distance_Traveled_nm</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Draft_meters</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Weather_Condition</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Cargo_Weight_tons</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Operational_Cost_USD</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Revenue_per_Voyage_USD</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Efficiency_nm_per_kWh</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Weekly_Voyage_Count</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Average_Load_Percentage</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Revenue_per_Voyage_USD</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>Revenue_per_Voyage_USD</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+<tr class="odd">
+<td>orange</td>
+<td>Revenue_per_Voyage_USD</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+<td>bbb</td>
+</tr>
+</tbody>
+</table>
+<p>The code below is used to select and reorder columns of wanted variables using <code>select()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ship <span class="ot">&lt;-</span> data_ship <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date, Ship_Type, Route_Type, Engine_Type, Maintenance_Status, Speed_Over_Ground_knots,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        Engine_Power_kW, Distance_Traveled_nm, Efficiency_nm_per_kWh,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        Weather_Condition, Profit, Operational_Cost_USD,Revenue_per_Voyage_USD,  </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        Average_Load_Percentage, Cargo_Weight_tons, Turnaround_Time_hours) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>glimese()</code> to check and confirm the new data frame <strong>ship</strong> is created, and now has 14 columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ship)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,736
+Columns: 16
+$ Date                    &lt;date&gt; 2023-06-04, 2023-06-11, 2023-06-18, 2023-06-2…
+$ Ship_Type               &lt;chr&gt; "Container Ship", "Fish Carrier", "Container S…
+$ Route_Type              &lt;chr&gt; "None", "Short-haul", "Long-haul", "Transocean…
+$ Engine_Type             &lt;chr&gt; "Heavy Fuel Oil (HFO)", "Steam Turbine", "Dies…
+$ Maintenance_Status      &lt;chr&gt; "Critical", "Good", "Fair", "Fair", "Fair", "F…
+$ Speed_Over_Ground_knots &lt;dbl&gt; 12.59756, 10.38758, 20.74975, 21.05510, 13.742…
+$ Engine_Power_kW         &lt;dbl&gt; 2062.9840, 1796.0574, 1648.5567, 915.2618, 108…
+$ Distance_Traveled_nm    &lt;dbl&gt; 1030.9436, 1060.4864, 658.8741, 1126.8225, 144…
+$ Efficiency_nm_per_kWh   &lt;dbl&gt; 1.4551789, 0.2903614, 0.4995945, 0.7029057, 1.…
+$ Weather_Condition       &lt;chr&gt; "Moderate", "Rough", "Moderate", "Moderate", "…
+$ Profit                  &lt;dbl&gt; -191649.081, 400377.787, -54524.657, -173798.2…
+$ Operational_Cost_USD    &lt;dbl&gt; 483832.35, 483388.00, 448543.40, 261349.61, 28…
+$ Revenue_per_Voyage_USD  &lt;dbl&gt; 292183.27, 883765.79, 394018.75, 87551.38, 676…
+$ Average_Load_Percentage &lt;dbl&gt; 93.76925, 93.89537, 96.21824, 66.19370, 80.008…
+$ Cargo_Weight_tons       &lt;dbl&gt; 1959.0179, 162.3947, 178.0409, 1737.3853, 260.…
+$ Turnaround_Time_hours   &lt;dbl&gt; 25.86708, 63.24820, 49.41815, 22.40911, 64.158…</code></pre>
+</div>
+</div>
 </section>
-<section id="data-cleaning" class="level3">
-<h3 class="anchored" data-anchor-id="data-cleaning">3.4 Data cleaning</h3>
+<section id="missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="missing-values">4.2 Missing values</h3>
+<p>Before I use the new data to perform analysis, I want to check if there are missing values to remove. If an entry has a missing value, it may affect the analysis result.</p>
+<p><code>is.na()</code> can be used to check this. Before I dive into each variable, I would like to have an overall check if there indeed are missing values. After this check, there is no missing value found.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(ship))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>integer(0)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(ship))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>Next, I will use <code>summary()</code> to run a summary of the dataset to understand the overall statistics of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ship)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Date             Ship_Type          Route_Type        Engine_Type       
+ Min.   :2023-06-04   Length:2736        Length:2736        Length:2736       
+ 1st Qu.:2023-09-10   Class :character   Class :character   Class :character  
+ Median :2023-12-17   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2023-12-17                                                           
+ 3rd Qu.:2024-03-24                                                           
+ Max.   :2024-06-30                                                           
+ Maintenance_Status Speed_Over_Ground_knots Engine_Power_kW
+ Length:2736        Min.   :10.01           Min.   : 501   
+ Class :character   1st Qu.:13.93           1st Qu.:1148   
+ Mode  :character   Median :17.71           Median :1757   
+                    Mean   :17.60           Mean   :1758   
+                    3rd Qu.:21.28           3rd Qu.:2383   
+                    Max.   :25.00           Max.   :2999   
+ Distance_Traveled_nm Efficiency_nm_per_kWh Weather_Condition 
+ Min.   :  50.43      Min.   :0.1002        Length:2736       
+ 1st Qu.: 548.51      1st Qu.:0.4636        Class :character  
+ Median :1037.82      Median :0.7899        Mode  :character  
+ Mean   :1036.41      Mean   :0.7987                          
+ 3rd Qu.:1540.93      3rd Qu.:1.1474                          
+ Max.   :1998.34      Max.   :1.4993                          
+     Profit        Operational_Cost_USD Revenue_per_Voyage_USD
+ Min.   :-444584   Min.   : 10092       Min.   : 50352        
+ 1st Qu.:  40885   1st Qu.:131293       1st Qu.:290346        
+ Median : 262716   Median :257158       Median :520177        
+ Mean   : 266219   Mean   :255143       Mean   :521362        
+ 3rd Qu.: 492216   3rd Qu.:381797       3rd Qu.:750073        
+ Max.   : 977168   Max.   :499735       Max.   :999917        
+ Average_Load_Percentage Cargo_Weight_tons Turnaround_Time_hours
+ Min.   : 50.01          Min.   :  50.23   Min.   :12.02        
+ 1st Qu.: 62.70          1st Qu.: 553.98   1st Qu.:26.17        
+ Median : 75.50          Median :1043.21   Median :41.59        
+ Mean   : 75.22          Mean   :1032.57   Mean   :41.75        
+ 3rd Qu.: 87.72          3rd Qu.:1527.72   3rd Qu.:57.36        
+ Max.   :100.00          Max.   :1999.13   Max.   :71.97        </code></pre>
+</div>
+</div>
+<p>As shown above, it is observed that for Ship_Type, Route_Type, Engine_Type, and Weather_Condition, there are “None” string that I will not be able to incorporate into my analysis. Therefore, I will remove entries containing “None” using the code below. As a result, a tibble frame of 2,234 entries is derived.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check row numbers before filter</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ship)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2736</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ship_filter <span class="ot">&lt;-</span> ship <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">if_any</span>(<span class="fu">c</span>(Ship_Type, Route_Type, Engine_Type, Weather_Condition, Maintenance_Status), <span class="sc">~</span> .x <span class="sc">==</span> <span class="st">"None"</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check row numbers after filter</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(ship_filter) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2127</code></pre>
+</div>
+</div>
+<p>Let’s run a summary of this dataset again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ship_filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Date             Ship_Type          Route_Type        Engine_Type       
+ Min.   :2023-06-04   Length:2127        Length:2127        Length:2127       
+ 1st Qu.:2023-09-10   Class :character   Class :character   Class :character  
+ Median :2023-12-17   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2023-12-18                                                           
+ 3rd Qu.:2024-03-27                                                           
+ Max.   :2024-06-30                                                           
+ Maintenance_Status Speed_Over_Ground_knots Engine_Power_kW 
+ Length:2127        Min.   :10.01           Min.   : 501.7  
+ Class :character   1st Qu.:13.90           1st Qu.:1140.3  
+ Mode  :character   Median :17.71           Median :1755.4  
+                    Mean   :17.61           Mean   :1750.9  
+                    3rd Qu.:21.32           3rd Qu.:2365.0  
+                    Max.   :24.99           Max.   :2998.7  
+ Distance_Traveled_nm Efficiency_nm_per_kWh Weather_Condition 
+ Min.   :  50.43      Min.   :0.1002        Length:2127       
+ 1st Qu.: 559.50      1st Qu.:0.4553        Class :character  
+ Median :1037.65      Median :0.7750        Mode  :character  
+ Mean   :1038.98      Mean   :0.7899                          
+ 3rd Qu.:1541.19      3rd Qu.:1.1363                          
+ Max.   :1998.34      Max.   :1.4982                          
+     Profit        Operational_Cost_USD Revenue_per_Voyage_USD
+ Min.   :-428282   Min.   : 10097       Min.   : 50352        
+ 1st Qu.:  47543   1st Qu.:133864       1st Qu.:292184        
+ Median : 259071   Median :259125       Median :524083        
+ Mean   : 266385   Mean   :257042       Mean   :523428        
+ 3rd Qu.: 492047   3rd Qu.:384452       3rd Qu.:752934        
+ Max.   : 977168   Max.   :499735       Max.   :999812        
+ Average_Load_Percentage Cargo_Weight_tons Turnaround_Time_hours
+ Min.   :50.01           Min.   :  50.23   Min.   :12.02        
+ 1st Qu.:62.51           1st Qu.: 557.07   1st Qu.:26.31        
+ Median :75.16           Median :1045.37   Median :41.53        
+ Mean   :75.13           Mean   :1033.47   Mean   :41.77        
+ 3rd Qu.:87.69           3rd Qu.:1526.15   3rd Qu.:57.56        
+ Max.   :99.95           Max.   :1999.13   Max.   :71.97        </code></pre>
+</div>
+</div>
 </section>
-<section id="recoding-variables" class="level3">
-<h3 class="anchored" data-anchor-id="recoding-variables">3.5 Recoding Variables</h3>
+<section id="convert-data-type" class="level3">
+<h3 class="anchored" data-anchor-id="convert-data-type">4.3 Convert data type</h3>
+<p>From 4.1, I observed that Maintenance_Status, Weather_Condition, Ship_Type, Route_Type, Engine_Type are all character data type. In fact, Maintenance_Status, Weather_Condition can be converted to ordinal data type, and Ship_Type, Route_Type, Engine_Type to factor data type to derive better result.</p>
+<p>Use the code below to perform data type conversion:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>col_f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ship_Type"</span>, <span class="st">"Route_Type"</span>, <span class="st">"Engine_Type"</span>, <span class="st">"Weather_Condition"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Column names should be in quotation marks (" ")</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ship_filter <span class="ot">&lt;-</span> ship_filter <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(col_f, as.factor)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Maintenance_Status =</span> <span class="fu">factor</span>(Maintenance_Status,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Good"</span>, <span class="st">"Fair"</span>, <span class="st">"Critical"</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">ordered =</span> <span class="cn">TRUE</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I also want to convert the uni for the monetary values into thousand dollars as the unit for Operational_Cost_USD, Revenue_per_Voyage_USD and Profit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ship_filter <span class="ot">&lt;-</span> ship_filter <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Operational_Cost_USD =</span> <span class="fu">round</span>(Operational_Cost_USD <span class="sc">/</span> <span class="dv">1000</span>, <span class="dv">0</span>), <span class="co">#convert to thousand dollars, leaving on decimal places.</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Revenue_per_Voyage_USD =</span> <span class="fu">round</span>(Revenue_per_Voyage_USD <span class="sc">/</span> <span class="dv">1000</span>, <span class="dv">0</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Profit =</span> <span class="fu">round</span>(Profit <span class="sc">/</span> <span class="dv">1000</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I use <code>kable()</code> to check the conversion result, and confirm the desired variables have been converted accordingly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(ship_filter, <span class="at">n=</span><span class="dv">8</span>), <span class="at">caption =</span> <span class="st">"Ship Performance Dataset"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Ship Performance Dataset</caption>
+<colgroup>
+<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Ship_Type</th>
+<th style="text-align: left;">Route_Type</th>
+<th style="text-align: left;">Engine_Type</th>
+<th style="text-align: left;">Maintenance_Status</th>
+<th style="text-align: right;">Speed_Over_Ground_knots</th>
+<th style="text-align: right;">Engine_Power_kW</th>
+<th style="text-align: right;">Distance_Traveled_nm</th>
+<th style="text-align: right;">Efficiency_nm_per_kWh</th>
+<th style="text-align: left;">Weather_Condition</th>
+<th style="text-align: right;">Profit</th>
+<th style="text-align: right;">Operational_Cost_USD</th>
+<th style="text-align: right;">Revenue_per_Voyage_USD</th>
+<th style="text-align: right;">Average_Load_Percentage</th>
+<th style="text-align: right;">Cargo_Weight_tons</th>
+<th style="text-align: right;">Turnaround_Time_hours</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2023-06-11</td>
+<td style="text-align: left;">Fish Carrier</td>
+<td style="text-align: left;">Short-haul</td>
+<td style="text-align: left;">Steam Turbine</td>
+<td style="text-align: left;">Good</td>
+<td style="text-align: right;">10.38758</td>
+<td style="text-align: right;">1796.0574</td>
+<td style="text-align: right;">1060.4864</td>
+<td style="text-align: right;">0.2903614</td>
+<td style="text-align: left;">Rough</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">483</td>
+<td style="text-align: right;">884</td>
+<td style="text-align: right;">93.89537</td>
+<td style="text-align: right;">162.3947</td>
+<td style="text-align: right;">63.24820</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-06-18</td>
+<td style="text-align: left;">Container Ship</td>
+<td style="text-align: left;">Long-haul</td>
+<td style="text-align: left;">Diesel</td>
+<td style="text-align: left;">Fair</td>
+<td style="text-align: right;">20.74975</td>
+<td style="text-align: right;">1648.5567</td>
+<td style="text-align: right;">658.8741</td>
+<td style="text-align: right;">0.4995945</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: right;">-55</td>
+<td style="text-align: right;">449</td>
+<td style="text-align: right;">394</td>
+<td style="text-align: right;">96.21824</td>
+<td style="text-align: right;">178.0409</td>
+<td style="text-align: right;">49.41815</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-06-25</td>
+<td style="text-align: left;">Bulk Carrier</td>
+<td style="text-align: left;">Transoceanic</td>
+<td style="text-align: left;">Steam Turbine</td>
+<td style="text-align: left;">Fair</td>
+<td style="text-align: right;">21.05510</td>
+<td style="text-align: right;">915.2618</td>
+<td style="text-align: right;">1126.8225</td>
+<td style="text-align: right;">0.7029057</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: right;">-174</td>
+<td style="text-align: right;">261</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">66.19370</td>
+<td style="text-align: right;">1737.3853</td>
+<td style="text-align: right;">22.40911</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-07-02</td>
+<td style="text-align: left;">Fish Carrier</td>
+<td style="text-align: left;">Transoceanic</td>
+<td style="text-align: left;">Diesel</td>
+<td style="text-align: left;">Fair</td>
+<td style="text-align: right;">13.74278</td>
+<td style="text-align: right;">1089.7218</td>
+<td style="text-align: right;">1445.2812</td>
+<td style="text-align: right;">1.3313431</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: right;">388</td>
+<td style="text-align: right;">288</td>
+<td style="text-align: right;">676</td>
+<td style="text-align: right;">80.00858</td>
+<td style="text-align: right;">260.5951</td>
+<td style="text-align: right;">64.15823</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-07-09</td>
+<td style="text-align: left;">Fish Carrier</td>
+<td style="text-align: left;">Long-haul</td>
+<td style="text-align: left;">Heavy Fuel Oil (HFO)</td>
+<td style="text-align: left;">Fair</td>
+<td style="text-align: right;">18.61620</td>
+<td style="text-align: right;">2171.6466</td>
+<td style="text-align: right;">723.3042</td>
+<td style="text-align: right;">1.3702060</td>
+<td style="text-align: left;">Rough</td>
+<td style="text-align: right;">592</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: right;">777</td>
+<td style="text-align: right;">53.17490</td>
+<td style="text-align: right;">1912.5098</td>
+<td style="text-align: right;">47.47615</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-07-16</td>
+<td style="text-align: left;">Fish Carrier</td>
+<td style="text-align: left;">Transoceanic</td>
+<td style="text-align: left;">Heavy Fuel Oil (HFO)</td>
+<td style="text-align: left;">Critical</td>
+<td style="text-align: right;">20.43312</td>
+<td style="text-align: right;">2505.0435</td>
+<td style="text-align: right;">270.1186</td>
+<td style="text-align: right;">1.1203894</td>
+<td style="text-align: left;">Rough</td>
+<td style="text-align: right;">305</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">739</td>
+<td style="text-align: right;">58.50864</td>
+<td style="text-align: right;">1191.4364</td>
+<td style="text-align: right;">29.04042</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2023-07-23</td>
+<td style="text-align: left;">Container Ship</td>
+<td style="text-align: left;">Short-haul</td>
+<td style="text-align: left;">Diesel</td>
+<td style="text-align: left;">Critical</td>
+<td style="text-align: right;">23.49805</td>
+<td style="text-align: right;">814.8065</td>
+<td style="text-align: right;">1717.3284</td>
+<td style="text-align: right;">0.6959746</td>
+<td style="text-align: left;">Moderate</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">348</td>
+<td style="text-align: right;">462</td>
+<td style="text-align: right;">94.59197</td>
+<td style="text-align: right;">318.4493</td>
+<td style="text-align: right;">52.47860</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2023-08-06</td>
+<td style="text-align: left;">Container Ship</td>
+<td style="text-align: left;">Long-haul</td>
+<td style="text-align: left;">Diesel</td>
+<td style="text-align: left;">Fair</td>
+<td style="text-align: right;">23.22710</td>
+<td style="text-align: right;">2685.4017</td>
+<td style="text-align: right;">1588.7923</td>
+<td style="text-align: right;">0.4406762</td>
+<td style="text-align: left;">Calm</td>
+<td style="text-align: right;">465</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">615</td>
+<td style="text-align: right;">79.45133</td>
+<td style="text-align: right;">1843.4383</td>
+<td style="text-align: right;">63.74276</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 </section>
-<section id="exploratory-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis">4 Exploratory Data Analysis</h2>
-<section id="univariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-analysis">4.1 Univariate Analysis</h3>
+<section id="voyage-profile" class="level2">
+<h2 class="anchored" data-anchor-id="voyage-profile">5 Voyage profile</h2>
+<section id="ship-conditions-routes" class="level3">
+<h3 class="anchored" data-anchor-id="ship-conditions-routes">5.1 Ship conditions &amp; routes</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code bar chart for Ship type</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>p_st <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ship_filter,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat=</span><span class="st">"count"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count),<span class="st">", "</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">round</span>(<span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">after_stat</span>(count))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>)),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Ship types"</span>) <span class="sc">+</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Code bar chart for Engine type</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>p_et <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ship_filter,</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Engine_Type)) <span class="sc">+</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat=</span><span class="st">"count"</span>,</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count),<span class="st">", "</span>,</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">round</span>(<span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">after_stat</span>(count))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>)),</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Engine types"</span>) <span class="sc">+</span></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Code bar chart for Route type</span></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>p_rt <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ship_filter,</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Route_Type)) <span class="sc">+</span></span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat=</span><span class="st">"count"</span>,</span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count),<span class="st">", "</span>,</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">round</span>(<span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">after_stat</span>(count))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>)),</span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Route types"</span>) <span class="sc">+</span></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a><span class="co">#Code bar chart for Maintenance status</span></span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a>p_ms <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ship_filter,</span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Maintenance_Status)) <span class="sc">+</span></span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat=</span><span class="st">"count"</span>,</span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count),<span class="st">", "</span>,</span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">round</span>(<span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">after_stat</span>(count))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>)),</span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Maintenance status"</span>) <span class="sc">+</span></span>
+<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span>
+<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine all charts</span></span>
+<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p_st <span class="sc">|</span> p_et) <span class="sc">/</span> (p_rt <span class="sc">|</span> p_ms)</span>
+<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a>patchwork</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="bivariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="bivariate-analysis">4.2 Bivariate Analysis</h3>
+<section id="weather" class="level3">
+<h3 class="anchored" data-anchor-id="weather">5.2 Weather</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ship_filter,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> Weather_Condition)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1000</span>) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat=</span><span class="st">"count"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count),<span class="st">", "</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">round</span>(<span class="fu">after_stat</span>(count)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">after_stat</span>(count))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">0</span>), <span class="st">"%"</span>)),</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">""</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Maintenance status"</span>) <span class="sc">+</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract month and year from the Date</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ship_filter_month <span class="ot">&lt;-</span> ship_filter <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Month =</span> <span class="fu">floor_date</span>(Date, <span class="st">"month"</span>))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by Month and Weather type, then count occurrences</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>weather_by_month_bar <span class="ot">&lt;-</span> ship_filter_month <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month, Weather_Condition) <span class="sc">%&gt;%</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total occurrences per month</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>total_per_month_bar <span class="ot">&lt;-</span> weather_by_month_bar <span class="sc">%&gt;%</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">%&gt;%</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Count))</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Join total occurrences per month and compute percentage</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>weather_percentage_bar <span class="ot">&lt;-</span> weather_by_month_bar <span class="sc">%&gt;%</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(total_per_month_bar, <span class="at">by =</span> <span class="st">"Month"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percentage =</span> (Count <span class="sc">/</span> Total) <span class="sc">*</span> <span class="dv">100</span>)  <span class="co"># Convert to percentage</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot stacked bar chart with percentage</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weather_percentage_bar, </span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> Percentage, <span class="at">fill =</span> <span class="fu">factor</span>(Weather_Condition, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Calm"</span>, <span class="st">"Moderate"</span>, <span class="st">"Rough"</span>)))) <span class="sc">+</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span>  <span class="co"># Use identity because we computed percentages</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>) <span class="sc">+</span>  <span class="co"># Choose a colour palette</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Weather Distribution Over Time (Percentage)"</span>,</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage (%)"</span>,</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Weather"</span>) <span class="sc">+</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">date_format</span>(<span class="st">"%m/%y"</span>), <span class="at">breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span> </span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="multivariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="multivariate-analysis">4.3 Multivariate Analysis</h3>
+<section id="operations" class="level3">
+<h3 class="anchored" data-anchor-id="operations">5.3 Operations</h3>
+<section id="average-load" class="level4">
+<h4 class="anchored" data-anchor-id="average-load">5.3.1 Average load</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Average_Load_Percentage,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> Ship_Type,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Ship_Type</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">geom_density</span>(<span class="at">adjust =</span> <span class="fl">0.8</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="engine-power" class="level4">
+<h4 class="anchored" data-anchor-id="engine-power">5.3.2 Engine power</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Engine_Power_kW,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Ship_Type, <span class="at">color =</span> Ship_Type</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">15</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjust =</span> <span class="fl">0.8</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey90"</span>,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="cargo-weight" class="level4">
+<h4 class="anchored" data-anchor-id="cargo-weight">5.3.3 Cargo weight</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Cargo_Weight_tons,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Ship_Type, <span class="at">color =</span> Ship_Type</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">15</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjust =</span> <span class="fl">0.8</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey90"</span>,</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>,</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="turnaround-time" class="level4">
+<h4 class="anchored" data-anchor-id="turnaround-time">5.3.4 Turnaround time</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Turnaround_Time_hours,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Ship_Type, <span class="at">color =</span> Ship_Type</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">15</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjust =</span> <span class="fl">0.8</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey90"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distance-travelled" class="level4">
+<h4 class="anchored" data-anchor-id="distance-travelled">5.3.5 Distance travelled</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ship_filter,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Distance_Traveled_nm)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>) <span class="sc">+</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> Ship_Type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>ship_filter,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Average_Load_Percentage, <span class="at">y =</span> Cargo_Weight_tons,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Route_Type)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter, <span class="fu">aes</span>(<span class="at">x =</span> Distance_Traveled_nm, <span class="at">fill =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">adjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  scale_fill_viridis_d() +</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdensity)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Distance_Traveled_nm,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Ship_Type,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fu">stat</span>(x))) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges_gradient</span>(</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="dv">2</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">rel_min_height =</span> <span class="fl">0.01</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bandwidth =</span> <span class="fl">3.4</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">calc_ecdf =</span> <span class="cn">TRUE</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">"Distance [nm]"</span>,</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">option =</span> <span class="st">"G"</span>) <span class="sc">+</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Distance_Traveled_nm"</span>,</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">name =</span> <span class="st">"Ship_Type"</span>, <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">add=</span><span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">2.6</span>))) <span class="sc">+</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ridges</span>(<span class="at">grid =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Show the code"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Distance_Traveled_nm,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Ship_Type, <span class="at">color =</span> Ship_Type</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"identity"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">15</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">adjust =</span> <span class="fl">0.8</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"grey90"</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="engine-efficiency" class="level4">
+<h4 class="anchored" data-anchor-id="engine-efficiency">5.3.6 Engine efficiency</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Efficiency_nm_per_kWh,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> Ship_Type</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Against weather conditions</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Efficiency_nm_per_kWh,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> Weather_Condition</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>       )) <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="profit-performance" class="level2">
+<h2 class="anchored" data-anchor-id="profit-performance">6 Profit Performance</h2>
+<section id="performance-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="performance-over-time">6.1 Performance over time</h3>
+<p>Mar, July, Oct, Dec are peak months in the data in a one year time frame. The cost, revenue and profit shows the same pattern in the line graph. It would be good to look into the reasons why these months are peak time and what causes the cost increase.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract month and year from the Date</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ship_filter_month &lt;- ship_filter %&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate(Month = floor_date(Date, "month"))</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by month and calculate total profit, cost, and revenue</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>monthly_totals <span class="ot">&lt;-</span> ship_filter_month <span class="sc">%&gt;%</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">%&gt;%</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Profit =</span> <span class="fu">sum</span>(Profit, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Op_Cost =</span> <span class="fu">sum</span>(Operational_Cost_USD, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Revenue =</span> <span class="fu">sum</span>(Revenue_per_Voyage_USD, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the data by Total_Profit in descending order and select the top 5 months</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>top_5_months <span class="ot">&lt;-</span> monthly_totals <span class="sc">%&gt;%</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Profit)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Month_label =</span> <span class="fu">format</span>(Month, <span class="st">"%m/%y"</span>),  <span class="co"># Format date as mm/yy</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">Profit_label =</span> <span class="fu">paste0</span>(<span class="st">"$"</span>, <span class="fu">round</span>(Profit, <span class="dv">2</span>), <span class="st">" | "</span>, Month_label))  <span class="co"># Create the label</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data from wide to long format</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>monthly_long <span class="ot">&lt;-</span> monthly_totals <span class="sc">%&gt;%</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Profit, Op_Cost, Revenue),</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Type"</span>,</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Value"</span>)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot total profit, total cost, and total revenue over time</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(monthly_long, <span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> Value, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># Line plot for each variable</span></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> top_5_months, </span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> Profit), </span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> top_5_months, </span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> Profit, <span class="at">label =</span> Profit_label),</span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Profit, Cost, and Revenue Over Time"</span>,</span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Amount (1K USD)"</span>,</span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type"</span>) <span class="sc">+</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Profit"</span> <span class="ot">=</span> <span class="st">"pink"</span>, <span class="st">"Op_Cost"</span> <span class="ot">=</span> <span class="st">"grey90"</span>, <span class="st">"Revenue"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>)) <span class="sc">+</span></span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">date_format</span>(<span class="st">"%m/%y"</span>), <span class="at">breaks =</span> <span class="st">"1 month"</span>) <span class="sc">+</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span></span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="finance-overview" class="level3">
+<h3 class="anchored" data-anchor-id="finance-overview">6.2 Finance overview</h3>
+<p>To have an overview of the finance performance from all ship types, I use boxplot to check the operational cost, revenue per trip and the profit in thousand dollars. There are no outliers observed. The operational cost does not expand beyond $500K</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot operational cost distribution</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Operational_Cost_USD, <span class="at">x =</span> <span class="st">"All ship types"</span>)) <span class="sc">+</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">outlier.colour =</span> <span class="st">"purple"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"grey50"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">"#F4F8D3"</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.05</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">500</span>, <span class="dv">1000</span>))</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot revenue distribution</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>p2<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Revenue_per_Voyage_USD, <span class="at">x =</span> <span class="st">"All ship types"</span>)) <span class="sc">+</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">outlier.colour =</span> <span class="st">"blue"</span>,</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"grey50"</span>,</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> <span class="st">"#73C7C7"</span>,</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>,</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.05</span>,</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#73C7C7"</span>) <span class="sc">+</span></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">500</span>, <span class="dv">1000</span>))</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot profit distribution</span></span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> Profit, <span class="at">x =</span> <span class="st">"All ship types"</span>)) <span class="sc">+</span></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">outlier.colour =</span> <span class="st">"green"</span>,</span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"grey50"</span>,</span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> <span class="st">"#F7CFD8"</span>,</span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb43-32"><a href="#cb43-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="st">"jitter"</span>,</span>
+<span id="cb43-33"><a href="#cb43-33" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.05</span>,</span>
+<span id="cb43-34"><a href="#cb43-34" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#F7CFD8"</span>) <span class="sc">+</span></span>
+<span id="cb43-35"><a href="#cb43-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">500</span>, <span class="dv">1000</span>))</span>
+<span id="cb43-36"><a href="#cb43-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-37"><a href="#cb43-37" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3</span>
+<span id="cb43-38"><a href="#cb43-38" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist_white</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Next, we use scatterplot to see if Revenue_per_Voyage_USD and Operational_Cost_USD have any relations.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ship_filter,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Revenue_per_Voyage_USD,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Operational_Cost_USD)) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"grey"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>),</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">600</span>)) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cost vs Revenue for All Ship Types"</span>) <span class="sc">+</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist_white</span>() <span class="sc">+</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Below I combined the 3 plots together to have a clearer view of the relations.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> p4 <span class="sc">|</span> (p1 <span class="sc">/</span> p2)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>patchwork <span class="sc">&amp;</span> <span class="fu">theme_economist_white</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>)),</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="profit-performance-by-ship-types" class="level3">
+<h3 class="anchored" data-anchor-id="profit-performance-by-ship-types">6.3 Profit performance by ship types</h3>
+<p>[placeholder - explain how to plot]</p>
+<p>In this section, I will explore some variables by Ship types before going deeper into comparison studies to assess ships performance in different aspects.</p>
+<p>From the raincloud plot, can see Tanker stands out as its median looks more different than the rest. Plot statboxplot to check on the significance.</p>
+<p>[placeholder - insights] p = 0.84 suggests none of the differences are statistically significant, meaning that Tanker is not earning significantly different profit from other ship types, although we can see slight difference.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot statboxplot by ship types</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>p_statbox_st <span class="ot">&lt;-</span> <span class="fu">ggbetweenstats</span>(</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ship_filter,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> Ship_Type,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> Profit,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"p"</span>,</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean.ci =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pariwise.comparisons =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">pairwise.display =</span> <span class="st">"s"</span>,</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.adjust.methods =</span> <span class="st">"fdr"</span>,</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">message =</span> <span class="cn">FALSE</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() </span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot raincloud plot by ship types</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>median_Profit <span class="ot">&lt;-</span> <span class="fu">median</span>(ship_filter<span class="sc">$</span>Profit)</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>mean_Profit <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(ship_filter<span class="sc">$</span>Profit), <span class="dv">2</span>)</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>p_rcloud_st <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(ship_filter,</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Ship_Type,</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Profit,</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_halfeye</span>(<span class="at">adjust =</span> <span class="fl">0.3</span>,</span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">justification =</span> <span class="sc">-</span><span class="fl">0.2</span>,</span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">scale =</span> <span class="fl">0.6</span>,</span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">width =</span> <span class="fl">0.6</span>,</span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">slab_color =</span> <span class="st">"grey"</span>,</span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">slab_fill =</span> <span class="st">"#D6DED5"</span>,</span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">slab_linetype =</span> <span class="st">"solid"</span>,</span>
+<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">slab_linewidth =</span> <span class="fl">0.4</span>,</span>
+<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">slab_alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a>               <span class="at">.width =</span> <span class="dv">0</span>,</span>
+<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">point_colour =</span> <span class="cn">NA</span>,</span>
+<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y =</span> <span class="sc">-</span><span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"#FFC0CB"</span>,</span>
+<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">"Pasterl1"</span>) <span class="sc">+</span></span>
+<span id="cb46-39"><a href="#cb46-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_dots</span>(<span class="at">side =</span> <span class="st">"left"</span>,</span>
+<span id="cb46-40"><a href="#cb46-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">justification =</span> <span class="fl">1.2</span>,</span>
+<span id="cb46-41"><a href="#cb46-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">bandwidth =</span> .<span class="dv">5</span>,</span>
+<span id="cb46-42"><a href="#cb46-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">dotsize =</span> <span class="fl">0.1</span>,</span>
+<span id="cb46-43"><a href="#cb46-43" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb46-44"><a href="#cb46-44" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">color =</span> Engine_Type)) <span class="sc">+</span></span>
+<span id="cb46-45"><a href="#cb46-45" aria-hidden="true" tabindex="-1"></a>  <span class="co">#indicate median score position</span></span>
+<span id="cb46-46"><a href="#cb46-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> median_Profit),</span>
+<span id="cb46-47"><a href="#cb46-47" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"blue"</span>, </span>
+<span id="cb46-48"><a href="#cb46-48" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="fl">0.4</span>,</span>
+<span id="cb46-49"><a href="#cb46-49" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb46-50"><a href="#cb46-50" aria-hidden="true" tabindex="-1"></a>  <span class="co">#indicate mean score position</span></span>
+<span id="cb46-51"><a href="#cb46-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> mean_Profit),</span>
+<span id="cb46-52"><a href="#cb46-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, </span>
+<span id="cb46-53"><a href="#cb46-53" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="fl">0.4</span>,</span>
+<span id="cb46-54"><a href="#cb46-54" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb46-55"><a href="#cb46-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb46-56"><a href="#cb46-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb46-57"><a href="#cb46-57" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.1</span>,</span>
+<span id="cb46-58"><a href="#cb46-58" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> median_Profit <span class="sc">+</span> <span class="dv">270</span>,</span>
+<span id="cb46-59"><a href="#cb46-59" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Median Score = "</span>, median_Profit),</span>
+<span id="cb46-60"><a href="#cb46-60" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"blue"</span>,</span>
+<span id="cb46-61"><a href="#cb46-61" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb46-62"><a href="#cb46-62" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb46-63"><a href="#cb46-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb46-64"><a href="#cb46-64" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.3</span>,</span>
+<span id="cb46-65"><a href="#cb46-65" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_Profit <span class="sc">+</span> <span class="dv">270</span>,</span>
+<span id="cb46-66"><a href="#cb46-66" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Mean Score = "</span>, mean_Profit),</span>
+<span id="cb46-67"><a href="#cb46-67" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb46-68"><a href="#cb46-68" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb46-69"><a href="#cb46-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb46-70"><a href="#cb46-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb46-71"><a href="#cb46-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb46-72"><a href="#cb46-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#f1f4f5"</span>),</span>
+<span id="cb46-73"><a href="#cb46-73" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb46-74"><a href="#cb46-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-75"><a href="#cb46-75" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine two plots</span></span>
+<span id="cb46-76"><a href="#cb46-76" aria-hidden="true" tabindex="-1"></a>patchwork <span class="ot">&lt;-</span> (p_rcloud_st <span class="sc">|</span> p_statbox_st)</span>
+<span id="cb46-77"><a href="#cb46-77" aria-hidden="true" tabindex="-1"></a>patchwork</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-profit-revenue-against-average-load" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-profit-revenue-against-average-load">6.4 Comparing profit &amp; revenue against average load</h3>
+<p>load vs profit</p>
+<p>[combine 2 figures, one for all, one by ship type]</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ship_filter,</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Average_Load_Percentage,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Profit)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"grey"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">100</span>),</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Load vs Profit"</span>) <span class="sc">+</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist_white</span>() <span class="sc">+</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>p5_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ship_filter,</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Average_Load_Percentage,</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Profit,</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"grey"</span>,</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">color =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">100</span>),</span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Load vs Profit by All Ship Types"</span>,</span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Ship Type"</span>) <span class="sc">+</span></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist_white</span>() <span class="sc">+</span></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>),</span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"right"</span>)</span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a>p5 <span class="sc">|</span> p5_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>load vs revenue</p>
+<p>[combine 2 figures, one for all, one by ship type]</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>ship_filter,</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Average_Load_Percentage,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> Revenue_per_Voyage_USD,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Ship_Type)) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">100</span>),</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"load vs revenue for All Ship Types"</span>) <span class="sc">+</span></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_economist_white</span>() <span class="sc">+</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>p6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggdist, ggridges, ggthemes, colorspace, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="multi-facets-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="multi-facets-comparison">7 Multi Facets Comparison</h2>
+<p>Compare profit using facets.</p>
+<p>Use facet for ship types vs weather for profit &amp; efficiency, color in engine type.(see ggtheme)</p>
+<section id="comparing-profit-performance-with-ship-conditions-by-ship-type" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-profit-performance-with-ship-conditions-by-ship-type">7.1 Comparing profit performance with ship conditions by ship type</h3>
+<p>- engine type</p>
+<p>- maintenance</p>
+</section>
+<section id="comparing-profit-performance-with-external-factors-by-ship-type" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-profit-performance-with-external-factors-by-ship-type">7.2 Comparing profit performance with external factors by ship type</h3>
+<p>- route type</p>
+<p>- weather</p>
+<p>histogram</p>
 </section>
 </section>
 <section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">5 Summary</h2>
+<h2 class="anchored" data-anchor-id="summary">8 Summary</h2>
 </section>
 <section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">6 References</h2>
+<h2 class="anchored" data-anchor-id="references">9 References</h2>
 
 
 </section>

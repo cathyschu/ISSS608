@@ -105,9 +105,9 @@ code span.st { color: #0c4a6e !important; } /* Strings */
 /* style callout blocks */
 .goals {
   margin: 1em 0;
-  border: 2px dashed #cc99a9;
+  border: 2px dashed #e4f4f5;
   border-radius: 10px;
-  background-color:#ebdfe3;
+  background-color: #bcd3d4;
 }
 
 .goals-header {
@@ -115,11 +115,11 @@ code span.st { color: #0c4a6e !important; } /* Strings */
   padding-left: 80px;
   padding-top: 20px;
   padding-bottom: 0.1em;
-  color: #cc99a9;
+  color: #3c8082;
   font-size: 1.2em;
   font-weight: bold;
   background-size: 60px;
-  background-color:#ebdfe3;
+  background-color: #bcd3d4;
   background-repeat: no-repeat;
   background-position: 15px center;
   background-image: url("images/dino-rex-2.png");
@@ -130,6 +130,6 @@ code span.st { color: #0c4a6e !important; } /* Strings */
   padding-left: 10px;
   padding-right: 20px;
   color: #343738;
-  background-color: #ebdfe3;
+  background-color: #bcd3d4;
   border-bottom-right-radius: 10px;  
 }
