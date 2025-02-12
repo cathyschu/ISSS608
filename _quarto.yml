@@ -115,7 +115,7 @@ website:
           - text: "Hands-on Exercise 5-4"
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.qmd
           - text: "Hands-on Exercise 5-5"
-            href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_.qmd
+            href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.qmd
             
       - section: "In-class Exercise"
         contents:
