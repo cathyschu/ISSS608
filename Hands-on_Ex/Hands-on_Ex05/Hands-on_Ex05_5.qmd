@@ -31,7 +31,7 @@ execute:
 
 ### 4.2 Use the basic arguments
 
-### 4.3 Work with *vColor* and *type* arguments 
+### 4.3 Work with *vColor* and *type* arguments
 
 ### 4.4 Colours in treemap package
 
@@ -56,5 +56,3 @@ execute:
 ### 6.1 Install d3treeR package
 
 ### 6.2 Design an interactive treemap
-
-## 
