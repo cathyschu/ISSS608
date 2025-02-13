@@ -784,6 +784,100 @@ Figure below is plotted by mapping the probabilities calculated by using `stat(e
 
 \[placeholder - insights\] p = 0.84 suggests none of the differences are statistically significant, meaning that Tanker is not earning significantly different profit from other ship types, although we can see slight difference.
 
+--
+
+Compare central density
+
+```{r}
+#| fig-width: 14
+#| fig-height: 9
+#| code-fold: true
+#| code-summary: "Show the code"
+# Plot ship type
+p_dens_st <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Ship_Type)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+# Plot Engine type
+p_dens_et <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Engine_Type)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+# Plot Route type
+p_dens_rt <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Route_Type)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+# Plot Weather
+p_dens_wc <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Weather_Condition)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+# Plot maintenance
+p_dens_ms <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Maintenance_Status)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+(p_dens_st|p_dens_st | p_dens_ms) / (p_dens_wc | p_dens_rt | p_dens_et)
+```
+
+--
+
 ```{r}
 #| fig-width: 14
 #| fig-height: 12
@@ -904,7 +998,7 @@ p_statbox_st / (p_dens_st | p_rid_st)
 
 #### **5.1.5 maintenance status**
 
-### 5.2 Ship type performance by different factors
+### 5.2 Profit performance with different factors by ship type
 
 #### 5.2.1 Engine type
 
@@ -1073,16 +1167,16 @@ p6
 
 ### 5.3 Performance over time
 
-#### 5.3.1 Profit performance
+#### **5.3.1 Overview**
 
 Mar, July, Oct, Dec are peak months in the data in a one year time frame. The cost, revenue and profit shows the same pattern in the line graph. It would be good to look into the reasons why these months are peak time and what causes the cost increase.
 
 ```{r}
-#| fig-width: 9
-#| fig-height: 5
+#| fig-width: 8
+#| fig-height: 4
 #| code-fold: true
 #| code-summary: "Show the code"
-#| 
+
 # Extract month and year from the Date
 ship_filter_month <- ship_filter %>%
   mutate(Month = floor_date(Date, "month"))
@@ -1113,7 +1207,7 @@ monthly_long <- monthly_totals %>%
 # Plot total profit, total cost, and total revenue over time
 ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
   
-  geom_line(size = 1) +  # Line plot for each variable
+  geom_line(size = 0.6) +  # Line plot for each variable
   geom_point(data = top_5_months, 
              aes(x = Month, y = Profit), 
              color = "red", size = 3.5, shape = 21, fill = "red",
@@ -1128,7 +1222,227 @@ ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
        color = "Type") +
     
   theme_light() +
-  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "#EFDBA7", 
+  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "grey70", 
+                                "Revenue" = "skyblue"),
+                     guide = "none") +
+  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "top",
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank()) +
+  geomtextpath::geom_textline(
+    aes(label = Type),
+    linewidth = 1,
+    fontface = "bold",
+    size = 3,
+    vjust = -.4,
+    hjust = .5) 
+
+```
+
+#### **5.3.2 Comparing Profit, Revenue, and Cost Across Ship Types**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 10
+#| code-fold: true
+#| code-summary: "Show the code"
+
+### Plot profit ###
+# Aggregate total monthly profit for each ship type
+monthly_profit <- ship_filter %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Month, Ship_Type) %>%
+  summarise(Total_profit = sum(Profit, na.rm = TRUE), 
+            .groups = "drop")
+
+# Identify top 3 months for each type
+top_3_months <- monthly_profit %>%
+  group_by(Ship_Type) %>%
+  slice_max(order_by = Total_profit, n = 3)
+
+# Define colors
+ship_type_colors <- c("pink", "grey80", "grey40", "#C4E4FF")
+
+# Plot profit over time for each ship type
+p_line_pf <- ggplot(monthly_profit, 
+      aes(x = Month, 
+          y = Total_profit, 
+          color = Ship_Type, 
+          group = Ship_Type)) +
+  geom_line(size = .8) + 
+  geom_point(data = top_3_months, 
+             aes(x = Month,
+                 y = Total_profit,
+                 inherit.aes = FALSE),
+             size = 4, shape = 21,
+             color = ship_type_colors[as.factor(top_3_months$Ship_Type)], 
+             stroke = 1.5) +
+  labs(title = "Monthly Profit Trends by Ship Type",
+       x = "Month",
+       y = "Total Profit (1KUSD)",
+       color = "Ship Type") +
+  scale_color_manual(values = ship_type_colors) +  
+  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
+  theme_light() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "top",
+        legend.title = element_blank(),
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank()) +
+  guides(fill = "none")
+
+### Plot cost ###
+# Aggregate total monthly cost for each ship type
+monthly_cost <- ship_filter %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Month, Ship_Type) %>%
+  summarise(Total_cost = sum(Operational_Cost_USD, na.rm = TRUE), 
+            .groups = "drop")
+
+# Identify top 3 months for each type
+top_3_months_cost <- monthly_cost %>%
+  group_by(Ship_Type) %>%
+  slice_max(order_by = Total_cost, n = 3)
+
+# Define colors
+ship_type_colors <- c("pink", "grey80", "grey40", "#C4E4FF")
+
+# Plot cost over time for each ship type
+p_line_cost <- ggplot(monthly_cost, 
+      aes(x = Month, 
+          y = Total_cost, 
+          color = Ship_Type, 
+          group = Ship_Type)) +
+  geom_line(size = .8, linetype = "twodash") + 
+  geom_point(data = top_3_months_cost, 
+             aes(x = Month,
+                 y = Total_cost,
+                 inherit.aes = FALSE),
+             size = 4, shape = 21,
+             color = ship_type_colors[as.factor(top_3_months_cost$Ship_Type)], 
+             stroke = 1.5) +
+  labs(title = "Monthly Cost Trends by Ship Type",
+       x = "Month",
+       y = "Total Cost (1KUSD)",
+       color = "Ship Type") +
+  scale_color_manual(values = ship_type_colors) +  
+  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
+  theme_light() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "top",
+        legend.title = element_blank(),
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank()) +
+  guides(fill = "none")
+
+### Plot revenue ###
+# Aggregate total monthly revenue for each ship type
+monthly_rvn <- ship_filter %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Month, Ship_Type) %>%
+  summarise(Total_rvn = sum(Revenue_per_Voyage_USD, na.rm = TRUE), 
+            .groups = "drop")
+
+# Identify top 3 months for each type
+top_3_months_rvn <- monthly_rvn %>%
+  group_by(Ship_Type) %>%
+  slice_max(order_by = Total_rvn, n = 3)
+
+# Define colors
+ship_type_colors <- c("pink", "grey80", "grey40", "#C4E4FF")
+
+# Plot revenue over time for each ship type
+p_line_rvn <- ggplot(monthly_rvn, 
+      aes(x = Month, 
+          y = Total_rvn, 
+          color = Ship_Type, 
+          group = Ship_Type)) +
+  geom_line(size = .8, linetype = "dotted") + 
+  geom_point(data = top_3_months_rvn, 
+             aes(x = Month,
+                 y = Total_rvn,
+                 inherit.aes = FALSE),
+             size = 4, shape = 21,
+             color = ship_type_colors[as.factor(top_3_months_rvn$Ship_Type)], 
+             stroke = 1.5) +
+  labs(title = "Monthly Revenue Trends by Ship Type",
+       x = "Month",
+       y = "Total Revenue (1KUSD)",
+       color = "Ship Type") +
+  scale_color_manual(values = ship_type_colors) +  
+  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
+  theme_light() +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "top",
+        legend.title = element_blank(),
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank()) +
+  guides(fill = "none") 
+
+p_line_pf / p_line_cost / p_line_rvn 
+ 
+
+```
+
+#### 5.3.3 **Monthly Profit, Revenue, and Cost Trends by Ship Type**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Extract month and year from the Date
+ship_filter_month <- ship_filter %>%
+  mutate(Month = floor_date(Date, "month"))
+
+# Group by month and calculate total profit, cost, and revenue
+monthly_totals_st <- ship_filter_month %>%
+  group_by(Month, Ship_Type) %>%
+  summarise(
+    Profit = sum(Profit, na.rm = TRUE),
+    Op_Cost = sum(Operational_Cost_USD, na.rm = TRUE),
+    Revenue = sum(Revenue_per_Voyage_USD, na.rm = TRUE),
+    .groups = "drop"
+  ) 
+
+# Sort the data by Total_Profit in descending order and select the top 5 months
+top_5_months <- monthly_totals_st %>%
+  arrange(desc(Profit)) %>%
+  slice_head(n = 5) %>%
+  mutate(
+    #Month_label = format(Month, "%m/%y"),  # Format date as mm/yy
+         Profit_label = paste0("$", round(Profit, 2)))  # Create the label
+
+# Reshape the data from wide to long format
+monthly_long_st <- monthly_totals_st %>%
+  pivot_longer(cols = c(Profit, Op_Cost, Revenue),
+               names_to = "Type",
+               values_to = "Value")
+
+# Plot total profit, total cost, and total revenue over time
+ggplot(monthly_long_st, aes(x = Month, y = Value, color = Type, group = interaction(Ship_Type, Type))) +
+  geom_line(size = 0.3) +  # Line plot for each variable
+  geom_point(data = top_5_months, 
+             aes(x = Month, y = Profit), 
+             color = "red", size = 3, shape = 21, fill = "red",
+             inherit.aes = FALSE) + # Prevent from inheriting "Type"
+  geom_text(data = top_5_months, 
+            aes(x = Month, y = Profit, label = Profit_label),
+            color = "black", size = 3.5, vjust = -2, hjust = 0.5,
+            inherit.aes = FALSE) +
+  labs(title = "Profit, Cost, and Revenue Over Time by Ship Type",
+       x = "Month",
+       y = "Amount (1K USD)",
+       color = "Type") +
+    
+  theme_light() +
+  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "grey70", 
                                 "Revenue" = "skyblue"),
                      guide = "none") +
   scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
@@ -1137,18 +1451,18 @@ ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
         ) +
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank()) +
+        panel.border = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
   geomtextpath::geom_textline(
     aes(label = Type),
     linewidth = 1,
     fontface = "bold",
-    size = 5,
+    size = 2,
     vjust = -.4,
-    hjust = .5) 
-
+    hjust = .5) +
+  facet_wrap(~ Ship_Type, scales = "free_y") #facet by ship type
+  
 ```
-
-#### 5.3.2 Ship specs performance
 
 Maintenance status
 
@@ -1246,4 +1560,14 @@ p_viol_prof <- ggplot(ship_filter,
                                "Container Ship" = "#5FB0B0", 
                                "Fish Carrier" = "#A3B23B",
                                "Tanker" = "#FFB200"))
+```
+
+```{r}
+model <- lm(Profit ~ Speed_Over_Ground_knots + Engine_Power_kW +
+              Distance_Traveled_nm + Efficiency_nm_per_kWh +
+              Operational_Cost_USD + Revenue_per_Voyage_USD +
+              Average_Load_Percentage + Cargo_Weight_tons +
+              Turnaround_Time_hours,
+            data = ship_filter)
+model
 ```
