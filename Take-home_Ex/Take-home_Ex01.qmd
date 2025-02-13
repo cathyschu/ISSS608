@@ -32,10 +32,10 @@ This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functio
 
 pacman::p_load(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes, ggridges, gganimate,
                ggdist, ggtext, colorspace, magrittr, patchwork, RColorBrewer,
-               ggstatsplot, egg)
+               ggstatsplot, egg, geomtextpath)
 ```
 
-## 3 Dataset
+## 3 Data Preparation
 
 The dataset [Ship Performance Clustering Dataset](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset) downloaded from Kaggle. This file contains a detailed dataset focusing on the operational performance of various ship types across different routes. Each row represents the performance metrics and attributes for a specific voyage or ship over a given timeframe.
 
@@ -59,13 +59,13 @@ The dataset consists of 18 columns and 2,736 rows (observations). Each observati
 glimpse(data_ship)
 ```
 
-## 4 Data Wrangling
+### 3.2 Data Wrangling
 
 The diagram below shows the variables selected for this study:
 
 \[placeholder\]
 
-### 4.1 Add a variable
+#### 3.2.1 Add a variable
 
 To assess the ships' performance in profit, I will add a variable **Profit**, to be derived from Revenue_per_Voyage_USD subtracing Operational_Cost_USD.
 
@@ -82,7 +82,7 @@ Now, I will use `head()` to have a look and confirm **Profit** is added to the d
 head(data_ship)
 ```
 
-### 4.1 Variable selection
+#### 3.2.2 Variable selection
 
 To perform an analysis to achieve the objectives in 1.2, I will keep the following variables.
 
@@ -128,7 +128,7 @@ Use `glimese()` to check and confirm the new data frame **ship** is created, and
 glimpse(ship)
 ```
 
-### 4.2 Missing values
+#### 3.2.3 Missing values
 
 Before I use the new data to perform analysis, I want to check if there are missing values to remove. If an entry has a missing value, it may affect the analysis result.
 
@@ -165,7 +165,7 @@ Let's run a summary of this dataset again.
 summary(ship_filter)
 ```
 
-### 4.3 Convert data type
+#### 3.2.4 Convert data type
 
 From 4.1, I observed that Maintenance_Status, Weather_Condition, Ship_Type, Route_Type, Engine_Type are all character data type. In fact, Maintenance_Status, Weather_Condition can be converted to ordinal data type, and Ship_Type, Route_Type, Engine_Type to factor data type to derive better result.
 
@@ -198,13 +198,13 @@ I use `kable()` to check the conversion result, and confirm the desired variable
 kable(head(ship_filter, n=8), caption = "Ship Performance Dataset")
 ```
 
-## 5 Voyage profile
+## 4 Voyage Pprofile
 
-### 5.1 Ship conditions & routes
+### 4.1 Ship conditions & routes
 
 ```{r}
 #| fig-width: 15
-#| fig-height: 8
+#| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -276,7 +276,7 @@ p_rt <- ggplot(data = ship_filter,
 
 p_ms <- ggplot(data = ship_filter,
                aes(x = Maintenance_Status)) +
-  geom_bar(fill = "grey") +
+  geom_bar(fill = "grey80") +
   ylim(0, 1000) +
   geom_text(stat="count",
             aes(label = paste0(after_stat(count),", ",
@@ -299,34 +299,43 @@ patchwork <- (p_st | p_et) / (p_rt | p_ms)
 patchwork
 ```
 
-### 5.2 Weather
+### 4.2 Weather conditions
 
 ```{r}
-ggplot(data = ship_filter,
-               aes(x = Weather_Condition)) +
-  geom_bar(fill = "grey") +
+#| fig-width: 10
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+
+#Plot1
+p_wthr_1 <- ggplot(data = ship_filter,
+               aes(x = Weather_Condition, fill = Weather_Condition)) +
+  geom_bar() +
   ylim(0, 1000) +
   geom_text(stat="count",
             aes(label = paste0(after_stat(count),", ",
                                round(after_stat(count)/sum(after_stat(count))*100, 0), "%")),
             vjust = -0.5,
-            size = 6) +
+            size = 2) +
+  scale_fill_manual(values = c("Calm" = "#86A788",
+                               "Moderate" = "#FFFDEC",
+                               "Rough" = "#FFE2E2")) +
   labs(x = "",
        y = "",
-       title = "Maintenance status") +
-  theme_classic() +
+       title = "Weather Condition \n Overview") +
+  theme_light() +
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
-        plot.title = element_text(size = 20, face = "bold"),
-        text = element_text(size = 20))
-```
+        plot.title = element_text(size = 10, face = "bold"),
+        text = element_text(size = 8),
+#        legend.text = element_text(size = 6),  # Change legend text size
+#        legend.title = element_text(size = 6, face = "bold"),  # Change legend title size
+#        legend.key.size = unit(0.5, "cm"),  # Adjust legend key size (box size)
+#        legend.spacing.y = unit(0.3, "cm"),
+        legend.position = "none")  # Adjust vertical spacing between legend items))
 
-```{r}
-#| fig-width: 9
-#| fig-height: 5
-#| code-fold: true
-#| code-summary: "Show the code"
+# Plot2
 # Extract month and year from the Date
 ship_filter_month <- ship_filter %>%
   mutate(Month = floor_date(Date, "month"))
@@ -347,284 +356,331 @@ weather_percentage_bar <- weather_by_month_bar %>%
   mutate(Percentage = (Count / Total) * 100)  # Convert to percentage
 
 # Plot stacked bar chart with percentage
-ggplot(weather_percentage_bar, 
+p_wthr_2 <- ggplot(weather_percentage_bar, 
        aes(x = Month, y = Percentage, fill = factor(Weather_Condition, levels = c("Calm", "Moderate", "Rough")))) +
   geom_bar(stat = "identity", position = "stack") +  # Use identity because we computed percentages
-  scale_fill_brewer(palette = "Set3") +  # Choose a colour palette
-  labs(title = "Weather Distribution Over Time (Percentage)",
+  geom_text(aes(label = paste0(round(Percentage, 0), "%")), 
+            position = position_stack(vjust = 0.5),  # Center the text in each segment
+            size = 2.5, color = "black") +  # Adjust text size and color
+  scale_fill_manual(values = c("Calm" = "#86A788",
+                               "Moderate" = "#FFFDEC",
+                               "Rough" = "#FFE2E2")) +  # Choose a colour palette
+  labs(title = "Weather Distribution by Month (%)",
        x = "Month",
        y = "Percentage (%)",
        fill = "Weather") +
-  theme_minimal() +
+  theme_light() +
   scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") + 
-  theme(plot.title = element_text(size = 14, face = "bold"))
-```
-
-### 5.3 Operations
-
-#### 5.3.1 Average load
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(x = Average_Load_Percentage,
-           colour = Ship_Type,
-           fill = Ship_Type
-       )) +
-       geom_density(adjust = 0.8,
-                    alpha = 0.1) +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
+        panel.border = element_blank(),
+        text = element_text(size = 8),
+        legend.text = element_text(size = 6),  # Change legend text size
+        legend.title = element_text(size = 6, face = "bold"),  # Change legend title size
+        legend.key.size = unit(0.5, "cm"),  # Adjust legend key size (box size)
+        legend.spacing.y = unit(0.3, "cm"),
+        legend.position = "top")  # Adjust vertical spacing between legend items)))  #hide legend
+
+#Combine plots
+p_wthr_2 + p_wthr_1 + plot_layout(widths = c(2.5,1))
 ```
 
-#### 5.3.2 Engine power
+### 4.3 Operational effects
 
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(x = Engine_Power_kW,
-           fill = Ship_Type, color = Ship_Type
-       )) +
-  geom_histogram(
-    aes(y = after_stat(density)),
-    position = "identity",
-    bins = 15,
-    adjust = 0.8,
-    alpha = 0.5,
-    color = "grey90",
-    fill = "grey") +
-  geom_density(alpha = 0.2,
-               position = "identity") +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
+::: {.panel-tabset}
 
-#### 5.3.3 Cargo weight
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(x = Cargo_Weight_tons,
-           fill = Ship_Type, color = Ship_Type
-       )) +
-  geom_histogram(
-    aes(y = after_stat(density)),
-    position = "identity",
-    bins = 15,
-    adjust = 0.8,
-    alpha = 0.5,
-    color = "grey90",
-    fill = "grey") +
-  geom_density(alpha = 0.2,
-               position = "identity") +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
-
-#### 5.3.4 Turnaround time
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(x = Turnaround_Time_hours,
-           fill = Ship_Type, color = Ship_Type
-       )) +
-  geom_histogram(
-    aes(y = after_stat(density)),
-    position = "identity",
-    bins = 15,
-    adjust = 0.8,
-    alpha = 0.5,
-    color = "grey90",
-    fill = "grey") +
-  geom_density(alpha = 0.2,
-               position = "identity") +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
-
-#### 5.3.5 Distance travelled
-
-```{r}
-ggplot(data=ship_filter,
-       aes(x = Distance_Traveled_nm)) +
-  geom_histogram(bins=10) + 
-  facet_grid(~ Ship_Type)
-```
-
-```{r}
-ggplot(data=ship_filter,
-       aes(x = Average_Load_Percentage, y = Cargo_Weight_tons,
-           color = Ship_Type)) +
-  geom_point(size=0.4) +
-  facet_wrap(~ Route_Type)
-```
-
-```{r}
-ggplot(ship_filter, aes(x = Distance_Traveled_nm, fill = Ship_Type)) +
-  geom_density(alpha = 0.2, adjust = 0.5) +
-#  scale_fill_viridis_d() +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
-
-```{r}
-library(ggdensity)
-ggplot(ship_filter,
-       aes(x = Distance_Traveled_nm,
-           y = Ship_Type,
-           fill = stat(x))) +
-  geom_density_ridges_gradient(
-    scale = 2,
-    rel_min_height = 0.01,
-    bandwidth = 3.4,
-    calc_ecdf = TRUE
-  ) +
-  scale_fill_viridis_c(name = "Distance [nm]",
-                       option = "G") +
-  scale_x_continuous(
-    name = "Distance_Traveled_nm",
-    expand = c(0,0),
-  ) +
-  scale_y_discrete(name = "Ship_Type", expand = expansion(add=c(0.2, 2.6))) +
-  theme_ridges(grid = FALSE)
-```
-
-```{r}
-
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(x = Distance_Traveled_nm,
-           fill = Ship_Type, color = Ship_Type
-       )) +
-  geom_histogram(
-    aes(y = after_stat(density)),
-    position = "identity",
-    bins = 15,
-    adjust = 0.8,
-    alpha = 0.5,
-    color = "grey90",
-    fill = "grey") +
-  geom_density(alpha = 0.2,
-               position = "identity") +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
-
-#### 5.3.6 Engine efficiency
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(y = Efficiency_nm_per_kWh,
-           x = Ship_Type
-       )) +
-       geom_boxplot() +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
-
-Against weather conditions
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter,
-       aes(y = Efficiency_nm_per_kWh,
-           x = Weather_Condition
-       )) +
-       geom_boxplot() +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-```
-
-## 6 Profit Performance
-
-### 6.1 Performance over time
-
-Mar, July, Oct, Dec are peak months in the data in a one year time frame. The cost, revenue and profit shows the same pattern in the line graph. It would be good to look into the reasons why these months are peak time and what causes the cost increase.
+## **Average load**
 
 ```{r}
 #| fig-width: 9
-#| fig-height: 5
+#| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
-# Extract month and year from the Date
-#ship_filter_month <- ship_filter %>%
-#  mutate(Month = floor_date(Date, "month"))
 
-# Group by month and calculate total profit, cost, and revenue
-monthly_totals <- ship_filter_month %>%
-  group_by(Month) %>%
-  summarise(
-    Profit = sum(Profit, na.rm = TRUE),
-    Op_Cost = sum(Operational_Cost_USD, na.rm = TRUE),
-    Revenue = sum(Revenue_per_Voyage_USD, na.rm = TRUE)
-  )
+#Plot1
+p_heye_al <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Average_Load_Percentage,
+           fill = Route_Type)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
+                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
+                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
+                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6), 
+                               name = NULL)) +
+  labs(title = "Halfeye Plots by Route Type")
 
-# Sort the data by Total_Profit in descending order and select the top 5 months
-top_5_months <- monthly_totals %>%
-  arrange(desc(Profit)) %>%
-  slice_head(n = 5) %>%
-  mutate(Month_label = format(Month, "%m/%y"),  # Format date as mm/yy
-         Profit_label = paste0("$", round(Profit, 2), " | ", Month_label))  # Create the label
 
-# Reshape the data from wide to long format
-monthly_long <- monthly_totals %>%
-  pivot_longer(cols = c(Profit, Op_Cost, Revenue),
-               names_to = "Type",
-               values_to = "Value")
+#Plot2
 
-# Plot total profit, total cost, and total revenue over time
-ggplot(monthly_long, aes(x = Month, y = Value, color = Type)) +
-  
-  geom_line(size = 1) +  # Line plot for each variable
-  geom_point(data = top_5_months, 
-             aes(x = Month, y = Profit), 
-             color = "red", size = 3, shape = 21, fill = "red") + 
-  geom_text(data = top_5_months, 
-            aes(x = Month, y = Profit, label = Profit_label),
-            color = "black", size = 2.5, vjust = -1, hjust = 0.5) +
-  labs(title = "Profit, Cost, and Revenue Over Time",
-       x = "Month",
-       y = "Amount (1K USD)",
-       color = "Type") +
-  
-  theme_light() +
-  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "grey90", "Revenue" = "skyblue")) +
-  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
-  theme(plot.title = element_text(size = 14, face = "bold"),
-        legend.position = "top"
-        ) +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
+median_load = median(ship_filter$Average_Load_Percentage)
 
+p_heye_al_st <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Average_Load_Percentage)) +
+  ggdist::stat_interval(.width = 1:4*.25) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  scale_color_viridis_d(option = "mako", direction = -1, end = .9) +
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "purple") +  # Add median line
+  annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
+            color = "purple", vjust = -1, hjust = 0, size = 3) +  # Add text label
+  labs(title = "Halfeye Plots with Median Line")
+
+#Combine plots
+p_heye_al_st / p_heye_al + plot_layout(height = c(1, 1.5))
 ```
 
-### 6.2 Finance overview
+## **Engine power**
+
+```{r}
+#| fig-width: 9
+#| fig-height: 10
+#| code-fold: true
+#| code-summary: "Show the code"
+
+#Plot1
+p_heye_ep <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Engine_Power_kW,
+           fill = Route_Type)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
+                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
+                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
+                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Engine Power by Route Type")
+
+
+#Plot2
+
+median_load = median(ship_filter$Engine_Power_kW)
+
+p_heye_ep_st <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Engine_Power_kW)) +
+  ggdist::stat_interval(.width = 1:4*.25) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  scale_color_viridis_d(option = "cividis", direction = -1, end = .9) +
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "blue") +  # Add median line
+  annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
+            color = "blue", vjust = -1, hjust = 0, size = 3) +  # Add text label
+  labs(title = "Halfeye Plots of Engine Power with Median Line")
+
+#Combine plots
+p_heye_ep_st / p_heye_ep + plot_layout(height = c(1, 1.5))
+```
+
+## **Cargo weight**
+
+```{r}
+#| fig-width: 9
+#| fig-height: 10
+#| code-fold: true
+#| code-summary: "Show the code"
+
+#Plot1
+p_heye_cw <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Cargo_Weight_tons,
+           fill = Route_Type)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
+                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
+                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
+                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Cargo Weight by Route Type")
+
+
+#Plot2
+
+median_load = median(ship_filter$Cargo_Weight_tons)
+
+p_heye_cw_st <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Cargo_Weight_tons)) +
+  ggdist::stat_interval(.width = 1:4*.25) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  scale_color_viridis_d(option = "plasma", direction = -1, end = .9) +
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "red") +  # Add median line
+  annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
+            color = "red", vjust = -1, hjust = 0, size = 3) +  # Add text label
+  labs(title = "Halfeye Plots of Cargo Weight with Median Line")
+
+#Combine plots
+p_heye_cw_st / p_heye_cw + plot_layout(height = c(1, 1.5))
+```
+
+## **Turnaround time**
+
+```{r}
+#| fig-width: 9
+#| fig-height: 10
+#| code-fold: true
+#| code-summary: "Show the code"
+
+#Plot1
+p_heye_tt <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Turnaround_Time_hours,
+           fill = Route_Type)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
+                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
+                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
+                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Turnaround Time by Route Type")
+
+
+#Plot2
+
+median_load = median(ship_filter$Turnaround_Time_hours)
+
+p_heye_tt_st <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Turnaround_Time_hours)) +
+  ggdist::stat_interval(.width = 1:4*.25) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  scale_color_viridis_d(option = "rocket", direction = -1, end = .9) +
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "green") +  # Add median line
+  annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
+            color = "green", vjust = -1, hjust = 0, size = 3) +  # Add text label
+  labs(title = "Halfeye Plots of Turnaround Time with Median Line")
+
+#Combine plots
+p_heye_tt_st / p_heye_tt + plot_layout(height = c(1, 1.5))
+```
+
+## **Distance travelled**
+
+```{r}
+#| fig-width: 9
+#| fig-height: 10
+#| code-fold: true
+#| code-summary: "Show the code"
+
+#Plot1
+p_heye_dt <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Distance_Traveled_nm,
+           fill = Route_Type)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
+                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
+                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
+                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Distance by Route Type")
+
+
+#Plot2
+
+median_load = median(ship_filter$Distance_Traveled_nm)
+
+p_heye_dt_st <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Distance_Traveled_nm)) +
+  ggdist::stat_interval(.width = 1:4*.25) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  scale_color_viridis_d(option = "inferno", direction = -1, end = .9) +
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "grey20") +  # Add median line
+  annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
+            color = "grey20", vjust = -1, hjust = 0, size = 3) +  # Add text label
+  labs(title = "Halfeye Plots of Distance with Median Line")
+
+#Combine plots
+p_heye_dt_st / p_heye_dt + plot_layout(height = c(1, 1.5))
+```
+
+## **Energy efficiency**
+
+```{r}
+#| fig-width: 14
+#| fig-height: 12
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Plot1
+p_heye_ee_et <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Efficiency_nm_per_kWh,
+           fill = Engine_Type)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Heavy Fuel Oil (HFO)" = adjustcolor("#F9DBBA", alpha.f = 0.8),
+                               "Steam Turbine" = adjustcolor("#DA498D", alpha.f = 0.6), 
+                               "Diesel" = adjustcolor("#96CEB4", alpha.f = 0.6),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Energy Efficiency by Engine Type")
+
+
+# Plot2
+
+median_load = median(ship_filter$Efficiency_nm_per_kWh)
+
+p_heye_ee <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Efficiency_nm_per_kWh)) +
+  ggdist::stat_interval(.width = 1:4*.25) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  scale_color_viridis_d(option = "magma", direction = -1, end = .9) +
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "brown") +  # Add median line
+  annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
+            color = "brown", vjust = -1, hjust = 0, size = 3) +  # Add text label
+  labs(title = "Halfeye Plots of Energy Efficiency with Median Line")
+
+# Plot3
+p_heye_ee_wc <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Efficiency_nm_per_kWh,
+           fill = Weather_Condition)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 3) +
+  scale_fill_manual(values = c("Moderate" = adjustcolor("#F9DBBA", alpha.f = 0.8),
+                               "Rough" = adjustcolor("#DA498D", alpha.f = 0.6), 
+                               "Calm" = adjustcolor("#5B99C2", alpha.f = 0.8),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Energy Efficiency by Weather")
+
+# Plot4
+p_heye_ee_ms <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Efficiency_nm_per_kWh,
+           fill = Maintenance_Status)) +
+  ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
+                       shape = 21,
+                       point_size = 2) +
+  scale_fill_manual(values = c("Fair" = adjustcolor("#F9DBBA", alpha.f = 0.8),
+                               "Critical" = adjustcolor("#8B5DFF", alpha.f = 0.6), 
+                               "Good" = adjustcolor("#41B3A2", alpha.f = 0.6),
+                               name = NULL)) +
+  labs(title = "Halfeye Plots of Energy Efficiency by Maintenance")
+
+
+# Combine plots
+(p_heye_ee | p_heye_ee_et) / (p_heye_ee_wc | p_heye_ee_ms)
+```
+
+:::
+
+## 5 Profit Performance
+
+### 5.1 Finance performance overview
 
 To have an overview of the finance performance from all ship types, I use boxplot to check the operational cost, revenue per trip and the profit in thousand dollars. There are no outliers observed. The operational cost does not expand beyond \$500K
 
@@ -635,40 +691,57 @@ To have an overview of the finance performance from all ship types, I use boxplo
 p1 <- ggplot(ship_filter,
        aes(y = Operational_Cost_USD, x = "All ship types")) +
   geom_violin(outlier.colour = "purple",
-              color = "grey50",
+              color = "#A3B23B",
               fill = "#F4F8D3",
               alpha = 0.4) + 
+  geom_boxplot(width = .2,
+               color = "grey60") +
   geom_point(position = "jitter",
-             size = 0.05,
-             color = "grey") +
-  coord_cartesian(ylim = c(-500, 1000))
+             size = 0.01,
+             color = "#F4F8D3",
+             alpha = 0.3) +
+  coord_cartesian(ylim = c(-500, 1000)) +
+  theme_light()
 
 #Plot revenue distribution
 p2<- ggplot(ship_filter,
        aes(y = Revenue_per_Voyage_USD, x = "All ship types")) +
   geom_violin(outlier.colour = "blue",
-               color = "grey50",
+               color = "#5FB0B0",
                fill = "#73C7C7",
                alpha = 0.4) +
+  geom_boxplot(width = .2,
+               color = "grey60") +
   geom_point(position = "jitter",
              size = 0.05,
-             color = "#73C7C7") +
-  coord_cartesian(ylim = c(-500, 1000))
+             color = "#73C7C7",
+             alpha = 0.3) +
+  coord_cartesian(ylim = c(-500, 1000)) +
+  theme_light()
 
 #Plot profit distribution
 p3 <- ggplot(ship_filter,
        aes(y = Profit, x = "All ship types")) +
   geom_violin(outlier.colour = "green",
-               color = "grey50",
+               color = "#E6A5B1",
                fill = "#F7CFD8",
                alpha = 0.4) +
+  geom_boxplot(width = .2,
+               color = "grey60") +
   geom_point(position = "jitter",
              size = 0.05,
-             color = "#F7CFD8") +
-  coord_cartesian(ylim = c(-500, 1000))
+             color = "#F7CFD8",
+             alpha = 0.3) +
+  coord_cartesian(ylim = c(-500, 1000)) +
+  theme_light()
 
 patchwork <- p1 + p2 + p3
-patchwork & theme_economist_white()
+patchwork + plot_annotation(
+  title = "Finance Distribution Overview",
+  theme = theme(plot.title = element_text(size = 12, face = "bold")
+))
+#  plot_annotation(title = "Operational Cost by Ship Type")
+  
 ```
 
 Next, we use scatterplot to see if Revenue_per_Voyage_USD and Operational_Cost_USD have any relations.
@@ -703,7 +776,137 @@ patchwork & theme_economist_white() +
           plot.title = element_text(size = 12))
 ```
 
-### 6.3 Profit performance by ship types
+Now I want to see the Profit performance by different factors, including ship conditions and external factors, namely, Ship type, Engine type, Weather condition, Route type and Maintenance status.
+
+#### **5.1.1 Ship type**
+
+Figure below is plotted by mapping the probabilities calculated by using `stat(ecdf)` which represent the empirical cumulative density function for the distribution of English score.
+
+\[placeholder - insights\] p = 0.84 suggests none of the differences are statistically significant, meaning that Tanker is not earning significantly different profit from other ship types, although we can see slight difference.
+
+```{r}
+#| fig-width: 14
+#| fig-height: 12
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Plot1
+# Plot statboxplot by ship types
+p_statbox_st <- ggbetweenstats(
+  data = ship_filter,
+  x = Ship_Type,
+  y = Profit,
+  type = "p",
+  mean.ci = TRUE,
+  pariwise.comparisons = TRUE,
+  pairwise.display = "s",
+  p.adjust.methods = "fdr",
+  message = FALSE
+) 
+  
+# Plot 2
+p_dens_st <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Ship_Type)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+# Plot 3
+p_rid_st <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Ship_Type,
+           fill = factor(stat(quantile)))) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = c(0.025, 0.975)
+  ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = alpha(c("#E6A5B1", "#F8F4EC", "#5FB0B0"), 0.5),
+    labels = c("(0, 0.025]", "(0.025, 0.975]", "(0.975, 1]")) +
+  labs(title = ("Probability of Profit Distribution by Ship Type")) +
+  theme_light()
+
+p_statbox_st / (p_dens_st | p_rid_st)
+```
+
+#### **5.1.2 Engine type**
+
+```{r}
+#| fig-width: 14
+#| fig-height: 12
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Plot1
+# Plot statboxplot by ship types
+p_statbox_st <- ggbetweenstats(
+  data = ship_filter,
+  x = Engine_Type,
+  y = Profit,
+  type = "p",
+  mean.ci = TRUE,
+  pariwise.comparisons = TRUE,
+  pairwise.display = "s",
+  p.adjust.methods = "fdr",
+  message = FALSE
+) 
+  
+# Plot 2
+p_dens_st <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Engine_Type)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01,
+    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
+    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
+  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
+  scale_x_continuous(name = "Profit",
+                     expand = c(0, 0)) +
+  labs(title = "Profit Distribution and Central Tendency") +
+  theme_light() +
+  theme(legend.title = element_blank())
+
+# Plot 3
+p_rid_st <- ggplot(ship_filter,
+       aes(x = Profit,
+           y = Engine_Type,
+           fill = factor(stat(quantile)))) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = c(0.025, 0.975)
+  ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = alpha(c("#E6A5B1", "#F8F4EC", "#5FB0B0"), 0.5),
+    labels = c("(0, 0.025]", "(0.025, 0.975]", "(0.975, 1]")) +
+  labs(title = ("Probability of Profit Distribution by Ship Type")) +
+  theme_light()
+
+p_statbox_st / (p_dens_st | p_rid_st)
+```
+
+#### **5.1.3 Weather condition**
+
+#### **5.1.4 Route type**
+
+#### **5.1.5 maintenance status**
+
+### 5.2 Ship type performance by different factors
+
+#### 5.2.1 Engine type
 
 \[placeholder - explain how to plot\]
 
@@ -711,15 +914,14 @@ In this section, I will explore some variables by Ship types before going deeper
 
 From the raincloud plot, can see Tanker stands out as its median looks more different than the rest. Plot statboxplot to check on the significance.
 
-\[placeholder - insights\] p = 0.84 suggests none of the differences are statistically significant, meaning that Tanker is not earning significantly different profit from other ship types, although we can see slight difference.
-
 ```{r}
 #| fig-width: 15
 #| fig-height: 8
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#Plot statboxplot by ship types
+# Plot1
+# Plot statboxplot by ship types
 p_statbox_st <- ggbetweenstats(
   data = ship_filter,
   x = Ship_Type,
@@ -798,7 +1000,7 @@ patchwork <- (p_rcloud_st | p_statbox_st)
 patchwork
 ```
 
-### 6.4 Comparing profit & revenue against average load
+#### 5.2.2 Average load
 
 load vs profit
 
@@ -869,30 +1071,179 @@ p6 <- ggplot(data=ship_filter,
 p6
 ```
 
+### 5.3 Performance over time
+
+#### 5.3.1 Profit performance
+
+Mar, July, Oct, Dec are peak months in the data in a one year time frame. The cost, revenue and profit shows the same pattern in the line graph. It would be good to look into the reasons why these months are peak time and what causes the cost increase.
+
+```{r}
+#| fig-width: 9
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+#| 
+# Extract month and year from the Date
+ship_filter_month <- ship_filter %>%
+  mutate(Month = floor_date(Date, "month"))
+
+# Group by month and calculate total profit, cost, and revenue
+monthly_totals <- ship_filter_month %>%
+  group_by(Month) %>%
+  summarise(
+    Profit = sum(Profit, na.rm = TRUE),
+    Op_Cost = sum(Operational_Cost_USD, na.rm = TRUE),
+    Revenue = sum(Revenue_per_Voyage_USD, na.rm = TRUE)
+  )
+
+# Sort the data by Total_Profit in descending order and select the top 5 months
+top_5_months <- monthly_totals %>%
+  arrange(desc(Profit)) %>%
+  slice_head(n = 5) %>%
+  mutate(
+    #Month_label = format(Month, "%m/%y"),  # Format date as mm/yy
+         Profit_label = paste0("$", round(Profit, 2)))  # Create the label
+
+# Reshape the data from wide to long format
+monthly_long <- monthly_totals %>%
+  pivot_longer(cols = c(Profit, Op_Cost, Revenue),
+               names_to = "Type",
+               values_to = "Value")
+
+# Plot total profit, total cost, and total revenue over time
+ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
+  
+  geom_line(size = 1) +  # Line plot for each variable
+  geom_point(data = top_5_months, 
+             aes(x = Month, y = Profit), 
+             color = "red", size = 3.5, shape = 21, fill = "red",
+             inherit.aes = FALSE) + # Prevent from inheriting "Type"
+  geom_text(data = top_5_months, 
+            aes(x = Month, y = Profit, label = Profit_label),
+            color = "black", size = 3.5, vjust = -2, hjust = 0.5,
+            inherit.aes = FALSE) +
+  labs(title = "Profit, Cost, and Revenue Over Time",
+       x = "Month",
+       y = "Amount (1K USD)",
+       color = "Type") +
+    
+  theme_light() +
+  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "#EFDBA7", 
+                                "Revenue" = "skyblue"),
+                     guide = "none") +
+  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        legend.position = "top"
+        ) +
+  theme(plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank()) +
+  geomtextpath::geom_textline(
+    aes(label = Type),
+    linewidth = 1,
+    fontface = "bold",
+    size = 5,
+    vjust = -.4,
+    hjust = .5) 
+
+```
+
+#### 5.3.2 Ship specs performance
+
+Maintenance status
+
+Efficiency
+
+Speed
+
+Cargo weight
+
+Average load
+
 ```{r}
 pacman::p_load(ggdist, ggridges, ggthemes, colorspace, tidyverse)
 ```
 
-## 7 Multi Facets Comparison
+## 6 Multi-Facets Comparison by Ship Type
+
+### 6.1 Comparing profit ship conditions
+
+#### 6.1.1 engine power 
+
+#### 6.1.2 engine efficiency
+
+#### 6.1.3 engine type
+
+#### 6.1.4 maintenance status
+
+speed
+
+### 6.3 Comparing profit with external factors
+
+#### weather 
+
+#### route type
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(ship_filter, 
+       aes(y = Profit, 
+           x = Ship_Type,
+           fill = Route_Type)) +
+  ggdist::stat_halfeye(.width = c(0, 1), adjust = .5, slab_alpha = .5, 
+                       shape = 21, point_size = 2) +
+  scale_fill_manual(values = c("#EFAC00", "#5FB0B0", "#E6A5B1", "grey"), name = NULL) +
+  labs(title = "Comparing Profit Performance Against Route Type")
+```
+
+#### average load
 
 Compare profit using facets.
 
 Use facet for ship types vs weather for profit & efficiency, color in engine type.(see ggtheme)
 
-### 7.1 Comparing profit performance with ship conditions by ship type
-
-\- engine type
-
-\- maintenance
-
-### 7.2 Comparing profit performance with external factors by ship type
-
-\- route type
-
-\- weather
-
 histogram
 
-## 8 Summary
+## 7 Summary
 
-## 9 References
+## 8 References
+
+```{r}
+# Plot1
+p_viol_prof <- ggplot(ship_filter,
+       aes(y = Profit, 
+           x = Ship_Type)) +
+  geom_violin(aes(color = Ship_Type),
+              alpha = 0.3) +
+  geom_boxplot(width = .15,
+               alpha = 0.4,
+               color = "grey50") +
+  geom_point(position = "jitter",
+             size = 1.2,
+             aes(color = Ship_Type),
+             alpha = 0.1) +
+  # Add mean points to each boxplot
+  stat_summary(fun = "mean", 
+               geom = "point", 
+               aes(color = Ship_Type),  # Mean point color based on Ship_Type
+               size = 2,                 
+               shape = 16,              
+               position = position_dodge(width = 0.75)) + 
+  # Add overall median scores
+  geom_hline(yintercept = median(ship_filter$Profit, na.rm = TRUE), 
+             linetype = "dotted", color = "blue", size = 0.5) +
+  # Add median score text on the median line
+  annotate("text", 
+           x = 1.5,  
+           y = median(ship_filter$Profit, na.rm = TRUE) + 70, 
+           label = paste("Overall median: \n", round(mean(ship_filter$Profit, na.rm = TRUE), 2)),
+           color = "blue", size = 3, fontface = "bold") + 
+  coord_cartesian(ylim = c(-500, 1000)) +
+  labs(title = "Profit Performance by Ship Types") +
+  theme_light() +
+  scale_color_manual(values = c("Bulk Carrier" = "#E6A5B1",  
+                               "Container Ship" = "#5FB0B0", 
+                               "Fish Carrier" = "#A3B23B",
+                               "Tanker" = "#FFB200"))
+```
