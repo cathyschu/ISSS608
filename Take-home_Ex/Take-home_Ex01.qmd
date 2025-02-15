@@ -320,11 +320,12 @@ Insights
 
 ::: spgoals-container
 -   The dataset is fairly evenly distributed across different ship types, engine types, route types, and maintenance statuses, with each category varying by 0 ~ 3%.
--   The largest different is between Long-haul trips and Short haul, Transoceanic, which is 3%.  
+-   The largest different is between Long-haul trips and Short haul, Transoceanic, which is **3%**.   
 :::
 :::::
 
 ### 4.2 Weather conditions
+I aimed to analyse the overall voyage distribution of weather conditions as well as their trends over time with `geom_bar()`. Bar charts is used to represent the distribution, while a stacked bar chart visualises the percentage occurrence of the three different weather conditions within each month. 
 
 ```{r}
 #| fig-width: 9
@@ -417,7 +418,9 @@ Insights
 :::
 
 ::: spgoals-container
--   text
+-   The Weather Condition Overview chart on the right shows that voyages in rough weather occur less frequently than those in other weather conditions, yet they still make up over 30% of the year. While ships primarily operate in fine weather, nearly one-third of the journeys experience rough conditions for both the ships and personnel.
+-   January recorded the fewest rough journeys compared to other months, while April had the highest count of rough journeys.
+-   Ships are capable of operating under any weather condition throughout the year. There is no specific month when the journeys were consistently exceptional or consistently poor.
 :::
 :::::
 
