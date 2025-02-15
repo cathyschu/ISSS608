@@ -20,24 +20,48 @@ execute:
 
 An international media company that publishes weekly content on digital platforms is planning to release articles on "Ship Performance in the Gulf of Guinea". As a graphical editor of the media company, I am going to prepare data visualisation for the article focusing on ship performance assessment.
 
-This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functions to visualise insights on:
-
--   Ships' energy efficiency
--   Ships' profitability
--   Operational factors affecting voyage performance
+This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functions to visualise insights on 1) Ships' profitability and 2)Operational factors affecting voyage performance.
 
 ## 2 Install and Load Packages
 
 ```{r}
-
-pacman::p_load(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes, ggridges, gganimate,
-               ggdist, ggtext, colorspace, magrittr, patchwork, RColorBrewer,
-               ggstatsplot, egg, geomtextpath)
+pacman::p_load(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes, 
+               ggridges, gganimate,ggdist, ggtext, colorspace, magrittr, 
+               patchwork, RColorBrewer, ggstatsplot, egg, geomtextpath, 
+               readxl, performance, parameters, see)
 ```
+
+| Packages     | Description |
+|--------------|-------------|
+| tidyverse    | 2.05        |
+| ggplot2      | 1.37        |
+| haven        | 3.09        |
+| colorspace   | 3.09        |
+| egg          | 3.09        |
+| geomtextpath | 3.09        |
+| gganimate    | 3.09        |
+| ggdist       | 3.09        |
+| ggplot2      | 3.09        |
+| ggstatsplot  | 3.09        |
+| ggtext       | 3.09        |
+| ggthemes     | 3.09        |
+| ggridges     | 3.09        |
+| haven        | 3.09        |
+| knitr        | 3.09        |
+| magrittr     | 3.09        |
+| patchwork    | 3.09        |
+| performance  | 3.09        |
+| parameters   | 3.09        |
+| readxl       | 3.09        |
+| RColorBrewer | 3.09        |
+| see          | 3.09        |
+| tidyverse    | 3.09        |
+
+: {tbl-colwidths="\[20,80\]"}
 
 ## 3 Data Preparation
 
-The dataset [Ship Performance Clustering Dataset](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset) downloaded from Kaggle. This file contains a detailed dataset focusing on the operational performance of various ship types across different routes. Each row represents the performance metrics and attributes for a specific voyage or ship over a given timeframe.
+The dataset [Ship Performance Clustering Dataset](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset) is downloaded from Kagglel.com. This file contains a detailed dataset focusing on the operational performance of various ship types across different routes. Each row represents the performance metrics and attributes for a specific voyage or ship over a given timeframe.
 
 ### 3.1 Import file and check
 
@@ -45,10 +69,6 @@ Import the csv file using `read_csv()`.
 
 ```{r}
 data_ship <- read_csv("data/Ship_Pfm_Dataset.csv")
-```
-
-```{r}
-class(data_ship)
 ```
 
 Next I would like to observe the variables and their data type and understand the dataset.
@@ -65,9 +85,11 @@ The diagram below shows the variables selected for this study:
 
 \[placeholder\]
 
-#### 3.2.1 Add a variable
+#### **3.2.1 Add a variable**
 
-To assess the ships' performance in profit, I will add a variable **Profit**, to be derived from Revenue_per_Voyage_USD subtracing Operational_Cost_USD.
+To assess the ships' finance performance, I will add a variable **Profit**, deriving from Revenue_per_Voyage_USD subtracting Operational_Cost_USD.
+
+***Profit = (Revenue_per_Voyage_USD - Operational_Cost_USD)***
 
 ```{r}
 library(dplyr)
@@ -76,37 +98,40 @@ data_ship <- data_ship %>%
 
 ```
 
-Now, I will use `head()` to have a look and confirm **Profit** is added to the data frame and the data type is numeric.
+Now, I will use `str()` to have a look and confirm **Profit** is added to the data frame and the data type is numeric.
 
 ```{r}
-head(data_ship)
+str(data_ship)
 ```
 
-#### 3.2.2 Variable selection
+Next, let's use `summary()` to run a summary of the dataset to understand the overall statistics of the data.
 
-To perform an analysis to achieve the objectives in 1.2, I will keep the following variables.
+```{r}
+summary(data_ship)
+```
 
-| Category | Variable                | Recoded | Description | Type | Encoding |
-|----------|-------------------------|---------|-------------|------|----------|
-| apple    | Date                    | bbb     | bbb         | bbb  | bbb      |
-| pear     | Ship_Type               | bbb     | bbb         | bbb  | bbb      |
-| orange   | Route_Type              | bbb     | bbb         | bbb  | bbb      |
-| orange   | Engine_Type             | bbb     | bbb         | bbb  | bbb      |
-| orange   | Maintenance_Status      | bbb     | bbb         | bbb  | bbb      |
-| orange   | Speed_Over_Ground_knots | bbb     | bbb         | bbb  | bbb      |
-| orange   | Engine_Power_kW         | bbb     | bbb         | bbb  | bbb      |
-| orange   | Distance_Traveled_nm    | bbb     | bbb         | bbb  | bbb      |
-| orange   | Draft_meters            | bbb     | bbb         | bbb  | bbb      |
-| orange   | Weather_Condition       | bbb     | bbb         | bbb  | bbb      |
-| orange   | Cargo_Weight_tons       | bbb     | bbb         | bbb  | bbb      |
-| orange   | Operational_Cost_USD    | bbb     | bbb         | bbb  | bbb      |
-| orange   | Revenue_per_Voyage_USD  | bbb     | bbb         | bbb  | bbb      |
-| orange   | Efficiency_nm_per_kWh   | bbb     | bbb         | bbb  | bbb      |
-| orange   | Weekly_Voyage_Count     | bbb     | bbb         | bbb  | bbb      |
-| orange   | Average_Load_Percentage | bbb     | bbb         | bbb  | bbb      |
-| orange   | Revenue_per_Voyage_USD  | bbb     | bbb         | bbb  | bbb      |
-| orange   | Revenue_per_Voyage_USD  | bbb     | bbb         | bbb  | bbb      |
-| orange   | Revenue_per_Voyage_USD  | bbb     | bbb         | bbb  | bbb      |
+#### **3.2.2 Variable selection**
+
+To perform an analysis to achieve the objectives aforementioned, the following variables will be selected.
+
+| Category   | Variable                | Recoded | Description | Type | Encoding |
+|------------|-------------------------|---------|-------------|------|----------|
+| Operation  | Date                    | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Ship_Type               | bbb     | bbb         | bbb  | bbb      |
+| Operations | Route_Type              | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Engine_Type             | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Maintenance_Status      | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Speed_Over_Ground_knots | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Engine_Power_kW         | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Distance_Traveled_nm    | bbb     | bbb         | bbb  | bbb      |
+| Operations | Weather_Condition       | bbb     | bbb         | bbb  | bbb      |
+| Operations | Cargo_Weight_tons       | bbb     | bbb         | bbb  | bbb      |
+| Business   | Operational_Cost_USD    | bbb     | bbb         | bbb  | bbb      |
+| Business   | Revenue_per_Voyage_USD  | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Turnaround_Time_hours   | bbb     | bbb         | bbb  | bbb      |
+| Ship       | Efficiency_nm_per_kWh   | bbb     | bbb         | bbb  | bbb      |
+| Operations | Average_Load_Percentage | bbb     | bbb         | bbb  | bbb      |
+| Business   | Profit                  | bbb     | bbb         | bbb  | bbb      |
 
 : Variable Selection\
 : {.striped .hover tbl-colwidths="\[10,20,10,30,10,20\]"}
@@ -118,19 +143,19 @@ ship <- data_ship %>%
   
   select(Date, Ship_Type, Route_Type, Engine_Type, Maintenance_Status, Speed_Over_Ground_knots,
         Engine_Power_kW, Distance_Traveled_nm, Efficiency_nm_per_kWh,
-        Weather_Condition, Profit, Operational_Cost_USD,Revenue_per_Voyage_USD,  
+        Weather_Condition, Profit, Operational_Cost_USD, Revenue_per_Voyage_USD,  
         Average_Load_Percentage, Cargo_Weight_tons, Turnaround_Time_hours) 
 ```
 
-Use `glimese()` to check and confirm the new data frame **ship** is created, and now has 14 columns.
+Use `glimese()` to check and confirm the new data frame **ship** is created, and now has 16 columns.
 
 ```{r}
 glimpse(ship)
 ```
 
-#### 3.2.3 Missing values
+#### **3.2.3 Missing values**
 
-Before I use the new data to perform analysis, I want to check if there are missing values to remove. If an entry has a missing value, it may affect the analysis result.
+Before I use the selected data to perform analysis, I want to check if there are missing values to remove. If an entry has a missing value, it may affect the analysis result.
 
 `is.na()` can be used to check this. Before I dive into each variable, I would like to have an overall check if there indeed are missing values. After this check, there is no missing value found.
 
@@ -139,13 +164,7 @@ which(is.na(ship))
 sum(is.na(ship))
 ```
 
-Next, I will use `summary()` to run a summary of the dataset to understand the overall statistics of the data.
-
-```{r}
-summary(ship)
-```
-
-As shown above, it is observed that for Ship_Type, Route_Type, Engine_Type, and Weather_Condition, there are "None" string that I will not be able to incorporate into my analysis. Therefore, I will remove entries containing "None" using the code below. As a result, a tibble frame of 2,234 entries is derived.
+We see no missing values in numeric data. However, we observed some "None" values in the character data types: Ship_Type, Route_Type, Engine_Type, and Weather_Condition. Therefore, I will remove entries containing "None" using the code below. As a result, a tibble frame of 2,127 entries is derived.
 
 ```{r}
 library(dplyr)
@@ -159,15 +178,9 @@ ship_filter <- ship %>%
 nrow(ship_filter) 
 ```
 
-Let's run a summary of this dataset again.
+#### **3.2.4 Convert data type**
 
-```{r}
-summary(ship_filter)
-```
-
-#### 3.2.4 Convert data type
-
-From 4.1, I observed that Maintenance_Status, Weather_Condition, Ship_Type, Route_Type, Engine_Type are all character data type. In fact, Maintenance_Status, Weather_Condition can be converted to ordinal data type, and Ship_Type, Route_Type, Engine_Type to factor data type to derive better result.
+From 3.2.2, I observed that Maintenance_Status, Weather_Condition, Ship_Type, Route_Type, Engine_Type are all character data type. In fact, Maintenance_Status, Weather_Condition can be converted to ordinal data type, and Ship_Type, Route_Type, Engine_Type to factor data type to derive better result.
 
 Use the code below to perform data type conversion:
 
@@ -182,7 +195,7 @@ ship_filter <- ship_filter %>%
                                      ordered = TRUE)) 
 ```
 
-I also want to convert the uni for the monetary values into thousand dollars as the unit for Operational_Cost_USD, Revenue_per_Voyage_USD and Profit.
+I also want to convert the unit for the monetary values into thousand dollars as the unit for *Operational_Cost_USD, Revenue_per_Voyage_USD* and *Profit*.
 
 ```{r}
 ship_filter <- ship_filter %>%
@@ -195,30 +208,31 @@ ship_filter <- ship_filter %>%
 I use `kable()` to check the conversion result, and confirm the desired variables have been converted accordingly.
 
 ```{r}
-kable(head(ship_filter, n=8), caption = "Ship Performance Dataset")
+kable(head(ship_filter, n=3), caption = "Ship Performance Dataset")
 ```
 
-## 4 Voyage Pprofile
+## 4 Voyage Profile
+
+To perform profit performance analysis in the next section, we shall understand the profile of the data and variables to determine the direction for the performance analysis. Below I will utilise variables to visualise ship conditions, weather conditions and operational factors by the different ship types to obtain some insights.
 
 ### 4.1 Ship conditions & routes
 
 ```{r}
-#| fig-width: 15
-#| fig-height: 10
+#| fig-width: 8
+#| fig-height: 5
 #| code-fold: true
 #| code-summary: "Show the code"
 
 # Code bar chart for Ship type
-
 p_st <- ggplot(data = ship_filter,
                aes(x = Ship_Type)) +
-  geom_bar(fill = "grey") +
+  geom_bar(fill = "grey20") +
   ylim(0, 1000) +
   geom_text(stat="count",
             aes(label = paste0(after_stat(count),", ",
                                round(after_stat(count)/sum(after_stat(count))*100, 0), "%")),
             vjust = -0.5,
-            size = 6) +
+            size = 3) +
   labs(x = "",
        y = "",
        title = "Ship types") +
@@ -226,20 +240,20 @@ p_st <- ggplot(data = ship_filter,
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
-        plot.title = element_text(size = 20, face = "bold"),
-        text = element_text(size = 20))
+        plot.title = element_text(size = 10, face = "bold"),
+        text = element_text(size = 10))
 
 # Code bar chart for Engine type
 
 p_et <- ggplot(data = ship_filter,
                aes(x = Engine_Type)) +
-  geom_bar(fill = "grey") +
+  geom_bar(fill = "grey20") +
   ylim(0, 1000) +
   geom_text(stat="count",
             aes(label = paste0(after_stat(count),", ",
                                round(after_stat(count)/sum(after_stat(count))*100, 0), "%")),
             vjust = -0.5,
-            size = 6) +
+            size = 3) +
   labs(x = "",
        y = "",
        title = "Engine types") +
@@ -247,21 +261,21 @@ p_et <- ggplot(data = ship_filter,
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
-        plot.title = element_text(size = 20, face = "bold"),
-        text = element_text(size = 20))
+        plot.title = element_text(size = 10, face = "bold"),
+        text = element_text(size = 10))
 
 
 # Code bar chart for Route type
 
 p_rt <- ggplot(data = ship_filter,
                aes(x = Route_Type)) +
-  geom_bar(fill = "grey") +
+  geom_bar(fill = "grey20") +
   ylim(0, 1000) +
   geom_text(stat="count",
             aes(label = paste0(after_stat(count),", ",
                                round(after_stat(count)/sum(after_stat(count))*100, 0), "%")),
             vjust = -0.5,
-            size = 6) +
+            size = 3) +
   labs(x = "",
        y = "",
        title = "Route types") +
@@ -269,20 +283,20 @@ p_rt <- ggplot(data = ship_filter,
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
-        plot.title = element_text(size = 20, face = "bold"),
-        text = element_text(size = 20))
+        plot.title = element_text(size = 10, face = "bold"),
+        text = element_text(size = 10))
 
 #Code bar chart for Maintenance status
 
 p_ms <- ggplot(data = ship_filter,
                aes(x = Maintenance_Status)) +
-  geom_bar(fill = "grey80") +
+  geom_bar(fill = "grey20") +
   ylim(0, 1000) +
   geom_text(stat="count",
             aes(label = paste0(after_stat(count),", ",
                                round(after_stat(count)/sum(after_stat(count))*100, 0), "%")),
             vjust = -0.5,
-            size = 6) +
+            size = 3) +
   labs(x = "",
        y = "",
        title = "Maintenance status") +
@@ -290,14 +304,24 @@ p_ms <- ggplot(data = ship_filter,
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
-        plot.title = element_text(size = 20, face = "bold"),
-        text = element_text(size = 20))
+        plot.title = element_text(size = 10, face = "bold"),
+        text = element_text(size = 10))
 
 #Combine all charts
 
 patchwork <- (p_st | p_et) / (p_rt | p_ms)
 patchwork
 ```
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
 
 ### 4.2 Weather conditions
 
@@ -316,10 +340,10 @@ p_wthr_1 <- ggplot(data = ship_filter,
             aes(label = paste0(after_stat(count),", ",
                                round(after_stat(count)/sum(after_stat(count))*100, 0), "%")),
             vjust = -0.5,
-            size = 2) +
-  scale_fill_manual(values = c("Calm" = "#86A788",
-                               "Moderate" = "#FFFDEC",
-                               "Rough" = "#FFE2E2")) +
+            size = 3) +
+  scale_fill_manual(values = c("Calm" = "#bcd6be",
+                               "Moderate" = "#f5e8ce",
+                               "Rough" = "#e0bcc0")) +
   labs(x = "",
        y = "",
        title = "Weather Condition \n Overview") +
@@ -327,13 +351,13 @@ p_wthr_1 <- ggplot(data = ship_filter,
   theme(plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
-        plot.title = element_text(size = 10, face = "bold"),
+        plot.title = element_text(size = 12, face = "bold"),
         text = element_text(size = 8),
-#        legend.text = element_text(size = 6),  # Change legend text size
-#        legend.title = element_text(size = 6, face = "bold"),  # Change legend title size
-#        legend.key.size = unit(0.5, "cm"),  # Adjust legend key size (box size)
+        legend.text = element_text(size = 8),  
+        legend.title = element_text(size = 8, face = "bold"),  
+#        legend.key.size = unit(0.5, "cm"),  
 #        legend.spacing.y = unit(0.3, "cm"),
-        legend.position = "none")  # Adjust vertical spacing between legend items))
+        legend.position = "none")  
 
 # Plot2
 # Extract month and year from the Date
@@ -353,43 +377,52 @@ total_per_month_bar <- weather_by_month_bar %>%
 # Join total occurrences per month and compute percentage
 weather_percentage_bar <- weather_by_month_bar %>%
   left_join(total_per_month_bar, by = "Month") %>%
-  mutate(Percentage = (Count / Total) * 100)  # Convert to percentage
+  mutate(Percentage = (Count / Total) * 100) 
 
 # Plot stacked bar chart with percentage
 p_wthr_2 <- ggplot(weather_percentage_bar, 
        aes(x = Month, y = Percentage, fill = factor(Weather_Condition, levels = c("Calm", "Moderate", "Rough")))) +
   geom_bar(stat = "identity", position = "stack") +  # Use identity because we computed percentages
   geom_text(aes(label = paste0(round(Percentage, 0), "%")), 
-            position = position_stack(vjust = 0.5),  # Center the text in each segment
-            size = 2.5, color = "black") +  # Adjust text size and color
-  scale_fill_manual(values = c("Calm" = "#86A788",
-                               "Moderate" = "#FFFDEC",
-                               "Rough" = "#FFE2E2")) +  # Choose a colour palette
+            position = position_stack(vjust = 0.5),  
+            size = 3, color = "black") +  
+  scale_fill_manual(values = c("Calm" = "#bcd6be",
+                               "Moderate" = "#f5e8ce",
+                               "Rough" = "#e0bcc0")) + 
   labs(title = "Weather Distribution by Month (%)",
        x = "Month",
        y = "Percentage (%)",
        fill = "Weather") +
   theme_light() +
   scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") + 
-  theme(plot.title = element_text(size = 10, face = "bold"),
+  theme(plot.title = element_text(size = 12, face = "bold"),
         plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank(),
         text = element_text(size = 8),
-        legend.text = element_text(size = 6),  # Change legend text size
-        legend.title = element_text(size = 6, face = "bold"),  # Change legend title size
-        legend.key.size = unit(0.5, "cm"),  # Adjust legend key size (box size)
+        legend.text = element_text(size = 8),  
+        legend.title = element_text(size = 8, face = "bold"), 
+        legend.key.size = unit(0.5, "cm"),  
         legend.spacing.y = unit(0.3, "cm"),
-        legend.position = "top")  # Adjust vertical spacing between legend items)))  #hide legend
+        legend.position = "top")  
 
 #Combine plots
 p_wthr_2 + p_wthr_1 + plot_layout(widths = c(2.5,1))
 ```
 
-### 4.3 Operational effects
+::::: spgoals
+::: spgoals-header
+Insights
+:::
 
-::: {.panel-tabset}
+::: spgoals-container
+-   text
+:::
+:::::
 
+### 4.3 Operational effects by ship type
+
+::: panel-tabset
 ## **Average load**
 
 ```{r}
@@ -405,12 +438,13 @@ p_heye_al <- ggplot(ship_filter,
            fill = Route_Type)) +
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
-                       point_size = 2) +
-  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
-                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
-                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
-                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6), 
-                               name = NULL)) +
+                       point_size = 2,
+                       interval_color = "grey60") +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
+                               "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
+                               "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
+                               "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)),
+                               name = NULL) +
   labs(title = "Halfeye Plots by Route Type")
 
 
@@ -422,11 +456,11 @@ p_heye_al_st <- ggplot(ship_filter,
        aes(x = Ship_Type,
            y = Average_Load_Percentage)) +
   ggdist::stat_interval(.width = 1:4*.25) +
-  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey60", color = "white", position = position_nudge(x = .024)) +
   scale_color_viridis_d(option = "mako", direction = -1, end = .9) +
-  geom_hline(yintercept = median_load, linetype = "dashed", color = "purple") +  # Add median line
+  geom_hline(yintercept = median_load, linetype = "dashed", color = "#3AA6B9") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
-            color = "purple", vjust = -1, hjust = 0, size = 3) +  # Add text label
+            color = "#3AA6B9", vjust = -1, hjust = 0, size = 3) +  # Add text label
   labs(title = "Halfeye Plots with Median Line")
 
 #Combine plots
@@ -449,11 +483,12 @@ p_heye_ep <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2) +
-  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
-                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
-                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
-                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
-                               name = NULL)) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
+                               "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
+                               "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
+                               "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
+                                 name = NULL) +
+  
   labs(title = "Halfeye Plots of Engine Power by Route Type")
 
 
@@ -492,11 +527,11 @@ p_heye_cw <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2) +
-  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
-                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
-                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
-                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
-                               name = NULL)) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
+                               "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
+                               "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
+                               "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
+                               name = NULL) +
   labs(title = "Halfeye Plots of Cargo Weight by Route Type")
 
 
@@ -535,11 +570,11 @@ p_heye_tt <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2) +
-  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
-                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
-                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
-                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
-                               name = NULL)) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
+                               "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
+                               "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
+                               "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
+                               name = NULL) +
   labs(title = "Halfeye Plots of Turnaround Time by Route Type")
 
 
@@ -578,11 +613,11 @@ p_heye_dt <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2) +
-  scale_fill_manual(values = c("Coastal" = adjustcolor("#A1E3F9", alpha.f = 0.6),
-                               "Long-haul" = adjustcolor("#EFAC00", alpha.f = 0.6), 
-                               "Short-haul" = adjustcolor("#9C55E3", alpha.f = 0.6),
-                               "Transoceanic" = adjustcolor("#FFA09B", alpha.f = 0.6),
-                               name = NULL)) +
+  scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
+                               "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
+                               "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
+                               "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
+                               name = NULL) +
   labs(title = "Halfeye Plots of Distance by Route Type")
 
 
@@ -621,7 +656,7 @@ p_heye_ee_et <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2) +
-  scale_fill_manual(values = c("Heavy Fuel Oil (HFO)" = adjustcolor("#F9DBBA", alpha.f = 0.8),
+  scale_fill_manual(values = c("Heavy Fuel Oil (HFO)" = adjustcolor("#F9DBBA", alpha.f = 0.6),
                                "Steam Turbine" = adjustcolor("#DA498D", alpha.f = 0.6), 
                                "Diesel" = adjustcolor("#96CEB4", alpha.f = 0.6),
                                name = NULL)) +
@@ -651,9 +686,9 @@ p_heye_ee_wc <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 3) +
-  scale_fill_manual(values = c("Moderate" = adjustcolor("#F9DBBA", alpha.f = 0.8),
+  scale_fill_manual(values = c("Moderate" = adjustcolor("#F9DBBA", alpha.f = 0.6),
                                "Rough" = adjustcolor("#DA498D", alpha.f = 0.6), 
-                               "Calm" = adjustcolor("#5B99C2", alpha.f = 0.8),
+                               "Calm" = adjustcolor("#5B99C2", alpha.f = 0.6),
                                name = NULL)) +
   labs(title = "Halfeye Plots of Energy Efficiency by Weather")
 
@@ -665,7 +700,7 @@ p_heye_ee_ms <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2) +
-  scale_fill_manual(values = c("Fair" = adjustcolor("#F9DBBA", alpha.f = 0.8),
+  scale_fill_manual(values = c("Fair" = adjustcolor("#F9DBBA", alpha.f = 0.6),
                                "Critical" = adjustcolor("#8B5DFF", alpha.f = 0.6), 
                                "Good" = adjustcolor("#41B3A2", alpha.f = 0.6),
                                name = NULL)) +
@@ -675,8 +710,165 @@ p_heye_ee_ms <- ggplot(ship_filter,
 # Combine plots
 (p_heye_ee | p_heye_ee_et) / (p_heye_ee_wc | p_heye_ee_ms)
 ```
-
 :::
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
+
+### 4.4 Voyage frequency
+
+#### **4.4.1 Overall voyage frequency over time**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+#| code-fold: true
+#| code-summary: "Show the code"
+voyage_count <- ship_filter %>%
+  mutate(Month = format(as.Date(Date), "%Y-%m")) %>% #to extract Year-Month
+  group_by(Month) %>%
+  summarise(Count = n()) #count rows
+voyage_count_scaled <- voyage_count %>%
+  mutate(Count_scaled = Count / 10)
+
+#calculate average
+mean_voyage <- mean(voyage_count$Count)
+
+ggplot(voyage_count_scaled,
+       aes(x = Month,
+           y = Count_scaled)) +
+  geom_bar(stat = "identity", 
+           fill = "grey30") +
+  labs(x = "Date", y = "Voyage Count (scaled by 10) ",
+       title = "Voyage Frequency Over Time") +
+  theme_classic() +
+  geom_hline(yintercept = mean_voyage/10, color = "#3AA6B9", linetype = "dashed", size = 1) + 
+  annotate("text", x = 3.2, y = mean_voyage/10 + 1, 
+           label = paste("Mean: ", round(mean_voyage/10, 2)), color = "#3AA6B9")
+```
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
+
+#### **4.4.2 Voyage frequency by ship type**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+#| code-fold: true
+#| code-summary: "Show the code"
+# Extract month and year from the Date
+ship_filter_month <- ship_filter %>%
+  mutate(Month = floor_date(Date, "month"))
+
+# Group by Month and Ship type, then count occurrences
+trip_by_month_bar <- ship_filter_month %>%
+  group_by(Month, Ship_Type) %>%
+  summarise(Count = n(), .groups = "drop")
+
+# Calculate total occurrences per month
+total_trip_per_month_bar <- trip_by_month_bar %>%
+  group_by(Month) %>%
+  summarise(Total = sum(Count))
+
+# Join total occurrences per month and compute percentage
+trip_percentage_bar <- trip_by_month_bar %>%
+  left_join(total_trip_per_month_bar, by = "Month") %>%
+  mutate(Percentage = (Count / Total) * 100)  # Convert to percentage
+
+# Plot stacked bar chart with percentage
+p_trip_ct_1 <- ggplot(trip_percentage_bar, 
+       aes(x = Month, y = Percentage, fill = factor(Ship_Type, levels = c("Bulk Carrier", "Container Ship", "Fish Carrier", "Tanker")))) +
+  geom_bar(stat = "identity", position = "stack") +  # Use identity because we computed percentages
+  geom_text(aes(label = paste0(round(Percentage, 0), "%")), 
+            position = position_stack(vjust = 0.5),  # Center the text in each segment
+            size = 2.5, color = "black") +  # Adjust text size and color
+  scale_fill_manual(values = c("Bulk Carrier" = "#bcd6be",
+                               "Container Ship" = "#f5e8ce",
+                               "Fish Carrier" = "#e0bcc0",
+                               "Tanker" = "#9bc5cc")) + 
+  labs(title = "Number of Trips Over Time (%)",
+       x = "Month",
+       y = "Percentage (%)",
+       fill = "Ship_Type") +
+  theme_light() +
+  scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") + 
+  theme(plot.title = element_text(size = 8, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank(),
+        text = element_text(size = 8),
+        legend.text = element_text(size = 6),  # Change legend text size
+        legend.title = element_text(size = 6, face = "bold"),  # Change legend title size
+        legend.key.size = unit(0.5, "cm"),  # Adjust legend key size (box size)
+        legend.spacing.y = unit(0.3, "cm"),
+        legend.position = "top") 
+
+###------------ Plot2 ------------###
+#Count the number of trips by ship
+trip_count <- ship_filter %>%
+  group_by(Ship_Type) %>%
+  summarise(Trip_Count = n(), .group = "drop")
+
+#calculation
+total_trips <- sum(trip_count$Trip_Count)
+trip_count <- trip_count %>%
+  mutate(Percentage = (Trip_Count / total_trips) * 100)
+
+#plot the bar chart
+p_trip_ct_2 <- ggplot(trip_count,
+       aes(x = Ship_Type,
+           y = Trip_Count,
+           fill = Ship_Type)) +
+  geom_bar(stat = "identity", show.legend = FALSE) + #stat = "identity": use the values in 'Trip_Count'
+  labs(title = "Trip Count by Ship Type",
+       x = "Ship Type",
+       y = "Number of Trips") +
+  geom_text(aes(label = paste0(Trip_Count," (", round(Percentage, 1), "%)")),
+            vjust = -0.8, size = 2, angle = 45) +
+  theme_light() +
+  theme(plot.title = element_text(size = 8, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank(),
+        text = element_text(size = 8),
+        legend.text = element_text(size = 6), 
+        legend.title = element_text(size = 6, face = "bold"), 
+        legend.key.size = unit(0.5, "cm"),
+        legend.spacing.y = unit(0.3, "cm"),
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("Bulk Carrier" = "#bcd6be",
+                               "Container Ship" = "#f5e8ce",
+                               "Fish Carrier" = "#e0bcc0",
+                               "Tanker" = "#9bc5cc")) 
+#Combine plots
+p_trip_ct_1 + p_trip_ct_2 + plot_layout(widths = c(2.5,1))
+```
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
 
 ## 5 Profit Performance
 
@@ -697,11 +889,14 @@ p1 <- ggplot(ship_filter,
   geom_boxplot(width = .2,
                color = "grey60") +
   geom_point(position = "jitter",
-             size = 0.01,
+             size = 0.2,
              color = "#F4F8D3",
              alpha = 0.3) +
   coord_cartesian(ylim = c(-500, 1000)) +
-  theme_light()
+  theme_light() +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.border = element_blank())
 
 #Plot revenue distribution
 p2<- ggplot(ship_filter,
@@ -713,11 +908,14 @@ p2<- ggplot(ship_filter,
   geom_boxplot(width = .2,
                color = "grey60") +
   geom_point(position = "jitter",
-             size = 0.05,
+             size = 0.2,
              color = "#73C7C7",
              alpha = 0.3) +
   coord_cartesian(ylim = c(-500, 1000)) +
-  theme_light()
+  theme_light() +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.border = element_blank())
 
 #Plot profit distribution
 p3 <- ggplot(ship_filter,
@@ -729,294 +927,32 @@ p3 <- ggplot(ship_filter,
   geom_boxplot(width = .2,
                color = "grey60") +
   geom_point(position = "jitter",
-             size = 0.05,
+             size = 0.2,
              color = "#F7CFD8",
              alpha = 0.3) +
   coord_cartesian(ylim = c(-500, 1000)) +
-  theme_light()
+  theme_light() +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.border = element_blank())
 
 patchwork <- p1 + p2 + p3
 patchwork + plot_annotation(
-  title = "Finance Distribution Overview",
-  theme = theme(plot.title = element_text(size = 12, face = "bold")
-))
-#  plot_annotation(title = "Operational Cost by Ship Type")
+  title = "Finance Distribution Overview") &
+  theme(plot.title = element_text(size = 12, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA)
+)
   
 ```
 
-Next, we use scatterplot to see if Revenue_per_Voyage_USD and Operational_Cost_USD have any relations.
+Welch’s one-way ANOVA
 
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
-p4 <- ggplot(data=ship_filter,
-             aes(x = Revenue_per_Voyage_USD,
-                 y = Operational_Cost_USD)) +
-  geom_point(colour = "grey",
-             size = 0.6) +
-  geom_smooth(method = lm,
-              size = 0.5) +
-  coord_cartesian(xlim=c(0,1000),
-                 ylim=c(0,600)) +
-  labs(title = "Cost vs Revenue for All Ship Types") +
-  theme_economist_white() +
-    theme(plot.title = element_text(size = 10, face = "bold"))
 
-```
-
-Below I combined the 3 plots together to have a clearer view of the relations.
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-patchwork <- p4 | (p1 / p2)
-patchwork & theme_economist_white() +
-    theme(axis.title = element_text(size = rel(1)),
-          axis.text = element_text(size = 8),
-          plot.title = element_text(size = 12))
-```
-
-Now I want to see the Profit performance by different factors, including ship conditions and external factors, namely, Ship type, Engine type, Weather condition, Route type and Maintenance status.
-
-#### **5.1.1 Ship type**
-
-Figure below is plotted by mapping the probabilities calculated by using `stat(ecdf)` which represent the empirical cumulative density function for the distribution of English score.
-
-\[placeholder - insights\] p = 0.84 suggests none of the differences are statistically significant, meaning that Tanker is not earning significantly different profit from other ship types, although we can see slight difference.
-
---
-
-Compare central density
-
-```{r}
-#| fig-width: 14
-#| fig-height: 9
-#| code-fold: true
-#| code-summary: "Show the code"
-# Plot ship type
-p_dens_st <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Ship_Type)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-# Plot Engine type
-p_dens_et <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Engine_Type)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-# Plot Route type
-p_dens_rt <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Route_Type)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-# Plot Weather
-p_dens_wc <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Weather_Condition)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-# Plot maintenance
-p_dens_ms <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Maintenance_Status)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-(p_dens_st|p_dens_st | p_dens_ms) / (p_dens_wc | p_dens_rt | p_dens_et)
-```
-
---
-
-```{r}
-#| fig-width: 14
-#| fig-height: 12
-#| code-fold: true
-#| code-summary: "Show the code"
-
-# Plot1
 # Plot statboxplot by ship types
-p_statbox_st <- ggbetweenstats(
-  data = ship_filter,
-  x = Ship_Type,
-  y = Profit,
-  type = "p",
-  mean.ci = TRUE,
-  pariwise.comparisons = TRUE,
-  pairwise.display = "s",
-  p.adjust.methods = "fdr",
-  message = FALSE
-) 
-  
-# Plot 2
-p_dens_st <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Ship_Type)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-# Plot 3
-p_rid_st <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Ship_Type,
-           fill = factor(stat(quantile)))) +
-  stat_density_ridges(
-    geom = "density_ridges_gradient",
-    calc_ecdf = TRUE,
-    quantiles = c(0.025, 0.975)
-  ) +
-  scale_fill_manual(
-    name = "Probability",
-    values = alpha(c("#E6A5B1", "#F8F4EC", "#5FB0B0"), 0.5),
-    labels = c("(0, 0.025]", "(0.025, 0.975]", "(0.975, 1]")) +
-  labs(title = ("Probability of Profit Distribution by Ship Type")) +
-  theme_light()
-
-p_statbox_st / (p_dens_st | p_rid_st)
-```
-
-#### **5.1.2 Engine type**
-
-```{r}
-#| fig-width: 14
-#| fig-height: 12
-#| code-fold: true
-#| code-summary: "Show the code"
-
-# Plot1
-# Plot statboxplot by ship types
-p_statbox_st <- ggbetweenstats(
-  data = ship_filter,
-  x = Engine_Type,
-  y = Profit,
-  type = "p",
-  mean.ci = TRUE,
-  pariwise.comparisons = TRUE,
-  pairwise.display = "s",
-  p.adjust.methods = "fdr",
-  message = FALSE
-) 
-  
-# Plot 2
-p_dens_st <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Engine_Type)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01,
-    calc_ecdf = TRUE,  # Ensures ECDF is calculated for fill
-    aes(fill = 0.5 - abs(0.5 - after_stat(ecdf)))) +  # Use ECDF for fill
-  scale_fill_gradientn(colors = c("#F3F7EC", "#006989")) +  # Custom colors
-  scale_x_continuous(name = "Profit",
-                     expand = c(0, 0)) +
-  labs(title = "Profit Distribution and Central Tendency") +
-  theme_light() +
-  theme(legend.title = element_blank())
-
-# Plot 3
-p_rid_st <- ggplot(ship_filter,
-       aes(x = Profit,
-           y = Engine_Type,
-           fill = factor(stat(quantile)))) +
-  stat_density_ridges(
-    geom = "density_ridges_gradient",
-    calc_ecdf = TRUE,
-    quantiles = c(0.025, 0.975)
-  ) +
-  scale_fill_manual(
-    name = "Probability",
-    values = alpha(c("#E6A5B1", "#F8F4EC", "#5FB0B0"), 0.5),
-    labels = c("(0, 0.025]", "(0.025, 0.975]", "(0.975, 1]")) +
-  labs(title = ("Probability of Profit Distribution by Ship Type")) +
-  theme_light()
-
-p_statbox_st / (p_dens_st | p_rid_st)
-```
-
-#### **5.1.3 Weather condition**
-
-#### **5.1.4 Route type**
-
-#### **5.1.5 maintenance status**
-
-### 5.2 Profit performance with different factors by ship type
-
-#### 5.2.1 Engine type
-
-\[placeholder - explain how to plot\]
-
-In this section, I will explore some variables by Ship types before going deeper into comparison studies to assess ships performance in different aspects.
-
-From the raincloud plot, can see Tanker stands out as its median looks more different than the rest. Plot statboxplot to check on the significance.
-
-```{r}
-#| fig-width: 15
-#| fig-height: 8
-#| code-fold: true
-#| code-summary: "Show the code"
-
-# Plot1
-# Plot statboxplot by ship types
-p_statbox_st <- ggbetweenstats(
+ggbetweenstats(
   data = ship_filter,
   x = Ship_Type,
   y = Profit,
@@ -1027,96 +963,812 @@ p_statbox_st <- ggbetweenstats(
   p.adjust.methods = "fdr",
   message = FALSE
 ) +
-    coord_flip() 
+  theme(panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA))
 
-#Plot raincloud plot by ship types
-median_Profit <- median(ship_filter$Profit)
-mean_Profit <- round(mean(ship_filter$Profit), 2)
-
-p_rcloud_st <- ggplot(ship_filter,
-       aes(x = Ship_Type,
-           y = Profit,
-           fill = Ship_Type)) +
-  stat_halfeye(adjust = 0.3,
-               justification = -0.2,
-               scale = 0.6,
-               width = 0.6,
-               slab_color = "grey",
-               slab_fill = "#D6DED5",
-               slab_linetype = "solid",
-               slab_linewidth = 0.4,
-               slab_alpha = 0.5,
-               .width = 0,
-               point_colour = NA,
-               position = position_nudge(y = -0.2)) +
-  geom_boxplot(width = 0.1,
-               color = "#FFC0CB",
-               position = position_nudge(y = 0.8)) +
-  scale_fill_brewer(palette="Pasterl1") +
-  stat_dots(side = "left",
-            justification = 1.2,
-            bandwidth = .5,
-            dotsize = 0.1,
-            alpha = 0.4,
-            aes(color = Engine_Type)) +
-  #indicate median score position
-  geom_hline(aes(yintercept = median_Profit),
-             color = "blue", 
-             linewidth = 0.4,
-             linetype = "dashed") +
-  #indicate mean score position
-  geom_hline(aes(yintercept = mean_Profit),
-             color = "red", 
-             linewidth = 0.4,
-             linetype = "dashed") +
-  theme_minimal() +
-  annotate("text",
-           x = 0.1,
-           y = median_Profit + 270,
-           label = paste("Median Score = ", median_Profit),
-           color = "blue",
-           size = 3) +
-  
-  annotate("text",
-           x = 0.3,
-           y = mean_Profit + 270,
-           label = paste("Mean Score = ", mean_Profit),
-           color = "red",
-           size = 3) +
-  coord_flip() +
-  theme_light() +
-  theme(plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        panel.border = element_blank())
-
-#Combine two plots
-patchwork <- (p_rcloud_st | p_statbox_st)
-patchwork
 ```
 
-#### 5.2.2 Average load
+::::: spgoals
+::: spgoals-header
+Insights
+:::
 
-load vs profit
+::: spgoals-container
+-   text
+:::
+:::::
 
-\[combine 2 figures, one for all, one by ship type\]
+### 5.2 Profit performance with different factors by ship type
+
+In this section, I will explore more variables by Ship types to assess ships performance in different aspects.
+
+#### **5.2.1 Operational conditions**
+
+::: panel-tabset
+## **Route Type**
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 7
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+###------------1 Plot Bulk Carrier -----------###
+
+# Filter data for only "Bulk Carrier" ships
+bulkc_data <- ship_filter %>%
+  filter(Ship_Type == "Bulk Carrier")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_bulkc <- bulkc_data %>%
+  group_by(Engine_Type, Route_Type) %>%
+  summarise(mean_profit_bulkc = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_bulkc
+p_ridg_bulkc <- ggplot(bulkc_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Route_Type, 
+                        color = Route_Type)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_bulkc, 
+             aes(x = mean_profit_bulkc, y = Engine_Type, fill = Route_Type), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1) +
+  labs(x = "Bulk Carrier", y = NULL) +  
+  scale_fill_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) +  
+  scale_color_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines"),
+        plot.margin = margin(t = 10, r = 10, b = 30, l = 20)
+        ) 
+
+
+###------------2 Plot Container Ship -----------###
+# Filter data for only "Container Ship" ships
+cship_data <- ship_filter %>%
+  filter(Ship_Type == "Container Ship")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_cship <- cship_data %>%
+  group_by(Engine_Type, Route_Type) %>%
+  summarise(mean_profit_cship = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_cship
+p_ridg_cship <- ggplot(cship_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Route_Type, 
+                        color = Route_Type)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_cship, 
+             aes(x = mean_profit_cship, y = Engine_Type, fill = Route_Type), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") + 
+  labs(x = "Container Ship", y = NULL) +  
+  scale_fill_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) +  
+  scale_color_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "top",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines")
+        )
+
+
+###-----------3 Plot Fish Carrier -----------###
+# Filter data for only "Fish Carrier" ships
+fishc_data <- ship_filter %>%
+  filter(Ship_Type == "Fish Carrier")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_fishc <- fishc_data %>%
+  group_by(Engine_Type, Route_Type) %>%
+  summarise(mean_profit_fishc = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_fishc
+p_ridg_fishc <- ggplot(fishc_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Route_Type, 
+                        color = Route_Type)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_fishc, 
+             aes(x = mean_profit_fishc, y = Engine_Type, fill = Route_Type), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") +  # Separate plots for each Route_Type
+  labs(x = "Fish Carrier", y = NULL) +  
+  scale_fill_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) +  
+  scale_color_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines")
+        )
+
+###-----------4 Plot Tanker-----------###
+# Filter data for only "Tanker" ships
+tanker_data <- ship_filter %>%
+  filter(Ship_Type == "Tanker")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_tanker <- tanker_data %>%
+  group_by(Engine_Type, Route_Type) %>%
+  summarise(mean_profit_tanker = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_tanker
+p_ridg_tanker <- ggplot(tanker_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Route_Type, 
+                        color = Route_Type)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_tanker, 
+             aes(x = mean_profit_tanker, y = Engine_Type, fill = Route_Type), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") +  # Separate plots for each Route_Type
+  labs(x = "Tanker", y = NULL) +  
+  scale_fill_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) +  
+  scale_color_manual(values = c("Coastal" = "#FF9EAA",
+                               "Long-haul" = "#3AA6B9",
+                               "Short-haul" = "#e0c080",
+                               "Transoceanic" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120)
+        )
+
+patchwork <- (p_ridg_bulkc | p_ridg_cship | p_ridg_fishc | p_ridg_tanker)
+patchwork 
+  
+```
+
+## **Weather Condition**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+###------------1 Plot Bulk Carrier -----------###
+
+# Filter data for only "Bulk Carrier" ships
+bulkc_data <- ship_filter %>%
+  filter(Ship_Type == "Bulk Carrier")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_bulkc <- bulkc_data %>%
+  group_by(Engine_Type, Weather_Condition) %>%
+  summarise(mean_profit_bulkc = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_bulkc
+p_ridg_bulkc_wc <- ggplot(bulkc_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Weather_Condition, 
+                        color = Weather_Condition)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_bulkc, 
+             aes(x = mean_profit_bulkc, y = Engine_Type, fill = Weather_Condition), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1) +
+  labs(x = "Bulk Carrier", y = NULL) +  
+  scale_fill_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) +  
+  scale_color_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines"),
+        plot.margin = margin(t = 10, r = 10, b = 30, l = 20)
+        ) 
+
+
+###------------2 Plot Container Ship -----------###
+# Filter data for only "Container Ship" ships
+cship_data <- ship_filter %>%
+  filter(Ship_Type == "Container Ship")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_cship <- cship_data %>%
+  group_by(Engine_Type, Weather_Condition) %>%
+  summarise(mean_profit_cship = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_cship
+p_ridg_cship_wc <- ggplot(cship_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Weather_Condition, 
+                        color = Weather_Condition)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_cship, 
+             aes(x = mean_profit_cship, y = Engine_Type, fill = Weather_Condition), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") + 
+  labs(x = "Container Ship", y = NULL) +  
+  scale_fill_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) +  
+  scale_color_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "top",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines")
+        )
+
+
+###-----------3 Plot Fish Carrier -----------###
+# Filter data for only "Fish Carrier" ships
+fishc_data <- ship_filter %>%
+  filter(Ship_Type == "Fish Carrier")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_fishc <- fishc_data %>%
+  group_by(Engine_Type, Weather_Condition) %>%
+  summarise(mean_profit_fishc = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_fishc
+p_ridg_fishc_wc <- ggplot(fishc_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Weather_Condition, 
+                        color = Weather_Condition)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_fishc, 
+             aes(x = mean_profit_fishc, y = Engine_Type, fill = Weather_Condition), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") +  # Separate plots for each Route_Type
+  labs(x = "Fish Carrier", y = NULL) +  
+  scale_fill_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) +  
+  scale_color_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines")
+        )
+
+###-----------4 Plot Tanker-----------###
+# Filter data for only "Tanker" ships
+tanker_data <- ship_filter %>%
+  filter(Ship_Type == "Tanker")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_tanker <- tanker_data %>%
+  group_by(Engine_Type, Weather_Condition) %>%
+  summarise(mean_profit_tanker = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_tanker
+p_ridg_tanker_wc <- ggplot(tanker_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Weather_Condition, 
+                        color = Weather_Condition)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_tanker, 
+             aes(x = mean_profit_tanker, y = Engine_Type, fill = Weather_Condition), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") +  # Separate plots for each Route_Type
+  labs(x = "Tanker", y = NULL) +  
+  scale_fill_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) +  
+  scale_color_manual(values = c("Rough" = "#FF9EAA",
+                               "Calm" = "#3AA6B9",
+                               "Moderate" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120)
+        )
+
+patchwork <- (p_ridg_bulkc_wc | p_ridg_cship_wc | p_ridg_fishc_wc | p_ridg_tanker_wc)
+patchwork 
+```
+
+## **Maintenance status**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+###------------1 Plot Bulk Carrier -----------###
+
+# Filter data for only "Bulk Carrier" ships
+bulkc_data <- ship_filter %>%
+  filter(Ship_Type == "Bulk Carrier")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_bulkc <- bulkc_data %>%
+  group_by(Engine_Type, Maintenance_Status) %>%
+  summarise(mean_profit_bulkc = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_bulkc
+p_ridg_bulkc_ms <- ggplot(bulkc_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Maintenance_Status, 
+                        color = Maintenance_Status)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_bulkc, 
+             aes(x = mean_profit_bulkc, y = Engine_Type, fill = Maintenance_Status), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1) +
+  labs(x = "Bulk Carrier", y = NULL) +  
+  scale_fill_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) +  
+  scale_color_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines"),
+        plot.margin = margin(t = 10, r = 10, b = 30, l = 20)
+        ) 
+
+
+###------------2 Plot Container Ship -----------###
+# Filter data for only "Container Ship" ships
+cship_data <- ship_filter %>%
+  filter(Ship_Type == "Container Ship")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_cship <- cship_data %>%
+  group_by(Engine_Type, Maintenance_Status) %>%
+  summarise(mean_profit_cship = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_cship
+p_ridg_cship_ms <- ggplot(cship_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Maintenance_Status, 
+                        color = Maintenance_Status)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_cship, 
+             aes(x = mean_profit_cship, y = Engine_Type, fill = Maintenance_Status), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") + 
+  labs(x = "Container Ship", y = NULL) +  
+  scale_fill_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) +  
+  scale_color_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "top",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines")
+        )
+
+
+###-----------3 Plot Fish Carrier -----------###
+# Filter data for only "Fish Carrier" ships
+fishc_data <- ship_filter %>%
+  filter(Ship_Type == "Fish Carrier")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_fishc <- fishc_data %>%
+  group_by(Engine_Type, Maintenance_Status) %>%
+  summarise(mean_profit_fishc = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_fishc
+p_ridg_fishc_ms <- ggplot(fishc_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Maintenance_Status, 
+                        color = Maintenance_Status)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_fishc, 
+             aes(x = mean_profit_fishc, y = Engine_Type, fill = Maintenance_Status), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") +  # Separate plots for each Route_Type
+  labs(x = "Fish Carrier", y = NULL) +  
+  scale_fill_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) +  
+  scale_color_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120),
+        panel.spacing = unit(1, "lines")
+        )
+
+###-----------4 Plot Tanker-----------###
+# Filter data for only "Tanker" ships
+tanker_data <- ship_filter %>%
+  filter(Ship_Type == "Tanker")
+
+# Calculate mean profit for each Engine Type and Route Type
+mean_profit_tanker <- tanker_data %>%
+  group_by(Engine_Type, Maintenance_Status) %>%
+  summarise(mean_profit_tanker = mean(Profit, na.rm = TRUE), .groups = "drop")
+
+# Create Plot_tanker
+p_ridg_tanker_ms <- ggplot(tanker_data, aes(x = Profit, 
+                        y = Engine_Type, 
+                        fill = Maintenance_Status, 
+                        color = Maintenance_Status)) +
+  geom_density_ridges(
+    alpha = 0.2,           
+    scale = 6,            
+    rel_min_height = 0.01,
+    position = "identity"   # Ensures full overlap
+  ) +
+  geom_point(data = mean_profit_tanker, 
+             aes(x = mean_profit_tanker, y = Engine_Type, fill = Maintenance_Status), 
+             shape = 23, size = 3, stroke = 0.5, color = "grey90") +
+  facet_wrap(~ Engine_Type, ncol = 1, strip.position = "left") +  # Separate plots for each Route_Type
+  labs(x = "Tanker", y = NULL) +  
+  scale_fill_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) +  
+  scale_color_manual(values = c("Critical" = "#FF9EAA",
+                               "Good" = "#3AA6B9",
+                               "Fair" = "grey70")) + 
+  theme_classic() +
+  theme(axis.text.y = element_blank(),  
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        panel.grid.major = element_blank(),  
+        panel.grid.minor = element_blank(),
+        strip.text.y = element_blank(),
+        strip.background = element_blank(), 
+        legend.position = "none",
+        plot.title = element_text(size = 12, face = "bold",
+                                  hjust = 0.5, vjust = -120)
+        )
+
+patchwork <- (p_ridg_bulkc_ms | p_ridg_cship_ms | p_ridg_fishc_ms | p_ridg_tanker_ms)
+patchwork 
+```
+:::
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
+
+#### **5.2.2 Performance Metrics**
+
+```{r}
+p <- ggplot(data=ship_filter, 
+            aes(x = Efficiency_nm_per_kWh,
+                y = Profit,
+                color = Ship_Type)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(.1,1.5),
+                  ylim=c(-500,1000))
+ggplotly(p)
+```
+
+::: panel-tabset
+## **Energy Efficiency**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+p_pt_ep <- ggplot(data=ship_filter,
+             aes(x = Efficiency_nm_per_kWh,
+                 y = Profit)) +
+  geom_point(size = 0.6,
+             aes(color = Ship_Type),
+             show.legend = FALSE) +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  coord_cartesian(xlim=c(.1,1.5),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Overall Trend Line") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+
+p_pt_ep_st <- ggplot(data=ship_filter,
+             aes(x = Efficiency_nm_per_kWh,
+                 y = Profit,
+                 color = Ship_Type)) +
+  geom_point(colour = "grey80",
+             size = 0.6) +
+  geom_smooth(method = lm,
+              size = 0.5,
+              se = FALSE,
+              aes(color = Ship_Type)) +
+  scale_color_brewer(palette = "Set2") +
+  coord_cartesian(xlim=c(.1,1.5),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Trend Lines for All Ship Types",
+       color = "Ship Type") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size=10),
+        legend.position = "right",
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "lightblue", color = NA)
+        ) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+patchwork <- (p_pt_ep | p_pt_ep_st)
+patchwork + 
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA))
+
+```
+
+## **Engine Power**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+p_pt_ep <- ggplot(data=ship_filter,
+             aes(x = Engine_Power_kW,
+                 y = Profit)) +
+  geom_point(size = 0.6,
+             aes(color = Ship_Type),
+             show.legend = FALSE) +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  coord_cartesian(xlim=c(500,3000),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Overall Trend Line") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+        ) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+
+p_pt_ep_st <- ggplot(data=ship_filter,
+             aes(x = Engine_Power_kW,
+                 y = Profit,
+                 color = Ship_Type)) +
+  geom_point(colour = "grey80",
+             size = 0.6) +
+  geom_smooth(method = lm,
+              size = 0.5,
+              se = FALSE,
+              aes(color = Ship_Type)) +
+  scale_color_brewer(palette = "Set2") +
+  coord_cartesian(xlim=c(500,3000),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Trend Lines for All Ship Types",
+       color = "Ship Type") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size=10),
+        legend.position = "right",
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+        ) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+patchwork <- (p_pt_ep | p_pt_ep_st)
+patchwork + theme(
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+)
+```
+
+## **Average load**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
 #| code-fold: true
 #| code-summary: "Show the code"
 p5 <- ggplot(data=ship_filter,
              aes(x = Average_Load_Percentage,
                  y = Profit)) +
-  geom_point(colour = "grey",
-             size = 0.6) +
+  geom_point(size = 0.6,
+             aes(color = Ship_Type),
+             show.legend = FALSE) +
   geom_smooth(method = lm,
               size = 0.5) +
   coord_cartesian(xlim=c(40,100),
-                 ylim=c(0,1000)) +
+                 ylim=c(-500,1000)) +
   labs(title = "Average Load vs Profit") +
-  theme_economist_white() +
-    theme(plot.title = element_text(size = 10, face = "bold"))
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
 
 p5_1 <- ggplot(data=ship_filter,
              aes(x = Average_Load_Percentage,
@@ -1130,44 +1782,173 @@ p5_1 <- ggplot(data=ship_filter,
               aes(color = Ship_Type)) +
   scale_color_brewer(palette = "Set2") +
   coord_cartesian(xlim=c(40,100),
-                 ylim=c(0,1000)) +
+                 ylim=c(-500,1000)) +
   labs(title = "Average Load vs Profit by All Ship Types",
        color = "Ship Type") +
-  theme_economist_white() +
-    theme(plot.title = element_text(size = 10, face = "bold"),
-          legend.text = element_text(size=10),
-          legend.position = "right")
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size=10),
+        legend.position = "right",
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+        ) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
 
-p5 | p5_1
 
+patchwork <- (p5 | p5_1)
+patchwork + theme(
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA))
 
 ```
 
-load vs revenue
-
-\[combine 2 figures, one for all, one by ship type\]
+## **Turnaround time**
 
 ```{r}
-p6 <- ggplot(data=ship_filter,
-             aes(x = Average_Load_Percentage,
-                 y = Revenue_per_Voyage_USD,
-                 color = Ship_Type)) +
-  geom_point(
-             size = 0.6) +
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+p_pt_turntime <- ggplot(data=ship_filter,
+             aes(x = Turnaround_Time_hours,
+                 y = Profit)) +
+  geom_point(size = 0.6,
+             aes(color = Ship_Type),
+             show.legend = FALSE) +
   geom_smooth(method = lm,
               size = 0.5) +
-  coord_cartesian(xlim=c(40,100),
-                 ylim=c(0,1000)) +
-  labs(title = "load vs revenue for All Ship Types") +
-  theme_economist_white() +
-    theme(plot.title = element_text(size = 10, face = "bold"))
+  coord_cartesian(xlim=c(0,80),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Overall Trend Line") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
 
-p6
+
+p_pt_turntime_st <- ggplot(data=ship_filter,
+             aes(x = Turnaround_Time_hours,
+                 y = Profit,
+                 color = Ship_Type)) +
+  geom_point(colour = "grey80",
+             size = 0.6) +
+  geom_smooth(method = lm,
+              size = 0.5,
+              se = FALSE,
+              aes(color = Ship_Type)) +
+  scale_color_brewer(palette = "Set2") +
+  coord_cartesian(xlim=c(0, 80),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Trend Lines for All Ship Types",
+       color = "Ship Type") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size=10),
+        legend.position = "right",
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+patchwork <- p_pt_turntime | p_pt_turntime_st
+patchwork + theme(
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+)
+
 ```
+
+## **Cargo Weight**
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
+p_pt_cargowt <- ggplot(data=ship_filter,
+             aes(x = Cargo_Weight_tons,
+                 y = Profit)) +
+  geom_point(size = 0.6,
+             aes(color = Ship_Type),
+             show.legend = FALSE) +
+  geom_smooth(method = lm,
+              size = 0.5) +
+  coord_cartesian(xlim=c(50,2000),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Overall Trend Line") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+
+p_pt_cargowt_st <- ggplot(data=ship_filter,
+             aes(x = Cargo_Weight_tons,
+                 y = Profit,
+                 color = Ship_Type)) +
+  geom_point(colour = "grey80",
+             size = 0.6) +
+  geom_smooth(method = lm,
+              size = 0.5,
+              se = FALSE,
+              aes(color = Ship_Type)) +
+  scale_color_brewer(palette = "Set2") +
+  coord_cartesian(xlim=c(50, 2000),
+                 ylim=c(-500,1000)) +
+  labs(title = "Turnaround Time with Trend Lines for All Ship Types",
+       color = "Ship Type") +
+  theme_classic() +
+  theme(plot.title = element_text(size = 10, face = "bold"),
+        legend.text = element_text(size=10),
+        legend.position = "right",
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+        ) +
+  scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
+                                "Container Ship" = "#3AA6B9",
+                                "Fish Carrier" = "#e0c080",
+                                "Tanker" = "#a5c7a7")) 
+
+patchwork <- p_pt_cargowt | p_pt_cargowt_st
+patchwork + theme(
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
+)
+```
+:::
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
 
 ### 5.3 Performance over time
 
-#### **5.3.1 Overview**
+#### **5.3.1 Financial performance overview**
 
 Mar, July, Oct, Dec are peak months in the data in a one year time frame. The cost, revenue and profit shows the same pattern in the line graph. It would be good to look into the reasons why these months are peak time and what causes the cost increase.
 
@@ -1222,8 +2003,8 @@ ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
        color = "Type") +
     
   theme_light() +
-  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "grey70", 
-                                "Revenue" = "skyblue"),
+  scale_color_manual(values = c("Profit" = "#f2cbd0", "Op_Cost" = "grey70", 
+                                "Revenue" = "#86b3ba"),
                      guide = "none") +
   scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
   theme(plot.title = element_text(size = 14, face = "bold"),
@@ -1241,6 +2022,16 @@ ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
 
 ```
 
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
+
 #### **5.3.2 Comparing Profit, Revenue, and Cost Across Ship Types**
 
 ```{r}
@@ -1249,7 +2040,7 @@ ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
 #| code-fold: true
 #| code-summary: "Show the code"
 
-### Plot profit ###
+###--------------- Plot profit
 # Aggregate total monthly profit for each ship type
 monthly_profit <- ship_filter %>%
   mutate(Month = floor_date(Date, "month")) %>%
@@ -1263,7 +2054,7 @@ top_3_months <- monthly_profit %>%
   slice_max(order_by = Total_profit, n = 3)
 
 # Define colors
-ship_type_colors <- c("pink", "grey80", "grey40", "#C4E4FF")
+ship_type_colors <- c("#f2cbd0", "grey80", "grey40", "#9bc5cc")
 
 # Plot profit over time for each ship type
 p_line_pf <- ggplot(monthly_profit, 
@@ -1276,7 +2067,7 @@ p_line_pf <- ggplot(monthly_profit,
              aes(x = Month,
                  y = Total_profit,
                  inherit.aes = FALSE),
-             size = 4, shape = 21,
+             size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months$Ship_Type)], 
              stroke = 1.5) +
   labs(title = "Monthly Profit Trends by Ship Type",
@@ -1288,13 +2079,14 @@ p_line_pf <- ggplot(monthly_profit,
   theme_light() +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "top",
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
         legend.title = element_blank(),
         plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
         panel.border = element_blank()) +
   guides(fill = "none")
 
-### Plot cost ###
+###--------------- Plot cost 
 # Aggregate total monthly cost for each ship type
 monthly_cost <- ship_filter %>%
   mutate(Month = floor_date(Date, "month")) %>%
@@ -1308,7 +2100,7 @@ top_3_months_cost <- monthly_cost %>%
   slice_max(order_by = Total_cost, n = 3)
 
 # Define colors
-ship_type_colors <- c("pink", "grey80", "grey40", "#C4E4FF")
+ship_type_colors <- c("#f2cbd0", "grey80", "grey40", "#9bc5cc")
 
 # Plot cost over time for each ship type
 p_line_cost <- ggplot(monthly_cost, 
@@ -1321,7 +2113,7 @@ p_line_cost <- ggplot(monthly_cost,
              aes(x = Month,
                  y = Total_cost,
                  inherit.aes = FALSE),
-             size = 4, shape = 21,
+             size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months_cost$Ship_Type)], 
              stroke = 1.5) +
   labs(title = "Monthly Cost Trends by Ship Type",
@@ -1333,13 +2125,14 @@ p_line_cost <- ggplot(monthly_cost,
   theme_light() +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "top",
+        legend.background = element_rect(fill = "#fcf0cc", color = "#fcf0cc"),
         legend.title = element_blank(),
-        plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
+        plot.background = element_rect(fill = "#fcf0cc"),
+        panel.background = element_rect(fill = "#fcf0cc"),
         panel.border = element_blank()) +
   guides(fill = "none")
 
-### Plot revenue ###
+###--------------- Plot revenue 
 # Aggregate total monthly revenue for each ship type
 monthly_rvn <- ship_filter %>%
   mutate(Month = floor_date(Date, "month")) %>%
@@ -1353,7 +2146,7 @@ top_3_months_rvn <- monthly_rvn %>%
   slice_max(order_by = Total_rvn, n = 3)
 
 # Define colors
-ship_type_colors <- c("pink", "grey80", "grey40", "#C4E4FF")
+ship_type_colors <- c("#e0bcc0", "grey80", "grey40", "#86b3ba")
 
 # Plot revenue over time for each ship type
 p_line_rvn <- ggplot(monthly_rvn, 
@@ -1366,7 +2159,7 @@ p_line_rvn <- ggplot(monthly_rvn,
              aes(x = Month,
                  y = Total_rvn,
                  inherit.aes = FALSE),
-             size = 4, shape = 21,
+             size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months_rvn$Ship_Type)], 
              stroke = 1.5) +
   labs(title = "Monthly Revenue Trends by Ship Type",
@@ -1378,6 +2171,7 @@ p_line_rvn <- ggplot(monthly_rvn,
   theme_light() +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "top",
+        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
         legend.title = element_blank(),
         plot.background = element_rect(fill = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5"),
@@ -1388,6 +2182,16 @@ p_line_pf / p_line_cost / p_line_rvn
  
 
 ```
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
 
 #### 5.3.3 **Monthly Profit, Revenue, and Cost Trends by Ship Type**
 
@@ -1442,8 +2246,8 @@ ggplot(monthly_long_st, aes(x = Month, y = Value, color = Type, group = interact
        color = "Type") +
     
   theme_light() +
-  scale_color_manual(values = c("Profit" = "pink", "Op_Cost" = "grey70", 
-                                "Revenue" = "skyblue"),
+  scale_color_manual(values = c("Profit" = "#f2cbd0", "Op_Cost" = "grey70", 
+                                "Revenue" = "#9bc5cc"),
                      guide = "none") +
   scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") +
   theme(plot.title = element_text(size = 14, face = "bold"),
@@ -1464,110 +2268,24 @@ ggplot(monthly_long_st, aes(x = Month, y = Value, color = Type, group = interact
   
 ```
 
-Maintenance status
+::::: spgoals
+::: spgoals-header
+Insights
+:::
 
-Efficiency
+::: spgoals-container
+-   text
+:::
+:::::
 
-Speed
+#### 5.3.4 Revenue vs Profit relations
 
-Cargo weight
+month revenue / total revenue
 
-Average load
+month profit / total profit
 
-```{r}
-pacman::p_load(ggdist, ggridges, ggthemes, colorspace, tidyverse)
-```
+plot scatter plot, point size denotes profit amount
 
-## 6 Multi-Facets Comparison by Ship Type
+## 6 Summary
 
-### 6.1 Comparing profit ship conditions
-
-#### 6.1.1 engine power 
-
-#### 6.1.2 engine efficiency
-
-#### 6.1.3 engine type
-
-#### 6.1.4 maintenance status
-
-speed
-
-### 6.3 Comparing profit with external factors
-
-#### weather 
-
-#### route type
-
-```{r}
-#| code-fold: true
-#| code-summary: "Show the code"
-ggplot(ship_filter, 
-       aes(y = Profit, 
-           x = Ship_Type,
-           fill = Route_Type)) +
-  ggdist::stat_halfeye(.width = c(0, 1), adjust = .5, slab_alpha = .5, 
-                       shape = 21, point_size = 2) +
-  scale_fill_manual(values = c("#EFAC00", "#5FB0B0", "#E6A5B1", "grey"), name = NULL) +
-  labs(title = "Comparing Profit Performance Against Route Type")
-```
-
-#### average load
-
-Compare profit using facets.
-
-Use facet for ship types vs weather for profit & efficiency, color in engine type.(see ggtheme)
-
-histogram
-
-## 7 Summary
-
-## 8 References
-
-```{r}
-# Plot1
-p_viol_prof <- ggplot(ship_filter,
-       aes(y = Profit, 
-           x = Ship_Type)) +
-  geom_violin(aes(color = Ship_Type),
-              alpha = 0.3) +
-  geom_boxplot(width = .15,
-               alpha = 0.4,
-               color = "grey50") +
-  geom_point(position = "jitter",
-             size = 1.2,
-             aes(color = Ship_Type),
-             alpha = 0.1) +
-  # Add mean points to each boxplot
-  stat_summary(fun = "mean", 
-               geom = "point", 
-               aes(color = Ship_Type),  # Mean point color based on Ship_Type
-               size = 2,                 
-               shape = 16,              
-               position = position_dodge(width = 0.75)) + 
-  # Add overall median scores
-  geom_hline(yintercept = median(ship_filter$Profit, na.rm = TRUE), 
-             linetype = "dotted", color = "blue", size = 0.5) +
-  # Add median score text on the median line
-  annotate("text", 
-           x = 1.5,  
-           y = median(ship_filter$Profit, na.rm = TRUE) + 70, 
-           label = paste("Overall median: \n", round(mean(ship_filter$Profit, na.rm = TRUE), 2)),
-           color = "blue", size = 3, fontface = "bold") + 
-  coord_cartesian(ylim = c(-500, 1000)) +
-  labs(title = "Profit Performance by Ship Types") +
-  theme_light() +
-  scale_color_manual(values = c("Bulk Carrier" = "#E6A5B1",  
-                               "Container Ship" = "#5FB0B0", 
-                               "Fish Carrier" = "#A3B23B",
-                               "Tanker" = "#FFB200"))
-```
-
-```{r}
-model <- lm(Profit ~ Speed_Over_Ground_knots + Engine_Power_kW +
-              Distance_Traveled_nm + Efficiency_nm_per_kWh +
-              Operational_Cost_USD + Revenue_per_Voyage_USD +
-              Average_Load_Percentage + Cargo_Weight_tons +
-              Turnaround_Time_hours,
-            data = ship_filter)
-model
-```
+## 7 References

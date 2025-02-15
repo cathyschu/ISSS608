@@ -43,17 +43,18 @@ h3 {
 
 /* Code Blocks */
 pre {
-    background-color: #F6F8FB !important; 
-    color: #f8f8f2; /* Light text for contrast */
-    padding: 10px;
-    border-radius: 6px;
-    overflow-x: auto;
+  background-color:  #fcfcfa !important;  /* Light cream alter #fffefe*/
+  color: #5285a3 !important; 
 }
+code span.kw { color: #859900 !important; } /* Keywords */
+code span.dt { color: #c3a67b !important; } /* Data types */
+code span.co { color: #d79db7 !important; font-style: italic; } /* Comments */
+code span.st { color: #0c4a6e !important; } /* Strings */
 
 /* Inline code style */
 code {
     background-color: #ced6da; /* Light gray-blue to match theme */
-    color: #2c3e50; /* Dark navy text for contrast */
+    color: #FCC737; 
     padding: 2px 4px;
     border-radius: 4px;
     font-family: "Courier New", monospace;
@@ -93,14 +94,13 @@ body .navbar {
   font-size: 20px;
 }
 
-pre {
-  background-color: #fffefe !important;  /* Light cream alter #F6F8FB*/
-  color: #8c6b94 !important; 
+
+/* Background color for code output */
+div.cell-output pre {
+    background-color: #f1f4f5 !important; /* Light blue */
+    padding: 10px;
+    border-radius: 5px;
 }
-code span.kw { color: #859900 !important; } /* Keywords */
-code span.dt { color: #c3a67b !important; } /* Data types */
-code span.co { color: #d79db7 !important; font-style: italic; } /* Comments */
-code span.st { color: #0c4a6e !important; } /* Strings */
 
 /* style callout blocks */
 .goals {
@@ -131,5 +131,37 @@ code span.st { color: #0c4a6e !important; } /* Strings */
   padding-right: 20px;
   color: #343738;
   background-color: #bcd3d4;
+  border-bottom-right-radius: 10px;  
+}
+
+/* style callout blocks -- Ships*/
+.spgoals {
+  margin: 1em 0;
+  border: 1.5px solid #629799;
+  border-radius: 10px;
+  background-color: #a9cbcc;
+}
+
+.spgoals-header {
+  margin-left: 0em;
+  padding-left: 80px;
+  padding-top: 20px;
+  padding-bottom: 0.1em;
+  color: #4d888a;
+  font-size: 1.2em;
+  font-weight: bold;
+  background-size: 60px;
+  background-color: #a9cbcc;
+  background-repeat: no-repeat;
+  background-position: 15px center;
+  background-image: url("images/ship.png");
+}
+
+.spgoals-container {
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 20px;
+  color: #343738;
+  background-color: #a9cbcc;
   border-bottom-right-radius: 10px;  
 }

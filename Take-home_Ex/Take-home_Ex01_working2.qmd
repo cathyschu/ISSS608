@@ -3,188 +3,131 @@ title: "Take-home_Ex01_working"
 author: "Cathy C."
 ---
 
-```{r}
+```{.r}
+pacman::p_load(ggstatsplot)
+```
+
+```{.r}
 pacman::p_load(tidyverse)
 library(readr)
 data_heart <- read_csv("data/jp_heart_attack_dataset.csv")
 data_ship <- read_csv("data/Ship_Pfm_Dataset.csv")
 
-data_heart 
-
-data_ship
 ```
 
-```{r}
-
-df_65plus <- data_heart %>% filter(Age >= 65)
-df_40plus <- data_heart %>% filter(Age >= 40)
-df_65below <- data_heart %>% filter(Age < 65)
-
-ggplot(df_65plus,
-       aes(x = Gender,
-           y = BMI, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(x = "Gender", y = "BMI")
-
-
+```{.r}
+#glimpse(data_ship)
 ```
 
-```{r}
-ggplot(df_65plus,
-       aes(x = Gender,
-           y = Heart_Rate, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Heart rate by gender for 65plus",
-  x = "Gender", y = "Heart_Rate")
+**Numerical Features**
 
+-   Speed_Over_Ground_knots: Average speed of the ship over water (in knots).
+-   Engine_Power_kW: Engine power output (in kilowatts).
+-   Distance_Traveled_nm: Total distance traveled by the ship (in nautical miles).
+-   Operational_Cost_USD: Total operational cost per voyage (in USD).
+-   Revenue_per_Voyage_USD: Revenue generated per voyage (in USD).
+-   Efficiency_nm_per_kWh: Energy efficiency calculated in nautical miles per kilowatt-hour.
+
+**Categorical Features**
+
+-   Ship_Type: Type of ship (e.g., Tanker, Container Ship, Fish Carrier, Bulk Carrier).
+-   Route_Type: Shipping route type (e.g., Short-haul, Long-haul, Transoceanic).
+-   Engine_Type: Type of engine (e.g., Diesel, Heavy Fuel Oil).
+-   Maintenance_Status: Maintenance condition of the ship (e.g., Fair, Critical, Good).
+-   Weather_Condition: Prevailing weather conditions during voyages (e.g., Calm, Moderate, Rough).
+
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+
+```{.r}
+#| fig-width: 15
+#| fig-height: 8
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Plot1
+# Plot statboxplot by ship types
+p_statbox_st <- ggbetweenstats(
+  data = ship_filter,
+  x = Ship_Type,
+  y = Profit,
+  type = "p",
+  mean.ci = TRUE,
+  pariwise.comparisons = TRUE,
+  pairwise.display = "s",
+  p.adjust.methods = "fdr",
+  message = FALSE
+) +
+    coord_flip() 
+
+#Plot raincloud plot by ship types
+median_Profit <- median(ship_filter$Profit)
+mean_Profit <- round(mean(ship_filter$Profit), 2)
+
+p_rcloud_st <- ggplot(ship_filter,
+       aes(x = Ship_Type,
+           y = Profit,
+           fill = Ship_Type)) +
+  stat_halfeye(adjust = 0.3,
+               justification = -0.2,
+               scale = 0.6,
+               width = 0.6,
+               slab_color = "grey",
+               slab_fill = "#D6DED5",
+               slab_linetype = "solid",
+               slab_linewidth = 0.4,
+               slab_alpha = 0.5,
+               .width = 0,
+               point_colour = NA,
+               position = position_nudge(y = -0.2)) +
+  geom_boxplot(width = 0.1,
+               color = "#FFC0CB",
+               position = position_nudge(y = 0.8)) +
+  scale_fill_brewer(palette="Pasterl1") +
+  stat_dots(side = "left",
+            justification = 1.2,
+            bandwidth = .5,
+            dotsize = 0.1,
+            alpha = 0.4,
+            aes(color = Engine_Type)) +
+  #indicate median score position
+  geom_hline(aes(yintercept = median_Profit),
+             color = "blue", 
+             linewidth = 0.4,
+             linetype = "dashed") +
+  #indicate mean score position
+  geom_hline(aes(yintercept = mean_Profit),
+             color = "red", 
+             linewidth = 0.4,
+             linetype = "dashed") +
+  theme_minimal() +
+  annotate("text",
+           x = 0.1,
+           y = median_Profit + 270,
+           label = paste("Median Score = ", median_Profit),
+           color = "blue",
+           size = 3) +
+  
+  annotate("text",
+           x = 0.3,
+           y = mean_Profit + 270,
+           label = paste("Mean Score = ", mean_Profit),
+           color = "red",
+           size = 3) +
+  coord_flip() +
+  theme_light() +
+  theme(plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        panel.border = element_blank())
+
+#Combine two plots
+patchwork <- (p_rcloud_st | p_statbox_st)
+patchwork
 ```
-
-```{r}
-ggplot(df_65below,
-       aes(x = Gender,
-           y = Heart_Rate, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Heart rate by gender for 65below",
-  x = "Gender", y = "Heart_Rate")
-
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Region,
-           y = Cholesterol_Level, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Cholesterol_Level by region for 65below",
-  x = "Region", y = "Cholesterol_Level")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Gender,
-           y = Cholesterol_Level, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Cholesterol_Level by gender for 65below",
-  x = "Gender", y = "Cholesterol_Level")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Gender,
-           y = Diastolic_BP, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Diastolic_BP by gender for 65plus",
-  x = "Gender", y = "Diastolic_BP")
-```
-
-```{r}
-ggplot(df_65below,
-       aes(x = Gender,
-           y = Diastolic_BP, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Diastolic_BP by gender for 65below",
-  x = "Gender", y = "Diastolic_BP")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Region,
-           y = Diastolic_BP, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Diastolic_BP by Region for 65plus",
-  x = "Region", y = "Diastolic_BP")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Region,
-           y = Stress_Levels, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Stress level by region for 65plus",
-       x = "Region", y = "Stress")
-```
-
-```{r}
-ggplot(df_40plus,
-       aes(x = Gender,
-           y = Stress_Levels, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Stress level by gender for 40plus",
-       x = "Gender", y = "Stress")
-```
-
-```{r}
-ggplot(df_65below,
-       aes(x = Gender,
-           y = Stress_Levels, 
-           fill = Heart_Attack_Occurrence)) + 
-  geom_boxplot() +
-  labs(title = "Stress level by gender for 65below",
-    x = "Gender", y = "Stress")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Heart_Attack_Occurrence,
-           fill = Gender)) + 
-  geom_bar() +
-  labs(x = "Gender", y = "Count")
-```
-
-```{r}
-ggplot(df_65below,
-       aes(x = Heart_Attack_Occurrence,
-           fill = Gender)) + 
-  geom_bar() +
-  labs(x = "Gender", y = "Count")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Heart_Attack_Occurrence,
-           fill = Family_History)) + 
-  geom_bar() +
-  labs(x = "Family_History", y = "Count")
-```
-
-```{r}
-ggplot(df_65plus,
-       aes(x = Heart_Attack_Occurrence,
-           fill = Physical_Activity)) + 
-  geom_bar() +
-  labs(x = "Physical_Activity", y = "Count")
-```
-
-Age
-
-```{r}
-df_agegrp <- data_heart %>%
-  mutate(Age_Group = cut(Age, 
-                         breaks = c(-Inf, 15, 25, 40, 65, Inf),
-                         labels = c("0-15", "16-25", "26-40","41-65", "65+")))
-
-ggplot(df_agegrp,
-       aes(x = Heart_Attack_Occurrence,
-           fill = Age_Group)) + 
-  geom_bar() +
-  labs(x = "Age", y = "Count")
-```
-
-```{r}
-ggplot(data_heart,
-       aes(x = Heart_Attack_Occurrence,
-           y = Age, 
-           fill = Gender)) + 
-  geom_boxplot() +
-  labs(title = "Age by gender",
-       x = "Ht attack", y = "Age")
-```
+:::::

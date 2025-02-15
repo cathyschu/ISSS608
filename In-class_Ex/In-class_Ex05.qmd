@@ -1,0 +1,199 @@
+---
+title: "In-class_Ex04"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true
+editor: visual
+---
+
+## Getting started
+
+```{r}
+pacman::p_load(tidyverse, readxl, SmartEDA, easystats, gtsummary, ggstatsplot)
+```
+
+`gtsummary`: meant to summarise modeling results. allows to create elegant tables for reporting results.
+
+If the package is not in CRAN yet, install `devtools` as well in Tools first.
+
+## Importing data
+
+```{r}
+car_resale <- read_xls("data/ToyotaCorolla.xls", "data"
+)
+# In the file, there is another tab called "metadata", so "data" tab is specified in the code above.
+```
+
+```{r}
+summary(car_resale)
+```
+
+## Data overview
+
+```{r}
+list(car_resale)
+```
+
+## SmartEDA
+
+Help organise data to do EDA \> review summary statistics.
+
+::: panel-tabset
+## type = 1
+
+```{r}
+summary_1 <- car_resale %>%
+  ExpData(type = 1) #store the result into a data table.
+summary_1
+```
+
+Can print out summary_1 for report.
+
+## type = 2
+
+```{r}
+summary_2 <- car_resale %>%
+  ExpData(type = 2) #store the result into a data table.
+summary_2
+```
+:::
+
+```{r}
+list(car_resale)
+```
+
+```{r}
+col <- c("Mfg_Month", "HP_Bin", "CC_bin", "Doors", "Gears",
+         "Cylinders", "Fuel_Type", "Color", "Met_Color", "Automatic",
+         "Mfr_Guarantee", "BOVAG_Guarantee", "ABS", "Airbag_1",
+         "Airbag_2", "Airco", "Automatic_airco", "Automatic_airco", 
+         "Boardcomputer", "CD_Player", "Central_Lock", "Powered_Windows",
+         "Power_Steering", "Radio","Mistlamps", "Sport_Model", "Backseat_Divider",
+         "Metallic_Rim", "Radio_cassette", "Tow_Bar")
+car_resale <- read_xls("data/ToyotaCorolla.xls", "data") %>%
+  mutate(Id = as.character(Id)) %>%
+  mutate(across(all_of(col), as.factor))
+```
+
+```{r}
+car_resale %>%
+  ExpNumViz(target=NULL,
+            nlim=10,
+            Page=c(2,3))
+```
+
+```{r}
+car_resale %>%
+  ExpNumViz(target="Price",
+            nlim=10,
+            Page=c(2,2))
+```
+
+Bar plots for all categorical vars.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 10
+car_resale%>%
+  ExpCatViz(target=NULL,
+            col = "#e0bcc0",
+            clim = 10,
+            margin = 2,
+            Page = c(4,4),
+            sample = 16)
+```
+
+## Explanatory Model
+
+### Avoid Multi-collinearity
+
+**Method_1.** Correlation analysis: correlation matrix.
+
+**Method_2.** [Easystats](https://easystats.github.io/parameters/)
+
+**\<Model\>**
+
+```{r}
+model <- lm(Price ~ Age_08_04 + Mfg_Year + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+model
+```
+
+```{r}
+check_collinearity(model)
+```
+
+```{r}
+check_c <- check_collinearity(model)
+plot(check_c)
+```
+
+**\<Model 1\>**
+
+```{r}
+model1 <- lm(Price ~ Age_08_04 + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+check_normality(model1) #diagnostic check / normality assumption test
+```
+
+```{r}
+check_heteroscedasticity(model1)
+```
+
+```{r}
+#| fig-width: 10
+#| fig-height: 8
+check_model(model1)
+```
+
+Linearity - should be a horizontal line. If not, can be affected by the outliers.
+
+Heteroscedasticity - good to build two models based on the observations.
+
+## gtsummary
+
+```{r}
+summary(model1)
+```
+
+Instead of using `summary()`, we can use `tbl_regression()`. It's designed for regression modeling. This makes the table output professional looking.
+
+```{r}
+library(gt)
+tbl_regression(model1,
+               intercept = TRUE) %>%
+  add_glance_source_note(
+    label = list(sigma ~ "\U03C3"), #  "\U03C3" to extract sigma value
+    include = c(r.squared, adj.r.squared,
+                AIC, statistic, p.value, sigma)
+  ) %>%
+  as_gt() %>%
+  tab_options(
+    table.background.color = "#f1f4f5") 
+```
+
+```{r}
+p_model1 <- parameters(model1) #save the result into p_model1; later can plot it.
+```
+
+We can also visualise them as a plot, instead of table form above.
+
+```{r}
+plot(parameters(model1)) #created by See.
+```
+
+Below gives more stats details, an improved version.
+
+```{r}
+ggcoefstats(model1,
+            output = "plot"
+            ) 
+```
+
+Teemap requires at least: 2 categorical (hierarchy) + 2 numerical data
+
+See In-class_Ex05 for Tableau visualisation.
