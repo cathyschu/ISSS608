@@ -315,7 +315,7 @@ patchwork
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
@@ -414,7 +414,7 @@ p_wthr_2 + p_wthr_1 + plot_layout(widths = c(2.5,1))
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
@@ -778,11 +778,29 @@ p_heye_ee_ms <- ggplot(ship_filter,
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Obervations
 :::
 
 ::: spgoals-container
--   text
+Across various operational effects, none of the distributions follow a normal distribution. Instead, multiple peaks are observed across the four route types for each ship type. Although the median scores vary among different ship types and route types for these operational effects, they all converge towards similar median values in the end, regardless of the ship type.
+
+-   **Average load**
+<br>Fish carriers and tankers generally have lower median of Average load percentages for long-haul trips, but higher median values for coastal trips.
+<br>Bulk carrier has the lowest median of the average load percentage in transoceanic journey and highest for short-haul journey. 
+<br>Container ship have closer median scores among coastal, long-haul and short-haul. It has higher median score for average load in transoceanic trips. 
+-   **Engine power**
+<br>Among the four ship types, the Fish Carrier shows the widest range of median engine power across the different route types. It has the lowest median engine power for long-haul trips and the highest for transoceanic trips. 
+<br>Overall, the Tanker has a higher median engine power compared to the Container ship.
+-   **Cargo weight**
+<br>Bulk carriers tend to have a higher concentration of lower cargo weights on Transoceanic trips. The density ridge line shows an obvious hump on the lower end of weight.
+<br>Fish carriers and Tankers show a greater concentration of higher cargo weights on Long-haul trips, while the concentration is lower on Short-haul trips.
+<br>Container ships show a higher concentration of cargo weights on Coastal and Transoceanic trips, with less concentration on Long-haul trips. 
+-   **Turnaround time**
+
+-   **Distance travelled**
+
+-   **Energy efficiency**
+
 :::
 :::::
 
@@ -837,8 +855,8 @@ Insights
 #### **4.4.2 Voyage frequency by ship type**
 
 ```{r}
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 9
+#| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
 # Extract month and year from the Date
@@ -2142,7 +2160,9 @@ Insights
 :::
 
 ::: spgoals-container
--   text
+-   The top five months for profit are June, July, and October 2023, as well as March and June 2024. 
+-  Total profit fluctuates over time, but June 2024 outperformed June 2023 by 16.23%. This indicates an upward trend.
+-   Profit, revenue, and cost follow similar patterns, with profit and revenue showing the closest resemblance.
 :::
 :::::
 
