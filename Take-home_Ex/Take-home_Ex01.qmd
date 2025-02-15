@@ -856,7 +856,7 @@ Insights
 
 ```{r}
 #| fig-width: 9
-#| fig-height: 10
+#| fig-height: 6
 #| code-fold: true
 #| code-summary: "Show the code"
 # Extract month and year from the Date
@@ -2204,7 +2204,7 @@ p_line_pf <- ggplot(monthly_profit,
              size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months$Ship_Type)], 
              stroke = 1.5) +
-  labs(title = "Monthly Profit Trends by Ship Type",
+  labs(title = "Monthly *Profit* Trends by Ship Type",
        x = "Month",
        y = "Total Profit (1KUSD)",
        color = "Ship Type") +
@@ -2250,7 +2250,7 @@ p_line_cost <- ggplot(monthly_cost,
              size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months_cost$Ship_Type)], 
              stroke = 1.5) +
-  labs(title = "Monthly Cost Trends by Ship Type",
+  labs(title = "Monthly *Cost* Trends by Ship Type",
        x = "Month",
        y = "Total Cost (1KUSD)",
        color = "Ship Type") +
@@ -2296,7 +2296,7 @@ p_line_rvn <- ggplot(monthly_rvn,
              size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months_rvn$Ship_Type)], 
              stroke = 1.5) +
-  labs(title = "Monthly Revenue Trends by Ship Type",
+  labs(title = "Monthly *Revenue* Trends by Ship Type",
        x = "Month",
        y = "Total Revenue (1KUSD)",
        color = "Ship Type") +
@@ -2323,7 +2323,10 @@ Insights
 :::
 
 ::: spgoals-container
--   text
+-   The four ship types exhibit distinct profit patterns over time. Bulk Carriers, Container Ships, and Tankers all recorded their highest profit in March 2024, while Fish Carriers peaked in June 2024. 
+- Bulk Carriers and Fish Carriers had contrasting profit trends in August 2023 and January 2024. Each ship type hit its lowest profit in one of these months, while the other achieved one of its highest profits.
+-   Tankers maintained relatively stable profits compared to the other ship types.
+-   Fish Carriers experienced the most volatile costs over time, which may be linked to voyage frequency, as referenced in section 4.4.2. 
 :::
 :::::
 
