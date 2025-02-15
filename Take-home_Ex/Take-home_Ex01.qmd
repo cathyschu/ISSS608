@@ -24,24 +24,24 @@ This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functio
 
 ## 2 Install and Load Packages
 
+
 ```{r}
 pacman::p_load(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes, 
                ggridges, gganimate,ggdist, ggtext, colorspace, magrittr, 
                patchwork, RColorBrewer, ggstatsplot, egg, geomtextpath, 
-               readxl, performance, parameters, see)
+               readxl, performance, parameters, see, ggiraph, plotlyr,
+               treemap, treemapify)
 ```
 
 | Packages     | Description |
 |--------------|-------------|
-| tidyverse    | 2.05        |
-| ggplot2      | 1.37        |
-| haven        | 3.09        |
-| colorspace   | 3.09        |
-| egg          | 3.09        |
+| tidyverse    | the tidyverse package installs a number of other packages for reading data and data manilupation, tidying.       |
+| ggplot2      | a system for declaratively creating graphics.        |
+| colorspace   | provides a broad toolbox for selecting individual colors or color palettes, manipulating these colors, and employing them in various kinds of visualizations.        |
+| egg          | High-level functions are provided to post-process 'ggplot2' layouts and allow alignment between plot panels, as well as setting panel sizes to fixed values.     |
 | geomtextpath | 3.09        |
 | gganimate    | 3.09        |
 | ggdist       | 3.09        |
-| ggplot2      | 3.09        |
 | ggstatsplot  | 3.09        |
 | ggtext       | 3.09        |
 | ggthemes     | 3.09        |
@@ -213,7 +213,7 @@ kable(head(ship_filter, n=3), caption = "Ship Performance Dataset")
 
 ## 4 Voyage Profile
 
-To perform profit performance analysis in the next section, we shall understand the profile of the data and variables to determine the direction for the performance analysis. Below I will utilise variables to visualise ship conditions, weather conditions and operational factors by the different ship types to obtain some insights.
+To perform profit performance analysis in the next section, we shall understand the profile of the data and variables to determine the direction for the performance analysis. Below I will utilise variables to visualise ship conditions, weather conditions and operational factors by the different ship types to obtain preliminary understanding of patterns or trends.
 
 ### 4.1 Ship conditions & routes
 
@@ -319,14 +319,15 @@ Insights
 :::
 
 ::: spgoals-container
--   text
+-   The dataset is fairly evenly distributed across different ship types, engine types, route types, and maintenance statuses, with each category varying by 0 ~ 3%.
+-   The largest different is between Long-haul trips and Short haul, Transoceanic, which is 3%.  
 :::
 :::::
 
 ### 4.2 Weather conditions
 
 ```{r}
-#| fig-width: 10
+#| fig-width: 9
 #| fig-height: 5
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -393,7 +394,7 @@ p_wthr_2 <- ggplot(weather_percentage_bar,
        x = "Month",
        y = "Percentage (%)",
        fill = "Weather") +
-  theme_light() +
+  theme_article() +
   scale_x_date(labels = scales::date_format("%m/%y"), breaks = "1 month") + 
   theme(plot.title = element_text(size = 12, face = "bold"),
         plot.background = element_rect(fill = "#f1f4f5"),
@@ -439,13 +440,18 @@ p_heye_al <- ggplot(ship_filter,
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
                        point_size = 2,
-                       interval_color = "grey60") +
+                       interval_color = "grey70") +
   scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
                                "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
                                "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
                                "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)),
                                name = NULL) +
-  labs(title = "Halfeye Plots by Route Type")
+  labs(title = "Halfeye Plots by Route Type") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 
 #Plot2
@@ -456,12 +462,17 @@ p_heye_al_st <- ggplot(ship_filter,
        aes(x = Ship_Type,
            y = Average_Load_Percentage)) +
   ggdist::stat_interval(.width = 1:4*.25) +
-  ggdist::stat_halfeye(.width = 0, fill = "grey60", color = "white", position = position_nudge(x = .024)) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
   scale_color_viridis_d(option = "mako", direction = -1, end = .9) +
   geom_hline(yintercept = median_load, linetype = "dashed", color = "#3AA6B9") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
             color = "#3AA6B9", vjust = -1, hjust = 0, size = 3) +  # Add text label
-  labs(title = "Halfeye Plots with Median Line")
+  labs(title = "Halfeye Plots with Median Line") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 #Combine plots
 p_heye_al_st / p_heye_al + plot_layout(height = c(1, 1.5))
@@ -488,8 +499,12 @@ p_heye_ep <- ggplot(ship_filter,
                                "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
                                "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
                                  name = NULL) +
-  
-  labs(title = "Halfeye Plots of Engine Power by Route Type")
+  labs(title = "Halfeye Plots of Engine Power by Route Type") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 
 #Plot2
@@ -500,12 +515,18 @@ p_heye_ep_st <- ggplot(ship_filter,
        aes(x = Ship_Type,
            y = Engine_Power_kW)) +
   ggdist::stat_interval(.width = 1:4*.25) +
-  ggdist::stat_halfeye(.width = 0, fill = "grey80", color = "white", position = position_nudge(x = .024)) +
+  ggdist::stat_halfeye(.width = 0, fill = "grey80", 
+                       color = "white", position = position_nudge(x = .024)) +
   scale_color_viridis_d(option = "cividis", direction = -1, end = .9) +
   geom_hline(yintercept = median_load, linetype = "dashed", color = "blue") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
             color = "blue", vjust = -1, hjust = 0, size = 3) +  # Add text label
-  labs(title = "Halfeye Plots of Engine Power with Median Line")
+  labs(title = "Halfeye Plots of Engine Power with Median Line") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 #Combine plots
 p_heye_ep_st / p_heye_ep + plot_layout(height = c(1, 1.5))
@@ -532,7 +553,12 @@ p_heye_cw <- ggplot(ship_filter,
                                "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
                                "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
                                name = NULL) +
-  labs(title = "Halfeye Plots of Cargo Weight by Route Type")
+  labs(title = "Halfeye Plots of Cargo Weight by Route Type") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 
 #Plot2
@@ -548,7 +574,12 @@ p_heye_cw_st <- ggplot(ship_filter,
   geom_hline(yintercept = median_load, linetype = "dashed", color = "red") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
             color = "red", vjust = -1, hjust = 0, size = 3) +  # Add text label
-  labs(title = "Halfeye Plots of Cargo Weight with Median Line")
+  labs(title = "Halfeye Plots of Cargo Weight with Median Line") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 #Combine plots
 p_heye_cw_st / p_heye_cw + plot_layout(height = c(1, 1.5))
@@ -575,7 +606,12 @@ p_heye_tt <- ggplot(ship_filter,
                                "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
                                "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
                                name = NULL) +
-  labs(title = "Halfeye Plots of Turnaround Time by Route Type")
+  labs(title = "Halfeye Plots of Turnaround Time by Route Type") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 
 #Plot2
@@ -591,7 +627,12 @@ p_heye_tt_st <- ggplot(ship_filter,
   geom_hline(yintercept = median_load, linetype = "dashed", color = "green") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
             color = "green", vjust = -1, hjust = 0, size = 3) +  # Add text label
-  labs(title = "Halfeye Plots of Turnaround Time with Median Line")
+  labs(title = "Halfeye Plots of Turnaround Time with Median Line") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 #Combine plots
 p_heye_tt_st / p_heye_tt + plot_layout(height = c(1, 1.5))
@@ -618,8 +659,12 @@ p_heye_dt <- ggplot(ship_filter,
                                "Short-haul" = adjustcolor("#e0c080", alpha.f = 0.5),
                                "Transoceanic" = adjustcolor("grey70", alpha.f = 0.5)), 
                                name = NULL) +
-  labs(title = "Halfeye Plots of Distance by Route Type")
-
+  labs(title = "Halfeye Plots of Distance by Route Type") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 #Plot2
 
@@ -634,7 +679,12 @@ p_heye_dt_st <- ggplot(ship_filter,
   geom_hline(yintercept = median_load, linetype = "dashed", color = "grey20") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
             color = "grey20", vjust = -1, hjust = 0, size = 3) +  # Add text label
-  labs(title = "Halfeye Plots of Distance with Median Line")
+  labs(title = "Halfeye Plots of Distance with Median Line") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 #Combine plots
 p_heye_dt_st / p_heye_dt + plot_layout(height = c(1, 1.5))
@@ -660,7 +710,12 @@ p_heye_ee_et <- ggplot(ship_filter,
                                "Steam Turbine" = adjustcolor("#DA498D", alpha.f = 0.6), 
                                "Diesel" = adjustcolor("#96CEB4", alpha.f = 0.6),
                                name = NULL)) +
-  labs(title = "Halfeye Plots of Energy Efficiency by Engine Type")
+  labs(title = "Halfeye Plots of Energy Efficiency by Engine Type") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 
 # Plot2
@@ -676,7 +731,8 @@ p_heye_ee <- ggplot(ship_filter,
   geom_hline(yintercept = median_load, linetype = "dashed", color = "brown") +  # Add median line
   annotate("text", x = 1.2, y = median_load, label = paste("Median:", round(median_load, 2)),
             color = "brown", vjust = -1, hjust = 0, size = 3) +  # Add text label
-  labs(title = "Halfeye Plots of Energy Efficiency with Median Line")
+  labs(title = "Halfeye Plots of Energy Efficiency with Median Line") 
+
 
 # Plot3
 p_heye_ee_wc <- ggplot(ship_filter,
@@ -690,7 +746,12 @@ p_heye_ee_wc <- ggplot(ship_filter,
                                "Rough" = adjustcolor("#DA498D", alpha.f = 0.6), 
                                "Calm" = adjustcolor("#5B99C2", alpha.f = 0.6),
                                name = NULL)) +
-  labs(title = "Halfeye Plots of Energy Efficiency by Weather")
+  labs(title = "Halfeye Plots of Energy Efficiency by Weather") +
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
 
 # Plot4
 p_heye_ee_ms <- ggplot(ship_filter,
@@ -704,7 +765,7 @@ p_heye_ee_ms <- ggplot(ship_filter,
                                "Critical" = adjustcolor("#8B5DFF", alpha.f = 0.6), 
                                "Good" = adjustcolor("#41B3A2", alpha.f = 0.6),
                                name = NULL)) +
-  labs(title = "Halfeye Plots of Energy Efficiency by Maintenance")
+  labs(title = "Halfeye Plots of Energy Efficiency by Maintenance") 
 
 
 # Combine plots
@@ -748,10 +809,16 @@ ggplot(voyage_count_scaled,
            fill = "grey30") +
   labs(x = "Date", y = "Voyage Count (scaled by 10) ",
        title = "Voyage Frequency Over Time") +
-  theme_classic() +
+  theme_light() +
   geom_hline(yintercept = mean_voyage/10, color = "#3AA6B9", linetype = "dashed", size = 1) + 
   annotate("text", x = 3.2, y = mean_voyage/10 + 1, 
-           label = paste("Mean: ", round(mean_voyage/10, 2)), color = "#3AA6B9")
+           label = paste("Mean: ", round(mean_voyage/10, 2)), color = "#3AA6B9")+
+  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        panel.background = element_rect(fill = "#f1f4f5", color = NA),
+        legend.background = element_rect(fill = "#f1f4f5", color = NA),  
+        legend.key = element_rect(fill = "#f1f4f5", color = NA)
+        )
+
 ```
 
 ::::: spgoals
@@ -945,7 +1012,6 @@ patchwork + plot_annotation(
   
 ```
 
-Welch’s one-way ANOVA
 
 ```{r}
 #| code-fold: true
@@ -963,8 +1029,11 @@ ggbetweenstats(
   p.adjust.methods = "fdr",
   message = FALSE
 ) +
+  labs(title = "Welch’s one-way ANOVA")
   theme(panel.background = element_rect(fill = "#f1f4f5", color = NA),
-        plot.background = element_rect(fill = "#f1f4f5", color = NA))
+        plot.background = element_rect(fill = "#f1f4f5", color = NA),
+        plot.title = element_text(size = 16, face = "bold") 
+        )
 
 ```
 
@@ -1601,16 +1670,7 @@ Insights
 
 #### **5.2.2 Performance Metrics**
 
-```{r}
-p <- ggplot(data=ship_filter, 
-            aes(x = Efficiency_nm_per_kWh,
-                y = Profit,
-                color = Ship_Type)) +
-  geom_point(size=1) +
-  coord_cartesian(xlim=c(.1,1.5),
-                  ylim=c(-500,1000))
-ggplotly(p)
-```
+Can hover over to see tooltip.
 
 ::: panel-tabset
 ## **Energy Efficiency**
@@ -1620,17 +1680,18 @@ ggplotly(p)
 #| fig-height: 5
 #| code-fold: true
 #| code-summary: "Show the code"
-p_pt_ep <- ggplot(data=ship_filter,
+library(plotly)
+p_pt_ee <- ggplot(data=ship_filter,
              aes(x = Efficiency_nm_per_kWh,
                  y = Profit)) +
-  geom_point(size = 0.6,
+  geom_point(size = 0.4,
              aes(color = Ship_Type),
              show.legend = FALSE) +
   geom_smooth(method = lm,
               size = 0.5) +
   coord_cartesian(xlim=c(.1,1.5),
                  ylim=c(-500,1000)) +
-  labs(title = "Turnaround Time with Overall Trend Line") +
+  labs(title = "Energy Efficiency with Overall Trend Line") +
   theme_classic() +
   theme(plot.title = element_text(size = 10, face = "bold"),
         plot.background = element_rect(fill = "#f1f4f5", color = NA),
@@ -1641,12 +1702,12 @@ p_pt_ep <- ggplot(data=ship_filter,
                                 "Tanker" = "#a5c7a7")) 
 
 
-p_pt_ep_st <- ggplot(data=ship_filter,
+p_pt_ee_st <- ggplot(data=ship_filter,
              aes(x = Efficiency_nm_per_kWh,
                  y = Profit,
                  color = Ship_Type)) +
   geom_point(colour = "grey80",
-             size = 0.6) +
+             size = 0.4) +
   geom_smooth(method = lm,
               size = 0.5,
               se = FALSE,
@@ -1654,7 +1715,7 @@ p_pt_ep_st <- ggplot(data=ship_filter,
   scale_color_brewer(palette = "Set2") +
   coord_cartesian(xlim=c(.1,1.5),
                  ylim=c(-500,1000)) +
-  labs(title = "Turnaround Time with Trend Lines for All Ship Types",
+  labs(title = "Energy Efficiency with Trend Lines for All Ship Types",
        color = "Ship Type") +
   theme_classic() +
   theme(plot.title = element_text(size = 10, face = "bold"),
@@ -1662,19 +1723,21 @@ p_pt_ep_st <- ggplot(data=ship_filter,
         legend.position = "right",
         plot.background = element_rect(fill = "#f1f4f5", color = NA),
         legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
-        panel.background = element_rect(fill = "lightblue", color = NA)
+        panel.background = element_rect(fill = "#f1f4f5", color = NA)
         ) +
   scale_color_manual(values = c("Bulk Carrier" = "#FF9EAA", 
                                 "Container Ship" = "#3AA6B9",
                                 "Fish Carrier" = "#e0c080",
                                 "Tanker" = "#a5c7a7")) 
 
-patchwork <- (p_pt_ep | p_pt_ep_st)
-patchwork + 
-  theme(plot.background = element_rect(fill = "#f1f4f5", color = NA),
-        panel.background = element_rect(fill = "#f1f4f5", color = NA))
+p1_plotly <- ggplotly(p_pt_ee)
+p2_plotly <- ggplotly(p_pt_ee_st)
 
+combined_plot <- subplot(p1_plotly,  p2_plotly, nrows = 1)
+combined_plot
 ```
+
+
 
 ## **Engine Power**
 
@@ -1739,6 +1802,12 @@ patchwork + theme(
         legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
         panel.background = element_rect(fill = "#f1f4f5", color = NA)
 )
+
+p3_plotly <- ggplotly(p_pt_ep)
+p4_plotly <- ggplotly(p_pt_ep_st)
+
+combined_plot <- subplot(p3_plotly,  p4_plotly, nrows = 1)
+combined_plot
 ```
 
 ## **Average load**
@@ -1748,7 +1817,7 @@ patchwork + theme(
 #| fig-height: 5
 #| code-fold: true
 #| code-summary: "Show the code"
-p5 <- ggplot(data=ship_filter,
+p_pt_al <- ggplot(data=ship_filter,
              aes(x = Average_Load_Percentage,
                  y = Profit)) +
   geom_point(size = 0.6,
@@ -1770,7 +1839,7 @@ p5 <- ggplot(data=ship_filter,
                                 "Tanker" = "#a5c7a7")) 
 
 
-p5_1 <- ggplot(data=ship_filter,
+p_pt_al_st <- ggplot(data=ship_filter,
              aes(x = Average_Load_Percentage,
                  y = Profit,
                  color = Ship_Type)) +
@@ -1799,11 +1868,11 @@ p5_1 <- ggplot(data=ship_filter,
                                 "Tanker" = "#a5c7a7")) 
 
 
-patchwork <- (p5 | p5_1)
-patchwork + theme(
-        plot.background = element_rect(fill = "#f1f4f5", color = NA),
-        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5", color = NA))
+p5_plotly <- ggplotly(p_pt_al)
+p6_plotly <- ggplotly(p_pt_al_st)
+
+combined_plot <- subplot(p5_plotly,  p6_plotly, nrows = 1)
+combined_plot
 
 ```
 
@@ -1862,12 +1931,11 @@ p_pt_turntime_st <- ggplot(data=ship_filter,
                                 "Fish Carrier" = "#e0c080",
                                 "Tanker" = "#a5c7a7")) 
 
-patchwork <- p_pt_turntime | p_pt_turntime_st
-patchwork + theme(
-        plot.background = element_rect(fill = "#f1f4f5", color = NA),
-        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5", color = NA)
-)
+p7_plotly <- ggplotly(p_pt_turntime)
+p8_plotly <- ggplotly(p_pt_turntime_st)
+
+combined_plot <- subplot(p7_plotly,  p8_plotly, nrows = 1)
+combined_plot
 
 ```
 
@@ -1927,15 +1995,57 @@ p_pt_cargowt_st <- ggplot(data=ship_filter,
                                 "Fish Carrier" = "#e0c080",
                                 "Tanker" = "#a5c7a7")) 
 
-patchwork <- p_pt_cargowt | p_pt_cargowt_st
-patchwork + theme(
-        plot.background = element_rect(fill = "#f1f4f5", color = NA),
-        legend.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5", color = NA)
-)
+
+p9_plotly <- ggplotly(p_pt_cargowt)
+p10_plotly <- ggplotly(p_pt_cargowt_st)
+
+combined_plot <- subplot(p9_plotly,  p10_plotly, nrows = 1)
+combined_plot
 ```
 :::
 
+::::: spgoals
+::: spgoals-header
+Insights
+:::
+
+::: spgoals-container
+-   text
+:::
+:::::
+
+#### **5.2.3 Comparing Profit and Cargo Weight by ship**
+
+
+```{r}
+#| fig-width: 12
+#| fig-height: 10
+library(dplyr)
+ship_treemap <- ship_filter %>%
+  group_by(Ship_Type, Engine_Type, Maintenance_Status, Weather_Condition, Route_Type) %>%  
+  summarise(
+    Total_Profit = sum(Profit, na.rm = TRUE),  
+    Total_Revenue = sum(Revenue_per_Voyage_USD, na.rm = TRUE),
+    Total_Distance = sum(Cargo_Weight_tons, na.rm = TRUE),
+    Voyage_Count = n()
+  ) %>%
+  ungroup()  
+
+treemap(ship_treemap,
+        index=c("Ship_Type", "Engine_Type", "Route_Type"),
+        vSize="Voyage_Count",
+        vColor="Total_Profit",
+        type = "value",
+        palette="RdYlBu",
+        algorithm = "pivotSize", 
+        sortID = "Total_Profit",
+        title="Profit by Cargo Weight",
+        title.legend = "Profit ($1K USD)",
+        border.col = c("black", "red", "white"),
+        border.lwds = c(5, 2, 0.8)
+        )
+
+```
 ::::: spgoals
 ::: spgoals-header
 Insights
@@ -1951,6 +2061,7 @@ Insights
 #### **5.3.1 Financial performance overview**
 
 Mar, July, Oct, Dec are peak months in the data in a one year time frame. The cost, revenue and profit shows the same pattern in the line graph. It would be good to look into the reasons why these months are peak time and what causes the cost increase.
+
 
 ```{r}
 #| fig-width: 8
@@ -2125,10 +2236,10 @@ p_line_cost <- ggplot(monthly_cost,
   theme_light() +
   theme(plot.title = element_text(size = 14, face = "bold"),
         legend.position = "top",
-        legend.background = element_rect(fill = "#fcf0cc", color = "#fcf0cc"),
+#        legend.background = element_rect(fill = "#fcf0cc", color = "#fcf0cc"),
         legend.title = element_blank(),
-        plot.background = element_rect(fill = "#fcf0cc"),
-        panel.background = element_rect(fill = "#fcf0cc"),
+#       plot.background = element_rect(fill = "#fcf0cc"),
+#        panel.background = element_rect(fill = "#fcf0cc"),
         panel.border = element_blank()) +
   guides(fill = "none")
 
@@ -2193,11 +2304,11 @@ Insights
 :::
 :::::
 
-#### 5.3.3 **Monthly Profit, Revenue, and Cost Trends by Ship Type**
+#### **5.3.3 Monthly Profit, Revenue, and Cost Trends by Ship Type**
 
 ```{r}
-#| fig-width: 8
-#| fig-height: 5
+#| fig-width: 9
+#| fig-height: 6
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -2278,13 +2389,7 @@ Insights
 :::
 :::::
 
-#### 5.3.4 Revenue vs Profit relations
 
-month revenue / total revenue
-
-month profit / total profit
-
-plot scatter plot, point size denotes profit amount
 
 ## 6 Summary
 
