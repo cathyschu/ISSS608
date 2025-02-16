@@ -24,7 +24,6 @@ This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functio
 
 ## 2 Install and Load Packages
 
-
 ```{r}
 pacman::p_load(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes, 
                ggridges, gganimate,ggdist, ggtext, colorspace, magrittr, 
@@ -32,7 +31,6 @@ pacman::p_load(tidyverse, ggplot2, haven, knitr, patchwork, ggthemes,
                readxl, performance, parameters, see, ggiraph, plotlyr,
                treemap, treemapify)
 ```
-
 
 ## 3 Data Preparation
 
@@ -89,27 +87,27 @@ summary(data_ship)
 
 To perform an analysis to achieve the objectives aforementioned, the following variables will be selected.
 
-| Category   | Variable                | Recoded | Description | Type | Encoding |
-|------------|-------------------------|---------|-------------|------|----------|
-| Operation  | Date                    | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Ship_Type               | bbb     | bbb         | bbb  | bbb      |
-| Operations | Route_Type              | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Engine_Type             | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Maintenance_Status      | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Speed_Over_Ground_knots | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Engine_Power_kW         | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Distance_Traveled_nm    | bbb     | bbb         | bbb  | bbb      |
-| Operations | Weather_Condition       | bbb     | bbb         | bbb  | bbb      |
-| Operations | Cargo_Weight_tons       | bbb     | bbb         | bbb  | bbb      |
-| Business   | Operational_Cost_USD    | bbb     | bbb         | bbb  | bbb      |
-| Business   | Revenue_per_Voyage_USD  | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Turnaround_Time_hours   | bbb     | bbb         | bbb  | bbb      |
-| Ship       | Efficiency_nm_per_kWh   | bbb     | bbb         | bbb  | bbb      |
-| Operations | Average_Load_Percentage | bbb     | bbb         | bbb  | bbb      |
-| Business   | Profit                  | bbb     | bbb         | bbb  | bbb      |
+| Category | Variable | Description | Type | Encoding |
+|------------|------------|------------|------------|------------|
+| Operation | Date | Date | date | YYYY-MM-DD |
+| Ship | Ship_Type | Type of ship | char | Tanker, Container Ship, Fish Carrier, Bulk Carrier |
+| Operations | Route_Type | Shipping route type | char | Short-haul, Long-haul, Transoceanic |
+| Ship | Engine_Type | Type of engine | char | Diesel, Heavy Fuel Oil |
+| Ship | Maintenance_Status | Maintenance condition of the ship | char | Fair, Critical, Good |
+| Ship | Speed_Over_Ground_knots | Average speed of the ship over water (in knots). | num |  |
+| Ship | Engine_Power_kW | Engine power output (in kilowatts). | num |  |
+| Ship | Distance_Traveled_nm | Total distance traveled by the ship (in nautical miles). | num |  |
+| Operations | Weather_Condition | Prevailing weather conditions during voyages | char | Calm, Moderate, Rough |
+| Operations | Cargo_Weight_tons | bbb | num |  |
+| Business | Operational_Cost_USD | Total operational cost per voyage (in thousand USD). | num |  |
+| Business | Revenue_per_Voyage_USD | Revenue generated per voyage (in thousand USD). | num |  |
+| Ship | Turnaround_Time_hours | Turnaround time of the voyage | num |  |
+| Ship | Efficiency_nm_per_kWh | Energy efficiency calculated in nautical miles per kilowatt-hour. | num |  |
+| Operations | Average_Load_Percentage | Average of the load capacity (%) | num |  |
+| Business | Profit | Earning from a voyage (in thousand USD) | num |  |
 
 : Variable Selection\
-: {.striped .hover tbl-colwidths="\[10,20,10,30,10,20\]"}
+: {.striped .hover tbl-colwidths="\[10,20,35,10,25\]"}
 
 The code below is used to select and reorder columns of wanted variables using `select()`
 
@@ -294,13 +292,14 @@ Observations
 :::
 
 ::: spgoals-container
--   The dataset is fairly evenly distributed across different ship types, engine types, route types, and maintenance statuses, with each category varying by 0 ~ 3%.
--   The largest different is between Long-haul trips and Short haul, Transoceanic, which is **3%**.   
+-   The dataset is fairly evenly distributed across different ship types, engine types, route types, and maintenance statuses, with each category varying by 0 \~ 3%.
+-   The largest different is between Long-haul trips and Short haul, Transoceanic, which is **3%**.\
 :::
 :::::
 
 ### 4.2 Weather conditions
-I aimed to analyse the overall voyage distribution of weather conditions as well as their trends over time with `geom_bar()`. Bar charts is used to represent the distribution, while a stacked bar chart visualises the percentage occurrence of the three different weather conditions within each month. 
+
+I aimed to analyse the overall voyage distribution of weather conditions as well as their trends over time with `geom_bar()`. Bar charts is used to represent the distribution, while a stacked bar chart visualises the percentage occurrence of the three different weather conditions within each month.
 
 ```{r}
 #| fig-width: 9
@@ -399,13 +398,15 @@ Observations
 :::
 :::::
 
-### 4.3 Operational effects by ship type
+### 4.3 Operational effects by ship type and route type
 
-::: panel-tabset
+This section delves into the operational performance of various ships, examining key factors such as average load, engine power, cargo weight, turnaround time, distance traveled, and energy efficiency. To visualize the distribution of these factors across different ship and route types, `stat_halfeye()` is used to generate half-eye plots. This method offers a clear view of the distributions, revealing trends and the spread of each operational effect. By comparing these distributions, I aim to identify how different ship types and routes may influence these operational effects.
+
+:::::::::::::::::::: panel-tabset
 ## **Average load**
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 8
 #| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -417,7 +418,7 @@ p_heye_al <- ggplot(ship_filter,
            fill = Route_Type)) +
   ggdist::stat_halfeye(.width=c(0,1), adjust = .5,
                        shape = 21,
-                       point_size = 2,
+                       point_size = 1,
                        interval_color = "grey70") +
   scale_fill_manual(values = c("Coastal" = adjustcolor("#FF9EAA", alpha.f = 0.5),
                                "Long-haul" = adjustcolor("#3AA6B9", alpha.f = 0.5), 
@@ -456,10 +457,22 @@ p_heye_al_st <- ggplot(ship_filter,
 p_heye_al_st / p_heye_al + plot_layout(height = c(1, 1.5))
 ```
 
+::::: spgoals
+::: spgoals-header
+Obervations
+:::
+
+::: spgoals-container
+Across various operational effects, none of the distributions follow a normal distribution. Instead, multimodal distributions are observed across the four route types for each ship type. Although the median scores vary among different ship types and route types for these operational effects, they all converge towards similar median values in the end, regardless of the ship type.
+
+**Average load** <br>Fish carriers and tankers generally have lower median of Average load percentages for long-haul trips, but higher median values for coastal trips. <br>Bulk carrier has the lowest median of the average load percentage in transoceanic journey and highest for short-haul journey. <br>Container ship have closer median scores among coastal, long-haul and short-haul. It has higher median score for average load in transoceanic trips.
+:::
+:::::
+
 ## **Engine power**
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 8
 #| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -510,10 +523,21 @@ p_heye_ep_st <- ggplot(ship_filter,
 p_heye_ep_st / p_heye_ep + plot_layout(height = c(1, 1.5))
 ```
 
+::::: spgoals
+::: spgoals-header
+Engine power
+:::
+
+::: spgoals-container
+-   Among the four ship types, the Fish Carrier shows the widest range of median engine power across the different route types. It has the lowest median engine power for long-haul trips and the highest for transoceanic trips.
+-   Overall, the Tanker has a higher median engine power compared to the Container ship.
+:::
+:::::
+
 ## **Cargo weight**
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 8
 #| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -563,10 +587,22 @@ p_heye_cw_st <- ggplot(ship_filter,
 p_heye_cw_st / p_heye_cw + plot_layout(height = c(1, 1.5))
 ```
 
+::::: spgoals
+::: spgoals-header
+Cargo weight
+:::
+
+::: spgoals-container
+-   Bulk carriers tend to have a higher concentration of lower cargo weights on Transoceanic trips. The density ridge line shows an obvious hump on the lower end of weight.
+-   Fish carriers and Tankers show a greater concentration of higher cargo weights on Long-haul trips, while the concentration is lower on Short-haul trips.
+-   Container ships show a higher concentration of cargo weights on Coastal and Transoceanic trips, with less concentration on Long-haul trips.
+:::
+:::::
+
 ## **Turnaround time**
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 8
 #| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -616,10 +652,21 @@ p_heye_tt_st <- ggplot(ship_filter,
 p_heye_tt_st / p_heye_tt + plot_layout(height = c(1, 1.5))
 ```
 
+::::: spgoals
+::: spgoals-header
+Turnaround time
+:::
+
+::: spgoals-container
+-   Bulk carriers exhibit longer turnaround times on coastal, long-haul, and transoceanic routes, which aligns with the extended distances they cover. In contrast, Fish carriers show an inverse trend—short-haul routes have higher turnaround times, while long-haul routes see quicker turnarounds.
+-   This suggests that Fish carriers on short-haul routes may frequently stop at sea to receive fish from fishing vessels before returning, whereas long-haul voyages likely involve fewer interruptions. Further data could clarify this operational pattern.
+:::
+:::::
+
 ## **Distance travelled**
 
 ```{r}
-#| fig-width: 9
+#| fig-width: 8
 #| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -668,11 +715,21 @@ p_heye_dt_st <- ggplot(ship_filter,
 p_heye_dt_st / p_heye_dt + plot_layout(height = c(1, 1.5))
 ```
 
+::::: spgoals
+::: spgoals-header
+Distance travelled\*
+:::
+
+::: spgoals-container
+-   Both Bulk carriers and Fish carriers exhibit strong bimodal distributions in the distances traveled on long-haul routes. However, they differ significantly in their average travel distances compared to other routes. Bulk carriers show the shortest average distance for long-haul trips, while Fish carriers record the longest. This disparity suggests that despite similar route classifications, the **operational characteristics or requirements** for these ship types influence their journey lengths.
+:::
+:::::
+
 ## **Energy efficiency**
 
 ```{r}
-#| fig-width: 14
-#| fig-height: 12
+#| fig-width: 12
+#| fig-height: 10
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -749,39 +806,23 @@ p_heye_ee_ms <- ggplot(ship_filter,
 # Combine plots
 (p_heye_ee | p_heye_ee_et) / (p_heye_ee_wc | p_heye_ee_ms)
 ```
-:::
 
-::::: spgoals
+:::: spgoals
 ::: spgoals-header
-Obervations
+Energy efficiency
 :::
 
-::: spgoals-container
-Across various operational effects, none of the distributions follow a normal distribution. Instead, multiple peaks are observed across the four route types for each ship type. Although the median scores vary among different ship types and route types for these operational effects, they all converge towards similar median values in the end, regardless of the ship type.
-
--   **Average load**
-<br>Fish carriers and tankers generally have lower median of Average load percentages for long-haul trips, but higher median values for coastal trips.
-<br>Bulk carrier has the lowest median of the average load percentage in transoceanic journey and highest for short-haul journey. 
-<br>Container ship have closer median scores among coastal, long-haul and short-haul. It has higher median score for average load in transoceanic trips. 
--   **Engine power**
-<br>Among the four ship types, the Fish Carrier shows the widest range of median engine power across the different route types. It has the lowest median engine power for long-haul trips and the highest for transoceanic trips. 
-<br>Overall, the Tanker has a higher median engine power compared to the Container ship.
--   **Cargo weight**
-<br>Bulk carriers tend to have a higher concentration of lower cargo weights on Transoceanic trips. The density ridge line shows an obvious hump on the lower end of weight.
-<br>Fish carriers and Tankers show a greater concentration of higher cargo weights on Long-haul trips, while the concentration is lower on Short-haul trips.
-<br>Container ships show a higher concentration of cargo weights on Coastal and Transoceanic trips, with less concentration on Long-haul trips. 
--   **Turnaround time**
-
--   **Distance travelled**
-
--   **Energy efficiency**
-
-:::
-:::::
+-   The energy efficiency distribution appears relatively uniform across all ship types, suggesting that there is no significant disparity in energy performance across different vessels.
+-   An interesting observation is that Container ships demonstrate a remarkbly higher average energy efficiency during calm weather conditions. In contrast, Fish carriers show a slight negative skew in energy efficiency during calm weather, indicating that **Fish containers may face unique operational constaints in such conditions**.
+-   While most ship types exhibit a positive correlation between energy efficiency and maintenance status, Fish carriers deviate from this trend. They show a lower average energy efficiency when in good maintenance status. This anomaly could potentially be attributed to the specific logistics requirements of Fish carriers, which might necessitate operational adjustments that affect their energy performance. Further investigation is needed to understand the factors influencing this discrepancy.
+::::
+::::::::::::::::::::
 
 ### 4.4 Voyage frequency
 
 #### **4.4.1 Overall voyage frequency over time**
+
+To analyse voyage frequency trends over time, a bar chart was plotted to illustrate the monthly distribution of voyages in the dataset.
 
 ```{r}
 #| fig-width: 8
@@ -823,15 +864,19 @@ Insights
 :::
 
 ::: spgoals-container
--   text
+-   Voyage frequencies exhibit seasonal fluctuations, with notable peaks in July, October, and December 2023, as well as March and June 2024.
+-   March 2024 recorded the highest voyage count, nearing 200 voyages.
+-   Most other months maintained a steady frequency around 150 voyages, with September recording the lowest.
 :::
 :::::
 
 #### **4.4.2 Voyage frequency by ship type**
 
+To gain deeper insights into voyage frequencies by ship type and their distribution over time, the combined bar charts plot below presents voyage frequencies by ship type on the right and their monthly percentages over time.
+
 ```{r}
 #| fig-width: 9
-#| fig-height: 6
+#| fig-height: 5
 #| code-fold: true
 #| code-summary: "Show the code"
 # Extract month and year from the Date
@@ -881,7 +926,7 @@ p_trip_ct_1 <- ggplot(trip_percentage_bar,
         legend.spacing.y = unit(0.3, "cm"),
         legend.position = "top") 
 
-###------------ Plot2 ------------###
+###------------ Plot2 ------------
 #Count the number of trips by ship
 trip_count <- ship_filter %>%
   group_by(Ship_Type) %>%
@@ -925,11 +970,16 @@ p_trip_ct_1 + p_trip_ct_2 + plot_layout(widths = c(2.5,1))
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
--   text
+**Balanced Distribution with Leading Segments** <br>Voyage frequencies are fairly evenly distributed across ship types. Bulk carriers recorded the highest share at nearly 26%, followed by tankers, container ships, and fish carriers, each contributing approximately 25%.
+
+-   **Bulk Carrier Trends** <br>Bulk carriers’ voyage frequencies range from 20% to 34%, with peak activity in August, November 2023 and April 2024, where they accounted for close to or more than 1/3 of total monthly voyages.
+-   **Container Ship Patterns** <br>Container ships showed fluctuations between 19% and 29%. Peak months included December 2023 and March, June 2024, when they made up nearly 30% of total voyages.
+-   **Fish Carrier Variability** <br>Fish carriers exhibited the widest range, from 16% to 33%, with the lowest frequency in November 2023 and the highest in January 2024.
+-   **Tanker Stability** <br>Tankers maintained steadier voyage frequencies, ranging from 21% to 29%, suggesting that seasonal variations had less impact on their operations compared to other ship types.
 :::
 :::::
 
@@ -937,7 +987,7 @@ Insights
 
 ### 5.1 Finance performance overview
 
-To have an overview of the finance performance from all ship types, I use boxplot to check the operational cost, revenue per trip and the profit in thousand dollars. There are no outliers observed. The operational cost does not expand beyond \$500K
+To assess the financial performance across all ship types, a boxplot analysis was conducted, examining key metrics such as operational cost, revenue per trip, and profit (all in thousand dollars). This provides an overarching view of profitability and cost efficiency across voyages.
 
 ```{r}
 #| code-fold: true
@@ -1008,6 +1058,7 @@ patchwork + plot_annotation(
   
 ```
 
+For a deeper analysis of profit variations between ship types, a ggbetweenstats plot was employed. This visualisation not only compares profit distributions but also evaluates the statistical significance of differences, offering insights into which vessel types demonstrate superior financial performance.
 
 ```{r}
 #| code-fold: true
@@ -1035,21 +1086,23 @@ ggbetweenstats(
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
--   text
+-   The distribution of operational costs and revenue appears relatively uniform, with operational costs ranging from \$0 to \$500K and revenue \$0 to \$1M. In addition, **no significant outliers were detected, suggesting consistent financial performance.**
+-   With voyage counts closely clustered between 521 and 550 trips, profit exhibits a normal distribution, suggesting a balanced spread of earnings per trip.
+-   Statistical analysis using Welch’s one-way ANOVA produced a p-value of 0.84, far exceeding the 0.05 threshold. This indicates no statistically significant difference in profit performance across ship types. This suggested that factors other than vessel classification may be influencing profitability.
 :::
 :::::
 
-### 5.2 Profit performance with different factors by ship type
+### 5.2 Profit performance by ship, engine type in different aspects
 
-In this section, I will explore more variables by Ship types to assess ships performance in different aspects.
+In this section, we dive deeper into the performance of ships by examining categorical variables through density ridge plots. By analysing ship types and their respective engine types, we assess their performance across various factors such as routes, weather conditions, and maintenance status. Each row of the plot represents a different engine type, while the columns correspond to individual ship types, providing a comprehensive view of how these elements interact.
 
 #### **5.2.1 Operational conditions**
 
-::: panel-tabset
+:::::::::::: panel-tabset
 ## **Route Type**
 
 ```{r}
@@ -1257,6 +1310,18 @@ patchwork
   
 ```
 
+::::: spgoals
+::: spgoals-header
+Observations
+:::
+
+::: spgoals-container
+-   When comparing route performance across ship types, the findings reveal some interesting trends. Bulk carriers, which are powered by diesel engines, maintain a consistent performance across various routes. However, other ship types show noticeable variations.
+-   Among the different ship types, Container ships with HFO engines demonstrate a lower average profit on long-haul trips compared to coastal and transoceanic routes. In contrast, Tankers equipped with HFO engines exhibit a right-skewed profit distribution on coastal routes, leading to a lower average profit compared to other route types.
+-   **Fish carriers** <br> Displays varied profit patterns, regardless of the engine type. When operating on HFO engines, Fish carriers tend to exhibit a left-skewed profit distribution on long-haul routes, indicating that **profits are more concentrated at the higher end**. <br>While the average profit doesn’t show a clear advantage, this skew suggests that certain engine and route combinations could potentially enhance profitability for Fish carriers under specific conditions. <br>In transoceanic routes, Fish carriers show similar concentrated density regardless of the engine types.
+:::
+:::::
+
 ## **Weather Condition**
 
 ```{r}
@@ -1455,6 +1520,18 @@ patchwork <- (p_ridg_bulkc_wc | p_ridg_cship_wc | p_ridg_fishc_wc | p_ridg_tanke
 patchwork 
 ```
 
+::::: spgoals
+::: spgoals-header
+Observations
+:::
+
+::: spgoals-container
+-   Voyages in rough weather often display skewed profit performance. <br>Bulk carriers with diesel engines show **opposite skewness** between rough and moderate weather, a trend also observed in Tankers with steam turbine and HFO engines.
+-   Every weather condition shows a few bimodal distribution for certain types of ship and engine combination. For example, Container ships running on HFO engine shows a bimodal distribution during rough weather, and so is Fish carrier with diesel & steam turbine engine during calm weather.
+-   Certain ship and engine combinations exhibit bimodal distributions under specific weather conditions: <br>- Container ships with HFO engines show bimodal distribution in rough weather. <br>- Fish carriers with diesel or steam turbine engines show bimodal distribution in calm weather.
+:::
+:::::
+
 ## **Maintenance status**
 
 ```{r}
@@ -1652,19 +1729,21 @@ p_ridg_tanker_ms <- ggplot(tanker_data, aes(x = Profit,
 patchwork <- (p_ridg_bulkc_ms | p_ridg_cship_ms | p_ridg_fishc_ms | p_ridg_tanker_ms)
 patchwork 
 ```
-:::
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
--   text
+-   The density plots reveal varying profit patterns across different maintenance statuses, particularly for Fish carriers and Tankers, indicating that **maintenance status may have a differentiated impact on profitability depending on the ship type**.
+-   Interestingly, ships with diesel and steam turbine engines in a **Critical** maintenance state tend to show **consistently higher average profit** across various ship types. In contrast, ships using HFO engines lag behind in terms of profitability. This pattern warrants further investigation to determine whether ships in critical maintenance states experience frequent voyages that limit maintenance time, potentially affecting performance. Additional data could help assess the relationship between ship maintenance status and profitability, especially for vessels using HFO engines.
 :::
 :::::
+::::::::::::
 
 #### **5.2.2 Performance Metrics**
+
 To analyse the performance metrics of ship types, I created scatter plots using `geom_point()` and `geom_smooth()` to visualize the data points and trend lines. In the combined plot below, the left panel shows the overall trend line, with points representing individual ship types, each color-coded accordingly. Hovering over a point reveals a tooltip with detailed information about that specific data point. On the right panel, separate trend lines for each ship type are plotted to highlight the differences in performance across ship types.
 
 ::: panel-tabset
@@ -1744,7 +1823,6 @@ p_plotly_ee <- combined_plot %>%
   )
 p_plotly_ee
 ```
-
 
 ## **Engine Power**
 
@@ -2042,7 +2120,7 @@ combined_plot <- subplot(p9_plotly,  p10_plotly, nrows = 1)
 p_plotly_cw <- combined_plot %>%
   layout(
     title = "Turnaround Time with Overall Trend Line",
-    xaxis = list(title = "TCargo_Weight_tons",
+    xaxis = list(title = "Cargo_Weight_tons",
                  titlefont = list(size = 12), tickfont = list(size = 12)),
     yaxis = list(title = "Profit (1KUSD)",
                  titlefont = list(size = 12), tickfont = list(size = 12))
@@ -2057,27 +2135,21 @@ Insights
 :::
 
 ::: spgoals-container
--   ***Overall Trends in Performance Metrics***
-<br>Across the various performance metrics, both Average Load Percentage and Cargo Weight exhibit a slight upward trend, suggesting that higher load and cargo may be linked to improved profit performance. In contrast, Turnaround Time shows a mild downward slope, indicating that quicker turnarounds could positively impact profitability, aligning with industry expectations.
--   ***Energy Efficiency and Profitability for Container Ships***
-<br>For Container Ships, there is a clear positive correlation between energy efficiency and profit, suggesting that **better fuel or energy management** directly contributes to enhanced financial performance.
--   ***Average Load Percentage Trends Across Ship Types***
-<br>All ship types exhibit an overall upward trend in Average Load Percentage, but Container Ships demonstrate the most pronounced increase. This suggests that **maximising load capacity** might be a key driver for profit improvement, particularly for container vessels.
--   ***Turnaround Time Impact on Profitability***
-<br>Container Ships and Tankers show the most noticeable negative correlation between Turnaround Time and Profit, implying that longer wait times between voyages detract from profitability. **Reducing turnaround time** for these ship types could lead to more efficient operations and better financial outcomes.
--   ***Cargo Weight and Profit Correlation***
-<br>Across all ship types, there is a slight but consistent positive correlation between Cargo Weight and Profit. While the relationship isn’t as strong, it suggests that heavier loads generally contribute to higher profits, emphasising the importance of **maximising cargo capacity**.
+-   ***Overall trends in performance metrics*** <br>Across the various performance metrics, both Average Load Percentage and Cargo Weight exhibit a slight upward trend, suggesting that higher load and cargo may be linked to improved profit performance. In contrast, Turnaround Time shows a mild downward slope, indicating that quicker turnarounds could positively impact profitability, aligning with industry expectations.
+-   ***Energy efficiency and profitability for Tanker*** <br>For Tanker, there is a clear positive correlation between energy efficiency and profit, suggesting that **better fuel or energy management** directly contributes to enhanced financial performance.
+-   ***Average load percentage trends across ship types*** <br>All ship types exhibit an overall upward trend in Average Load Percentage, but Container Ships demonstrate the most pronounced increase. This suggests that **maximising load capacity** might be a key driver for profit improvement, particularly for container vessels.
+-   ***Turnaround time impact on profitability*** <br>Container Ships and Tankers show the most noticeable negative correlation between Turnaround Time and Profit, implying that longer wait times between voyages detract from profitability. **Reducing turnaround time** for these ship types could lead to more efficient operations and better financial outcomes.
+-   ***Cargo weight and profit correlation*** <br>Across all ship types, there is a slight but consistent positive correlation between Cargo Weight and Profit. While the relationship isn’t as strong, it suggests that heavier loads generally contribute to higher profits, emphasising the importance of **maximising cargo capacity**.
 :::
 :::::
 
 #### **5.2.3 Comparing Profit and Voyage frequency by ship type**
-`treemap()` is used to visually compare multiple categorical and numerical aspects of voyage performance. In this plot, total profit is represented by colour intensity, while voyage frequency determines the size of each rectangle. Larger rectangles indicate a higher number of trips, while darker colours represent greater profitability.
-The hierarchical structure follows a descending order, first grouping by ship type, then engine type, and finally route type. This organisation allows for a layered comparison, making it easier to observe patterns and relationships across these categories.
 
+`treemap()` is used to visually compare multiple categorical and numerical aspects of voyage performance. In this plot, total profit is represented by colour intensity, while voyage frequency determines the size of each rectangle. Larger rectangles indicate a higher number of trips, while darker colours represent greater profitability. The hierarchical structure follows a descending order, first grouping by ship type, then engine type, and finally route type. This organisation allows for a layered comparison, making it easier to observe patterns and relationships across these categories.
 
 ```{r}
 #| fig-width: 10
-#| fig-height: 18
+#| fig-height: 8
 #| code-fold: true
 #| code-summary: "Show the code"
 library(dplyr)
@@ -2106,16 +2178,16 @@ treemap(ship_treemap,
         )
 
 ```
+
 ::::: spgoals
 ::: spgoals-header
 Insights
 :::
 
 ::: spgoals-container
--   Container ships powered by steam turbine engines on long-haul routes lead the industry in profitability, outperforming all other combinations of ship type, engine type, and route. Following closely behind are bulk carriers with diesel engines, also operating on long-haul routes. 
+-   **Container ships powered by steam turbine engines on long-haul routes lead the industry in profitability**, outperforming all other combinations of ship type, engine type, and route. Following closely behind are bulk carriers with diesel engines, also operating on long-haul routes.
 -   In general, coastal and short-haul routes yield lower profits across all ship types. However, there are two notable exceptions—tankers with steam turbine engines and container ships with diesel engines, both of which achieve relatively strong profitability on coastal routes.
--   While not universal, a clear trend emerges: most short-haul routes tend to generate lower profits, reinforcing the idea that longer voyages often offer greater financial returns.
-
+-   While not universal, a clear trend emerges: most short-haul routes tend to generate lower profits, reinforcing the idea that **longer voyages often offer greater financial returns**.
 :::
 :::::
 
@@ -2124,7 +2196,6 @@ Insights
 #### **5.3.1 Financial performance overview**
 
 To provide an overview of financial performance over time, a line chart visualises the trends in profit, revenue, and cost. The top five months with the highest profit are highlighted with red points, along with their respective profit amounts.
-
 
 ```{r}
 #| fig-width: 8
@@ -2198,17 +2269,18 @@ ggplot(monthly_long, aes(x = Month, y = Value, color = Type, group = Type)) +
 
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
--   The top five months for profit are June, July, and October 2023, as well as March and June 2024. 
--  Total profit fluctuates over time, but June 2024 outperformed June 2023 by 16.23%. This indicates an upward trend.
+-   The top five months for profit are June, July, and October 2023, as well as March and June 2024.
+-   Total profit fluctuates over time, but June 2024 outperformed June 2023 by 16.23%. This indicates an upward trend.
 -   Profit, revenue, and cost follow similar patterns, with profit and revenue showing the closest resemblance.
 :::
 :::::
 
 #### **5.3.2 Comparing Profit, Revenue, and Cost Across Ship Types**
+
 To compare financial performance across different ship types, I further break down the analysis by plotting profit, cost, and revenue trends for each ship type. This allows for a closer look at whether different ship types follow similar patterns over time. The top three highest amounts for each ship type are highlighted with circular points.
 
 ```{r}
@@ -2247,7 +2319,7 @@ p_line_pf <- ggplot(monthly_profit,
              size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months$Ship_Type)], 
              stroke = 1.5) +
-  labs(title = "Monthly *Profit* Trends by Ship Type",
+  labs(title = "Monthly Profit Trends by Ship Type",
        x = "Month",
        y = "Total Profit (1KUSD)",
        color = "Ship Type") +
@@ -2293,7 +2365,7 @@ p_line_cost <- ggplot(monthly_cost,
              size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months_cost$Ship_Type)], 
              stroke = 1.5) +
-  labs(title = "Monthly *Cost* Trends by Ship Type",
+  labs(title = "Monthly Cost Trends by Ship Type",
        x = "Month",
        y = "Total Cost (1KUSD)",
        color = "Ship Type") +
@@ -2339,7 +2411,7 @@ p_line_rvn <- ggplot(monthly_rvn,
              size = 3, shape = 21,
              color = ship_type_colors[as.factor(top_3_months_rvn$Ship_Type)], 
              stroke = 1.5) +
-  labs(title = "Monthly *Revenue* Trends by Ship Type",
+  labs(title = "Monthly Revenue Trends by Ship Type",
        x = "Month",
        y = "Total Revenue (1KUSD)",
        color = "Ship Type") +
@@ -2366,15 +2438,15 @@ Insights
 :::
 
 ::: spgoals-container
--   The four ship types exhibit distinct profit patterns over time. Bulk Carriers, Container Ships, and Tankers all recorded their highest profit in March 2024, while Fish Carriers peaked in June 2024. 
-- Bulk Carriers and Fish Carriers had contrasting profit trends in August 2023 and January 2024. Each ship type hit its lowest profit in one of these months, while the other achieved one of its highest profits.
--   Fish Carriers experienced the most volatile costs over time, which may be linked to voyage frequency, as referenced in section 4.4.2. 
+-   The four ship types exhibit distinct profit patterns over time. Bulk Carriers, Container Ships, and Tankers all recorded their highest profit in March 2024, while Fish Carriers peaked in June 2024.
+-   Bulk Carriers and Fish Carriers had contrasting profit trends in August 2023 and January 2024. Each ship type hit its lowest profit in one of these months, while the other achieved one of its highest profits.
+-   Fish Carriers experienced the most volatile costs over time, which may be linked to voyage frequency, as referenced in section 4.4.2.
 :::
 :::::
 
 #### **5.3.3 Monthly Profit, Revenue, and Cost Trends by Ship Type**
-The top 5 total profit by ship types are highlighted 
- 
+
+The top 5 total profit by ship types are highlighted
 
 ```{r}
 #| fig-width: 9
@@ -2450,7 +2522,6 @@ ggplot(monthly_long_wc, aes(x = Month, y = Value, color = Type, group = interact
   
 ```
 
-
 ::::: spgoals
 ::: spgoals-header
 Observations
@@ -2458,14 +2529,43 @@ Observations
 
 ::: spgoals-container
 -   The relationship between weather conditions and voyage profitability reveals intriguing patterns. In March 2024, voyages under calm weather saw a significant surge in profit, while moderate weather conditions in May also recorded strong performance. Interestingly, rough weather conditions experienced three distinct profit peaks throughout the year, suggesting that **challenging conditions do not always equate to lower profitability**.
--   On the cost side, monthly operational expenses remained relatively stable across all weather conditions. Notably, costs under moderate weather showed a gradual decline, possibly indicating improved efficiency or adjustments in operations. 
+-   On the cost side, monthly operational expenses remained relatively stable across all weather conditions. Notably, costs under moderate weather showed a gradual decline, possibly indicating improved efficiency or adjustments in operations.
 -   A strong correlation between revenue and profit is evident, with profit peaking at different times of the year regardless of weather conditions. However, one trend remains consistent—whenever revenue rises, profit follows suit, reinforcing the **impact of demand and pricing on overall voyage performance**.
-
 :::
 :::::
 
-
-
 ## 6 Summary
+
+This study was conducted to understand the financial performance among different ship types using a collection of internal and external variables, as well as to undertand the profit and ship performance may be affected by other factors, such as weather conditions, energy efficiency, engine type, route type, cargo weight, etc. A variety of plots were used to explore the patterns and trends in a close look to the details to derive insights. The key findings are as follows:
+
+
+-   **Profitability Consistency Across Ship Types**
+<br>Statistical analysis (Welch’s ANOVA, p-value = 0.84) indicates no significant difference in profit performance across ship types, suggesting that profitability is influenced by factors beyond vessel classification. 
+-   **Engine Type and Maintenance Status Affect Profitability**
+Ships with diesel and steam turbine engines in a critical maintenance state tend to show higher average profits, while those using HFO engines lag behind. This suggests that frequent voyages with limited maintenance time may boost short-term profitability. Fish carriers and tankers also show varying profit patterns based on maintenance status, indicating a differentiated impact.
+-   **Weather Conditions and Profitability Patterns**
+<br>Rough weather conditions do not always result in lower profitability. Certain ship and engine combinations show bimodal profit distributions under specific weather conditions. For example, container ships with HFO engines show a bimodal pattern in rough weather, while fish carriers with diesel or steam turbines exhibit a similar trend in calm weather.
+-   **Route Type and Profitability Variation**
+Long-haul routes typically yield higher profits than coastal and short-haul routes. However, tankers with steam turbine engines and container ships with diesel engines perform relatively well on coastal routes. Conversely, container ships with HFO engines show lower average profits on long-haul trips, while tankers with HFO engines exhibit a right-skewed profit distribution on coastal routes.
+-   **Operational Metrics Influence Financial Performance**
+<br>*Load Capacity*: Higher load percentages and cargo weights correlate with improved profits across ship types, with container ships showing the sharpest increase in load percentage over time.
+<br>*Turnaround Time*: Longer turnaround times negatively impact profitability, particularly for container ships and tankers.
+<br>*Energy Efficiency*: Tankers show a positive correlation between energy efficiency and profitability, emphasizing the importance of fuel management.
+-   **Ship Type-Specific Performance Trends**
+<br>*Bulk Carriers*: Exhibit longer turnaround times across all routes and lower cargo weight concentration on transoceanic trips.
+<br>*Fish Carriers*: Show volatile cost patterns, frequent bimodal distance distributions on long-haul routes, and longer turnaround times on short-haul voyages.
+<br>*Container Ships*: Demonstrate the highest energy efficiency in calm weather and the high average cargo weight on coastal and transoceanic routes.
+<br>Tankers: Maintain steadier voyage frequencies and show positive profitability correlations with energy efficiency.
+-   **Time-Based Profit Trends and Market Growth**
+<br>The top five months for profit were June, July, and October 2023, as well as March and June 2024. Profit, revenue, and costs followed similar patterns, with June 2024 outperforming June 2023 by 16.23%, indicating an overall upward trend in profitability.
+-   **Weather and Cost Stability**
+<br>Operational costs remained stable across weather conditions, with moderate weather costs gradually declining. This reflected operational efficiency improvements. Despite slight fewer voyages in rough weather (~30% of total), profit peaks were observed in three distinct periods.
+-   **Multimodal Distributions in Operational Factors**
+<br>arious performance metrics exhibit multimodal distributions rather than following a normal pattern, particularly in distance traveled on long-haul routes and engine power across ship types. These variations indicate that operational strategies differ significantly depending on ship type and route.
+
+**Future work & suggestions**
+-   Work with data of longer duration: The dataset provided data for a year's time frame, which may not be enough to conclude seasonal trends. More data with a longer time series will help navigate this.
+-   More variables for exploration: Existing variables helped abstract some insights. More data and information needed to understand the trending behaviours, such as manufacture date, series number of ship, stops, restrictions of ship load, capacity, goods, size, logistics, pricing etc. 
+-   Perform other analysis analysis: Using statistical analysis, geospatial analysis, exploratory, predictive modeling methods to perform analytics to derive more insights.
 
 ## 7 References
