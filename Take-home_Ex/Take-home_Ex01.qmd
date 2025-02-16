@@ -2587,3 +2587,7 @@ This study was conducted to understand the financial performance among different
 -   Perform other analysis analysis: Using statistical analysis, geospatial analysis, exploratory, predictive modeling methods to perform analytics to derive more insights.
 
 ## 7 References
+
+Kam, T. S. (2025). *R for visual analytics*. Retrieved from <https://r4va.netlify.app/>
+
+Scherer, C. (2025). *Exciting data visualizations with ggplot2 extensions*. Retrieved from <https://z3tt.github.io/exciting-extensions/slides.html#/course-materials>
