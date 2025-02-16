@@ -1050,7 +1050,7 @@ ggbetweenstats(
   p.adjust.methods = "fdr",
   message = FALSE
 ) +
-  labs(title = "Welch’s one-way ANOVA")
+  labs(title = "Welch’s one-way ANOVA") +
   theme(panel.background = element_rect(fill = "#f1f4f5", color = NA),
         plot.background = element_rect(fill = "#f1f4f5", color = NA),
         plot.title = element_text(size = 16, face = "bold") 
@@ -2325,35 +2325,36 @@ Insights
 ::: spgoals-container
 -   The four ship types exhibit distinct profit patterns over time. Bulk Carriers, Container Ships, and Tankers all recorded their highest profit in March 2024, while Fish Carriers peaked in June 2024. 
 - Bulk Carriers and Fish Carriers had contrasting profit trends in August 2023 and January 2024. Each ship type hit its lowest profit in one of these months, while the other achieved one of its highest profits.
--   Tankers maintained relatively stable profits compared to the other ship types.
 -   Fish Carriers experienced the most volatile costs over time, which may be linked to voyage frequency, as referenced in section 4.4.2. 
 :::
 :::::
 
 #### **5.3.3 Monthly Profit, Revenue, and Cost Trends by Ship Type**
+The top 5 total profit by ship types are highlighted 
+ 
 
 ```{r}
 #| fig-width: 9
-#| fig-height: 6
+#| fig-height: 4
 #| code-fold: true
 #| code-summary: "Show the code"
-
+library(dplyr)
 # Extract month and year from the Date
 ship_filter_month <- ship_filter %>%
   mutate(Month = floor_date(Date, "month"))
 
 # Group by month and calculate total profit, cost, and revenue
-monthly_totals_st <- ship_filter_month %>%
-  group_by(Month, Ship_Type) %>%
+monthly_mean_wc <- ship_filter_month %>%
+  group_by(Month, Weather_Condition) %>%
   summarise(
-    Profit = sum(Profit, na.rm = TRUE),
-    Op_Cost = sum(Operational_Cost_USD, na.rm = TRUE),
-    Revenue = sum(Revenue_per_Voyage_USD, na.rm = TRUE),
+    Profit = mean(Profit, na.rm = TRUE),
+    Op_Cost = mean(Operational_Cost_USD, na.rm = TRUE),
+    Revenue = mean(Revenue_per_Voyage_USD, na.rm = TRUE),
     .groups = "drop"
   ) 
 
 # Sort the data by Total_Profit in descending order and select the top 5 months
-top_5_months <- monthly_totals_st %>%
+top_5_months_wc <- monthly_mean_wc %>%
   arrange(desc(Profit)) %>%
   slice_head(n = 5) %>%
   mutate(
@@ -2361,26 +2362,27 @@ top_5_months <- monthly_totals_st %>%
          Profit_label = paste0("$", round(Profit, 2)))  # Create the label
 
 # Reshape the data from wide to long format
-monthly_long_st <- monthly_totals_st %>%
+monthly_long_wc <- monthly_mean_wc %>%
   pivot_longer(cols = c(Profit, Op_Cost, Revenue),
                names_to = "Type",
                values_to = "Value")
 
 # Plot total profit, total cost, and total revenue over time
-ggplot(monthly_long_st, aes(x = Month, y = Value, color = Type, group = interaction(Ship_Type, Type))) +
+ggplot(monthly_long_wc, aes(x = Month, y = Value, color = Type, group = interaction(Weather_Condition, Type))) +
   geom_line(size = 0.3) +  # Line plot for each variable
-  geom_point(data = top_5_months, 
+  geom_point(data = top_5_months_wc, 
              aes(x = Month, y = Profit), 
-             color = "red", size = 3, shape = 21, fill = "red",
+             color = "purple", size = 3, shape = 21, fill = "purple",
              inherit.aes = FALSE) + # Prevent from inheriting "Type"
-  geom_text(data = top_5_months, 
+  geom_text(data = top_5_months_wc, 
             aes(x = Month, y = Profit, label = Profit_label),
             color = "black", size = 3.5, vjust = -2, hjust = 0.5,
             inherit.aes = FALSE) +
-  labs(title = "Profit, Cost, and Revenue Over Time by Ship Type",
+  labs(title = "Profit, Cost, and Revenue Over Time by Weather",
        x = "Month",
        y = "Amount (1K USD)",
        color = "Type") +
+  coord_cartesian(ylim = c(100, 610)) +
     
   theme_light() +
   scale_color_manual(values = c("Profit" = "#f2cbd0", "Op_Cost" = "grey70", 
@@ -2401,17 +2403,21 @@ ggplot(monthly_long_st, aes(x = Month, y = Value, color = Type, group = interact
     size = 2,
     vjust = -.4,
     hjust = .5) +
-  facet_wrap(~ Ship_Type, scales = "free_y") #facet by ship type
+  facet_wrap(~ Weather_Condition, scales = "free_y") #facet by ship type
   
 ```
 
+
 ::::: spgoals
 ::: spgoals-header
-Insights
+Observations
 :::
 
 ::: spgoals-container
--   text
+-   The relationship between weather conditions and voyage profitability reveals intriguing patterns. In March 2024, voyages under calm weather saw a significant surge in profit, while moderate weather conditions in May also recorded strong performance. Interestingly, rough weather conditions experienced three distinct profit peaks throughout the year, suggesting that **challenging conditions do not always equate to lower profitability**.
+-   On the cost side, monthly operational expenses remained relatively stable across all weather conditions. Notably, costs under moderate weather showed a gradual decline, possibly indicating improved efficiency or adjustments in operations. 
+-   A strong correlation between revenue and profit is evident, with profit peaking at different times of the year regardless of weather conditions. However, one trend remains consistent—whenever revenue rises, profit follows suit, reinforcing the **impact of demand and pricing on overall voyage performance**.
+
 :::
 :::::
 
