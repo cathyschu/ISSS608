@@ -10,17 +10,19 @@ execute:
   freeze: true 
 ---
 
+![](images/banner-ship2.png){fig-align="center"}
+
 ## 1 Overview
 
 ### 1.1 Abstract
 
-\[placeholder\]
+This study presents an in-depth analysis of ship performance and profitability, focusing on various operational metrics, ship types, and environmental factors. Using a dataset spanning one year, the study identifies seasonal trends in voyage frequencies, revealing fluctuations in ship activity during specific months, particularly among bulk carriers. Visualisation plots was used to explore profitability across ship types, with key performance drivers such as engine type, maintenance status, route type, and operational efficiency playing significant roles in financial outcomes. Findings suggest that while rough weather conditions and longer turnaround times tend to reduce profitability, specific ship-engine combinations exhibit resilience under varying conditions. Time-based profit trends indicate an overall upward trajectory, with several months showing notable profitability increases.
 
 ### 1.2 Task
 
 An international media company that publishes weekly content on digital platforms is planning to release articles on "Ship Performance in the Gulf of Guinea". As a graphical editor of the media company, I am going to prepare data visualisation for the article focusing on ship performance assessment.
 
-This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functions to visualise insights on 1) Ships' profitability and 2)Operational factors affecting voyage performance.
+This report will use Exploratory Data Analysis (EDA) methods and ggplot2 functions to visualise insights on 1. Ships' profitability 2. Operational factors affecting voyage performance.
 
 ## 2 Install and Load Packages
 
@@ -56,7 +58,7 @@ glimpse(data_ship)
 
 The diagram below shows the variables selected for this study:
 
-\[placeholder\]
+![](images/Welcome to FigJam.png){fig-align="center"}
 
 #### **3.2.1 Add a variable**
 
@@ -87,8 +89,8 @@ summary(data_ship)
 
 To perform an analysis to achieve the objectives aforementioned, the following variables will be selected.
 
-| Category | Variable | Description | Type | Encoding |
-|------------|------------|------------|------------|------------|
+| Category | Variable | Description | Type | Value |
+|---------------|---------------|---------------|---------------|---------------|
 | Operation | Date | Date | date | YYYY-MM-DD |
 | Ship | Ship_Type | Type of ship | char | Tanker, Container Ship, Fish Carrier, Bulk Carrier |
 | Operations | Route_Type | Shipping route type | char | Short-haul, Long-haul, Transoceanic |
@@ -2538,34 +2540,50 @@ Observations
 
 This study was conducted to understand the financial performance among different ship types using a collection of internal and external variables, as well as to undertand the profit and ship performance may be affected by other factors, such as weather conditions, energy efficiency, engine type, route type, cargo weight, etc. A variety of plots were used to explore the patterns and trends in a close look to the details to derive insights. The key findings are as follows:
 
+-   **Profitability consistency across ship types**
 
--   **Profitability Consistency Across Ship Types**
-<br>Statistical analysis (Welch’s ANOVA, p-value = 0.84) indicates no significant difference in profit performance across ship types, suggesting that profitability is influenced by factors beyond vessel classification. 
--   **Engine Type and Maintenance Status Affect Profitability**
-Ships with diesel and steam turbine engines in a critical maintenance state tend to show higher average profits, while those using HFO engines lag behind. This suggests that frequent voyages with limited maintenance time may boost short-term profitability. Fish carriers and tankers also show varying profit patterns based on maintenance status, indicating a differentiated impact.
+    Statistical analysis (Welch’s ANOVA, p-value = 0.84) indicates no significant difference in profit performance across ship types, suggesting that profitability is influenced by factors beyond vessel classification.
+
+-   **Engine type and maintenance status affect profitability**
+
+    Ships with diesel and steam turbine engines in a critical maintenance state tend to show higher average profits, while those using HFO engines lag behind. This suggests that frequent voyages with limited maintenance time may boost short-term profitability. Fish carriers and tankers also show varying profit patterns based on maintenance status, indicating a differentiated impact.
+
 -   **Weather Conditions and Profitability Patterns**
-<br>Rough weather conditions do not always result in lower profitability. Certain ship and engine combinations show bimodal profit distributions under specific weather conditions. For example, container ships with HFO engines show a bimodal pattern in rough weather, while fish carriers with diesel or steam turbines exhibit a similar trend in calm weather.
--   **Route Type and Profitability Variation**
-Long-haul routes typically yield higher profits than coastal and short-haul routes. However, tankers with steam turbine engines and container ships with diesel engines perform relatively well on coastal routes. Conversely, container ships with HFO engines show lower average profits on long-haul trips, while tankers with HFO engines exhibit a right-skewed profit distribution on coastal routes.
--   **Operational Metrics Influence Financial Performance**
-<br>*Load Capacity*: Higher load percentages and cargo weights correlate with improved profits across ship types, with container ships showing the sharpest increase in load percentage over time.
-<br>*Turnaround Time*: Longer turnaround times negatively impact profitability, particularly for container ships and tankers.
-<br>*Energy Efficiency*: Tankers show a positive correlation between energy efficiency and profitability, emphasizing the importance of fuel management.
--   **Ship Type-Specific Performance Trends**
-<br>*Bulk Carriers*: Exhibit longer turnaround times across all routes and lower cargo weight concentration on transoceanic trips.
-<br>*Fish Carriers*: Show volatile cost patterns, frequent bimodal distance distributions on long-haul routes, and longer turnaround times on short-haul voyages.
-<br>*Container Ships*: Demonstrate the highest energy efficiency in calm weather and the high average cargo weight on coastal and transoceanic routes.
-<br>Tankers: Maintain steadier voyage frequencies and show positive profitability correlations with energy efficiency.
--   **Time-Based Profit Trends and Market Growth**
-<br>The top five months for profit were June, July, and October 2023, as well as March and June 2024. Profit, revenue, and costs followed similar patterns, with June 2024 outperforming June 2023 by 16.23%, indicating an overall upward trend in profitability.
--   **Weather and Cost Stability**
-<br>Operational costs remained stable across weather conditions, with moderate weather costs gradually declining. This reflected operational efficiency improvements. Despite slight fewer voyages in rough weather (~30% of total), profit peaks were observed in three distinct periods.
--   **Multimodal Distributions in Operational Factors**
-<br>arious performance metrics exhibit multimodal distributions rather than following a normal pattern, particularly in distance traveled on long-haul routes and engine power across ship types. These variations indicate that operational strategies differ significantly depending on ship type and route.
 
-**Future work & suggestions**
+    Rough weather conditions do not always result in lower profitability. Certain ship and engine combinations show bimodal profit distributions under specific weather conditions. For example, container ships with HFO engines show a bimodal pattern in rough weather, while fish carriers with diesel or steam turbines exhibit a similar trend in calm weather.
+
+-   **Route Type and Profitability Variation**
+
+    Long-haul routes typically yield higher profits than coastal and short-haul routes. However, tankers with steam turbine engines and container ships with diesel engines perform relatively well on coastal routes. Conversely, container ships with HFO engines show lower average profits on long-haul trips, while tankers with HFO engines exhibit a right-skewed profit distribution on coastal routes.
+
+-   **Operational Metrics Influence Financial Performance**
+
+    -   *Load Capacity*: Higher load percentages and cargo weights correlate with improved profits across ship types, with container ships showing the sharpest increase in load percentage over time. *Turnaround Time*: Longer turnaround times negatively impact profitability, particularly for container ships and tankers.
+    -   *Energy Efficiency*: Tankers show a positive correlation between energy efficiency and profitability, emphasizing the importance of fuel management.
+
+-   **Ship Type-Specific Performance Trends**
+
+    -   *Bulk Carriers*: Exhibit longer turnaround times across all routes and lower cargo weight concentration on transoceanic trips.
+    -   *Fish Carriers*: Show volatile cost patterns, frequent bimodal distance distributions on long-haul routes, and longer turnaround times on short-haul voyages.
+    -   *Container Ships*: Demonstrate the highest energy efficiency in calm weather and the high average cargo weight on coastal and transoceanic routes.
+    -   *Tankers*: Maintain steadier voyage frequencies and show positive profitability correlations with energy efficiency.
+
+-   **Time-Based Profit Trends and Market Growth**
+
+    The top five months for profit were June, July, and October 2023, as well as March and June 2024. Profit, revenue, and costs followed similar patterns, with June 2024 outperforming June 2023 by 16.23%, indicating an overall upward trend in profitability.
+
+-   **Weather and Cost Stability**
+
+    Operational costs remained stable across weather conditions, with moderate weather costs gradually declining. This reflected operational efficiency improvements. Despite slight fewer voyages in rough weather (\~30% of total), profit peaks were observed in three distinct periods.
+
+-   **Multimodal Distributions in Operational Factors**
+
+    Various performance metrics exhibit multimodal distributions rather than following a normal pattern, particularly in distance traveled on long-haul routes and engine power across ship types. These variations indicate that operational strategies differ significantly depending on ship type and route.
+
+[**Future work & suggestions**]{style="color:##a5c7a7;"}
+
 -   Work with data of longer duration: The dataset provided data for a year's time frame, which may not be enough to conclude seasonal trends. More data with a longer time series will help navigate this.
--   More variables for exploration: Existing variables helped abstract some insights. More data and information needed to understand the trending behaviours, such as manufacture date, series number of ship, stops, restrictions of ship load, capacity, goods, size, logistics, pricing etc. 
+-   More variables for exploration: Existing variables helped abstract some insights. More data and information needed to understand the trending behaviours, such as manufacture date, series number of ship, stops, restrictions of ship load, capacity, goods, size, logistics, pricing etc.
 -   Perform other analysis analysis: Using statistical analysis, geospatial analysis, exploratory, predictive modeling methods to perform analytics to derive more insights.
 
 ## 7 References

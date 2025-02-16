@@ -3,19 +3,18 @@ title: "Take-home_Ex01_working"
 author: "Cathy C."
 ---
 
-```{.r}
+``` r
 pacman::p_load(ggstatsplot)
 ```
 
-```{.r}
+``` r
 pacman::p_load(tidyverse)
 library(readr)
 data_heart <- read_csv("data/jp_heart_attack_dataset.csv")
 data_ship <- read_csv("data/Ship_Pfm_Dataset.csv")
-
 ```
 
-```{.r}
+``` r
 #glimpse(data_ship)
 ```
 
@@ -36,6 +35,32 @@ data_ship <- read_csv("data/Ship_Pfm_Dataset.csv")
 -   Maintenance_Status: Maintenance condition of the ship (e.g., Fair, Critical, Good).
 -   Weather_Condition: Prevailing weather conditions during voyages (e.g., Calm, Moderate, Rough).
 
+| Packages | Description |
+|-------------------------------------|-----------------------------------|
+| tidyverse | the tidyverse package installs a number of other packages for reading data and data manilupation, tidying. |
+| ggplot2 | a system for declaratively creating graphics. |
+| colorspace | provides a broad toolbox for selecting individual colors or color palettes, manipulating these colors, and employing them in various kinds of visualizations. |
+| egg | High-level functions are provided to post-process 'ggplot2' layouts and allow alignment between plot panels, as well as setting panel sizes to fixed values. |
+| geomtextpath | 3.09 |
+| gganimate | 3.09 |
+| ggdist | 3.09 |
+| ggstatsplot | 3.09 |
+| ggtext | 3.09 |
+| ggthemes | 3.09 |
+| ggridges | 3.09 |
+| haven | 3.09 |
+| knitr | 3.09 |
+| magrittr | 3.09 |
+| patchwork | 3.09 |
+| performance | 3.09 |
+| parameters | 3.09 |
+| readxl | 3.09 |
+| RColorBrewer | 3.09 |
+| see | 3.09 |
+| tidyverse | 3.09 |
+
+: {tbl-colwidths="\[20,80\]"}
+
 ::::: spgoals
 ::: spgoals-header
 Insights
@@ -45,7 +70,7 @@ Insights
 -   text
 :::
 
-```{.r}
+``` r
 #| fig-width: 15
 #| fig-height: 8
 #| code-fold: true
