@@ -1665,7 +1665,7 @@ Insights
 :::::
 
 #### **5.2.2 Performance Metrics**
-To analyze the performance metrics of ship types, I created scatter plots using `geom_point()` and `geom_smooth()` to visualize the data points and trend lines. In the combined plot below, the left panel shows the overall trend line, with points representing individual ship types, each color-coded accordingly. Hovering over a point reveals a tooltip with detailed information about that specific data point. On the right panel, separate trend lines for each ship type are plotted to highlight the differences in performance across ship types.
+To analyse the performance metrics of ship types, I created scatter plots using `geom_point()` and `geom_smooth()` to visualize the data points and trend lines. In the combined plot below, the left panel shows the overall trend line, with points representing individual ship types, each color-coded accordingly. Hovering over a point reveals a tooltip with detailed information about that specific data point. On the right panel, separate trend lines for each ship type are plotted to highlight the differences in performance across ship types.
 
 ::: panel-tabset
 ## **Energy Efficiency**
@@ -2070,14 +2070,14 @@ Insights
 :::
 :::::
 
-#### **5.2.3 Comparing Profit and Cargo Weight by ship**
+#### **5.2.3 Comparing Profit and Voyage frequency by ship type**
 `treemap()` is used to visually compare multiple categorical and numerical aspects of voyage performance. In this plot, total profit is represented by colour intensity, while voyage frequency determines the size of each rectangle. Larger rectangles indicate a higher number of trips, while darker colours represent greater profitability.
 The hierarchical structure follows a descending order, first grouping by ship type, then engine type, and finally route type. This organisation allows for a layered comparison, making it easier to observe patterns and relationships across these categories.
 
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 10
+#| fig-width: 10
+#| fig-height: 18
 #| code-fold: true
 #| code-summary: "Show the code"
 library(dplyr)
