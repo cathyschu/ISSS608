@@ -58,7 +58,7 @@ glimpse(data_ship)
 
 The diagram below shows the variables selected for this study:
 
-![](images/Welcome to FigJam.png){fig-align="center"}
+![](images/Welcome%20to%20FigJam.png){fig-align="center"}
 
 #### **3.2.1 Add a variable**
 
@@ -2548,35 +2548,35 @@ This study was conducted to understand the financial performance among different
 
     Ships with diesel and steam turbine engines in a critical maintenance state tend to show higher average profits, while those using HFO engines lag behind. This suggests that frequent voyages with limited maintenance time may boost short-term profitability. Fish carriers and tankers also show varying profit patterns based on maintenance status, indicating a differentiated impact.
 
--   **Weather Conditions and Profitability Patterns**
+-   **Weather conditions and profitability patterns**
 
     Rough weather conditions do not always result in lower profitability. Certain ship and engine combinations show bimodal profit distributions under specific weather conditions. For example, container ships with HFO engines show a bimodal pattern in rough weather, while fish carriers with diesel or steam turbines exhibit a similar trend in calm weather.
 
--   **Route Type and Profitability Variation**
+-   **Route type and profitability variation**
 
     Long-haul routes typically yield higher profits than coastal and short-haul routes. However, tankers with steam turbine engines and container ships with diesel engines perform relatively well on coastal routes. Conversely, container ships with HFO engines show lower average profits on long-haul trips, while tankers with HFO engines exhibit a right-skewed profit distribution on coastal routes.
 
--   **Operational Metrics Influence Financial Performance**
+-   **Operational metrics influence financial performance**
 
     -   *Load Capacity*: Higher load percentages and cargo weights correlate with improved profits across ship types, with container ships showing the sharpest increase in load percentage over time. *Turnaround Time*: Longer turnaround times negatively impact profitability, particularly for container ships and tankers.
     -   *Energy Efficiency*: Tankers show a positive correlation between energy efficiency and profitability, emphasizing the importance of fuel management.
 
--   **Ship Type-Specific Performance Trends**
+-   **Ship type-specific performance trends**
 
     -   *Bulk Carriers*: Exhibit longer turnaround times across all routes and lower cargo weight concentration on transoceanic trips.
     -   *Fish Carriers*: Show volatile cost patterns, frequent bimodal distance distributions on long-haul routes, and longer turnaround times on short-haul voyages.
     -   *Container Ships*: Demonstrate the highest energy efficiency in calm weather and the high average cargo weight on coastal and transoceanic routes.
     -   *Tankers*: Maintain steadier voyage frequencies and show positive profitability correlations with energy efficiency.
 
--   **Time-Based Profit Trends and Market Growth**
+-   **Time-based PProfit trends and market growth**
 
     The top five months for profit were June, July, and October 2023, as well as March and June 2024. Profit, revenue, and costs followed similar patterns, with June 2024 outperforming June 2023 by 16.23%, indicating an overall upward trend in profitability.
 
--   **Weather and Cost Stability**
+-   **weather and cost stability**
 
     Operational costs remained stable across weather conditions, with moderate weather costs gradually declining. This reflected operational efficiency improvements. Despite slight fewer voyages in rough weather (\~30% of total), profit peaks were observed in three distinct periods.
 
--   **Multimodal Distributions in Operational Factors**
+-   **Multimodal distributions in operational factors**
 
     Various performance metrics exhibit multimodal distributions rather than following a normal pattern, particularly in distance traveled on long-haul routes and engine power across ship types. These variations indicate that operational strategies differ significantly depending on ship type and route.
 

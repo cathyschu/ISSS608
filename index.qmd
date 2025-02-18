@@ -5,7 +5,7 @@ brand:
     palette:
       dark-grey: "#222222"
       white: "#fdfefe"
-      grey: "#5d6d7e"
+      grey: "#5d6d7e" # 
       blue: "#ddeaf1"
     background: blue
     foreground: grey
