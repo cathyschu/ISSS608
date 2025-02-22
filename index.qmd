@@ -28,7 +28,7 @@ listing:
   image-height: 10 px
 ---
 
-### **Welcome to Cathy's portfolio** ![](images/dino-rex-2 copy.png){width="80"}
+### **Welcome to Cathy's portfolio** ![](images/dino-rex-2%20copy.png){width="80"}
 
 This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.
 

@@ -36,34 +36,223 @@ pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr,
 Within this section, we will do the following:
 
 -   plot a calendar heatmap by using ggplot2 functions and extension
-
 -   write function using R programming
-
 -   derive specific date and time related field by using base **R** and **libridate** packages
-
 -   perform data preparation task by using tidyr and dplyr packages
 
 ### 3.1 Data
 
-*eventlog.csv* file will be used for this exercise. This data file consists of 199,999 rows of time-series cyber attach records by country.
+*eventlog.csv* file will be used for this exercise. This data file consists of 199,999 rows of time-series cyber attack records by country.
 
-::: panel.tabset
-## Import data
+::::::::: panel-tabset
+## **1-Import data**
 
 To import *eventlog.csv* into R environment and call this data frame as ***attacks.***
 
 ```{r}
-attacks <- read_csv(data/eventlog.csv)
+attacks <- read_csv("data/eventlog.csv")
 ```
 
-## Exam data structure
+## **2-Exam data structure**
 
-## Data prep
+We will use `kable()` to review the structure of the imported data frame.
+
+```{r}
+kable(head(attacks))
+```
+
+We see 3 columns: *timestamp, source_country,* and *tz.*
+
+-   *timestamp:* stores data-time values in POSIXct format.
+-   *source_country:* stores the source of attack. It is in ISO3166-1 alpha-2 country code.
+-   *tz:* stores timezone of source IP address.
+
+## **3-Data prep**
+
+**Step 1.** Deriving *weekday* and *hour of day* fields
+
+Two new fields need to be derived: ***wkday*** and ***hour*** before we plot the calendar heatmap.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+make_hr_wkday <- function(ts, sc, tz) {
+  real_times <- ymd_hms(ts,
+                        tz = tz[1],
+                        quiet = TRUE)
+  dt <- data.table(source_country = sc,
+                   wkday = weekdays(real_times),
+                   hour = hour(real_times))
+  return(dt)
+}
+
+```
+
+::::: goals
+::: goals-header
+Learning from the code
 :::
+
+::: goals-container
+-   [`ymd_hms()`](https://lubridate.tidyverse.org/reference/ymd_hms.html) and [`hour()`](https://lubridate.tidyverse.org/reference/hour.html) are from [**lubridate**](https://lubridate.tidyverse.org/) package.
+
+-   [`weekdays()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/weekdays) is a **base** R function.
+:::
+:::::
+
+**Step 2.** Deriving the attacks tibble data frame
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+wkday_levels <- c('Saturday', 'Friday', 'Thursday',
+                  'Wednesday', 'Tuesday', 'Monday',
+                  'Sunday')
+attacks <- attacks %>%
+  group_by(tz) %>%
+  do(make_hr_wkday(.$timestamp,
+                   .$source_country,
+                   .$tz)) %>%
+  ungroup() %>%
+  mutate(wkday = factor(
+    wkday, levels = wkday_levels),
+    hour = factor(
+      hour, levels = 0:23
+    )
+  )
+```
+
+::::: goals
+::: goals-header
+Learning from the code
+:::
+
+::: goals-container
+`mutate()` of **dplyr** package is used to convert *wkday* and *hour* fields into **factor** so they will be ordered when plotting.
+:::
+:::::
+
+**Step 3.** Check the tibble table:
+
+```{r}
+kable(head(attacks))
+```
+:::::::::
 
 ### 3.2 Build the calendar heatmaps
 
+We can simply group the count by hour and wkday and plot it, since we know that we have values for every combination. Use the code below to build the calendar heatmaps:
+
+```{r}
+#| fig-height: 3
+#| code-fold: true
+#| code-summary: "Show the code"
+grouped <- attacks %>%
+  count(wkday, hour) %>%
+  ungroup() %>%
+  na.omit()
+
+ggplot(grouped,
+       aes(hour,
+           wkday,
+           fill = n)) +
+  geom_tile(color = "#f1f4f5",
+            size = 0.1) +
+  theme_tufte(base_family = "Helvetica") +
+  coord_equal() +
+  scale_fill_gradient(name = "# of attacks",
+                      low = "#faf1f0",
+                      high = "dark red") +
+  labs(x = NULL,
+       y = NULL,
+       title = "Attacks by weekday and time of day") +
+  theme(axis.ticks = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6))
+```
+
+::::: goals
+::: goals-header
+Learning from the code
+:::
+
+::: goals-container
+-   a tibble data table called grouped is derived by aggregating the attack by *wkday* and *hour* fields.
+-   a new field called *n* is derived by using group_by() and count() functions.
+-   `na.omit()` is used to exclude missing value.
+-   `geom_tile()` is used to plot tiles (grids) at each x and y position. `color` and `size` arguments are used to specify the border color and line size of the tiles.
+-   [`theme_tufte()`](https://jrnold.github.io/ggthemes/reference/theme_tufte.html) of [**ggthemes**](https://jrnold.github.io/ggthemes/reference/index.html) package is used to remove unnecessary chart junk. *\[there is a dashed line around the plot removed by this theme\]*
+-   `coord_equal()` is used to ensure the plot will have an aspect ratio of 1:1.
+-   `scale_fill_gradient()` function is used to create a **two colour gradient** (low-high).
+:::
+:::::
+
 ### 3.3 Build multiple calendar heatmaps
+
+**Challenge:** Build multiple heatmaps for the top four countries with the highest number of attacks.
+
+**Step 1.** Derive attack numbers by country object
+
+To identify the top 4 countries with the highest attack numbers, we need to do the following:
+
+-   count the number of attacks by country
+-   calculate the percentage of attacks by country
+-   save the result in a tibble data frame
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+attacks_by_country <- count(
+  attacks, source_country) %>%
+  mutate(percent = percent(n/sum(n))) %>%
+  arrange(desc(n))
+```
+
+**Step 2.** Prepare the tidy data frame
+
+Now, we will extract the top 4 countries from ***attacks*** data frame, and save the data in a new tibble data frame *top4_attacks.*
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+top4 <- attacks_by_country$source_country[1:4]
+top4_attacks <- attacks %>%
+  filter(source_country %in% top4) %>%
+  count(source_country, wkday, hour) %>%
+  ungroup() %>%
+  mutate(source_country = factor(
+    source_country, levels = top4
+  )) %>%
+  na.omit()
+```
+
+**Step 3.** Plot the multiple calendar heatmap with ggplot2
+
+```{r}
+#| fig-height: 3
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(top4_attacks,
+       aes(hour,
+           wkday,
+           fill = n)) +
+  geom_tile(color = "#f1f4f5", size = 0.1) +
+  theme_tufte(base_family = "Helvetica") +
+  coord_equal() +
+  scale_fill_gradient(name = "# of attacks",
+                      low = "#faf1f0",
+                      high = "dark red") +
+  facet_wrap(~source_country, ncol = 2) +
+  labs(x = NULL, y = NULL,
+       title = "Attacks on top 4 countries by weekday and time of day") +
+  theme(axis.ticks = element_blank(),
+        axis.text.x = element_text(size = 4),
+        axis.text.y = element_text(size = 4),
+        plot.title = element_text(size = 10, hjust = 0.5),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6))
+```
 
 ## 4 Plotting Cycle Plot
 
