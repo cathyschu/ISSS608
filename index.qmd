@@ -15,17 +15,18 @@ listing:
   field-display-names:
     title: "Exercises"
   contents:
-    - "Hands-on_Ex"
-    - "Take-home_Ex"
-    - "In-class_Ex"
+    - "Hands-on_Ex/*.qmd"
+    - "Take-home_Ex/*.qmd"
+#    - "In-class_Ex/*.qmd"
 
   type: grid
   sort-ui: true 
-  sort: modification-time
+  sort: "date"
   max-items: 3
   image-height: 150 px
   date-format: medium
-  fields: [image, date, title, reading-time, description]
+  grid-item-border: false
+  fields: [image, date, title, description]
 ---
 
 ### **Welcome to Cathy's portfolio** ![](images/dino-rex-2%20copy.png){width="80"}
