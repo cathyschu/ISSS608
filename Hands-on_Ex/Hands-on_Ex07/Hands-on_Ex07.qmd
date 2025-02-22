@@ -259,15 +259,81 @@ ggplot(top4_attacks,
 
 To show time-series patterns and trend of visitor arrivals from Vietnam, we will use Cycle plot to visualise it with **ggplot2**.
 
-### 4.1 Data import
+### 4.1 Data
 
-### 4.2 Deriving month and year fields
+::: {.panel-tabset}
 
-### 4.3 Extract the target country
+## **1 Data import**
 
-### 4.4 Computing year average arrivals by month
+We will use dataset from *arrivals_by_air.xlsx*. Since it's in .xlsx format, `read_excel()` will be used to the read the file.
 
-### 4.5 Plotting the cycle plot
+```{r}
+air <- read_excel("data/arrivals_by_air.xlsx")
+```
+
+## **2 Deriving M and Y fields**
+
+Here 2 new fields called *month* and *year* are derived from *Month-Year* field.
+
+```{r}
+air$month <- factor(month(air$'Month-Year'),
+                    levels = 1:12,
+                    labels = month.abb,
+                    ordered = TRUE)
+air$year <- year(ymd(air$'Month-Year'))
+```
+
+## **3 Extract target country**
+
+Now, we will extract data for the target country - Vietnam
+
+```{r}
+vietnam <- air %>%
+  select(`Vietnam`,
+         month,
+         year) %>%
+  filter(year >= 2010)
+```
+
+## **4 Compute year avg arrival by month**
+
+Then we use `group_by()` and `summarise()` of **dplyr** to compute year average arrivals by month.
+
+```{r}
+hline.data <- vietnam %>%
+  group_by(month) %>%
+  summarise(avgvalue = mean(`Vietnam`))
+```
+
+:::
+
+### 4.2 Plotting the cycle plot
+
+Now plot the Cycle plot.
+
+```{r}
+#| fig-height: 3
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot() +
+  geom_line(data = vietnam,
+            aes(x = year,
+                y = `Vietnam`,
+                group = month),
+            colour = "black") +
+  geom_hline(aes(yintercept = avgvalue),
+             data = hline.data,
+             linetype = 6,
+             colour = "red",
+             size = 0.5) +
+  facet_grid(~month) +
+  labs(axis.text.x = element_blank(),
+       title = "Visitor arrivals from VN by air, Jan 2010 - Dec 2019") +
+  xlab("") +
+  ylab("# of Visitors") +
+  theme_tufte(base_family = "Helvetica") +
+  theme(axis.text.x = element_text(size = 3))
+```
 
 ## 5 Plotting Slopegraph
 

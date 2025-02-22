@@ -15,7 +15,7 @@ listing:
   field-display-names:
     title: "Exercises"
   contents:
-    - "Hands-on_Ex/*.qmd"
+    - "Hands-on_Ex"
     - "Take-home_Ex/*.qmd"
 #    - "In-class_Ex/*.qmd"
 
