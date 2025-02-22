@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-date','listing-title','listing-reading-time','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       page: 18,
     pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
@@ -546,65 +546,74 @@ window.Quarto = {
 </section>
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title" data-direction="asc">
+          Exercises
+        </option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
+     </select>
+  </div>
+</div>
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1738339200000" data-listing-file-modified-sort="1740119467235" data-listing-date-modified-sort="1740119467000" data-listing-reading-time-sort="129" data-listing-word-count-sort="25661">
-<a href="./Take-home_Ex/Take-home_Ex01.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Take-home_Ex/images/banner-ship2.png" style="height: 10 px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Take-home Exercise 1
-</h5>
-<div class="card-text listing-description">
-This study presents an in-depth analysis of ship performance and profitability, focusing on various operational metrics, ship types, and environmental factors. Using a…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Cathy C.
-</div>
-<div class="listing-date">
-Feb 1, 2025
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1738778280066" data-listing-reading-time-sort="8" data-listing-word-count-sort="1600">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1738778280066" data-listing-reading-time-sort="8" data-listing-word-count-sort="1600">
 <a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4_files/figure-html/unnamed-chunk-3-1.png" style="height: 10 px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img src="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4_files/figure-html/unnamed-chunk-3-1.png" style="height: 150 px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Hands-on_Ex04-4
 </h5>
+<div class="listing-reading-time card-text text-muted">
+8 min
+</div>
 <div class="card-text listing-description">
 Funnel plot is a specially designed data visualisation for unbiased comparison between outlets, stores or business entities. We will learn the following in this chapter:
-</div>
-<div class="card-attribution card-text-small start">
-<div class="listing-author">
-Cathy C.
-</div>
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1738788067775" data-listing-reading-time-sort="22" data-listing-word-count-sort="4231">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1738788067775" data-listing-reading-time-sort="22" data-listing-word-count-sort="4231">
 <a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex/Hands-on_Ex04/images/SD calc.png" style="height: 10 px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top"><img src="Hands-on_Ex/Hands-on_Ex04/images/SD calc.png" style="height: 150 px;"  class="thumbnail-image card-img"/></p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
 Hands-on Ex04-3
 </h5>
+<div class="listing-reading-time card-text text-muted">
+22 min
+</div>
 <div class="card-text listing-description">
 In this chapter, we will do hands-on in creating statistical graphics for visualising uncertainty.
 </div>
-<div class="card-attribution card-text-small start">
-<div class="listing-author">
-Cathy C
 </div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1738950259525" data-listing-reading-time-sort="11" data-listing-word-count-sort="2183">
+<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="Hands-on_Ex/Hands-on_Ex04/images/ggstatsplot.png" style="height: 150 px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Hands-on Ex04-2
+</h5>
+<div class="listing-reading-time card-text text-muted">
+11 min
+</div>
+<div class="card-text listing-description">
+In this hands-on exercise, we will gain hands-on experience on using:
 </div>
 </div>
 </div>

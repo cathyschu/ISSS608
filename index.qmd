@@ -20,11 +20,12 @@ listing:
     - "In-class_Ex"
 
   type: grid
-  sort: 
-    - "date-modified"
-    - "date"
+  sort-ui: true 
+  sort: modification-time
   max-items: 3
-  image-height: 10 px
+  image-height: 150 px
+  date-format: medium
+  fields: [image, date, title, reading-time, description]
 ---
 
 ### **Welcome to Cathy's portfolio** ![](images/dino-rex-2%20copy.png){width="80"}
