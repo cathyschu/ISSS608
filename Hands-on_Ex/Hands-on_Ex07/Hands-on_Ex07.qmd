@@ -1,5 +1,5 @@
 ---
-title: "Hands-on_Ex01"
+title: "Hands-on_Ex07"
 author: "Cathy Chu"
 date-modified: "last-modified" 
 execute:
@@ -255,6 +255,8 @@ ggplot(top4_attacks,
 ```
 
 ## 4 Plotting Cycle Plot
+
+To show time-series patterns and trend of visitor arrivals from Vietnam, we will use Cycle plot to visualise it with **ggplot2**.
 
 ### 4.1 Data import
 
