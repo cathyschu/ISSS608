@@ -21,10 +21,9 @@ listing:
 
   type: grid
   sort: 
-    - "date"
     - "date-modified"
-    - "title desc"
-  max-items: 4
+    - "date"
+  max-items: 3
   image-height: 10 px
 ---
 
