@@ -1,0 +1,44 @@
+---
+title: "Hands-on_Ex01"
+author: "Cathy Chu"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+# **Visualising and Analysing Time-oriented Data**
+
+## 1 Learning Objectives
+
+## 2 Getting Started
+
+## 3 DIY
+
+## 4 Plotting Calendar Heatmap
+
+### 4.1 Data
+
+### 4.2 Build the calendar heatmaps
+
+### 4.3 Build multiple calendar heatmaps
+
+## 5 Plotting Cycle Plot
+
+### 5.1 Data import
+
+### 5.2 Deriving month and year fields
+
+### 5.3 Extract the target country
+
+### 5.4 Computing year average arrivals by month
+
+### 5.5 Plotting the cycle plot
+
+## 6 Plotting Slopegraph
+
+### 6.1 Data import
+
+### 6.2 Plotting the slopegraph

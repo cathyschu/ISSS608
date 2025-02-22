@@ -28,9 +28,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ISSS608 Visual Analytics and Applications",
+    "title": "Visual Analytics and Applications",
     "section": "",
-    "text": "Welcome to Cathy’s portfolio for ISSS608 Visual Analytics and Applications.\nThis webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!",
+    "text": "Welcome to Cathy’s portfolio \nThis webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\nCathy C.\n\n\nFeb 1, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class_Ex05\n\n\n\n\n\n\nCathy C.\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class_Ex04\n\n\n\n\n\n\nCathy C.\n\n\n\n\n\n\n\n\n\n\n\n\nIn-class_Ex03\n\n\n\n\n\n\nCathy C.\n\n\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "![](/images/house.svg)",
       "Home"
@@ -1586,6 +1586,60 @@
       "![](/images/house.svg)",
       "Take-home Exercise",
       "Take-home_Ex01"
+    ]
+  },
+  {
+    "objectID": "test.html",
+    "href": "test.html",
+    "title": "test",
+    "section": "",
+    "text": "#install.packages(c(\n#  \"gapminder\", \"ggforce\", \"gh\", \"globals\", \"openintro\", \"profvis\", \"RSQLite\",\n#  \"shiny\", \"shinycssloaders\", \"shinyFeedback\", \"shinythemes\", \"testthat\", \n#  \"thematic\", \"tidyverse\", \"vroom\", \"waiter\", \"xml2\", \"zeallor\"\n#))\n\n#library(shiny)\n#runExample(\"01_hello\")\n\n#runExample(\"02_text\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html",
+    "href": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html",
+    "title": "Hands-on_Ex01",
+    "section": "",
+    "text": "In this chapter, we will learn to plot the following visualisations:\n\na calender heatmap (ggplot2 functions)\na cycle plot (ggplot2 functions)\na slopegraph\na horizon chart\n\n\n\n\nTo install and launch the following R packages:\nscales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table and tidyverse.\n\npacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, \n               data.table, tidyverse, CGPfunctions, ggHoriPlot)",
+    "crumbs": [
+      "![](/images/house.svg)",
+      "Hands-on Exercise",
+      "Hands-on Exercise 7"
+    ]
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html#learning-objectives",
+    "title": "Hands-on_Ex01",
+    "section": "",
+    "text": "In this chapter, we will learn to plot the following visualisations:\n\na calender heatmap (ggplot2 functions)\na cycle plot (ggplot2 functions)\na slopegraph\na horizon chart",
+    "crumbs": [
+      "![](/images/house.svg)",
+      "Hands-on Exercise",
+      "Hands-on Exercise 7"
+    ]
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html#getting-started",
+    "href": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html#getting-started",
+    "title": "Hands-on_Ex01",
+    "section": "",
+    "text": "To install and launch the following R packages:\nscales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table and tidyverse.\n\npacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, \n               data.table, tidyverse, CGPfunctions, ggHoriPlot)",
+    "crumbs": [
+      "![](/images/house.svg)",
+      "Hands-on Exercise",
+      "Hands-on Exercise 7"
+    ]
+  },
+  {
+    "objectID": "index.html#latest-posts",
+    "href": "index.html#latest-posts",
+    "title": "ISSS608 Visual Analytics and Applications",
+    "section": "latest posts",
+    "text": "latest posts",
+    "crumbs": [
+      "![](/images/house.svg)",
+      "Home"
     ]
   }
 ]

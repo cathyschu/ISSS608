@@ -1,0 +1,15 @@
+{
+  "hash": "95ba28846d06e2f59381dfd17929d79b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands-on_Ex01\"\nauthor: \"Cathy Chu\"\ndate-modified: \"last-modified\" \nexecute:\n  echo: true \n  eval: true \n  warning: false \n  freeze: true  \n---\n\n\n\n\n# **Visualising and Analysing Time-oriented Data**\n\n## 1 Learning Objectives\n\nIn this chapter, we will learn to plot the following visualisations:\n\n-   a calender heatmap (ggplot2 functions)\n-   a cycle plot (ggplot2 functions)\n-   a slopegraph\n-   a horizon chart\n\n## 2 Getting Started\n\nTo install and launch the following R packages:\n\nscales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table and tidyverse.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, \n               data.table, tidyverse, CGPfunctions, ggHoriPlot)\n```\n:::\n\n\n\n\n## 3 Plotting Calendar Heatmap\n\n### 4.1 Data\n\n### 4.2 Build the calendar heatmaps\n\n### 4.3 Build multiple calendar heatmaps\n\n## 4 Plotting Cycle Plot\n\n### 4.1 Data import\n\n### 4.2 Deriving month and year fields\n\n### 4.3 Extract the target country\n\n### 4.4 Computing year average arrivals by month\n\n### 4.5 Plotting the cycle plot\n\n## 5 Plotting Slopegraph\n\n### 5.1 Data import\n\n### 5.2 Plotting the slopegraph\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

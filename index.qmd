@@ -1,21 +1,37 @@
 ---
-title: "ISSS608 Visual Analytics and Applications"
+title: "Visual Analytics and Applications"
 brand:
   color:
     palette:
       dark-grey: "#222222"
       white: "#fdfefe"
-      grey: "#5d6d7e" # 
+      grey: "#5d6d7e" 
       blue: "#ddeaf1"
     background: blue
     foreground: grey
     primary: white
+    
+listing:
+  field-display-names:
+    title: "Exercises"
+  contents:
+    - "Hands-on_Ex"
+    - "Take-home_Ex"
+    - "In-class_Ex"
+
+  type: grid
+  sort: 
+    - "date"
+    - "date-modified"
+    - "title desc"
+  max-items: 4
+  image-height: 10 px
 ---
 
-![](images/AdobeStock_284734871.jpeg)
-
-**Welcome to Cathy's portfolio for ISSS608 Visual Analytics and Applications.**
+### **Welcome to Cathy's portfolio** ![](images/dino-rex-2 copy.png){width="80"}
 
 This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.
 
 In this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!
+
+### ![](images/dino-banner-sepline.png)

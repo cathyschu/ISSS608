@@ -1,0 +1,84 @@
+---
+title: "Hands-on_Ex01"
+author: "Cathy Chu"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+# **Visualising and Analysing Time-oriented Data**
+
+## 1 Learning Objectives
+
+In this chapter, we will learn to plot the following visualisations:
+
+-   a calender heatmap (ggplot2 functions)
+-   a cycle plot (ggplot2 functions)
+-   a slopegraph
+-   a horizon chart
+
+## 2 Getting Started
+
+To install and launch the following R packages:
+
+**scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table and tidyverse.**
+
+```{r}
+pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, 
+               data.table, tidyverse, CGPfunctions, ggHoriPlot)
+```
+
+## 3 Plotting Calendar Heatmap
+
+Within this section, we will do the following:
+
+-   plot a calendar heatmap by using ggplot2 functions and extension
+
+-   write function using R programming
+
+-   derive specific date and time related field by using base **R** and **libridate** packages
+
+-   perform data preparation task by using tidyr and dplyr packages
+
+### 3.1 Data
+
+*eventlog.csv* file will be used for this exercise. This data file consists of 199,999 rows of time-series cyber attach records by country.
+
+::: panel.tabset
+## Import data
+
+To import *eventlog.csv* into R environment and call this data frame as ***attacks.***
+
+```{r}
+attacks <- read_csv(data/eventlog.csv)
+```
+
+## Exam data structure
+
+## Data prep
+:::
+
+### 3.2 Build the calendar heatmaps
+
+### 3.3 Build multiple calendar heatmaps
+
+## 4 Plotting Cycle Plot
+
+### 4.1 Data import
+
+### 4.2 Deriving month and year fields
+
+### 4.3 Extract the target country
+
+### 4.4 Computing year average arrivals by month
+
+### 4.5 Plotting the cycle plot
+
+## 5 Plotting Slopegraph
+
+### 5.1 Data import
+
+### 5.2 Plotting the slopegraph

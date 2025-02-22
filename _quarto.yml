@@ -50,10 +50,8 @@ website:
         href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.qmd
       - text: "5_5 Treemap Visualisation with R"
         href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.qmd
-      # - text: "Hands-on Exercise 6"
-      #   href: Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.qmd
-      # - text: "Hands-on Exercise 7"
-      #   href: Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.qmd
+      - text: "7 Visualising time-oriented data"
+        href: Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.qmd
       # - text: "Hands-on Exercise 8"
       #   href: Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.qmd
       # - text: "Hands-on Exercise 9"
@@ -118,6 +116,14 @@ website:
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.qmd
           - text: "Hands-on Exercise 5-5"
             href: Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.qmd
+          - text: "Hands-on Exercise 7"
+            href: Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.qmd
+          - text: "Hands-on Exercise 8-1"
+            href: Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_1.qmd
+          - text: "Hands-on Exercise 8-2"
+            href: Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_2.qmd
+          - text: "Hands-on Exercise 8-3"
+            href: Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.qmd
             
       - section: "In-class Exercise"
         contents:

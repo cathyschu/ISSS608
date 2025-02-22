@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ISSS608 Visual Analytics and Applications</title>
+<title>Visual Analytics and Applications</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,6 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href=".//images/dragon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -67,7 +69,66 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      page: 18,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -149,6 +210,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html">
  <span class="dropdown-text">5_5 Treemap Visualisation with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
+ <span class="dropdown-text">7 Visualising time-oriented data</span></a>
   </li>  
     </ul>
   </li>
@@ -341,6 +406,30 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Hands-on Exercise 5-5</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 7</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 8-1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_2.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 8-2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 8-3</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -412,15 +501,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#welcome-to-cathys-portfolio" id="toc-welcome-to-cathys-portfolio" class="nav-link active" data-scroll-target="#welcome-to-cathys-portfolio"><strong>Welcome to Cathy’s portfolio</strong> <img src="images/dino-rex-2 copy.png" class="img-fluid" width="80"></a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><img src="images/dino-banner-sepline.png" class="img-fluid"></a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ISSS608 Visual Analytics and Applications</h1>
+<h1 class="title">Visual Analytics and Applications</h1>
 </div>
 
 
@@ -437,14 +533,108 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="images/AdobeStock_284734871.jpeg" class="img-fluid"></p>
-<p><strong>Welcome to Cathy’s portfolio for ISSS608 Visual Analytics and Applications.</strong></p>
+<section id="welcome-to-cathys-portfolio" class="level3">
+<h3 class="anchored" data-anchor-id="welcome-to-cathys-portfolio"><strong>Welcome to Cathy’s portfolio</strong> <img src="images/dino-rex-2 copy.png" class="img-fluid" width="80"></h3>
 <p>This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.</p>
 <p>In this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!</p>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"><img src="images/dino-banner-sepline.png" class="img-fluid"></h3>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1738339200000" data-listing-file-modified-sort="1740119467235" data-listing-date-modified-sort="1740119467000" data-listing-reading-time-sort="129" data-listing-word-count-sort="25661">
+<a href="./Take-home_Ex/Take-home_Ex01.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="Take-home_Ex/images/banner-ship2.png" style="height: 10 px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Take-home Exercise 1
+</h5>
+<div class="card-text listing-description">
+This study presents an in-depth analysis of ship performance and profitability, focusing on various operational metrics, ship types, and environmental factors. Using a…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Cathy C.
+</div>
+<div class="listing-date">
+Feb 1, 2025
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1739707176079" data-listing-reading-time-sort="4" data-listing-word-count-sort="606">
+<a href="./In-class_Ex/In-class_Ex05.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="In-class_Ex/In-class_Ex05_files/figure-html/unnamed-chunk-9-1.png" style="height: 10 px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+In-class_Ex05
+</h5>
+<div class="card-text listing-description">
+<code>gtsummary</code>: meant to summarise modeling results. allows to create elegant tables for reporting results.
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+Cathy C.
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1738998594713" data-listing-reading-time-sort="4" data-listing-word-count-sort="685">
+<a href="./In-class_Ex/In-class_Ex04.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="In-class_Ex/In-class_Ex04_files/figure-html/unnamed-chunk-3-1.png" style="height: 10 px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+In-class_Ex04
+</h5>
+<div class="card-text listing-description">
+🎯 Use Tool to install packages first before running the code. Helps reduce missing packages.
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+Cathy C.
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1738782083948" data-listing-reading-time-sort="6" data-listing-word-count-sort="1013">
+<a href="./In-class_Ex/In-class_Ex03.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 10 px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+In-class_Ex03
+</h5>
+<div class="card-text listing-description">
+Click on one state in the dotplot, the corresponding state Sales and Profit will be highlighted in the barcharts.
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+Cathy C.
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

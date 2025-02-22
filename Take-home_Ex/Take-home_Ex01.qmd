@@ -90,7 +90,7 @@ summary(data_ship)
 To perform an analysis to achieve the objectives aforementioned, the following variables will be selected.
 
 | Category | Variable | Description | Type | Value |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | Operation | Date | Date | date | YYYY-MM-DD |
 | Ship | Ship_Type | Type of ship | char | Tanker, Container Ship, Fish Carrier, Bulk Carrier |
 | Operations | Route_Type | Shipping route type | char | Short-haul, Long-haul, Transoceanic |
