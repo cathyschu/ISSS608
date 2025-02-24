@@ -1738,7 +1738,7 @@
     "href": "Take-home_Ex/Take-home_Ex02.html#singapore-merchandise-trade-data-analysis",
     "title": "Take-home_Ex02",
     "section": "3 Singapore Merchandise Trade Data Analysis",
-    "text": "3 Singapore Merchandise Trade Data Analysis\nAnalyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.\n\n3.1 Objectives\n\n\n3.2 Data\n\n\n3.3 Analysis\nvisualisation methods, analysis results (500 words)\n\n\n3.4 Conclusion"
+    "text": "3 Singapore Merchandise Trade Data Analysis\nAnalyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.\n\n3.1 Objectives\n\n\n3.2 Data\n\n\n3.3 Analysis\nvisualisation methods, analysis results (500 words)"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex02.html#reference",
@@ -1746,5 +1746,26 @@
     "title": "Take-home_Ex02",
     "section": "Reference",
     "text": "Reference"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html",
+    "href": "Take-home_Ex/Take-home_Ex02.html",
+    "title": "Take-home_Ex02",
+    "section": "",
+    "text": "As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the data set from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the DOS website, and analyse the time-series events.\n\n\nThere are 2 tasks I will complete in this page.\n\nCritics on 3 chosen visualisations from the Department of Statistics Singapore. I will provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.\nI will analyse the data with time-series analysis with data visualisation methods and R packages."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#overview",
+    "href": "Take-home_Ex/Take-home_Ex02.html#overview",
+    "title": "Take-home_Ex02",
+    "section": "",
+    "text": "As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the data set from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the DOS website, and analyse the time-series events.\n\n\nThere are 2 tasks I will complete in this page.\n\nCritics on 3 chosen visualisations from the Department of Statistics Singapore. I will provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.\nI will analyse the data with time-series analysis with data visualisation methods and R packages."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#conclusion",
+    "href": "Take-home_Ex/Take-home_Ex02.html#conclusion",
+    "title": "Take-home_Ex02",
+    "section": "4 Conclusion",
+    "text": "4 Conclusion"
   }
 ]

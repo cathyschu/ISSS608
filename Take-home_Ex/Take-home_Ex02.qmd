@@ -12,7 +12,14 @@ execute:
 
 ## 1 Overview
 
+As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the [data set](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data) from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the [DOS website](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade), and analyse the time-series events.
+
 ### 1.1 Task
+
+There are 2 tasks I will complete in this page.
+
+1.  Critics on 3 chosen visualisations from the Department of Statistics Singapore. I will provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.
+2.  I will analyse the data with time-series analysis with data visualisation methods and R packages.
 
 ### 1.2 Data
 
@@ -56,6 +63,6 @@ Analyse the data with either time-series analysis or time-series forecasting met
 
 visualisation methods, analysis results (500 words)
 
-### 3.4 Conclusion
+## 4 Conclusion
 
 ## Reference
