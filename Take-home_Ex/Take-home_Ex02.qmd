@@ -20,27 +20,29 @@ execute:
 
 ### 2.1 Data
 
-### 2.1 Critiques
+### 2.2 Critiques
 
-### 2.2 Sketches
+### 2.3 Sketches
 
-### 2.3 Visualisation #1
+### 2.4 Visualisation #1
 
-### 2.3.1 Data
+#### 2.4.1 Data
 
-### 2.3.2 Make-over
+#### 2.4.2 Make-over
 
-### 2.4 Visualisation #2
+### 2.5 Visualisation #2
 
-### 2.4.1 Data
+#### 2.5.1 Data
 
-### 2.4.2 Make-over
+#### 2.5.2 Make-over
 
-### 2.5 Visualisation #3
+### 2.6 Visualisation #3
 
-### 2.5.1 Data
+#### 2.6.1 Data
 
-### 2.5.2 Make-over
+#### 2.6.2 Make-over
+
+### 2.7 Summary
 
 ## 3 Singapore Merchandise Trade Data Analysis
 
@@ -53,5 +55,7 @@ Analyse the data with either time-series analysis or time-series forecasting met
 ### 3.3 Analysis
 
 visualisation methods, analysis results (500 words)
+
+### 3.4 Conclusion
 
 ## Reference
