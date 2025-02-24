@@ -261,8 +261,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </button>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="52d91f8d93c3c73eb629dc5d5686fdee" class="alert alert-primary hidden"><i class="bi bi-rocket-takeoff-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>NEW (16/02)</strong> - <a href="https://cathyc.netlify.app/take-home_ex/take-home_ex01"><strong>Take-on Exercise 1</strong></a> and <a href="https://cathyc.netlify.app/in-class_ex/in-class_ex05"><strong>In-class Exercise 5</strong></a> are published!</p>
+  <div id="quarto-announcement" data-announcement-id="2888b3a00456556b48dc3327c12a039d" class="alert alert-primary hidden"><i class="bi bi-rocket-takeoff-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>NEW (24/02)</strong> - <a href="https://cathyc.netlify.app/hands-on_ex/hands-on_ex07"><strong>Hands-on Exercise 7</strong></a> are published!</p>
 </div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
@@ -501,6 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-import-1" id="toc-data-import-1" class="nav-link" data-scroll-target="#data-import-1">5.1 Data import</a></li>
   <li><a href="#plotting-the-slopegraph" id="toc-plotting-the-slopegraph" class="nav-link" data-scroll-target="#plotting-the-slopegraph">5.2 Plotting the slopegraph</a></li>
   </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -534,7 +535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 23, 2025</p>
+      <p class="date-modified">February 24, 2025</p>
     </div>
   </div>
     
@@ -963,14 +964,497 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="plotting-slopegraph" class="level2">
 <h2 class="anchored" data-anchor-id="plotting-slopegraph">5 Plotting Slopegraph</h2>
+<p>Ensure <strong>CGPfunctions</strong> has been installed and loaded onto R environment before plot a <a href="https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph">slopegraph</a>. Refer to <a href="https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html">Using newggslopegraph</a> to learn more about the function, and read more about <code>newggslopegraph()</code> and its arguments in this <a href="https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph">link</a>.</p>
+<p>Slopegraphs are not the best choice for categorical data when there’s no real connection between the selected categories.</p>
 <section id="data-import-1" class="level3">
 <h3 class="anchored" data-anchor-id="data-import-1">5.1 Data import</h3>
+<p>Let’s import the data first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rice.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Take a look at the data structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(rice))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Country</th>
+<th style="text-align: right;">Year</th>
+<th style="text-align: right;">Yield</th>
+<th style="text-align: right;">Production</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1961</td>
+<td style="text-align: right;">20787</td>
+<td style="text-align: right;">56217601</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1962</td>
+<td style="text-align: right;">23700</td>
+<td style="text-align: right;">65675288</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1963</td>
+<td style="text-align: right;">26833</td>
+<td style="text-align: right;">76439280</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1964</td>
+<td style="text-align: right;">28289</td>
+<td style="text-align: right;">85853780</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1965</td>
+<td style="text-align: right;">29667</td>
+<td style="text-align: right;">90705630</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">1966</td>
+<td style="text-align: right;">31445</td>
+<td style="text-align: right;">98403990</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 <section id="plotting-the-slopegraph" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-the-slopegraph">5.2 Plotting the slopegraph</h3>
-
-
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Rice</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Arrivals</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>Now, we will plot the slopegraph to know the ups and down of the 11 Asian countries.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1961</span>, <span class="dv">1980</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">newggslopegraph</span>(Year, Yield, Country,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Title =</span> <span class="st">"Rice Yield of Top 11 Asian Countries"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">SubTitle =</span> <span class="st">"1961-1980"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Caption =</span> <span class="st">"Prepared by Cathy C."</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">DataLabelLineSize =</span> <span class="fl">0.2</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">DataLabelFillColor =</span> <span class="st">"#EFDCAB"</span>) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_wsj</span>() <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">color =</span> <span class="st">"grey70"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex07_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="goals">
+<div class="goals-header">
+<p>Learning from the code</p>
+</div>
+<div class="goals-container">
+<ul>
+<li>The first letter of <code>Title</code> <code>SubTitle</code> <code>Caption</code> need to have upper case letter.</li>
+<li>For effective data visualisation design, <code>factor()</code> is used to convert the value type of <em>Year</em> field from numeric to <strong>factor</strong>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>arrival <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"data/arrivals_by_air.xlsx"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(arrival))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 5%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 1%">
+<col style="width: 3%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 5%">
+<col style="width: 2%">
+<col style="width: 5%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 1%">
+<col style="width: 3%">
+<col style="width: 1%">
+<col style="width: 3%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month-Year</th>
+<th style="text-align: right;">Republic of South Africa</th>
+<th style="text-align: right;">Canada</th>
+<th style="text-align: right;">USA</th>
+<th style="text-align: right;">Bangladesh</th>
+<th style="text-align: right;">Brunei</th>
+<th style="text-align: right;">China</th>
+<th style="text-align: right;">Hong Kong SAR (China)</th>
+<th style="text-align: right;">India</th>
+<th style="text-align: right;">Indonesia</th>
+<th style="text-align: right;">Japan</th>
+<th style="text-align: right;">South Korea</th>
+<th style="text-align: right;">Kuwait</th>
+<th style="text-align: right;">Malaysia</th>
+<th style="text-align: right;">Myanmar</th>
+<th style="text-align: right;">Pakistan</th>
+<th style="text-align: right;">Philippines</th>
+<th style="text-align: right;">Saudi Arabia</th>
+<th style="text-align: right;">Sri Lanka</th>
+<th style="text-align: right;">Taiwan</th>
+<th style="text-align: right;">Thailand</th>
+<th style="text-align: right;">United Arab Emirates</th>
+<th style="text-align: right;">Vietnam</th>
+<th style="text-align: right;">Belgium &amp; Luxembourg</th>
+<th style="text-align: right;">CIS</th>
+<th style="text-align: right;">Finland</th>
+<th style="text-align: right;">France</th>
+<th style="text-align: right;">Germany</th>
+<th style="text-align: right;">Ireland</th>
+<th style="text-align: right;">Italy</th>
+<th style="text-align: right;">Netherlands</th>
+<th style="text-align: right;">Spain</th>
+<th style="text-align: right;">Switzerland</th>
+<th style="text-align: right;">United Kingdom</th>
+<th style="text-align: right;">Australia</th>
+<th style="text-align: right;">New Zealand</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2000-01-01</td>
+<td style="text-align: right;">3291</td>
+<td style="text-align: right;">5545</td>
+<td style="text-align: right;">25906</td>
+<td style="text-align: right;">2883</td>
+<td style="text-align: right;">3749</td>
+<td style="text-align: right;">33895</td>
+<td style="text-align: right;">13692</td>
+<td style="text-align: right;">19235</td>
+<td style="text-align: right;">65151</td>
+<td style="text-align: right;">59288</td>
+<td style="text-align: right;">21457</td>
+<td style="text-align: right;">507</td>
+<td style="text-align: right;">27472</td>
+<td style="text-align: right;">1177</td>
+<td style="text-align: right;">2150</td>
+<td style="text-align: right;">8404</td>
+<td style="text-align: right;">1312</td>
+<td style="text-align: right;">3922</td>
+<td style="text-align: right;">15766</td>
+<td style="text-align: right;">12048</td>
+<td style="text-align: right;">1318</td>
+<td style="text-align: right;">1527</td>
+<td style="text-align: right;">1434</td>
+<td style="text-align: right;">2703</td>
+<td style="text-align: right;">1634</td>
+<td style="text-align: right;">4752</td>
+<td style="text-align: right;">12739</td>
+<td style="text-align: right;">1292</td>
+<td style="text-align: right;">3544</td>
+<td style="text-align: right;">4962</td>
+<td style="text-align: right;">925</td>
+<td style="text-align: right;">3731</td>
+<td style="text-align: right;">28986</td>
+<td style="text-align: right;">34616</td>
+<td style="text-align: right;">5034</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-02-01</td>
+<td style="text-align: right;">2357</td>
+<td style="text-align: right;">6120</td>
+<td style="text-align: right;">28262</td>
+<td style="text-align: right;">2469</td>
+<td style="text-align: right;">3236</td>
+<td style="text-align: right;">34344</td>
+<td style="text-align: right;">19870</td>
+<td style="text-align: right;">18975</td>
+<td style="text-align: right;">37105</td>
+<td style="text-align: right;">58188</td>
+<td style="text-align: right;">19634</td>
+<td style="text-align: right;">199</td>
+<td style="text-align: right;">29084</td>
+<td style="text-align: right;">1161</td>
+<td style="text-align: right;">2496</td>
+<td style="text-align: right;">9128</td>
+<td style="text-align: right;">623</td>
+<td style="text-align: right;">3988</td>
+<td style="text-align: right;">24861</td>
+<td style="text-align: right;">12745</td>
+<td style="text-align: right;">899</td>
+<td style="text-align: right;">2269</td>
+<td style="text-align: right;">1596</td>
+<td style="text-align: right;">1182</td>
+<td style="text-align: right;">1297</td>
+<td style="text-align: right;">6391</td>
+<td style="text-align: right;">13093</td>
+<td style="text-align: right;">1200</td>
+<td style="text-align: right;">2897</td>
+<td style="text-align: right;">5054</td>
+<td style="text-align: right;">747</td>
+<td style="text-align: right;">3980</td>
+<td style="text-align: right;">35148</td>
+<td style="text-align: right;">26030</td>
+<td style="text-align: right;">3938</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-03-01</td>
+<td style="text-align: right;">4036</td>
+<td style="text-align: right;">6255</td>
+<td style="text-align: right;">30439</td>
+<td style="text-align: right;">2904</td>
+<td style="text-align: right;">3342</td>
+<td style="text-align: right;">27053</td>
+<td style="text-align: right;">17086</td>
+<td style="text-align: right;">21049</td>
+<td style="text-align: right;">44205</td>
+<td style="text-align: right;">74426</td>
+<td style="text-align: right;">20719</td>
+<td style="text-align: right;">386</td>
+<td style="text-align: right;">30504</td>
+<td style="text-align: right;">1355</td>
+<td style="text-align: right;">2429</td>
+<td style="text-align: right;">11691</td>
+<td style="text-align: right;">1578</td>
+<td style="text-align: right;">4259</td>
+<td style="text-align: right;">18767</td>
+<td style="text-align: right;">16971</td>
+<td style="text-align: right;">1474</td>
+<td style="text-align: right;">2034</td>
+<td style="text-align: right;">1548</td>
+<td style="text-align: right;">1088</td>
+<td style="text-align: right;">1220</td>
+<td style="text-align: right;">5528</td>
+<td style="text-align: right;">13645</td>
+<td style="text-align: right;">1368</td>
+<td style="text-align: right;">2717</td>
+<td style="text-align: right;">4950</td>
+<td style="text-align: right;">935</td>
+<td style="text-align: right;">3576</td>
+<td style="text-align: right;">36117</td>
+<td style="text-align: right;">31119</td>
+<td style="text-align: right;">4668</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-04-01</td>
+<td style="text-align: right;">4241</td>
+<td style="text-align: right;">4521</td>
+<td style="text-align: right;">25378</td>
+<td style="text-align: right;">2843</td>
+<td style="text-align: right;">5117</td>
+<td style="text-align: right;">30464</td>
+<td style="text-align: right;">22346</td>
+<td style="text-align: right;">26160</td>
+<td style="text-align: right;">45480</td>
+<td style="text-align: right;">49985</td>
+<td style="text-align: right;">17489</td>
+<td style="text-align: right;">221</td>
+<td style="text-align: right;">34478</td>
+<td style="text-align: right;">1593</td>
+<td style="text-align: right;">2711</td>
+<td style="text-align: right;">14141</td>
+<td style="text-align: right;">705</td>
+<td style="text-align: right;">6579</td>
+<td style="text-align: right;">22735</td>
+<td style="text-align: right;">20397</td>
+<td style="text-align: right;">1284</td>
+<td style="text-align: right;">2420</td>
+<td style="text-align: right;">1592</td>
+<td style="text-align: right;">1012</td>
+<td style="text-align: right;">1208</td>
+<td style="text-align: right;">5544</td>
+<td style="text-align: right;">13366</td>
+<td style="text-align: right;">1345</td>
+<td style="text-align: right;">2512</td>
+<td style="text-align: right;">4149</td>
+<td style="text-align: right;">941</td>
+<td style="text-align: right;">3850</td>
+<td style="text-align: right;">33792</td>
+<td style="text-align: right;">34824</td>
+<td style="text-align: right;">6890</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-05-01</td>
+<td style="text-align: right;">2841</td>
+<td style="text-align: right;">3914</td>
+<td style="text-align: right;">26163</td>
+<td style="text-align: right;">2793</td>
+<td style="text-align: right;">4152</td>
+<td style="text-align: right;">30775</td>
+<td style="text-align: right;">16357</td>
+<td style="text-align: right;">35869</td>
+<td style="text-align: right;">38350</td>
+<td style="text-align: right;">48937</td>
+<td style="text-align: right;">19398</td>
+<td style="text-align: right;">164</td>
+<td style="text-align: right;">34795</td>
+<td style="text-align: right;">1397</td>
+<td style="text-align: right;">2594</td>
+<td style="text-align: right;">13305</td>
+<td style="text-align: right;">679</td>
+<td style="text-align: right;">4625</td>
+<td style="text-align: right;">18399</td>
+<td style="text-align: right;">15769</td>
+<td style="text-align: right;">1042</td>
+<td style="text-align: right;">1833</td>
+<td style="text-align: right;">1167</td>
+<td style="text-align: right;">660</td>
+<td style="text-align: right;">743</td>
+<td style="text-align: right;">4225</td>
+<td style="text-align: right;">10878</td>
+<td style="text-align: right;">1067</td>
+<td style="text-align: right;">2205</td>
+<td style="text-align: right;">3643</td>
+<td style="text-align: right;">764</td>
+<td style="text-align: right;">3025</td>
+<td style="text-align: right;">23377</td>
+<td style="text-align: right;">33139</td>
+<td style="text-align: right;">7006</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2000-06-01</td>
+<td style="text-align: right;">2776</td>
+<td style="text-align: right;">3487</td>
+<td style="text-align: right;">28179</td>
+<td style="text-align: right;">3146</td>
+<td style="text-align: right;">5018</td>
+<td style="text-align: right;">26720</td>
+<td style="text-align: right;">18133</td>
+<td style="text-align: right;">31314</td>
+<td style="text-align: right;">47982</td>
+<td style="text-align: right;">53798</td>
+<td style="text-align: right;">17522</td>
+<td style="text-align: right;">440</td>
+<td style="text-align: right;">34660</td>
+<td style="text-align: right;">1715</td>
+<td style="text-align: right;">2924</td>
+<td style="text-align: right;">10555</td>
+<td style="text-align: right;">2749</td>
+<td style="text-align: right;">4740</td>
+<td style="text-align: right;">21042</td>
+<td style="text-align: right;">17217</td>
+<td style="text-align: right;">1545</td>
+<td style="text-align: right;">2480</td>
+<td style="text-align: right;">1170</td>
+<td style="text-align: right;">712</td>
+<td style="text-align: right;">982</td>
+<td style="text-align: right;">4047</td>
+<td style="text-align: right;">9054</td>
+<td style="text-align: right;">1363</td>
+<td style="text-align: right;">2196</td>
+<td style="text-align: right;">3544</td>
+<td style="text-align: right;">855</td>
+<td style="text-align: right;">2580</td>
+<td style="text-align: right;">21769</td>
+<td style="text-align: right;">35731</td>
+<td style="text-align: right;">7634</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>arrival_trans <span class="ot">&lt;-</span> arrival <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(<span class="st">`</span><span class="at">Month-Year</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#head(arrival_trans)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>arrival_long <span class="ot">&lt;-</span> arrival_trans <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.ordered</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>year,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Country"</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Count"</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2005</span>))  <span class="sc">%&gt;%</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>ggplot_obj <span class="ot">&lt;-</span> <span class="fu">newggslopegraph</span>(</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataframe =</span> arrival_long,</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Times =</span> year,</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Measurement =</span> Count,</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">Grouping =</span> Country,</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">Title =</span> <span class="st">"Arrival Times by Country"</span>,</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">SubTitle =</span> <span class="st">"2000-2025"</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">Caption =</span> <span class="st">"Prepared by Cathy C."</span>,)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>ggplot_obj </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex07_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="goals">
+<div class="goals-header">
+<p>Learning from the code</p>
+</div>
+<div class="goals-container">
+<ul>
+<li><code>newggslopegraph()</code> prefers an ordered sequence for its Times variable to ensure the correct chronological display of data points.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference">Reference</h2>
+<ul>
+<li><p>Kam, T. S. (2025). R for Visual Analytics. Retrieved February 24, 2025, from [<a href="https://r4va.netlify.app/chap17" class="uri">https://r4va.netlify.app/chap17</a>]</p></li>
+<li><p>Powell, C. (2025). Slopegraph in ggplot2. Retrieved February 24, 2025, from <a href="https://r-charts.com/evolution/newggslopegraph/" class="uri">https://r-charts.com/evolution/newggslopegraph/</a></p></li>
+</ul>
+
+
 </section>
 </section>
 

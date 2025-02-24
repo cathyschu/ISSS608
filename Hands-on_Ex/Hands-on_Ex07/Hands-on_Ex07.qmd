@@ -261,8 +261,7 @@ To show time-series patterns and trend of visitor arrivals from Vietnam, we will
 
 ### 4.1 Data
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ## **1 Data import**
 
 We will use dataset from *arrivals_by_air.xlsx*. Since it's in .xlsx format, `read_excel()` will be used to the read the file.
@@ -304,7 +303,6 @@ hline.data <- vietnam %>%
   group_by(month) %>%
   summarise(avgvalue = mean(`Vietnam`))
 ```
-
 :::
 
 ### 4.2 Plotting the cycle plot
@@ -337,6 +335,118 @@ ggplot() +
 
 ## 5 Plotting Slopegraph
 
+Ensure **CGPfunctions** has been installed and loaded onto R environment before plot a [slopegraph](https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph). Refer to [Using newggslopegraph](https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html) to learn more about the function, and read more about `newggslopegraph()` and its arguments in this [link](https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph).
+
+Slopegraphs are not the best choice for categorical data when there’s no real connection between the selected categories.
+
 ### 5.1 Data import
 
+Let's import the data first:
+
+```{r}
+rice <- read_csv("data/rice.csv")
+```
+
+Take a look at the data structure:
+
+```{r}
+kable(head(rice))
+```
+
 ### 5.2 Plotting the slopegraph
+
+::::::::: panel-tabset
+## Rice
+
+Now, we will plot the slopegraph to know the ups and down of the 11 Asian countries.
+
+```{r}
+#| fig-height: 10
+#| code-fold: true
+#| code-summary: "Show the code"
+rice %>%
+  mutate(Year = factor(Year)) %>%
+  filter(Year %in% c(1961, 1980)) %>%
+  newggslopegraph(Year, Yield, Country,
+                  Title = "Rice Yield of Top 11 Asian Countries",
+                  SubTitle = "1961-1980",
+                  Caption = "Prepared by Cathy C.",
+                  DataLabelLineSize = 0.2,
+                  DataLabelFillColor = "#EFDCAB") +
+  theme_wsj() +
+  theme(plot.title = element_text(size = 15),
+        plot.subtitle = element_text(size = 11),
+        plot.caption = element_text(size = 11),
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 8),
+        axis.text.y = element_text(size = 8, color = "grey70"))
+```
+
+::::: goals
+::: goals-header
+Learning from the code
+:::
+
+::: goals-container
+-   The first letter of `Title` `SubTitle` `Caption` need to have upper case letter.
+-   For effective data visualisation design, `factor()` is used to convert the value type of *Year* field from numeric to **factor**.
+:::
+:::::
+
+## Arrivals
+
+```{r}
+#| fig-height: 15
+#| code-fold: true
+#| code-summary: "Show the code"
+
+arrival <- read_xlsx("data/arrivals_by_air.xlsx")
+kable(head(arrival))
+
+arrival_trans <- arrival %>%
+  mutate(year = year(`Month-Year`)) %>%
+  group_by(year) %>%
+  summarise(across(where(is.numeric), sum, na.rm = TRUE))
+
+#head(arrival_trans)
+arrival_long <- arrival_trans %>%
+  mutate(year = as.ordered(year)) %>%
+  pivot_longer(
+    cols = -year,
+    names_to = "Country",
+    values_to = "Count"
+  ) %>%
+  filter(year %in% c(2000, 2005))  %>%
+  group_by(Country) %>%
+  ungroup()
+
+
+ggplot_obj <- newggslopegraph(
+  dataframe = arrival_long,
+  Times = year,
+  Measurement = Count,
+  Grouping = Country,
+  Title = "Arrival Times by Country",
+  SubTitle = "2000-2025",
+  Caption = "Prepared by Cathy C.",)
+
+ggplot_obj 
+```
+
+::::: goals
+::: goals-header
+Learning from the code
+:::
+
+::: goals-container
+-   `newggslopegraph()` prefers an ordered sequence for its Times variable to ensure the correct chronological display of data points.
+:::
+:::::
+:::::::::
+
+## Reference
+-   Kam, T. S. (2025). R for Visual Analytics. Retrieved February 24, 2025, from \[<https://r4va.netlify.app/chap17>\]
+
+-   Powell, C. (2025). Slopegraph in ggplot2. Retrieved February 24, 2025, from <https://r-charts.com/evolution/newggslopegraph/>
+
+
