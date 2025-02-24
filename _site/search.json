@@ -30,7 +30,7 @@
     "href": "index.html",
     "title": "Visual Analytics and Applications",
     "section": "",
-    "text": "Welcome to Cathy’s portfolio \nThis webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!\n\n\n\n\n\n\n\n\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Exercises\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n\n\n\n\n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\nFeb 1, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex07\n\n\n\n\n\n\nFeb 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex04-4\n\n\n\n\n\n\n\n\n\n\nNo matching items",
+    "text": "Welcome to Cathy’s portfolio \nThis webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.\nIn this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!\n\n\n\n\n\n\n\n\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Exercises\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n\n\n\n\n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\nFeb 1, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nHands-on_Ex07\n\n\n\n\n\n\nFeb 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTake-home_Ex02\n\n\n\n\n\n\nFeb 24, 2025\n\n\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "![](/images/house.svg)",
       "Home"
@@ -1725,5 +1725,26 @@
       "Hands-on Exercise",
       "Hands-on Exercise 7"
     ]
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#visualisation-make-over",
+    "href": "Take-home_Ex/Take-home_Ex02.html#visualisation-make-over",
+    "title": "Take-home_Ex02",
+    "section": "2 Visualisation Make-Over",
+    "text": "2 Visualisation Make-Over\n\n2.1 Data\n\n\n2.1 Critiques\n\n\n2.2 Sketches\n\n\n2.3 Visualisation #1\n\n\n2.3.1 Data\n\n\n2.3.2 Make-over\n\n\n2.4 Visualisation #2\n\n\n2.4.1 Data\n\n\n2.4.2 Make-over\n\n\n2.5 Visualisation #3\n\n\n2.5.1 Data\n\n\n2.5.2 Make-over"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#singapore-merchandise-trade-data-analysis",
+    "href": "Take-home_Ex/Take-home_Ex02.html#singapore-merchandise-trade-data-analysis",
+    "title": "Take-home_Ex02",
+    "section": "3 Singapore Merchandise Trade Data Analysis",
+    "text": "3 Singapore Merchandise Trade Data Analysis\nAnalyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.\n\n3.1 Objectives\n\n\n3.2 Data\n\n\n3.3 Analysis\nvisualisation methods, analysis results (500 words)"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#reference",
+    "href": "Take-home_Ex/Take-home_Ex02.html#reference",
+    "title": "Take-home_Ex02",
+    "section": "Reference",
+    "text": "Reference"
   }
 ]

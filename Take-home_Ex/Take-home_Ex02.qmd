@@ -1,0 +1,57 @@
+---
+title: "Take-home_Ex02"
+author: "Cathy Chu"
+date: "February 24, 2025"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+## 1 Overview
+
+### 1.1 Task
+
+### 1.2 Data
+
+## 2 Visualisation Make-Over
+
+### 2.1 Data
+
+### 2.1 Critiques
+
+### 2.2 Sketches
+
+### 2.3 Visualisation #1
+
+### 2.3.1 Data
+
+### 2.3.2 Make-over
+
+### 2.4 Visualisation #2
+
+### 2.4.1 Data
+
+### 2.4.2 Make-over
+
+### 2.5 Visualisation #3
+
+### 2.5.1 Data
+
+### 2.5.2 Make-over
+
+## 3 Singapore Merchandise Trade Data Analysis
+
+Analyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.
+
+### 3.1 Objectives
+
+### 3.2 Data
+
+### 3.3 Analysis
+
+visualisation methods, analysis results (500 words)
+
+## Reference
