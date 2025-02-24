@@ -226,8 +226,8 @@ ul.task-list li input[type="checkbox"] {
       </button>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="52d91f8d93c3c73eb629dc5d5686fdee" class="alert alert-primary hidden"><i class="bi bi-rocket-takeoff-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>NEW (16/02)</strong> - <a href="https://cathyc.netlify.app/take-home_ex/take-home_ex01"><strong>Take-on Exercise 1</strong></a> and <a href="https://cathyc.netlify.app/in-class_ex/in-class_ex05"><strong>In-class Exercise 5</strong></a> are published!</p>
+  <div id="quarto-announcement" data-announcement-id="2888b3a00456556b48dc3327c12a039d" class="alert alert-primary hidden"><i class="bi bi-rocket-takeoff-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>NEW (24/02)</strong> - <a href="https://cathyc.netlify.app/hands-on_ex/hands-on_ex07"><strong>Hands-on Exercise 7</strong></a> are published!</p>
 </div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
@@ -446,28 +446,34 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#visualising-and-analysing-time-oriented-data" id="toc-visualising-and-analysing-time-oriented-data" class="nav-link active" data-scroll-target="#visualising-and-analysing-time-oriented-data"><strong>Visualising and Analysing Time-oriented Data</strong></a>
+  <li><a href="#choropleth-mapping-with-r" id="toc-choropleth-mapping-with-r" class="nav-link active" data-scroll-target="#choropleth-mapping-with-r"><strong>Choropleth Mapping with R</strong></a>
   <ul class="collapse">
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">1 Learning Objectives</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">1 Overview</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting Started</a></li>
-  <li><a href="#diy" id="toc-diy" class="nav-link" data-scroll-target="#diy">3 DIY</a></li>
-  <li><a href="#plotting-calendar-heatmap" id="toc-plotting-calendar-heatmap" class="nav-link" data-scroll-target="#plotting-calendar-heatmap">4 Plotting Calendar Heatmap</a>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">3 Import Data</a>
   <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">4.1 Data</a></li>
-  <li><a href="#build-the-calendar-heatmaps" id="toc-build-the-calendar-heatmaps" class="nav-link" data-scroll-target="#build-the-calendar-heatmaps">4.2 Build the calendar heatmaps</a></li>
-  <li><a href="#build-multiple-calendar-heatmaps" id="toc-build-multiple-calendar-heatmaps" class="nav-link" data-scroll-target="#build-multiple-calendar-heatmaps">4.3 Build multiple calendar heatmaps</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">3.1 Data</a></li>
+  <li><a href="#import-geospatial-data-to-r" id="toc-import-geospatial-data-to-r" class="nav-link" data-scroll-target="#import-geospatial-data-to-r">3.2 Import geospatial data to R</a></li>
+  <li><a href="#import-attribute-data-to-r" id="toc-import-attribute-data-to-r" class="nav-link" data-scroll-target="#import-attribute-data-to-r">3.3 Import attribute data to R</a></li>
+  <li><a href="#data-prep" id="toc-data-prep" class="nav-link" data-scroll-target="#data-prep">3.4 Data prep</a></li>
   </ul></li>
-  <li><a href="#plotting-cycle-plot" id="toc-plotting-cycle-plot" class="nav-link" data-scroll-target="#plotting-cycle-plot">5 Plotting Cycle Plot</a>
+  <li><a href="#choropleth-mapping-geospatial-data-using-tmap" id="toc-choropleth-mapping-geospatial-data-using-tmap" class="nav-link" data-scroll-target="#choropleth-mapping-geospatial-data-using-tmap">4 <strong>Choropleth Mapping Geospatial Data Using <em>tmap</em></strong></a>
   <ul class="collapse">
-  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">5.1 Data import</a></li>
-  <li><a href="#deriving-month-and-year-fields" id="toc-deriving-month-and-year-fields" class="nav-link" data-scroll-target="#deriving-month-and-year-fields">5.2 Deriving month and year fields</a></li>
-  <li><a href="#extract-the-target-country" id="toc-extract-the-target-country" class="nav-link" data-scroll-target="#extract-the-target-country">5.3 Extract the target country</a></li>
-  <li><a href="#computing-year-average-arrivals-by-month" id="toc-computing-year-average-arrivals-by-month" class="nav-link" data-scroll-target="#computing-year-average-arrivals-by-month">5.4 Computing year average arrivals by month</a></li>
+  <li><a href="#plotting-a-choropleth-map-quickly-by-using-qtm" id="toc-plotting-a-choropleth-map-quickly-by-using-qtm" class="nav-link" data-scroll-target="#plotting-a-choropleth-map-quickly-by-using-qtm">4.1 <strong>Plotting a choropleth map quickly by using <em>qtm()</em></strong></a></li>
+  <li><a href="#creating-a-choropleth-map-by-using-tmaps-elements" id="toc-creating-a-choropleth-map-by-using-tmaps-elements" class="nav-link" data-scroll-target="#creating-a-choropleth-map-by-using-tmaps-elements">4.2 <strong>Creating a choropleth map by using <em>tmap</em>’s elements</strong></a></li>
+  <li><a href="#data-classification-methods-of-tmap" id="toc-data-classification-methods-of-tmap" class="nav-link" data-scroll-target="#data-classification-methods-of-tmap">4.3 <strong>Data classification methods of tmap</strong></a></li>
+  <li><a href="#color-scheme" id="toc-color-scheme" class="nav-link" data-scroll-target="#color-scheme">4.4 Color scheme</a></li>
+  <li><a href="#map-layouts" id="toc-map-layouts" class="nav-link" data-scroll-target="#map-layouts">4.5 Map layouts</a></li>
+  <li><a href="#drawing-small-multiple-choropleth-maps" id="toc-drawing-small-multiple-choropleth-maps" class="nav-link" data-scroll-target="#drawing-small-multiple-choropleth-maps">4.6 Drawing small multiple choropleth maps</a></li>
+  <li><a href="#mapping-spatial-object-meeting-a-selection-criterion" id="toc-mapping-spatial-object-meeting-a-selection-criterion" class="nav-link" data-scroll-target="#mapping-spatial-object-meeting-a-selection-criterion">4.7 Mapping spatial object meeting a selection criterion</a></li>
+  </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a>
+  <ul class="collapse">
   <li><a href="#plotting-the-cycle-plot" id="toc-plotting-the-cycle-plot" class="nav-link" data-scroll-target="#plotting-the-cycle-plot">5.5 Plotting the cycle plot</a></li>
   </ul></li>
   <li><a href="#plotting-slopegraph" id="toc-plotting-slopegraph" class="nav-link" data-scroll-target="#plotting-slopegraph">6 Plotting Slopegraph</a>
   <ul class="collapse">
-  <li><a href="#data-import-1" id="toc-data-import-1" class="nav-link" data-scroll-target="#data-import-1">6.1 Data import</a></li>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">6.1 Data import</a></li>
   <li><a href="#plotting-the-slopegraph" id="toc-plotting-the-slopegraph" class="nav-link" data-scroll-target="#plotting-the-slopegraph">6.2 Plotting the slopegraph</a></li>
   </ul></li>
   </ul></li>
@@ -497,7 +503,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 21, 2025</p>
+      <p class="date-modified">February 24, 2025</p>
     </div>
   </div>
     
@@ -508,51 +514,63 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="visualising-and-analysing-time-oriented-data" class="level1">
-<h1><strong>Visualising and Analysing Time-oriented Data</strong></h1>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">1 Learning Objectives</h2>
+<section id="choropleth-mapping-with-r" class="level1">
+<h1><strong>Choropleth Mapping with R</strong></h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">1 Overview</h2>
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">2 Getting Started</h2>
 </section>
-<section id="diy" class="level2">
-<h2 class="anchored" data-anchor-id="diy">3 DIY</h2>
-</section>
-<section id="plotting-calendar-heatmap" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-calendar-heatmap">4 Plotting Calendar Heatmap</h2>
+<section id="import-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-data">3 Import Data</h2>
 <section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">4.1 Data</h3>
+<h3 class="anchored" data-anchor-id="data">3.1 Data</h3>
 </section>
-<section id="build-the-calendar-heatmaps" class="level3">
-<h3 class="anchored" data-anchor-id="build-the-calendar-heatmaps">4.2 Build the calendar heatmaps</h3>
+<section id="import-geospatial-data-to-r" class="level3">
+<h3 class="anchored" data-anchor-id="import-geospatial-data-to-r">3.2 Import geospatial data to R</h3>
 </section>
-<section id="build-multiple-calendar-heatmaps" class="level3">
-<h3 class="anchored" data-anchor-id="build-multiple-calendar-heatmaps">4.3 Build multiple calendar heatmaps</h3>
+<section id="import-attribute-data-to-r" class="level3">
+<h3 class="anchored" data-anchor-id="import-attribute-data-to-r">3.3 Import attribute data to R</h3>
+</section>
+<section id="data-prep" class="level3">
+<h3 class="anchored" data-anchor-id="data-prep">3.4 Data prep</h3>
 </section>
 </section>
-<section id="plotting-cycle-plot" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-cycle-plot">5 Plotting Cycle Plot</h2>
-<section id="data-import" class="level3">
-<h3 class="anchored" data-anchor-id="data-import">5.1 Data import</h3>
+<section id="choropleth-mapping-geospatial-data-using-tmap" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth-mapping-geospatial-data-using-tmap">4 <strong>Choropleth Mapping Geospatial Data Using <em>tmap</em></strong></h2>
+<section id="plotting-a-choropleth-map-quickly-by-using-qtm" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-a-choropleth-map-quickly-by-using-qtm">4.1 <strong>Plotting a choropleth map quickly by using <em>qtm()</em></strong></h3>
 </section>
-<section id="deriving-month-and-year-fields" class="level3">
-<h3 class="anchored" data-anchor-id="deriving-month-and-year-fields">5.2 Deriving month and year fields</h3>
+<section id="creating-a-choropleth-map-by-using-tmaps-elements" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-choropleth-map-by-using-tmaps-elements">4.2 <strong>Creating a choropleth map by using <em>tmap</em>’s elements</strong></h3>
 </section>
-<section id="extract-the-target-country" class="level3">
-<h3 class="anchored" data-anchor-id="extract-the-target-country">5.3 Extract the target country</h3>
+<section id="data-classification-methods-of-tmap" class="level3">
+<h3 class="anchored" data-anchor-id="data-classification-methods-of-tmap">4.3 <strong>Data classification methods of tmap</strong></h3>
 </section>
-<section id="computing-year-average-arrivals-by-month" class="level3">
-<h3 class="anchored" data-anchor-id="computing-year-average-arrivals-by-month">5.4 Computing year average arrivals by month</h3>
+<section id="color-scheme" class="level3">
+<h3 class="anchored" data-anchor-id="color-scheme">4.4 Color scheme</h3>
 </section>
+<section id="map-layouts" class="level3">
+<h3 class="anchored" data-anchor-id="map-layouts">4.5 Map layouts</h3>
+</section>
+<section id="drawing-small-multiple-choropleth-maps" class="level3">
+<h3 class="anchored" data-anchor-id="drawing-small-multiple-choropleth-maps">4.6 Drawing small multiple choropleth maps</h3>
+</section>
+<section id="mapping-spatial-object-meeting-a-selection-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-spatial-object-meeting-a-selection-criterion">4.7 Mapping spatial object meeting a selection criterion</h3>
+</section>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference">Reference</h2>
 <section id="plotting-the-cycle-plot" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-the-cycle-plot">5.5 Plotting the cycle plot</h3>
 </section>
 </section>
 <section id="plotting-slopegraph" class="level2">
 <h2 class="anchored" data-anchor-id="plotting-slopegraph">6 Plotting Slopegraph</h2>
-<section id="data-import-1" class="level3">
-<h3 class="anchored" data-anchor-id="data-import-1">6.1 Data import</h3>
+<section id="data-import" class="level3">
+<h3 class="anchored" data-anchor-id="data-import">6.1 Data import</h3>
 </section>
 <section id="plotting-the-slopegraph" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-the-slopegraph">6.2 Plotting the slopegraph</h3>

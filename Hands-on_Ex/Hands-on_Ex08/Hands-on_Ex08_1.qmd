@@ -9,31 +9,39 @@ execute:
   freeze: true  
 ---
 
-# **Visualising and Analysing Time-oriented Data**
+# **Choropleth Mapping with R**
 
-## 1 Learning Objectives
+## 1 Overview
 
 ## 2 Getting Started
 
-## 3 DIY
+## 3 Import Data
 
-## 4 Plotting Calendar Heatmap
+### 3.1 Data
 
-### 4.1 Data
+### 3.2 Import geospatial data to R
 
-### 4.2 Build the calendar heatmaps
+### 3.3 Import attribute data to R
 
-### 4.3 Build multiple calendar heatmaps
+### 3.4 Data prep
 
-## 5 Plotting Cycle Plot
+## 4 **Choropleth Mapping Geospatial Data Using *tmap***
 
-### 5.1 Data import
+### 4.1 **Plotting a choropleth map quickly by using *qtm()***
 
-### 5.2 Deriving month and year fields
+### 4.2 **Creating a choropleth map by using *tmap*’s elements**
 
-### 5.3 Extract the target country
+### 4.3 **Data classification methods of tmap**
 
-### 5.4 Computing year average arrivals by month
+### 4.4 Color scheme
+
+### 4.5 Map layouts
+
+### 4.6 Drawing small multiple choropleth maps
+
+### 4.7 Mapping spatial object meeting a selection criterion
+
+## Reference
 
 ### 5.5 Plotting the cycle plot
 
