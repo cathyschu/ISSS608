@@ -18,8 +18,13 @@ As a visual analytics novice, I will apply newly acquired techniques to explore 
 
 There are 2 tasks I will complete in this page.
 
-1.  Critics on 3 chosen visualisations from the Department of Statistics Singapore. I will provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.
-2.  I will analyse the data with time-series analysis with data visualisation methods and R packages.
+1.  **Critics on chosen visualisations**
+
+    I will choose 3 visualisations from the Department of Statistics Singapore website that visualise the Singapore trading data and discuss their pros and cons. I will then provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.
+
+2.  **Data analysis**
+
+    I will analyse the data provided from the website with time-series analysis methods data visualisation using R packages.
 
 ### 1.2 Data
 
