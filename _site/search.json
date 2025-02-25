@@ -1731,14 +1731,14 @@
     "href": "Take-home_Ex/Take-home_Ex02.html#visualisation-make-over",
     "title": "Take-home_Ex02",
     "section": "2 Visualisation Make-Over",
-    "text": "2 Visualisation Make-Over\n\n2.1 Data\n\n\n2.2 Critiques\n\n\n2.3 Sketches\n\n\n2.4 Visualisation #1\n\n2.4.1 Data\n\n\n2.4.2 Make-over\n\n\n\n2.5 Visualisation #2\n\n2.5.1 Data\n\n\n2.5.2 Make-over\n\n\n\n2.6 Visualisation #3\n\n2.6.1 Data\n\n\n2.6.2 Make-over\n\n\n\n2.7 Summary"
+    "text": "2 Visualisation Make-Over\nThe Department of Statistics Singaporepublished a series of visualisations to illustrate the Singapore international trade data on this website. This assignment aims to discuss the pros and cons 3 visualisations from the 9 provided, and then provide a redesign of the charts a/o graphics to more clearly convey the insights from the dataset.\nBelow are the illustration of 3 plots that I will comment on and make an attempt to make over for better illustration of visualisation.\n\nNo. 1 is a Comparison Bar Chart that shows the exports and imports from the year 2020 to 2024 at the current prices.\nNo. 2 is a Dot Plot that illustrates Singapore’s trade performance with the major trading partners.\nNo. 3 is a Mirror Bar Chart that attempts to illustrate several dimensions of the data, including imports and exports, year of 2019 and 2023, and by the top performing trade partners.\n\n\n\n\n1. Bar Chart\n\n\n\n2. Dot Plot\n\n\n\n\n3. Mirror Bar Chart\n\n\n\n\n\n2.1 Visualisation #1\n\nProsConsSketch\n\n\n\n\n\n\n\n\nDesign rationale\n\nDumbbell plot\nThe dumbbell plot has an advantage of illustrating two sides of the trading amount and the gap between them. In this case, the plot is able to show the position of import and export for each year and observe the trends.\nColors\n2 main colors are chosen to represent Import and Export, instead of one color for each year in the original plot. The years can be easily observed in the Y axis, so there is no need to distinguish them in different colors.\nWhat were removed\n\n\n\n\n\n\n2.1.3 Data\n\n\n2.1.4 Visualisation make-over\n\n\n\n2.2 Visualisation #2\n\nProsConsSketch\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.2.3 Data\n\n\n2.2.4 Visualisation make-over\n\n\n\n2.3 Visualisation #3\n\nProsConsSketch\n\n\n\n\n\n\n\n\n\n\n\n\n\n2.3.3 Data\n\n\n2.3.4 Visualisation make-over\n\n\n\n2.4 Summary"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex02.html#singapore-merchandise-trade-data-analysis",
     "href": "Take-home_Ex/Take-home_Ex02.html#singapore-merchandise-trade-data-analysis",
     "title": "Take-home_Ex02",
     "section": "3 Singapore Merchandise Trade Data Analysis",
-    "text": "3 Singapore Merchandise Trade Data Analysis\nAnalyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.\n\n3.1 Objectives\n\n\n3.2 Data\n\n\n3.3 Analysis\nvisualisation methods, analysis results (500 words)"
+    "text": "3 Singapore Merchandise Trade Data Analysis\nAnalyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.\n\n3.1 Objectives\n\n\n3.2 Data\n3.2.1 Data wrangling\n3.2.2\n\n\n3.3 Analysis\nvisualisation methods, analysis results (500 words)"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex02.html#reference",
@@ -1752,14 +1752,14 @@
     "href": "Take-home_Ex/Take-home_Ex02.html",
     "title": "Take-home_Ex02",
     "section": "",
-    "text": "As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the data set from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the DOS website, and analyse the time-series events.\n\n\nThere are 2 tasks I will complete in this page.\n\nCritics on chosen visualisations I will choose 3 visualisations from the Department of Statistics Singapore website that visualise the Singapore trading data and discuss their pros and cons. I will then provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.\nData analysis I will analyse the data provided from the website with time-series analysis methods data visualisation using R packages."
+    "text": "As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the data set from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the DOS website, and analyse the time-series events.\n\n\nThere are 2 tasks I will complete in this assignment.\n1. Critiques on visualisations\nI will choose 3 visualisations from the Department of Statistics Singapore website that visualise the Singapore trading data and discuss their pros and cons. I will then provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.\n2. Data analysis\nI will analyse the data provided from the website with time-series analysis methods data visualisation using R packages."
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex02.html#overview",
     "href": "Take-home_Ex/Take-home_Ex02.html#overview",
     "title": "Take-home_Ex02",
     "section": "",
-    "text": "As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the data set from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the DOS website, and analyse the time-series events.\n\n\nThere are 2 tasks I will complete in this page.\n\nCritics on chosen visualisations I will choose 3 visualisations from the Department of Statistics Singapore website that visualise the Singapore trading data and discuss their pros and cons. I will then provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.\nData analysis I will analyse the data provided from the website with time-series analysis methods data visualisation using R packages."
+    "text": "As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I will be using the data set from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the DOS website, and analyse the time-series events.\n\n\nThere are 2 tasks I will complete in this assignment.\n1. Critiques on visualisations\nI will choose 3 visualisations from the Department of Statistics Singapore website that visualise the Singapore trading data and discuss their pros and cons. I will then provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.\n2. Data analysis\nI will analyse the data provided from the website with time-series analysis methods data visualisation using R packages."
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex02.html#conclusion",
@@ -1767,5 +1767,47 @@
     "title": "Take-home_Ex02",
     "section": "4 Conclusion",
     "text": "4 Conclusion"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#visualisation-1---bar-chart",
+    "href": "Take-home_Ex/Take-home_Ex02.html#visualisation-1---bar-chart",
+    "title": "Take-home_Ex02",
+    "section": "Visualisation 1 - Bar Chart",
+    "text": "Visualisation 1 - Bar Chart"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#visualisation-2---dot-plot",
+    "href": "Take-home_Ex/Take-home_Ex02.html#visualisation-2---dot-plot",
+    "title": "Take-home_Ex02",
+    "section": "Visualisation 2 - Dot Plot",
+    "text": "Visualisation 2 - Dot Plot"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#visualisation-3---mirror-bar-chart",
+    "href": "Take-home_Ex/Take-home_Ex02.html#visualisation-3---mirror-bar-chart",
+    "title": "Take-home_Ex02",
+    "section": "Visualisation 3 - Mirror Bar Chart",
+    "text": "Visualisation 3 - Mirror Bar Chart\n\nxxx"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#bar-chart",
+    "href": "Take-home_Ex/Take-home_Ex02.html#bar-chart",
+    "title": "Take-home_Ex02",
+    "section": "1. Bar Chart",
+    "text": "1. Bar Chart"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#dot-plot",
+    "href": "Take-home_Ex/Take-home_Ex02.html#dot-plot",
+    "title": "Take-home_Ex02",
+    "section": "2. Dot Plot",
+    "text": "2. Dot Plot"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex02.html#mirror-bar-chart",
+    "href": "Take-home_Ex/Take-home_Ex02.html#mirror-bar-chart",
+    "title": "Take-home_Ex02",
+    "section": "3. Mirror Bar Chart",
+    "text": "3. Mirror Bar Chart\n\nxxx"
   }
 ]

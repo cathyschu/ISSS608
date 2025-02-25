@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Cathy Chu">
 
-<title>Visual Analytics and Applications</title>
+<title>Hands-on_Ex08_3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +24,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href=".//images/dragon.svg" rel="icon" type="image/svg+xml">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-28d3415512608d06a92ee930c25b34a8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../..//images/dragon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-41bc50089c071b6cb71e65e5834af25e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,68 +68,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      page: 18,
-    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -140,8 +80,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/dino.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dino.png" alt="" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -156,63 +96,63 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html">
  <span class="dropdown-text">Hands-on_Ex00</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">1 A Layered Grammar of Graphics: ggplot2 methods.</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">2 Beyond ggplot2 Fundamentals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html">
  <span class="dropdown-text">3_1 Interactive Data Visualisation with R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html">
  <span class="dropdown-text">3_2 Animated Statistical Graphics with R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html">
  <span class="dropdown-text">4_1 Visualising Distribution</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html">
  <span class="dropdown-text">4_2 Visual Statistical Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html">
  <span class="dropdown-text">4_3 Visualising Uncertainty</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html">
  <span class="dropdown-text">4_4 Building Funnel Plot with R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.html">
  <span class="dropdown-text">5_1 Building Ternary Plot with R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.html">
  <span class="dropdown-text">5_2 Visual Correlation Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.html">
  <span class="dropdown-text">5_3 Visual Multivariate Analysis with Heatmap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.html">
  <span class="dropdown-text">5_4 Visual Multivariate Analysis with Parallel Coordinates Plot</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html">
  <span class="dropdown-text">5_5 Treemap Visualisation with R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
  <span class="dropdown-text">7 Visualising time-oriented data</span></a>
   </li>  
     </ul>
@@ -223,23 +163,23 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex01.html">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex01.html">
  <span class="dropdown-text">In-class Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex02.html">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex02.html">
  <span class="dropdown-text">In-class Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex03.html">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex03.html">
  <span class="dropdown-text">In-class Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex04.html">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex04.html">
  <span class="dropdown-text">In-class Exercise 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex05.html">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex05.html">
  <span class="dropdown-text">In-class Exercise 5</span></a>
   </li>  
     </ul>
@@ -250,11 +190,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="./Take-home_Ex/Take-home_Ex01.html">
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex01.html">
  <span class="dropdown-text">Take-home Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Take-home_Ex/Take-home_Ex02.html">
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex02.html">
  <span class="dropdown-text">Take-home Exercise 2</span></a>
   </li>  
         <li class="dropdown-header">Take-home Exercise 3</li>
@@ -263,12 +203,12 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text"><img src="./images/house.svg" class="img-fluid"></span></a>
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text"><img src="../../images/house.svg" class="img-fluid"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text"><img src="./images/person.svg" class="img-fluid"></span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text"><img src="../../images/person.svg" class="img-fluid"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -281,7 +221,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html">Hands-on Exercise</a></li><li class="breadcrumb-item"><a href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.html">Hands-on Exercise 8-3</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -306,13 +246,13 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
+            <a href="../../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -321,115 +261,115 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on_Ex00</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 0</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 3-1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 3-2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 4-1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 4-2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 4-3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 4-4</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 5-1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 5-2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 5-3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 5-4</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 5-5</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 7</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 8-1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Hands-on Exercise 8-2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Hands-on Exercise 8-3</span></a>
   </div>
 </li>
@@ -446,31 +386,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./In-class_Ex/In-class_Ex01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../In-class_Ex/In-class_Ex01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-class_Ex1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./In-class_Ex/In-class_Ex02.html" class="sidebar-item-text sidebar-link">
+  <a href="../../In-class_Ex/In-class_Ex02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-class_Ex2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./In-class_Ex/In-class_Ex03.html" class="sidebar-item-text sidebar-link">
+  <a href="../../In-class_Ex/In-class_Ex03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-class_Ex3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./In-class_Ex/In-class_Ex04.html" class="sidebar-item-text sidebar-link">
+  <a href="../../In-class_Ex/In-class_Ex04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-class_Ex4</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./In-class_Ex/In-class_Ex05.html" class="sidebar-item-text sidebar-link">
+  <a href="../../In-class_Ex/In-class_Ex05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">In-class_Ex5</span></a>
   </div>
 </li>
@@ -487,7 +427,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Take-home_Ex/Take-home_Ex01.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Take-home_Ex/Take-home_Ex01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Take-home_Ex01</span></a>
   </div>
 </li>
@@ -495,7 +435,7 @@ window.Quarto = {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link">
+  <a href="../../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
 </li>
@@ -509,25 +449,66 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-cathys-portfolio" id="toc-welcome-to-cathys-portfolio" class="nav-link active" data-scroll-target="#welcome-to-cathys-portfolio"><strong>Welcome to Cathy’s portfolio</strong> <img src="images/dino-rex-2 copy.png" class="img-fluid" width="80"></a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><img src="images/dino-banner-sepline.png" class="img-fluid"></a></li>
+  <li><a href="#choropleth-mapping-with-r" id="toc-choropleth-mapping-with-r" class="nav-link active" data-scroll-target="#choropleth-mapping-with-r"><strong>Choropleth Mapping with R</strong></a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">1 Overview</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting Started</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">3 Import Data</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">3.1 Data</a></li>
+  <li><a href="#import-geospatial-data-to-r" id="toc-import-geospatial-data-to-r" class="nav-link" data-scroll-target="#import-geospatial-data-to-r">3.2 Import geospatial data to R</a></li>
+  <li><a href="#import-attribute-data-to-r" id="toc-import-attribute-data-to-r" class="nav-link" data-scroll-target="#import-attribute-data-to-r">3.3 Import attribute data to R</a></li>
+  <li><a href="#data-prep" id="toc-data-prep" class="nav-link" data-scroll-target="#data-prep">3.4 Data prep</a></li>
+  </ul></li>
+  <li><a href="#choropleth-mapping-geospatial-data-using-tmap" id="toc-choropleth-mapping-geospatial-data-using-tmap" class="nav-link" data-scroll-target="#choropleth-mapping-geospatial-data-using-tmap">4 <strong>Choropleth Mapping Geospatial Data Using <em>tmap</em></strong></a>
+  <ul class="collapse">
+  <li><a href="#plotting-a-choropleth-map-quickly-by-using-qtm" id="toc-plotting-a-choropleth-map-quickly-by-using-qtm" class="nav-link" data-scroll-target="#plotting-a-choropleth-map-quickly-by-using-qtm">4.1 <strong>Plotting a choropleth map quickly by using <em>qtm()</em></strong></a></li>
+  <li><a href="#creating-a-choropleth-map-by-using-tmaps-elements" id="toc-creating-a-choropleth-map-by-using-tmaps-elements" class="nav-link" data-scroll-target="#creating-a-choropleth-map-by-using-tmaps-elements">4.2 <strong>Creating a choropleth map by using <em>tmap</em>’s elements</strong></a></li>
+  <li><a href="#data-classification-methods-of-tmap" id="toc-data-classification-methods-of-tmap" class="nav-link" data-scroll-target="#data-classification-methods-of-tmap">4.3 <strong>Data classification methods of tmap</strong></a></li>
+  <li><a href="#color-scheme" id="toc-color-scheme" class="nav-link" data-scroll-target="#color-scheme">4.4 Color scheme</a></li>
+  <li><a href="#map-layouts" id="toc-map-layouts" class="nav-link" data-scroll-target="#map-layouts">4.5 Map layouts</a></li>
+  <li><a href="#drawing-small-multiple-choropleth-maps" id="toc-drawing-small-multiple-choropleth-maps" class="nav-link" data-scroll-target="#drawing-small-multiple-choropleth-maps">4.6 Drawing small multiple choropleth maps</a></li>
+  <li><a href="#mapping-spatial-object-meeting-a-selection-criterion" id="toc-mapping-spatial-object-meeting-a-selection-criterion" class="nav-link" data-scroll-target="#mapping-spatial-object-meeting-a-selection-criterion">4.7 Mapping spatial object meeting a selection criterion</a></li>
+  </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a>
+  <ul class="collapse">
+  <li><a href="#plotting-the-cycle-plot" id="toc-plotting-the-cycle-plot" class="nav-link" data-scroll-target="#plotting-the-cycle-plot">5.5 Plotting the cycle plot</a></li>
+  </ul></li>
+  <li><a href="#plotting-slopegraph" id="toc-plotting-slopegraph" class="nav-link" data-scroll-target="#plotting-slopegraph">6 Plotting Slopegraph</a>
+  <ul class="collapse">
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">6.1 Data import</a></li>
+  <li><a href="#plotting-the-slopegraph" id="toc-plotting-the-slopegraph" class="nav-link" data-scroll-target="#plotting-the-slopegraph">6.2 Plotting the slopegraph</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html">Hands-on Exercise</a></li><li class="breadcrumb-item"><a href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.html">Hands-on Exercise 8-3</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Visual Analytics and Applications</h1>
+<h1 class="title">Hands-on_Ex08_3</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Cathy Chu </p>
+          </div>
+  </div>
     
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">February 25, 2025</p>
+    </div>
+  </div>
     
   </div>
   
@@ -536,103 +517,73 @@ window.Quarto = {
 </header>
 
 
-<section id="welcome-to-cathys-portfolio" class="level3">
-<h3 class="anchored" data-anchor-id="welcome-to-cathys-portfolio"><strong>Welcome to Cathy’s portfolio</strong> <img src="images/dino-rex-2 copy.png" class="img-fluid" width="80"></h3>
-<p>This webpage is a portfolio recording my course work for an Analytics course (ISSS608 Visual Analytics and Application) at Singapore Management University.</p>
-<p>In this website, you will find the exercises, assignments and projects published during the course. Welcome to connect with me to discuss questions and insights about analytics!</p>
+<section id="choropleth-mapping-with-r" class="level1">
+<h1><strong>Choropleth Mapping with R</strong></h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">1 Overview</h2>
 </section>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"><img src="images/dino-banner-sepline.png" class="img-fluid"></h3>
-
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">2 Getting Started</h2>
+</section>
+<section id="import-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-data">3 Import Data</h2>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">3.1 Data</h3>
+</section>
+<section id="import-geospatial-data-to-r" class="level3">
+<h3 class="anchored" data-anchor-id="import-geospatial-data-to-r">3.2 Import geospatial data to R</h3>
+</section>
+<section id="import-attribute-data-to-r" class="level3">
+<h3 class="anchored" data-anchor-id="import-attribute-data-to-r">3.3 Import attribute data to R</h3>
+</section>
+<section id="data-prep" class="level3">
+<h3 class="anchored" data-anchor-id="data-prep">3.4 Data prep</h3>
+</section>
+</section>
+<section id="choropleth-mapping-geospatial-data-using-tmap" class="level2">
+<h2 class="anchored" data-anchor-id="choropleth-mapping-geospatial-data-using-tmap">4 <strong>Choropleth Mapping Geospatial Data Using <em>tmap</em></strong></h2>
+<section id="plotting-a-choropleth-map-quickly-by-using-qtm" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-a-choropleth-map-quickly-by-using-qtm">4.1 <strong>Plotting a choropleth map quickly by using <em>qtm()</em></strong></h3>
+</section>
+<section id="creating-a-choropleth-map-by-using-tmaps-elements" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-choropleth-map-by-using-tmaps-elements">4.2 <strong>Creating a choropleth map by using <em>tmap</em>’s elements</strong></h3>
+</section>
+<section id="data-classification-methods-of-tmap" class="level3">
+<h3 class="anchored" data-anchor-id="data-classification-methods-of-tmap">4.3 <strong>Data classification methods of tmap</strong></h3>
+</section>
+<section id="color-scheme" class="level3">
+<h3 class="anchored" data-anchor-id="color-scheme">4.4 Color scheme</h3>
+</section>
+<section id="map-layouts" class="level3">
+<h3 class="anchored" data-anchor-id="map-layouts">4.5 Map layouts</h3>
+</section>
+<section id="drawing-small-multiple-choropleth-maps" class="level3">
+<h3 class="anchored" data-anchor-id="drawing-small-multiple-choropleth-maps">4.6 Drawing small multiple choropleth maps</h3>
+</section>
+<section id="mapping-spatial-object-meeting-a-selection-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-spatial-object-meeting-a-selection-criterion">4.7 Mapping spatial object meeting a selection criterion</h3>
+</section>
+</section>
+<section id="reference" class="level2">
+<h2 class="anchored" data-anchor-id="reference">Reference</h2>
+<section id="plotting-the-cycle-plot" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-cycle-plot">5.5 Plotting the cycle plot</h3>
+</section>
+</section>
+<section id="plotting-slopegraph" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-slopegraph">6 Plotting Slopegraph</h2>
+<section id="data-import" class="level3">
+<h3 class="anchored" data-anchor-id="data-import">6.1 Data import</h3>
+</section>
+<section id="plotting-the-slopegraph" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-slopegraph">6.2 Plotting the slopegraph</h3>
 
 
 </section>
+</section>
+</section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Exercises
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-     </select>
-  </div>
-</div>
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1738339200000" data-listing-file-modified-sort="1740119467235" data-listing-date-modified-sort="1740119467000" data-listing-reading-time-sort="129" data-listing-word-count-sort="25661">
-<a href="./Take-home_Ex/Take-home_Ex01.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left borderless">
-<p class="card-img-top"><img src="Take-home_Ex/images/banner-ship2.png" style="height: 150 px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Take-home Exercise 1
-</h5>
-<div class="card-text listing-description">
-This study presents an in-depth analysis of ship performance and profitability, focusing on various operational metrics, ship types, and environmental factors. Using a…
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Feb 1, 2025
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1740240000000" data-listing-file-modified-sort="1740375833049" data-listing-date-modified-sort="1740375833000" data-listing-reading-time-sort="12" data-listing-word-count-sort="2234">
-<a href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left borderless">
-<p class="card-img-top"><img src="Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07_files/figure-html/unnamed-chunk-7-1.png" style="height: 150 px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on_Ex07
-</h5>
-<div class="card-text listing-description">
-In this chapter, we will learn to plot the following visualisations:
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Feb 23, 2025
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1740326400000" data-listing-file-modified-sort="1740472355841" data-listing-date-modified-sort="1740472355000" data-listing-reading-time-sort="3" data-listing-word-count-sort="490">
-<a href="./Take-home_Ex/Take-home_Ex02.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left borderless">
-<p class="card-img-top"><img src="Take-home_Ex/images/singapore-international-trade_Page_02.png" style="height: 150 px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Take-home_Ex02
-</h5>
-<div class="card-text listing-description">
-As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore’s international trade since 2015. I…
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Feb 24, 2025
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
