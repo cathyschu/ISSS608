@@ -445,8 +445,7 @@ Learning from the code
 :::::::::
 
 ## Reference
+
 -   Kam, T. S. (2025). R for Visual Analytics. Retrieved February 24, 2025, from \[<https://r4va.netlify.app/chap17>\]
 
 -   Powell, C. (2025). Slopegraph in ggplot2. Retrieved February 24, 2025, from <https://r-charts.com/evolution/newggslopegraph/>
-
-
