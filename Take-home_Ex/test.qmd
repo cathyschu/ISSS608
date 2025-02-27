@@ -154,6 +154,9 @@ v1_subset <- v1_data[c(10, 11),]
 ```
 
 ```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
 v1_trans_matrix <- t(v1_subset) #after transpose, the data is a matrix.
 v1_trans <- as.data.frame(v1_trans_matrix) #now convert the matrix to df.
 

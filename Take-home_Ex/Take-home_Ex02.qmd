@@ -61,11 +61,11 @@ Below are the illustration of 3 plots that I will comment on and make an attempt
 ### 2.1 Visualisation #1
 
 :::::: columns
-::: {.column width="45%"}
+::: {.column width="35%"}
 ![](images/singapore-international-trade_Page_02.png)
 :::
 
-:::: {.column width="55%"}
+:::: {.column width="65%"}
 ::: panel-tabset
 ## **Pros**
 
@@ -114,7 +114,7 @@ The "total" values, while mathematically correct, are conceptually flawed. Addin
 ::::
 ::::::
 
-#### **2.1.3 Data**
+#### **2.1.1 Data**
 
 The data set needed is the Maerchandise Trade data from DOS website. Within the excel file *Merchandise Trade By Commodity Section, (At Current Prices), Monthly*, there are monthly trade volumes from 1964 Jan until 2025 Jan. The value for the amount is in thousand dollars.
 
@@ -133,7 +133,7 @@ library(knitr)
 
 **Step 2. Import the data**
 
-1\. Read the Excel file:
+1\. Import the Excel file
 
 ```{r}
 #| code-fold: True
@@ -197,8 +197,7 @@ Observation
 
 In this step, I will first correct the column names. Then I will extract the years from the 1st column so I can group them to sum up the trade values. I will also need to convert the data types to numeric from character.
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Merchandise Trade
 
 Below code is used to derive the data set for merchandise trade (import & export) yearly totals from 2020-2024.
@@ -298,33 +297,189 @@ v1_year_sum_ex <- v1_trans_export %>%
 head(v1_year_sum_ex)
 ```
 
-:::
-
-#### **2.1.4 Visualisation make-over**
+## Combined dataset
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+v1_year_sum_im <- v1_year_sum_im %>%
+  rename(YearTotal = YearTotal_im) %>%
+  mutate(ImEx = "Import")
+
+v1_year_sum_ex <- v1_year_sum_ex %>%
+  rename(YearTotal = YearTotal_ex) %>%
+  mutate(ImEx = "Export")
+
+v1_combined <- bind_rows(v1_year_sum_im, v1_year_sum_ex)
+
+v1_combined <- v1_combined %>%
+  arrange(Year, YearTotal, ImEx)
+
+head(v1_combined)
+```
+
+\
+:::
+
+#### **2.1.2 Visualisation make-over**
+
+**Launch packages**
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 library(tidyverse)
 library(ggtext)
 library(extrafont)
 ```
 
-```{.r}
-# font_import()  #run once
-loadfonts(device = "win") #run once per session
-```
+**Code the visualisation**
 
 ```{r}
+#| fig-width: 7
+#| fig-height: 5
+#| code-fold: true
+#| code-summary: "Show the code"
 
+mean_export <- mean(v1_year_sum_ex$YearTotal, na.rm = TRUE)
+mean_import <- mean(v1_year_sum_im$YearTotal, na.rm = TRUE)
+
+p <- ggplot(v1_combined)+
+  
+ geom_segment(data = v1_year_sum_ex,
+              aes(x = YearTotal, y = Year,
+                  yend = v1_year_sum_im$Year, xend = v1_year_sum_im$YearTotal), 
+              color = "#aeb6bf",
+              size = 4.5, #Note that I sized the segment to fit the points
+              alpha = .5) +
+  
+      # Add mean lines
+  geom_segment(aes(x = mean_export, 
+                   y = min(v1_combined$Year),
+                   xend = mean_export, 
+                   yend = 2024.5),  
+               color = "#6A80B9",  
+               linetype = "solid", 
+               size = 0.2) +
+  
+  geom_segment(aes(x = mean_import, 
+                   y = min(v1_combined$Year),
+                   xend = mean_import, 
+                   yend = 2024.5), 
+               color = "#F37199",  
+               linetype = "solid", 
+               size = 0.2) +
+   # Add labels for the mean lines (display in billions)
+  annotate("text", 
+           x = mean_export + (max(v1_combined$YearTotal) - min(v1_combined$YearTotal))*0.05, 
+           y = max(v1_combined$Year) + 0.7,
+           label = paste0("MEAN: ", round(mean_export/1000000, 1)),
+           color = "#6A80B9",
+           size = 3) +
+  
+  annotate("text", 
+           x = mean_import + (max(v1_combined$YearTotal) - min(v1_combined$YearTotal))*0.05,
+           y = max(v1_combined$Year) + 0.7,
+           label = paste0("MEAN: ", round(mean_import/1000000, 1)),
+           color = "#F37199",
+           size = 3) +
+  
+  geom_point(aes(x = YearTotal, y = Year, color = ImEx), 
+             size = 4, 
+             show.legend = TRUE) +
+  # Add text labels next to points
+  geom_text(data = v1_combined,
+            aes(x = YearTotal, y = Year, 
+                label = paste0(round(YearTotal/1000000, 1)),
+                color = ImEx),
+            hjust = -0.3, # Position to the right of points
+            vjust = -2,  # Slight vertical adjustment
+            size = 2.5,   # Text size
+            show.legend = FALSE
+) +
+  
+  scale_color_manual(values = c("Import" = "#F37199", "Export" = "#6A80B9")) +
+  labs(
+    x = "Singapore Trade Volume (Billion S$)",
+    y = "Year",
+    title = "Total Merchandise Trade at Current Prices",
+    subtitle = "2020 - 2024",
+    color = "Import/Export"
+  ) +
+    # Convert x-axis from thousands to billions
+  scale_x_continuous(labels = function(x) paste0(round(x/1000000, 1))) +
+  theme(
+    axis.title.x = element_text(
+      family = "",
+      size = 12,
+      face = "bold",
+      color = "black",
+      hjust = 1,
+      vjust = -1),
+    axis.title.y = element_text(
+      family = "",
+      size = 12,
+      face = "bold",
+      color = "black",
+      hjust = 0.5,
+      vjust = 2),
+    title = element_text(size = 15, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold"),
+    legend.text = element_text(size = 10),
+    legend.position = "right",# Options: "right", "left", "top", "bottom", or c(x, y) coordinates
+    legend.background = element_blank(),
+    plot.background = element_rect(fill = "#f1f4f5"),
+    panel.background = element_blank()
+    ) 
+
+diff <- v1_combined %>%
+  tidyr::pivot_wider(
+    id_cols = Year,
+    names_from = ImEx,
+    values_from = YearTotal
+  ) 
+
+diff$Difference <- diff$Export - diff$Import
+diff$x_pos <- diff$Import + (diff$Difference/2)
+
+
+p +
+  geom_text(data = diff,
+            aes(label = paste("D: ", round(Difference/1000000, 1)),
+                x = x_pos, y = Year),
+            fill = "white",
+            color = "black",
+            size = 2,
+            show.legend = FALSE) -> p_labelled
+
+p_labelled
 ```
+
+::::: goals
+::: goals-header
+Make-over
+:::
+
+::: goals-container
+-   **Color -** Used a focused two-color scheme to clearly distinguish between export and import values, enhancing data interpretation.
+-   **Trends presentation -** Viwers can easily tell the trends of Export and Import along the years 2020-2024 with an emphasis on the year-over-year trade patterns across the 2020-2024 period.
+-   **Mean score -** Integrated mean value reference lines for both exports and imports.
+-   **Trade surplus -** Instead of showing the total volume of trade, the dumbbell format to highlight the gap between export and import values is utilised to easilty understand Surplus/Deficit amount. Utilized the dumbbell format to highlight the gap between export and import values
+-   **X and Y axis -** They are clearly defined with appropriate positions and labels, making the time progression and value comparisons intuitive
+-   **Data figures -** Export and Import amounts for each year are annotated near the points, so it's easy to refer to the actual amounts.
+
+These improvements overall makes the plot more prominent in showing the trends of trade and Singapore's trade balance position in these recent years.
+:::
+:::::
 
 ### 2.2 Visualisation #2
 
 ::::::::: columns
-::: {.column width="45%"}
+::: {.column width="35%"}
 ![](images/singapore-international-trade_Page_03.png)
 :::
 
-::::::: {.column width="55%"}
+::::::: {.column width="65%"}
 :::::: panel-tabset
 ## **Pros**
 
@@ -369,26 +524,458 @@ loadfonts(device = "win") #run once per session
 :::::::
 :::::::::
 
-#### **2.2.3 Data**
+#### **2.2.1 Data**
+
+For this visualisation, the dataset *Merchandise Trade by Region/MarketOpen accordion* from DOS will be used for make-over. The excel file has 3 tabs of information for Imports, Domestic Exports and Re-Exports. I will use all 3 tabs to process the total trade amount for each country to plot the dot plot. Within the Excel file, there are monthly trade volumes for each country from 2003 Jan until 2025 Jan. The value for the amount is in **million** dollars.
+
+This means some data wrangling is needed to derive the yearly sum of the trade amount for 2024.
+
+**Step 1. Load and launch packages**
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+library(readxl)
+library(dplyr)
+library(stringr)
+library(knitr)
+```
+
+**Step 2. Import the data**
+
+-   Import the Excel file
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
+v2_data_im <- read_xlsx("data/Mtrade_region.xlsx", "T1")
+v2_data_ex <- read_xlsx("data/Mtrade_region.xlsx", "T2")
+v2_data_reex <- read_xlsx("data/Mtrade_region.xlsx", "T3")
+head(v2_data_im)
+
+```
+
+::::: goals
+::: goals-header
+Observation
+:::
+
+::: goals-container
+-   Similar to the other set of data used in the previous section, the reading result shows that the fields are all in character type. The dataset also needs further conversion for computation later.
+:::
+:::::
+
+-   Subtract the needed data for Import, Export and Re-Export
+
+::: panel-tabset
+## Import
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+# Make a subset of the total IMPORT amount for each country
+v2_subset_im <- v2_data_im[c(10:170),]
+v2_trans_matrix_im <- t(v2_subset_im) #after transpose, the data is a matrix.
+v2_trans_im <- as.data.frame(v2_trans_matrix_im) #now convert the matrix to df.
+kable(head(v2_trans_im))
+```
+
+## Export
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+v2_subset_ex <- v2_data_ex[c(10:170),]
+v2_trans_matrix_ex <- t(v2_subset_ex) #after transpose, the data is a matrix.
+v2_trans_ex <- as.data.frame(v2_trans_matrix_ex) #now convert the matrix to df.
+kable(head(v2_trans_ex))
+
+```
+
+## Re-Export
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+v2_subset_reex <- v2_data_reex[c(10:170),]
+v2_trans_matrix_reex <- t(v2_subset_reex) #after transpose, the data is a matrix.
+v2_trans_reex <- as.data.frame(v2_trans_matrix_reex) #now convert the matrix to df.
+kable(head(v2_trans_reex))
+
+```
+:::
+
+**Step 3. Data wrangling** In this step, I will process the total amount from the year 2024 for each country / region for each trade category.
+
+::: panel-tabset
+## Import
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
+# 1. Settle the header
+v2_trans_im_original <- v2_trans_im
+
+header_row <- as.character(v2_trans_im[1,])
+
+# Apply as col names
+colnames(v2_trans_im) <- header_row 
+
+# Remove the first row
+v2_trans_im <- v2_trans_im[-1,]
+
+# 2. Extract years from the first column
+years <- substr(v2_trans_im[[1]], 1, 4)
+years <- as.numeric(years)
+
+# Add as a new column (without modifying existing columns)
+v2_trans_im$Year <- years
+
+# 3. Now convert country columns to numeric
+country_cols_im <- 2:(ncol(v2_trans_im)-1)  
+v2_trans_im[, country_cols_im] <- lapply(v2_trans_im[, country_cols_im], function(x) {
+  as.numeric(as.character(x))
+})
+
+v2_trans_im_2024 <- v2_trans_im[v2_trans_im$Year == 2024, ]
+
+# 4. Sum for each country
+v2_trans_im_2024_sum <- v2_trans_im_2024 %>%
+  select(-1, -ncol(v2_trans_im)) %>%  # Remove first column and Year column
+  summarise(across(everything(), ~sum(., na.rm = TRUE)))
+
+v2_long_im <- v2_trans_im_2024_sum %>%
+  pivot_longer(cols = everything(), 
+               names_to = "Country", 
+               values_to = "Im2024")
+print(head(v2_long_im))
+```
+
+## Export
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+# 1. Settle the header
+v2_trans_ex_original <- v2_trans_ex
+
+header_row_ex <- as.character(v2_trans_ex[1,])
+
+# Apply as col names
+colnames(v2_trans_ex) <- header_row_ex 
+
+# Remove the first row
+v2_trans_ex <- v2_trans_ex[-1,]
+
+# 2. Extract years from the first column
+years <- substr(v2_trans_ex[[1]], 1, 4)
+years <- as.numeric(years)
+
+# Add as a new column (without modifying existing columns)
+v2_trans_ex$Year <- years
+
+# 3. Now convert country columns to numeric
+country_cols_ex <- 2:(ncol(v2_trans_ex)-1)  
+v2_trans_ex[, country_cols_ex] <- lapply(v2_trans_ex[, country_cols_ex], function(x) {
+  as.numeric(as.character(x))
+})
+
+v2_trans_ex_2024 <- v2_trans_ex[v2_trans_ex$Year == 2024, ]
+
+# 4. Sum for each country
+v2_trans_ex_2024_sum <- v2_trans_ex_2024 %>%
+  select(-1, -ncol(v2_trans_ex)) %>%  # Remove first column and Year column
+  summarise(across(everything(), ~sum(., na.rm = TRUE)))
+
+v2_long_ex <- v2_trans_ex_2024_sum %>%
+  pivot_longer(cols = everything(), 
+               names_to = "Country", 
+               values_to = "Ex2024")
+print(head(v2_long_ex))
+
+```
+
+## Re-Export
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+# 1. Settle the header
+v2_trans_reex_original <- v2_trans_reex
+
+header_row_reex <- as.character(v2_trans_reex[1,])
+
+# Apply as col names
+colnames(v2_trans_reex) <- header_row_reex 
+
+# Remove the first row
+v2_trans_reex <- v2_trans_reex[-1,]
+
+# 2. Extract years from the first column
+years <- substr(v2_trans_reex[[1]], 1, 4)
+years <- as.numeric(years)
+
+# Add as a new column (without modifying existing columns)
+v2_trans_reex$Year <- years
+
+# 3. Now convert country columns to numeric
+country_cols_reex <- 2:(ncol(v2_trans_reex)-1)  
+v2_trans_reex[, country_cols_reex] <- lapply(v2_trans_reex[, country_cols_reex], function(x) {
+  as.numeric(as.character(x))
+})
+
+v2_trans_reex_2024 <- v2_trans_reex[v2_trans_reex$Year == 2024, ]
+
+# 4. Sum for each country
+v2_trans_reex_2024_sum <- v2_trans_reex_2024 %>%
+  select(-1, -ncol(v2_trans_reex)) %>%  # Remove first column and Year column
+  summarise(across(everything(), ~sum(., na.rm = TRUE)))
+
+v2_long_reex <- v2_trans_reex_2024_sum %>%
+  pivot_longer(cols = everything(), 
+               names_to = "Country", 
+               values_to = "ReX2024")
+print(head(v2_long_reex))
+
+```
+
+## Combined
+
+Now I will combine the 3 data sets, and also sum up the Export values. I noticed that the original plot has EU together as a trade partner, so I will also combine the 27 EU countries into one new row "EU".
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
+# First, join import and export data
+v2_ImEx <- v2_long_im %>%
+  full_join(v2_long_ex, 
+            by = "Country")  # Join by country name
+
+v2_combine <- v2_ImEx %>%
+  full_join(v2_long_reex,
+            by = "Country")
+
+# Compute Export total
+v2_combine$Ex_total <- v2_combine$Ex2024 + v2_combine$ReX2024
+
+# Compute Surplus/deficit
+v2_combine$Bal2024 <- v2_combine$Ex_total - v2_combine$Im2024
+head(v2_combine)
+
+# Compute total trade volume
+v2_combine$Total2024 <- v2_combine$Ex_total + v2_combine$Im2024
+head(v2_combine)
+
+eu_countries <- c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Rep", "Denmark", "Estonia",
+                  "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia",
+                  "Lithuania", "Luxembourg",  "Malta", "Netherlands", "Poland", "Portugal", "Romania",
+                  "Slovakia", "Slovenia", "Spain", "Sweden")
+
+eu_values <- v2_combine %>%
+  filter(Country %in% eu_countries) %>%
+  summarise(
+    Im2024 = sum(Im2024, na.rm = TRUE),
+    Ex2024 = sum(Ex2024, na.rm = TRUE),
+    ReX2024 = sum(ReX2024, na.rm = TRUE),
+    Ex_total = sum(Ex_total, na.rm = TRUE),
+    Bal2024 = sum(Bal2024, na.rm = TRUE),
+    Total2024 = sum(Total2024, na.rm = TRUE)
+  ) %>%
+  mutate(Country = "EU")
+
+v2_con_eu <- bind_rows(v2_combine, eu_values)
+
+```
+:::
 
 #### **2.2.4 Visualisation make-over**
+
+**Launch packages**
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
+library(ggplot2)
+library(scales)  # For formatting labels
+library(plotly)
+```
+
+**Plot the visualisation**
+
+The plot will be a similar scatter plot with new color scheme and interactive tooltip showing more information of the country hovered over.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 11
+#| code-fold: True
+#| code-summary: "Show the code"
+
+# Filter data
+v2_filter <- v2_con_eu %>%
+  filter(!Country %in% c("Total All Markets", "America", "Asia", "Europe", "Oceania", "Africa")) %>%
+  arrange(desc(Total2024)) %>%
+  head(10)  
+
+#legend breaks
+legend_breaks <- c(20, 40, 60, 80)
+
+# Create a dot plot
+v2_plot <- ggplot(v2_filter, 
+                  aes(x = Ex_total/1000, y = Im2024/1000)) + 
+  # Create bubbles
+  geom_point(aes(size = Total2024/1000,  # Size by total trade 
+                 color = Bal2024/1000,       # Color by trade balance 
+                 alpha = 0.8)) +                 
+  # Custom color scale for surplus/deficit
+  scale_color_gradient2(
+    name = "Trade Balance (S$ Bil.)",
+    low = "#690B22",      
+    mid = "white",        
+    high = "#1B4D3E",    
+    midpoint = 0,        
+    labels = dollar_format(prefix = "$", suffix = "B")
+  ) +
+  
+  # Scale for bubble size
+  scale_size_continuous(
+    name = "Total Trade (S$ Bil.)",
+    range = c(5, 20), 
+    breaks = legend_breaks,  
+    labels = dollar_format(prefix = "$", suffix = "B")
+  ) +
+  # Add country labels for bubbles
+#  geom_text(
+#    aes(label = Country),
+#    check_overlap = TRUE,
+#    vjust = 1,
+#    hjust = 1,
+#    size = 3
+#  ) +
+  # Add a diagonal reference line (imports = exports)
+  geom_abline(intercept = 0, slope = 1, linetype = "solid", 
+              color = "#73C7C7", alpha = 0.5,
+              linewidth = 0.2) +
+  labs(
+    title = "Singapore Merchandise Trade Relationships, 2024",
+#    subtitle = "Bubble size represents total trade volume, color indicates trade balance",
+    x = "Exports (S$ Bil.)",
+    y = "Imports (S$ Bil.)"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(face = "bold", size = 17, family = "Arial"),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(fill = "#f1f4f5", color = NA),
+    panel.background = element_rect(fill = "#f1f4f5", color = NA),
+    legend.background = element_rect(fill = "#f1f4f5", color = NA),
+    axis.title.x = element_text(size = 10, face = "bold", family = "Arial"),  
+    axis.title.y = element_text(size = 10, face = "bold", family = "Arial"), 
+    axis.text.x = element_text(size = 8),  
+    axis.text.y = element_text(size = 8),
+    legend.text = element_text(size = 8, face = "bold", family = "Arial"),
+    legend.title = element_text(size = 10, face = "bold", family = "Arial")
+  ) +
+  # Format axis labels
+  scale_x_continuous( limits = c(0, 100)) +
+  scale_y_continuous( limits = c(0, 100)) +
+  guides(alpha = FALSE, fill = FALSE,
+         size = guide_legend(
+           override.aes = list(
+             color = "grey90",
+             alpha = 0.8
+           )
+         )) +
+  scale_alpha_identity() +  # Force alpha to be treated as fixed
+  scale_fill_identity() 
+
+# Convert ggplot to plotly
+p <- ggplotly(v2_plot, tooltip = "none")
+
+# Set hover text
+p$x$data[[1]]$text <- paste(
+  "Country:", v2_filter$Country,
+  "<br>Exports: $", round(v2_filter$Ex_total/1000, 1), "B",
+  "<br>Imports: $", round(v2_filter$Im2024/1000, 1), "B",
+  "<br>Balance: $", round(v2_filter$Bal2024/1000, 1), "B",
+  "<br>Total Trade: $", round(v2_filter$Total2024/1000, 1), "B"
+)
+p$x$data[[1]]$hoverinfo <- "text"
+p$layout$hovermode <- "closest"
+
+p <- p %>% add_annotations(
+  x = v2_filter$Ex_total/1000,
+  y = v2_filter$Im2024/1000,
+  text = v2_filter$Country,
+  showarrow = FALSE,
+  yshift = 15,  # Move 20 pixels up (similar to negative vjust)
+  xshift = 10,   # No horizontal shift
+  font = list(size = 12, color = "black", family = "Arial")
+)
+
+p
+```
+
+::::: goals
+::: goals-header
+Make-over
+:::
+
+::: goals-container
+-   **Color -** The original plot assigns a color for each country, which makes no distinction for the countries. In the make-over, I scale down the color scheme to two, green and red. These colors are used to show whether the country is in Surplus or Deficit position to Singapore.
+-   **Interactive tooltip -** Instead of using a dotted line and label, a tooltip is applied so viewers can hover over the bubble to understand the details. This avoids overcorwding of the plot.
+-   **Trade partner by Surplus/Deficit scale -** Instead of using full color styling, the two color scheme is designed to show whether it is a surplus (Export \> Import) or deficit (Import \> Export). The color is gradient according to the amount of trade balance. If it is negative, the bubble truns red, and vice versa.
+-   **Total trade volume -** Maintained total trade volume presentation in the form of bubble size.
+
+These improvements make the trade relationships clearer and allow viewers to quickly identify key patterns while accessing detailed information on demand.
+:::
+:::::
 
 ### 2.3 Visualisation #3
 
 :::::: columns
-::: {.column width="45%"}
+::: {.column width="35%"}
 ![](images/singapore-international-trade_Page_10.png)
 :::
 
-:::: {.column width="55%"}
+:::: {.column width="65%"}
 ::: panel-tabset
 ## **Pros**
 
+-   **Comprehensiveness -** It clearly shows import/export data for major trading partners across two time periods (2019 and 2023)
+-   **Ranking systme -** The ranking system (gold, silverm bronze medals) makes it easy to identify top trading partners.
+-   **Country flags -** Helps with quick visual identification.
+-   **Temporal comparison -** The side-by-side comparison of 2019 and 2023 allows for easy temporal comparison.
+
 ## **Cons**
+
+**UGLY**
+
+-   **Color scheme -** The visualization uses 30+ colors without a clear system. It creates visual noise and makes it difficult to focus on the most important information
+
+-   **Inconsistent color mapping -** Colours don't consistenly represent countries, time periods, or import/export categories.
+
+**BAD**
+
+-   **Font size -** The value annotations compete with the bars for visual attention.
+
+-   **Multi-dimensional comparison -** Trying to compare imports vs exports across multiple countries and two time periods creates high cognitive load and confusion.
+
+-   **Inconsistent entity classification -** Mixing individual countries (US, Japan) with regional blocs (EU-27, ASEAN) without explanation.
+
+-   **Ranking methodology -** There is no indication of what metric determines the gold/silver/bronze rankings.
+
+**WRONG**
+
+-   **Bar chart -** It doesn't effectively show the relationship between imports and exports for each entity.
 
 ## **Sketch**
 
-![](images/sketch3.png)
+![](images/sketch3.png){width="400"}
 :::
 ::::
 ::::::
