@@ -1206,8 +1206,8 @@ p <- ggplot(slope_data_top, aes(x = Year, y = Value,
   facet_wrap(~Type, scales = "free_x") +
   scale_color_manual(values = colorRampPalette(c("#A5BFCC", "#EFDCAB", "#C599B6", "#FFCFCF", "#C7DB9C", "#98D8EF", "#B6CBBD", "#FFCDB2", "#EABDE6", "#A9B5DF"))(10)) +
   scale_y_continuous(
-    name = "Value (Billion USD)",
-    labels = function(x) paste0("$", x/1000),  # Convert from millions to billions
+    name = "Value (SGD$ Bil.)",
+    labels = function(x) paste0(x/1000),  # Convert from millions to billions
     limits = c(0, 109000)) +
   labs(title = "Major Trading Partners for Trade in Services",
   subtitle = "2019 vs 2023") +
@@ -1219,9 +1219,11 @@ p <- ggplot(slope_data_top, aes(x = Year, y = Value,
   theme_minimal() +
   theme(legend.position = "bottom",
         strip.text = element_text(size = 14, color = "#1B4D3E", face = "bold"),
-        plot.title = element_text(hjust = 0.5, size = 16, face = "bold", family = "Arial"),
-        plot.subtitle = element_text(hjust = 0.5, size = 14, face = "bold", family = "Arial"),
-        plot.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5")
+        plot.title = element_text(hjust = 0, size = 16, face = "bold", family = "Arial"),
+        plot.subtitle = element_text(hjust = 0, size = 14, face = "bold", family = "Arial"),
+        plot.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+        axis.title.x = element_text(size = 12, face = "bold", family = "Arial"),
+        axis.title.y = element_text(size = 12, face = "bold", family = "Arial")
         ) 
 
 girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
