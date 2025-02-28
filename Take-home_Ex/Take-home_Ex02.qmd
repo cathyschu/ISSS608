@@ -1204,7 +1204,7 @@ p <- ggplot(slope_data_top, aes(x = Year, y = Value,
   
   # Side-by-side panels
   facet_wrap(~Type, scales = "free_x") +
-  scale_color_manual(values = colorRampPalette(c("#A3D1C6", "#D95F02", "#C599B6", "#FF8989", "#A4B465", "#E6AB02", "#2DAA9E", "grey50", "#D69ADE", "#88CCEE"))(10)) +
+  scale_color_manual(values = colorRampPalette(c("#A5BFCC", "#EFDCAB", "#C599B6", "#FFCFCF", "#C7DB9C", "#98D8EF", "#B6CBBD", "#FFCDB2", "#EABDE6", "#A9B5DF"))(10)) +
   scale_y_continuous(
     name = "Value (Billion USD)",
     labels = function(x) paste0("$", x/1000),  # Convert from millions to billions
