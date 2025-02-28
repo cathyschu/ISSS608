@@ -336,8 +336,8 @@ library(extrafont)
 **Code the visualisation**
 
 ```{r}
-#| fig-width: 7
-#| fig-height: 5
+#| fig-width: 10
+#| fig-height: 6
 #| code-fold: true
 #| code-summary: "Show the code"
 
