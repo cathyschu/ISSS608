@@ -606,7 +606,9 @@ kable(head(v2_trans_reex))
 ```
 :::
 
-**Step 3. Data wrangling** In this step, I will process the total amount from the year 2024 for each country / region for each trade category.
+**Step 3. Data wrangling**
+
+In this step, I will process the total amount from the year 2024 for each country / region for each trade category.
 
 ::: panel-tabset
 ## Import
@@ -633,11 +635,13 @@ years <- as.numeric(years)
 # Add as a new column (without modifying existing columns)
 v2_trans_im$Year <- years
 
+
 # 3. Now convert country columns to numeric
 country_cols_im <- 2:(ncol(v2_trans_im)-1)  
 v2_trans_im[, country_cols_im] <- lapply(v2_trans_im[, country_cols_im], function(x) {
   as.numeric(as.character(x))
 })
+
 
 v2_trans_im_2024 <- v2_trans_im[v2_trans_im$Year == 2024, ]
 
@@ -767,8 +771,8 @@ head(v2_combine)
 
 # Compute total trade volume
 v2_combine$Total2024 <- v2_combine$Ex_total + v2_combine$Im2024
-head(v2_combine)
 
+# Add EU
 eu_countries <- c("Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Rep", "Denmark", "Estonia",
                   "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia",
                   "Lithuania", "Luxembourg",  "Malta", "Netherlands", "Poland", "Portugal", "Romania",
@@ -972,6 +976,7 @@ These improvements make the trade relationships clearer and allow viewers to qui
 **WRONG**
 
 -   **Bar chart -** It doesn't effectively show the relationship between imports and exports for each entity.
+-   Inconsistent period of comparison - While other visualisations on the website show data from 2020 to 2024, this chart displays 2019 vs 2023. The inconsistency disrupts the overall narrative and prevents viewers from making direct comparisons across different visualisations the holistic information of presenting the recent data.
 
 ## **Sketch**
 
@@ -982,7 +987,264 @@ These improvements make the trade relationships clearer and allow viewers to qui
 
 #### **2.3.3 Data**
 
+**Step 1. Load and launch packages**
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(tidyverse)  
+library(stringr)
+library(knitr)
+library(ggflags)
+library(countrycode)
+library(ggiraph)
+library(ggplot2)
+```
+
+**Step 2. Import the data** 1. Import the Excel file
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+v3_data_import <- read_xlsx("data/Mtrade_service.xlsx", "T7")
+v3_data_export <- read_xlsx("data/Mtrade_service.xlsx", "T3")
+
+```
+
+::::: goals
+::: goals-header
+Observation
+:::
+
+::: goals-container
+-   The dataset has all countries' import of services by year from 2000 to 2023.
+-   I pointed out that a shortcoming in the original visualisation is that the data it has used is not consistent with others. The other visualisations are all within the period of 2020-2024, while only this one is 2019 vs 2023. Since the dataset available in DOS is until 2023 as the most recent data, I will use the same period of data to plot the make-over.
+-   It is also noted that Europe Union and ASEAN are one entity in the dataset, so I will use it as is.
+:::
+:::::
+
+2.  Make subsets for data wrangling In this step, I will extrac the data from 2019 and 2023 for all countries.
+
+::: panel-tabset
+## Import
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+# Select needed rows and change header.
+new_header_im <- as.character(unlist(v3_data_import[10,]))
+v3_subset_im <- v3_data_import[11:78,]
+names(v3_subset_im) <- new_header_im
+
+# Select year 2019 and 2023
+v3_years_im <- v3_subset_im %>%
+  select("Data Series", "2023", "2019")
+
+head(v3_years_im)
+```
+
+## Export
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+# Select needed rows and change header.
+new_header_ex <- as.character(unlist(v3_data_export[10,]))
+v3_subset_ex <- v3_data_export[11:78,]
+names(v3_subset_ex) <- new_header_ex
+
+# Select year 2019 and 2023
+v3_years_ex <- v3_subset_ex %>%
+  select("Data Series", "2023", "2019")
+
+head(v3_years_ex)
+```
+:::
+
+**Step 3. Data Wrangling**
+
+In this step, I will combine the import and export data into one for ploting a slopegraphic plot.
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
+#Import set
+import_long <- v3_years_im %>%
+  rename(Country = `Data Series`) %>%
+  pivot_longer(
+    cols = -Country,
+    names_to = "Year",
+    values_to = "Value"
+  ) %>%
+  
+  mutate(Type = "Import") %>%
+  arrange(Country, Year)
+
+#Export set
+export_long <- v3_years_ex %>%
+  rename(Country = `Data Series`) %>%
+  pivot_longer(
+    cols = -Country,
+    names_to = "Year",
+    values_to = "Value"
+  ) %>%
+  
+  mutate(Type = "Export") %>%
+  arrange(Country, Year)
+
+# Combine datasets
+v3_combine <- bind_rows(import_long, export_long) %>%
+  arrange(Country, Year, Type)
+
+# Remove regions like Asia, North America
+region_exclude <- c("Asia", "Europe", "North America", "Africa",
+                    "South And Central America And The Caribbean",
+                    "Oceania")
+
+# Covert Value to numeric type
+v3_convert <- v3_combine %>%
+  mutate(
+    Value = gsub("[^0-9.-]", "", Value), #remove commas or non-numeric stuff
+    Value = as.numeric(Value),
+    Year = as.numeric(as.character(Year))
+    ) %>%
+  filter(!Country %in% region_exclude)
+
+ #Remove USA data
+#v3_convert <- v3_convert %>%
+#  filter(!grepl("United States Of America", Country, ignore.case = TRUE)) %>%
+#  filter(!grepl("United Kingdom", Country, ignore.case = TRUE))
+
+#usa_data <- tibble(
+#  Country = rep(c("U.S.", "U.K."), each = 4),
+#  Year = rep(c(2019, 2019, 2023, 2023), 2),
+#  Value = c(29277.2, 50735.4, 51122.8, 108025.0,
+#            13785, 8404.7, 20205.7, 16655.8
+#),
+#  Type = rep(c("Export", "Import", "Export", "Import"), 2))
+
+#v3_usa <- bind_rows(v3_convert, usa_data)
+
+# Filter top 10 countries by total value in 2023
+top_countries <- v3_convert %>%
+  filter(Year == "2023") %>%
+  group_by(Country) %>%
+  summarize(TotalValue = sum(Value, na.rm = TRUE)) %>%
+  arrange(desc(TotalValue)) %>%
+  slice_head(n=10) %>%
+  pull(Country)
+
+```
+
 #### **2.3.4 Visualisation make-over**
+
+```{r}
+#| fig-width: 7
+#| fig-height: 12
+#| code-fold: True
+#| code-summary: "Show the code"
+
+regional_groups <- c("ASEAN", "European Union (EU-27)")
+
+slope_data <- v3_convert %>%
+  filter(Year %in% c(2019, 2023)) %>%
+  mutate(Year = as.factor(Year))
+
+
+slope_data_top <- slope_data %>%
+  filter(Country %in% top_countries) %>%
+  mutate(
+    country_code = tolower(countrycode(Country, origin = "country.name", 
+                                       destination = "iso2c")
+    )
+  )
+# Create the interactive plot
+p <- ggplot(slope_data_top, aes(x = Year, y = Value, 
+                                group = interaction(Country, Type), color = Country)) +
+  geom_line_interactive(aes(data_id = Country), size = 1) +
+  
+  geom_flag(
+    data = subset(slope_data_top, Year == "2023"),
+    aes(country = country_code),
+    size = 6
+  ) +
+  
+  # Add interactive points with tooltips
+  geom_point_interactive(
+    data = subset(slope_data_top, Year == "2019"),
+    aes(data_id = Country, 
+        tooltip = paste0(Country, ": S$", round(Value/1000,1), "B")), 
+    size = 2
+  ) +
+
+  geom_point_interactive(
+    data = subset(slope_data_top, Year == "2023"),
+    aes(data_id = Country, 
+        tooltip = paste0(Country, ": S$", round(Value/1000,1), "B")), 
+    size = 0.1
+  ) +
+  
+  # Text labels for countries (positioned to account for flags)
+  geom_text_interactive(
+    data = subset(slope_data_top, Year == "2023"), 
+    aes(label = Country, data_id = Country), 
+    hjust = -0.2,
+    nudge_x = 0.02,
+    size = 2.5,
+    fontface = "bold"
+  ) +
+  #scale Y to bil.
+  scale_y_continuous(
+  
+  ) +
+  
+  # Side-by-side panels
+  facet_wrap(~Type, scales = "free_x") +
+  scale_color_manual(values = colorRampPalette(c("#A3D1C6", "#D95F02", "#C599B6", "#FF8989", "#A4B465", "#E6AB02", "#2DAA9E", "grey50", "#D69ADE", "#88CCEE"))(10)) +
+  scale_y_continuous(
+    name = "Value (Billion USD)",
+    labels = function(x) paste0("$", x/1000),  # Convert from millions to billions
+    limits = c(0, 109000)) +
+  labs(title = "Major Trading Partners for Trade in Services",
+  subtitle = "2019 vs 2023") +
+  geom_vline(xintercept = "2019", linetype = "solid", 
+             color = "#E3D2C3", size = 0.7, alpha = 0.7) +
+  geom_vline(xintercept = "2023", linetype = "solid", 
+             color = "#E3D2C3", size = 0.7, alpha = 0.7) +
+
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        strip.text = element_text(size = 14, color = "#1B4D3E", face = "bold"),
+        plot.title = element_text(hjust = 0.5, size = 16, face = "bold", family = "Arial"),
+        plot.subtitle = element_text(hjust = 0.5, size = 14, face = "bold", family = "Arial"),
+        plot.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5")
+        ) 
+
+girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
+  girafe_options(
+    opts_sizing(rescale = FALSE),
+    opts_hover(css = "stroke-width:3px;"),
+    opts_hover_inv(css = "opacity:0.2;")
+  )
+
+```
+::::: goals
+::: goals-header
+Make-over
+:::
+
+::: goals-container
+-   **Title -** The title reflects the comparison between 2019 and 2023, not only 2023.
+-   **Top 10 countries -** In the original plot, it has India rather than Ireland. I took a guess that it meant top 10 total trade volume in 2023, because India is the 11th. The re-designed plot has Ireland rather than India in top 10, because it has filtered out the EU countries. Maybe it does not want to show individual countries, but I think it is better to show so viewers see the prominence and actual data insights.
+-   **Divide Import and Export -** The slopgraph has clearly defined Import and Export sections, so viewers can easily see the difference between the two trade categories.
+-   **Hover effect -** With the interactive element, viewer can hover over the country slope, and it will emphasise the country while dehighlight the rest to compare how the trend is in both trade categories.
+-   **Tooltip -** Tooltip is applied to show the actual Import and Export values if viewers with to know. The tool tip prevent the plot from being too crowded.
+:::
+:::::
 
 ### 2.4 Summary
 
@@ -1005,5 +1267,3 @@ visualisation methods, analysis results (500 words)
 ## 4 Conclusion
 
 ## Reference
-
-::::::
