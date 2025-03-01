@@ -276,14 +276,11 @@ Observation
 :::
 
 ::: goals-container
-`ACF()`: compare with the previous (relation with the previous)
-`autoplot()` gives the plotting.
--   China and Vietnam are similar, but not the same. China is 6 months period, while VN is 12 months.
--   blues lines are confidence intervals to check whether they are statistically significant. China is more significant then VN. The rest are weak. UK - trend is not significant, but still have seasonal.
+`ACF()`: compare with the previous (relation with the previous) `autoplot()` gives the plotting. - China and Vietnam are similar, but not the same. China is 6 months period, while VN is 12 months. - blues lines are confidence intervals to check whether they are statistically significant. China is more significant then VN. The rest are weak. UK - trend is not significant, but still have seasonal.
 :::
 :::::
 
-On the other hand, code chunk below is used to prepare a trellis plot of **PACFs** for visitor arrivals from Vietnam, Italy, United Kingdom and China.
+On the other hand, code chunk below is used to prepare a trellis plot of **PACFs** for visitor arrivals from Vietnam, Italy, United Kingdom and China. `PACF()` has Lag 1 and 2, ... keeps looking at the correlation. It is the correlation between two variables under the assumption that we know and take into account the values of some other set of variables. For instance, consider a regression context in which y is the response variable and X1, X2, and X3 are predictor variables. The partial correlation between y and X3 is the correlation between the variables determined taking into account how both y and X3 are related to X1 and X2.
 
 ```{r}
 tsibble_longer %>%
@@ -294,3 +291,72 @@ tsibble_longer %>%
   PACF(Arrivals) %>%
   autoplot()
 ```
+
+### 6.1 **Visual STL diagnostics with feasts**
+
+In the code chunk below, `STL()` of **feasts** package is used to decomposite visitor arrivals from Vietnam data.
+
+```{r}
+tsibble_longer %>%
+  filter(`Country` == "Vietnam") %>%
+  model(stl = STL(Arrivals)) %>%
+  components() %>%
+  autoplot()
+```
+
+Trend and Seasonal need to compose well, both needs to be clear.
+
+### 6.2 Classical Decomposition with feast
+
+```{r}
+tsibble_longer %>%
+  filter(`Country` == "Vietnam") %>%
+  model(
+    classical_decomposition(
+      Arrivals, type = "additive")) %>%
+  components() %>%
+  autoplot()
+```
+
+### 7.1 Sampling
+
+Need to keep the last few time hold-out data.
+
+In this example we will use the last 12 months for hold-out and the rest for training.
+
+First, an extra column called *Type* indicating training or hold-out will be created by using `mutate()` of **dplyr** package. It will be extremely useful for subsequent data visualisation.
+
+```{r}
+vietnam_ts <- tsibble_longer %>%
+  filter(Country == "Vietnam") %>% 
+  mutate(Type = if_else(
+    `Month-Year` >= "2019-01-01", 
+    "Hold-out", "Training"))
+```
+
+Next, a training data set is extracted from the original data set by using `filter()` of **dplyr** package.
+
+```{r}
+vietnam_train <- vietnam_ts %>%
+  filter(`Month-Year` < "2019-01-01")
+```
+
+### 7.2 EDA: Time series data
+
+### 7.3 **Fitting forecasting models**
+
+the residual should look normal distribution so it means good forecasting.
+
+7.4
+
+#### 7.8 **Step 5: Forecasting future values**
+
+See the stats result and plotting result on forecast and observed value.
+
+-   WH-M value is the smallest, also showing closest to the observed value.
+
+### 7.12 **Visualising AutoETS model with ggplot2**
+
+Good fitting: buffer should be very thin.
+
+only need to see the last two (zoom in)
