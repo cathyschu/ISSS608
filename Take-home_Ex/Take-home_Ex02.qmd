@@ -10,21 +10,23 @@ execute:
   freeze: true  
 ---
 
+![](images/sg_trade_banner.png){fig-align="center"}
+
 ## 1 Overview
 
-As a visual analytics novice, I will apply newly acquired techniques to explore and analyze the changing trends and patterns of Singapore's international trade since 2015. I will be using the [data set](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data) from the Department of Statistics Singapore (DOS) to re-create visualisations with critics on the visualisations shared on the [DOS website](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade), and analyse the time-series events.
+As a visual analytics novice, I will apply newly acquired techniques to explore and analyse the changing trends and patterns of Singapore’s international trade since 2015. Using the [data set](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data) from the Department of Statistics Singapore ([DOS](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade)), I will re-create visualizations, offering critiques of the visualizations shared on the DOS website. In addition, I will analyze key time-series events to uncover insights from the data.
 
 ### 1.1 Tasks
 
 There are 2 tasks I will complete in this assignment.
 
-**1. Critiques on visualisations**
+#### **1. Critiques & re-creation of visualisations**
 
-I will choose 3 visualisations from the Department of Statistics Singapore website that visualise the Singapore trading data and discuss their pros and cons. I will then provide sketches of improved version and use R packages to re-create the visualisations for clearer messaging.
+I will select 3 visualisations from the Department of Statistics Singapore website that display the Singapore trading data. I will critique each visualisation, discuss their pros and cons. I will then provide sketches of improved versions. Using R packages, I will re-create the visualisations with clearer messaging.
 
-**2. Data analysis**
+#### **2. Data analysis**
 
-I will analyse the data provided from the website with time-series analysis methods data visualisation using R packages.
+I will performe time-series analysis using data visualisation techniques and R packages to uncover insights from the dataset.
 
 ### 1.2 Data
 
