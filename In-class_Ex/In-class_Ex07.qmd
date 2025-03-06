@@ -10,7 +10,11 @@ execute:
 editor: visual
 ---
 
+# Visualising, Analysing and Forecasting Time-series Data: tidyverts methods
+
 ## 1 Getting started
+
+[tidyverts](https://tidyverts.org/) is a family of R packages specially designed for visualising, analysing and forecasting time-series data conforming to tidyverse framework. It is the work of [Dr. Rob Hyndman](https://robjhyndman.com/), professor of statistics at Monash University, and his team. The family of R packages are intended to be the next-generation replacement for the very popular [forecast](https://pkg.robjhyndman.com/forecast/) package, and is currently under active development.
 
 **Load and launch packages**
 

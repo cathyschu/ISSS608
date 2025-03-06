@@ -141,6 +141,7 @@ girafe(ggobj = p, width_svg = 5, height_svg = 7) |>
     opts_hover_inv(css = "opacity:0.2;")
   )
 ```
+
 ```{r}
 library(readxl)
 library(dplyr)
@@ -186,4 +187,5 @@ v1_year_sum <- v1_trans %>%
 
 
 ```
+
 
