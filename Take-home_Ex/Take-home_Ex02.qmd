@@ -1232,12 +1232,16 @@ p <- ggplot(slope_data_top, aes(x = Year, y = Value,
 
   theme_minimal() +
   theme(legend.position = "bottom",
-        strip.text = element_text(size = 14, color = "#1B4D3E", face = "bold"),
-        plot.title = element_text(hjust = 0, size = 16, face = "bold", family = "Arial"),
-        plot.subtitle = element_text(hjust = 0, size = 14, face = "bold", family = "Arial"),
-        plot.background = element_rect(fill = "#A6AEBF", color = "#A6AEBF"),
-        axis.title.x = element_text(size = 12, face = "bold", family = "Arial"),
-        axis.title.y = element_text(size = 12, face = "bold", family = "Arial")
+        strip.text = element_text(size = 14, color = "#F6D776", face = "bold"),
+        plot.title = element_text(hjust = 0, size = 16, face = "bold", family = "Arial", color = "white"),
+        plot.subtitle = element_text(hjust = 0, size = 14, face = "bold", family = "Arial", color = "white"),
+        plot.background = element_rect(fill = "#525E75", color = "#525E75"),
+        axis.title.x = element_text(size = 12, face = "bold", family = "Arial", color = "white"),
+        axis.title.y = element_text(size = 12, face = "bold", family = "Arial", color = "white"),
+        axis.text.x = element_text(color = "grey80"),
+        axis.text.y = element_text(color = "grey80"),
+        panel.grid.major = element_line(color = "gray40", size = 0.5, linetype = "dashed"),
+        panel.grid.minor = element_line(color = "grey20", size = 0.25, linetype = "dotted")
         ) 
 
 girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
