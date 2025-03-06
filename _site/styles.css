@@ -165,3 +165,35 @@ div.cell-output pre {
   background-color: #a9cbcc;
   border-bottom-right-radius: 10px;  
 }
+
+/* style callout blocks -- Trade*/
+.tdgoals {
+  margin: 1em 0;
+  border: 1.5px dashed #BFBBA9;
+  border-radius: 10px;
+  background-color: #ECDFCC;
+}
+
+.tdgoals-header {
+  margin-left: 0em;
+  padding-left: 80px;
+  padding-top: 20px;
+  padding-bottom: 0.1em;
+  color: #66785F;
+  font-size: 1.2em;
+  font-weight: bold;
+  background-size: 60px;
+  background-color: #ECDFCC;
+  background-repeat: no-repeat;
+  background-position: 20px center;
+  background-image: url("images/globe_icon.png");
+}
+
+.tdgoals-container {
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 20px;
+  color: #343738;
+  background-color: #ECDFCC;
+  border-bottom-right-radius: 10px;  
+}

@@ -556,12 +556,12 @@ head(v2_data_im)
 
 ```
 
-::::: goals
-::: goals-header
+::::: tdgoals
+::: tdgoals-header
 Observation
 :::
 
-::: goals-container
+::: tdgoals-container
 -   Similar to the other set of data used in the previous section, the reading result shows that the fields are all in character type. The dataset also needs further conversion for computation later.
 :::
 :::::
@@ -924,12 +924,12 @@ p <- p %>% add_annotations(
 p
 ```
 
-::::: goals
-::: goals-header
+::::: tdgoals
+::: tdgoals-header
 Make-over
 :::
 
-::: goals-container
+::: tdgoals-container
 -   **Color -** The original plot assigns a color for each country, which makes no distinction for the countries. In the make-over, I scale down the color scheme to two, green and red. These colors are used to show whether the country is in Surplus or Deficit position to Singapore.
 -   **Interactive tooltip -** Instead of using a dotted line and label, a tooltip is applied so viewers can hover over the bubble to understand the details. This avoids overcorwding of the plot.
 -   **Trade partner by Surplus/Deficit scale -** Instead of using full color styling, the two color scheme is designed to show whether it is a surplus (Export \> Import) or deficit (Import \> Export). The color is gradient according to the amount of trade balance. If it is negative, the bubble truns red, and vice versa.
@@ -1014,12 +1014,12 @@ v3_data_export <- read_xlsx("data/Mtrade_service.xlsx", "T3")
 
 ```
 
-::::: goals
-::: goals-header
+::::: tdgoals
+::: tdgoals-header
 Observation
 :::
 
-::: goals-container
+::: tdgoals-container
 -   The dataset has all countries' import of services by year from 2000 to 2023.
 -   I pointed out that a shortcoming in the original visualisation is that the data it has used is not consistent with others. The other visualisations are all within the period of 2020-2024, while only this one is 2019 vs 2023. Since the dataset available in DOS is until 2023 as the most recent data, I will use the same period of data to plot the make-over.
 -   It is also noted that Europe Union and ASEAN are one entity in the dataset, so I will use it as is.
@@ -1235,12 +1235,12 @@ girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
 
 ```
 
-::::: goals
-::: goals-header
+::::: tdgoals
+::: tdgoals-header
 Make-over
 :::
 
-::: goals-container
+::: tdgoals-container
 -   **Title -** The title reflects the comparison between 2019 and 2023, not only 2023.
 -   **Top 10 countries -** In the original plot, it has India rather than Ireland. I took a guess that it meant top 10 total trade volume in 2023, because India is the 11th. The re-designed plot has Ireland rather than India in top 10, because it has filtered out the EU countries. Maybe it does not want to show individual countries, but I think it is better to show so viewers see the prominence and actual data insights.
 -   **Divide Import and Export -** The slopgraph has clearly defined Import and Export sections, so viewers can easily see the difference between the two trade categories.
