@@ -26,41 +26,45 @@ I will select 3 visualisations from the Department of Statistics Singapore websi
 
 #### **2. Data analysis**
 
-I will performe time-series analysis using data visualisation techniques and R packages to uncover insights from the dataset.
+I will perform time-series analysis using data visualisation techniques and R packages to uncover insights from the dataset.
 
 ### 1.2 Data
 
 ## 2 Visualisation Make-Over
 
-The Department of Statistics Singaporepublished a series of visualisations to illustrate the Singapore international trade data on this [website](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade). This assignment aims to discuss the pros and cons 3 visualisations from the 9 provided, and then provide a redesign of the charts a/o graphics to more clearly convey the insights from the dataset.
+The Department of Statistics Singapore provides a series of visualizations on its [website](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade) to illustrate Singapore’s international trade data. This assignment will critique three of the nine visualizations provided, highlighting their strengths and weaknesses, and then propose redesigned charts or graphics to better convey insights from the dataset.
 
-Below are the illustration of 3 plots that I will comment on and make an attempt to make over for better illustration of visualisation.
+The three visualizations selected for analysis are:
 
--   No. 1 is a **Comparison Bar Chart** that shows the exports and imports from the year 2020 to 2024 at the current prices.
--   No. 2 is a **Dot Plot** that illustrates Singapore's trade performance with the major trading partners.
--   No. 3 is a **Mirror Bar Chart** that attempts to illustrate several dimensions of the data, including imports and exports, year of 2019 and 2023, and by the top performing trade partners.
+1.  **Comparison Bar Chart**: Displays exports and imports from 2020 to 2024 at current prices.
+
+2.  **Bubble Plot**: Illustrates Singapore’s trade performance with major trading partners.
+
+3.  **Mirror Bar Chart**: Aims to compare imports and exports among top trading partners for the years 2019 and 2023, segmented by the top-performing trade partners.
+
+Each chart will be reviewed for aesthetics, effectiveness, and potential improvements.
 
 :::::: columns
 ::: {.column width="35%"}
-[**#1 Bar Chart**]{style="color:#A7B49E;"}
+[**#1 Bar Chart**]{style="color:#789DBC;"}
 
 ![](images/singapore-international-trade_Page_02.png)
 :::
 
 ::: {.column width="35%"}
-[**#2 Dot Plot**]{style="color:#A7B49E;"}
+[**#2 Bubble Plot**]{style="color:#789DBC;"}
 
 ![](images/singapore-international-trade_Page_03.png)
 :::
 
 ::: {.column width="30%"}
-[**#3 Mirror Bar Chart**]{style="color:#A7B49E;"}
+[**#3 Mirror Bar Chart**]{style="color:#789DBC;"}
 
 ![](images/singapore-international-trade_Page_10.png)
 :::
 ::::::
 
-### 2.1 Visualisation #1
+### 2.1 Visualisation #1 [Bar Chart]{style="color:#A3D1C6;"}
 
 :::::: columns
 ::: {.column width="35%"}
@@ -69,7 +73,7 @@ Below are the illustration of 3 plots that I will comment on and make an attempt
 
 :::: {.column width="65%"}
 ::: panel-tabset
-## **Pros**
+## **PROS**
 
 The visualisation has several strengths as follows:
 
@@ -79,7 +83,7 @@ The visualisation has several strengths as follows:
 
 -   **Comprehensive data presentation**: The chart manages to show five years of data with two metrics per year plus totals (15 data points) in a single, compact visualization.
 
-## **Cons**
+## **CONS**
 
 -   **UGLY**
 
@@ -97,7 +101,7 @@ The chart's structure impedes data interpretation. First, comparing the same met
 
 The "total" values, while mathematically correct, are conceptually flawed. Adding exports and imports creates a non-standard economic metric lacking clear meaning. If intended to show trade volume as an activity indicator, it should be explicitly labeled "Total Trade Volume" with context. Without this clarity, viewers might misinterpret the total as net economic benefit, when trade balance would be more meaningful.
 
-## **Sketch**
+## **SKETCH**
 
 ![](images/sketch1-01.png){width="600"}
 
@@ -105,20 +109,22 @@ The "total" values, while mathematically correct, are conceptually flawed. Addin
 
 -   **Dumbbell plot**
 
-    The dumbbell plot has an advantage of illustrating two sides of the trading amount and the gap between them. In this case, the plot is able to show the position of import and export for each year and observe the trends.
+    The dumbbell plot effectively illustrates the comparison between imports and exports, highlighting the gap between the two for each year. It allows for clear observation of trends in trade values over time.
 
--   **Colors**
+-   **Color scheme**
 
-    2 main colors are chosen to represent Import and Export, instead of one color for each year in the original plot. The years can be easily observed in the Y axis, so there is no need to distinguish them in different colors.
+    Two distinct colors represent imports and exports, rather than using a different color for each year. This simplifies the visual presentation, as the years are clearly marked on the Y-axis and eliminate the need for color differentiation by year.
 
 -   **What were removed**
+
+    The cargo image, while thematically relevant, does not enhance comprehension and has been removed. Labels for trade amounts have been removed from the axes and are now placed next to the data points for better clarity.
 :::
 ::::
 ::::::
 
 #### **2.1.1 Data**
 
-The data set needed is the Maerchandise Trade data from DOS website. Within the excel file *Merchandise Trade By Commodity Section, (At Current Prices), Monthly*, there are monthly trade volumes from 1964 Jan until 2025 Jan. The value for the amount is in thousand dollars.
+The data set needed is the Merchandise Trade data from DOS website. Within the excel file *Merchandise Trade By Commodity Section, (At Current Prices), Monthly*, there are monthly trade volumes from 1964 Jan until 2025 Jan. The value for the amount is in thousand dollars.
 
 This means some data wrangling is needed to derive the yearly sum of the trade amount for every year from 2020 \~ 2024.
 
@@ -135,7 +141,8 @@ library(knitr)
 
 **Step 2. Import the data**
 
-1\. Import the Excel file
+::::::::: panel-tabset
+## **IMPORT EXCEL**
 
 ```{r}
 #| code-fold: True
@@ -148,17 +155,17 @@ head(v1_data)
 
 ```
 
-::::: goals
-::: goals-header
+::::: tdgoals
+::: tdgoals-header
 Observation
 :::
 
-::: goals-container
+::: tdgoals-container
 -   The reading result shows that the fields are all in character type, which needs further conversion for computation later.
 :::
 :::::
 
-2.  Make a subset for further manipulation
+## **MAKE SUBSET**
 
 ```{r}
 #| code-fold: True
@@ -185,22 +192,23 @@ kable(head(v1_trans_export))
 
 ```
 
-::::: goals
-::: goals-header
+::::: tdgoals
+::: tdgoals-header
 Observation
 :::
 
-::: goals-container
+::: tdgoals-container
 -   The subset data has new column names, so we will need to shift the first row up to be the column names.
 :::
 :::::
+:::::::::
 
 **Step 3. Data wrangling**
 
-In this step, I will first correct the column names. Then I will extract the years from the 1st column so I can group them to sum up the trade values. I will also need to convert the data types to numeric from character.
+In this step, I will first correct the column names. Then I will extract the years from the 1st column so I can group them to sum up the trade values. I will also need to convert the data types to numeric from character type.
 
 ::: panel-tabset
-## Merchandise Trade
+## MERCHANDISE TRADE
 
 Below code is used to derive the data set for merchandise trade (import & export) yearly totals from 2020-2024.
 
@@ -233,7 +241,7 @@ v1_year_sum <- v1_trans %>%
 head(v1_year_sum)
 ```
 
-## Imports
+## IMPORTS
 
 Below code is used to derive the data set for imports yearly totals from 2020-2024.
 
@@ -266,7 +274,7 @@ v1_year_sum_im <- v1_trans_import %>%
 head(v1_year_sum_im)
 ```
 
-## Exports
+## EXPORTS
 
 Below code is used to derive the data set for exports yearly totals from 2020-2024.
 
@@ -299,7 +307,9 @@ v1_year_sum_ex <- v1_trans_export %>%
 head(v1_year_sum_ex)
 ```
 
-## Combined dataset
+## COMBINED
+
+I will combine Import and Export into one data frame for visualisation.
 
 ```{r}
 #| code-fold: true
@@ -325,7 +335,7 @@ head(v1_combined)
 
 #### **2.1.2 Visualisation make-over**
 
-**Launch packages**
+**Step 1. Launch packages**
 
 ```{r}
 #| code-fold: true
@@ -335,7 +345,7 @@ library(ggtext)
 library(extrafont)
 ```
 
-**Code the visualisation**
+**Step 2. Code the visualisation**
 
 ```{r}
 #| fig-width: 10
@@ -458,11 +468,11 @@ p_labelled
 ```
 
 ::::: goals
-::: goals-header
+::: tdgoals-header
 Make-over
 :::
 
-::: goals-container
+::: tdgoals-container
 -   **Color -** Used a focused two-color scheme to clearly distinguish between export and import values, enhancing data interpretation.
 -   **Trends presentation -** Viwers can easily tell the trends of Export and Import along the years 2020-2024 with an emphasis on the year-over-year trade patterns across the 2020-2024 period.
 -   **Mean score -** Integrated mean value reference lines for both exports and imports.
@@ -474,7 +484,7 @@ These improvements overall makes the plot more prominent in showing the trends o
 :::
 :::::
 
-### 2.2 Visualisation #2
+### 2.2 Visualisation #2 [Bubble Plot]{style="color:#A3D1C6;"}
 
 ::::::::: columns
 ::: {.column width="35%"}
@@ -528,9 +538,9 @@ These improvements overall makes the plot more prominent in showing the trends o
 
 #### **2.2.1 Data**
 
-For this visualisation, the dataset *Merchandise Trade by Region/MarketOpen accordion* from DOS will be used for make-over. The excel file has 3 tabs of information for Imports, Domestic Exports and Re-Exports. I will use all 3 tabs to process the total trade amount for each country to plot the dot plot. Within the Excel file, there are monthly trade volumes for each country from 2003 Jan until 2025 Jan. The value for the amount is in **million** dollars.
+For this visualisation, the dataset *Merchandise Trade by Region/Market* from the Department of Statistics Singapore (DOS) will be used.
 
-This means some data wrangling is needed to derive the yearly sum of the trade amount for 2024.
+The dataset consists of three tabs: Imports, Domestic Exports, and Re-Exports. I will combine data from all three tabs to calculate the total trade volume for each country, which will be plotted in a bubble plot. The dataset contains monthly trade volumes from January 2003 to January 2025, with trade values expressed in **millions** of dollars. Data wrangling is required to aggregate the trade amounts by year for 2024.
 
 **Step 1. Load and launch packages**
 
@@ -543,9 +553,11 @@ library(stringr)
 library(knitr)
 ```
 
-**Step 2. Import the data**
+**Step 2. Import the data and make subsets**
 
--   Import the Excel file
+::: panel-tabset
+
+## IMPORT EXCEL
 
 ```{r}
 #| code-fold: True
@@ -568,10 +580,7 @@ Observation
 :::
 :::::
 
--   Subtract the needed data for Import, Export and Re-Export
-
-::: panel-tabset
-## Import
+## IMPORT
 
 ```{r}
 #| code-fold: True
@@ -583,7 +592,7 @@ v2_trans_im <- as.data.frame(v2_trans_matrix_im) #now convert the matrix to df.
 kable(head(v2_trans_im))
 ```
 
-## Export
+## EXPORT
 
 ```{r}
 #| code-fold: True
@@ -595,7 +604,7 @@ kable(head(v2_trans_ex))
 
 ```
 
-## Re-Export
+## RE-EXPORT
 
 ```{r}
 #| code-fold: True
@@ -613,7 +622,7 @@ kable(head(v2_trans_reex))
 In this step, I will process the total amount from the year 2024 for each country / region for each trade category.
 
 ::: panel-tabset
-## Import
+## IMPORT
 
 ```{r}
 #| code-fold: True
@@ -659,7 +668,7 @@ v2_long_im <- v2_trans_im_2024_sum %>%
 print(head(v2_long_im))
 ```
 
-## Export
+## EXPORT
 
 ```{r}
 #| code-fold: True
@@ -703,7 +712,7 @@ print(head(v2_long_ex))
 
 ```
 
-## Re-Export
+## RE-EXPORT
 
 ```{r}
 #| code-fold: True
@@ -747,7 +756,7 @@ print(head(v2_long_reex))
 
 ```
 
-## Combined
+## COMBINED
 
 Now I will combine the 3 data sets, and also sum up the Export values. I noticed that the original plot has EU together as a trade partner, so I will also combine the 27 EU countries into one new row "EU".
 
@@ -812,7 +821,7 @@ library(plotly)
 
 **Plot the visualisation**
 
-The plot will be a similar scatter plot with new color scheme and interactive tooltip showing more information of the country hovered over.
+The plot will be a similar scatter plot with new color scheme and interactive tooltip showing more information of the country hovered over. This plot uses **ggplot2** with **ggplotly** to show interactivity of the tooltips.
 
 ```{r}
 #| fig-width: 12
@@ -941,7 +950,7 @@ These improvements make the trade relationships clearer and allow viewers to qui
 :::
 :::::
 
-### 2.3 Visualisation #3
+### 2.3 Visualisation #3 [Mirror Bar Chart]{style="color:#A3D1C6;"}
 
 :::::: columns
 ::: {.column width="35%"}
@@ -950,14 +959,14 @@ These improvements make the trade relationships clearer and allow viewers to qui
 
 :::: {.column width="65%"}
 ::: panel-tabset
-## **Pros**
+## **PROS**
 
 -   **Comprehensiveness -** It clearly shows import/export data for major trading partners across two time periods (2019 and 2023)
 -   **Ranking systme -** The ranking system (gold, silverm bronze medals) makes it easy to identify top trading partners.
 -   **Country flags -** Helps with quick visual identification.
 -   **Temporal comparison -** The side-by-side comparison of 2019 and 2023 allows for easy temporal comparison.
 
-## **Cons**
+## **CONS**
 
 **UGLY**
 
@@ -980,9 +989,9 @@ These improvements make the trade relationships clearer and allow viewers to qui
 -   **Bar chart -** It doesn't effectively show the relationship between imports and exports for each entity.
 -   Inconsistent period of comparison - While other visualisations on the website show data from 2020 to 2024, this chart displays 2019 vs 2023. The inconsistency disrupts the overall narrative and prevents viewers from making direct comparisons across different visualisations the holistic information of presenting the recent data.
 
-## **Sketch**
+## **SKETCH**
 
-![](images/sketch3.png){width="400"}
+![](images/sketch3.png){width="500"}
 :::
 ::::
 ::::::
@@ -1006,13 +1015,18 @@ library(ggiraph)
 library(ggplot2)
 ```
 
-**Step 2. Import the data** 1. Import the Excel file
+**Step 2. Import data & make subsets** 
+
+::: panel-tabset
+## IMPORT EXCEL
 
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
 v3_data_import <- read_xlsx("data/Mtrade_service.xlsx", "T7")
 v3_data_export <- read_xlsx("data/Mtrade_service.xlsx", "T3")
+
+head(v3_data_import)
 
 ```
 
@@ -1022,17 +1036,15 @@ Observation
 :::
 
 ::: tdgoals-container
--   The dataset has all countries' import of services by year from 2000 to 2023.
--   I pointed out that a shortcoming in the original visualisation is that the data it has used is not consistent with others. The other visualisations are all within the period of 2020-2024, while only this one is 2019 vs 2023. Since the dataset available in DOS is until 2023 as the most recent data, I will use the same period of data to plot the make-over.
--   It is also noted that Europe Union and ASEAN are one entity in the dataset, so I will use it as is.
+-   The dataset contains annual import data for services by country from 2000 to 2023.
+-   A key issue with the original visualization is the inconsistency in the data period. While other visualizations cover 2020-2024, this one compares 2019 to 2023. As the most recent data available in the DOS dataset is from 2023, I will use this period for the updated visualization.
+-   Additionally, the dataset treats the European Union and ASEAN as single entities, so I will retain this grouping in the plot.
 :::
 :::::
 
-2.  Make subsets for data wrangling In this step, I will extrac the data from 2019 and 2023 for all countries.
 
-::: panel-tabset
-## Import
-
+## IMPORT
+Make a subset for data wrangling In this step, I will extrac the import data from 2019 and 2023 for all countries.
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -1048,8 +1060,8 @@ v3_years_im <- v3_subset_im %>%
 head(v3_years_im)
 ```
 
-## Export
-
+## EXPORT
+Make a subset for data wrangling In this step, I will extrac the export data from 2019 and 2023 for all countries.
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"

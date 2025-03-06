@@ -168,7 +168,7 @@ div.cell-output pre {
 
 /* style callout blocks -- Trade*/
 .tdgoals {
-  margin: 1em 0;
+  margin: 2em 0;
   border: 1.5px dashed #BFBBA9;
   border-radius: 10px;
   background-color: #ECDFCC;
@@ -176,21 +176,21 @@ div.cell-output pre {
 
 .tdgoals-header {
   margin-left: 0em;
-  padding-left: 80px;
+  padding-left: 120px;
   padding-top: 20px;
   padding-bottom: 0.1em;
   color: #66785F;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: bold;
-  background-size: 60px;
+  background-size: 100px;
   background-color: #ECDFCC;
   background-repeat: no-repeat;
-  background-position: 20px center;
+  background-position: 15px center;
   background-image: url("images/globe_icon.png");
 }
 
 .tdgoals-container {
-  padding-top: 5px;
+  padding-top: 20px;
   padding-left: 10px;
   padding-right: 20px;
   color: #343738;
