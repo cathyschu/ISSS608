@@ -10,6 +10,9 @@ execute:
   freeze: true  
 ---
 
+
+
+
 ![](images/sg_trade_banner.png){fig-align="center"}
 
 ## 1 Overview
@@ -130,6 +133,9 @@ This means some data wrangling is needed to derive the yearly sum of the trade a
 
 **Step 1. Load and launch packages**
 
+
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -139,10 +145,16 @@ library(stringr)
 library(knitr)
 ```
 
+
+
+
 **Step 2. Import the data**
 
 ::::::::: panel-tabset
 ## **IMPORT EXCEL**
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -155,6 +167,9 @@ head(v1_data)
 
 ```
 
+
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Observation
@@ -166,6 +181,9 @@ Observation
 :::::
 
 ## **MAKE SUBSET**
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -192,6 +210,9 @@ kable(head(v1_trans_export))
 
 ```
 
+
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Observation
@@ -211,6 +232,9 @@ In this step, I will first correct the column names. Then I will extract the yea
 ## MERCHANDISE TRADE
 
 Below code is used to derive the data set for merchandise trade (import & export) yearly totals from 2020-2024.
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -241,9 +265,15 @@ v1_year_sum <- v1_trans %>%
 head(v1_year_sum)
 ```
 
+
+
+
 ## IMPORTS
 
 Below code is used to derive the data set for imports yearly totals from 2020-2024.
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -274,9 +304,15 @@ v1_year_sum_im <- v1_trans_import %>%
 head(v1_year_sum_im)
 ```
 
+
+
+
 ## EXPORTS
 
 Below code is used to derive the data set for exports yearly totals from 2020-2024.
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -307,9 +343,15 @@ v1_year_sum_ex <- v1_trans_export %>%
 head(v1_year_sum_ex)
 ```
 
+
+
+
 ## COMBINED
 
 I will combine Import and Export into one data frame for visualisation.
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -330,12 +372,18 @@ v1_combined <- v1_combined %>%
 head(v1_combined)
 ```
 
+
+
+
 \
 :::
 
 #### **2.1.2 Visualisation make-over**
 
 **Step 1. Launch packages**
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -345,7 +393,13 @@ library(ggtext)
 library(extrafont)
 ```
 
+
+
+
 **Step 2. Code the visualisation**
+
+
+
 
 ```{r}
 #| fig-width: 10
@@ -467,6 +521,9 @@ p +
 p_labelled
 ```
 
+
+
+
 ::::: goals
 ::: tdgoals-header
 Make-over
@@ -544,6 +601,9 @@ The dataset consists of three tabs: Imports, Domestic Exports, and Re-Exports. I
 
 **Step 1. Load and launch packages**
 
+
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -553,10 +613,17 @@ library(stringr)
 library(knitr)
 ```
 
+
+
+
 **Step 2. Import the data and make subsets**
 
-:::::: panel-tabset
+::: panel-tabset
+
 ## IMPORT EXCEL
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -568,6 +635,9 @@ v2_data_reex <- read_xlsx("data/Mtrade_region.xlsx", "T3")
 head(v2_data_im)
 
 ```
+
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -581,6 +651,9 @@ Observation
 
 ## IMPORT
 
+
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -591,7 +664,13 @@ v2_trans_im <- as.data.frame(v2_trans_matrix_im) #now convert the matrix to df.
 kable(head(v2_trans_im))
 ```
 
+
+
+
 ## EXPORT
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -603,7 +682,13 @@ kable(head(v2_trans_ex))
 
 ```
 
+
+
+
 ## RE-EXPORT
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -614,7 +699,10 @@ v2_trans_reex <- as.data.frame(v2_trans_matrix_reex) #now convert the matrix to 
 kable(head(v2_trans_reex))
 
 ```
-::::::
+
+
+
+:::
 
 **Step 3. Data wrangling**
 
@@ -622,6 +710,9 @@ In this step, I will process the total amount from the year 2024 for each countr
 
 ::: panel-tabset
 ## IMPORT
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -667,7 +758,13 @@ v2_long_im <- v2_trans_im_2024_sum %>%
 print(head(v2_long_im))
 ```
 
+
+
+
 ## EXPORT
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -711,7 +808,13 @@ print(head(v2_long_ex))
 
 ```
 
+
+
+
 ## RE-EXPORT
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -755,9 +858,15 @@ print(head(v2_long_reex))
 
 ```
 
+
+
+
 ## COMBINED
 
 Now I will combine the 3 data sets, and also sum up the Export values. I noticed that the original plot has EU together as a trade partner, so I will also combine the 27 EU countries into one new row "EU".
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -803,11 +912,17 @@ eu_values <- v2_combine %>%
 v2_con_eu <- bind_rows(v2_combine, eu_values)
 
 ```
+
+
+
 :::
 
 #### **2.2.4 Visualisation make-over**
 
 **Launch packages**
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -818,9 +933,15 @@ library(scales)  # For formatting labels
 library(plotly)
 ```
 
+
+
+
 **Plot the visualisation**
 
 The plot will be a similar scatter plot with new color scheme and interactive tooltip showing more information of the country hovered over. This plot uses **ggplot2** with **ggplotly** to show interactivity of the tooltips.
+
+
+
 
 ```{r}
 #| fig-width: 12
@@ -934,6 +1055,9 @@ p <- p %>% add_annotations(
 p
 ```
 
+
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Make-over
@@ -999,6 +1123,9 @@ These improvements make the trade relationships clearer and allow viewers to qui
 
 **Step 1. Load and launch packages**
 
+
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -1014,10 +1141,16 @@ library(ggiraph)
 library(ggplot2)
 ```
 
-**Step 2. Import data & make subsets**
 
-:::::: panel-tabset
+
+
+**Step 2. Import data & make subsets** 
+
+::: panel-tabset
 ## IMPORT EXCEL
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1028,6 +1161,9 @@ v3_data_export <- read_xlsx("data/Mtrade_service.xlsx", "T3")
 head(v3_data_import)
 
 ```
+
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -1041,9 +1177,11 @@ Observation
 :::
 :::::
 
-## IMPORT
 
+## IMPORT
 Make a subset for data wrangling In this step, I will extrac the import data from 2019 and 2023 for all countries.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1060,9 +1198,13 @@ v3_years_im <- v3_subset_im %>%
 head(v3_years_im)
 ```
 
-## EXPORT
 
+
+
+## EXPORT
 Make a subset for data wrangling In this step, I will extrac the export data from 2019 and 2023 for all countries.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1078,11 +1220,17 @@ v3_years_ex <- v3_subset_ex %>%
 
 head(v3_years_ex)
 ```
-::::::
+
+
+
+:::
 
 **Step 3. Data Wrangling**
 
 In this step, I will combine the import and export data into one for ploting a slopegraphic plot.
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1156,10 +1304,16 @@ top_countries <- v3_convert %>%
 
 ```
 
+
+
+
 #### **2.3.4 Visualisation make-over**
 
+
+
+
 ```{r}
-#| fig-width: 8
+#| fig-width: 7
 #| fig-height: 12
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -1240,13 +1394,11 @@ p <- ggplot(slope_data_top, aes(x = Year, y = Value,
         plot.background = element_rect(fill = "#525E75", color = "#525E75"),
         axis.title.x = element_text(size = 12, face = "bold", family = "Arial", color = "white"),
         axis.title.y = element_text(size = 12, face = "bold", family = "Arial", color = "white"),
-        axis.text.x = element_text(color = "white"),
+        axis.text.x = element_text(color = "grey80"),
         axis.text.y = element_text(color = "grey80"),
-        panel.grid.major = element_line(color = "gray60", size = 0.4, linetype = "dashed"),
+        panel.grid.major = element_line(color = "gray60", size = 0.5, linetype = "dashed"),
         panel.grid.minor = element_line(color = "grey50", size = 0.25, linetype = "dotted"),
-        legend.text = element_text(color = "grey80"),
-        plot.margin = margin(t = 30, r = 20, b = 10, l = 20),
-        legend.title = element_text(color = "grey80")
+        legend.text = element_text(color = "grey80")
         ) 
 
 girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
@@ -1257,6 +1409,9 @@ girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
   )
 
 ```
+
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -1274,10 +1429,6 @@ Make-over
 
 ### 2.4 Summary
 
-The visualisations on the DOS website has a consistent theme and vibrant colors. This makes the website overall looks visually pleasant and inviting. The disadvantage is that it does not focus on enhancing understanding the data and insights quickly and meaningfully. The visualisation re-designs above took into consideration of data interpretation to ensure information is clearly conveyed to viewers. The themes together may not be coherent as it requires advanced levels of plotting with R packages. This can be the future work of the make-over task.
-
-![](images/section-line-airplane-02.png){fig-align="center"}
-
 ## 3 Singapore Merchandise Trade Data Analysis
 
 Analyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.
@@ -1292,14 +1443,23 @@ Data wrangling will be done for each analysis as the sources are different files
 
 **Step 1. Load and launch packages**
 
+
+
+
 ```{r}
 pacman::p_load(fpp3, readxl, readr, ggplot2, patchwork, stringr, tidyr)
 ```
+
+
+
 
 **Step 2. Import the data & make subset**
 
 ::: panel-tabset
 ## Monthly trade intensity analysis
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1412,9 +1572,15 @@ rem_by_month <- rem_by_month[-1, ]
 
 ```
 
+
+
+
 ## Seasonal trade patterns by trading partner
 
 To undestand seasonal trade patterns by trading partner, I will use the dataset from DOS *Mtrade_region.xlsx*. This data set has the merchandise trade by region and markets for imports, exports and re-exports. I will combine the subsets into one csv file for the analysis.
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1486,9 +1652,15 @@ rex_by_reg <- rex_by_reg %>%
 
 ```
 
+
+
+
 ## Comparative analysis of Singapore's re-export evolution (2019 vs 2024)
 
 Singapore as a Pivotal Trading Hub...
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1538,7 +1710,13 @@ write.csv(rex_by_mac, "rex_by_mac.csv")
 
 ```
 
+
+
+
 ## Market share trend analysis
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1546,6 +1724,9 @@ write.csv(rex_by_mac, "rex_by_mac.csv")
 
 
 ```
+
+
+
 :::
 
 ### 3.3 Monthly Trade Intensity Analysis
@@ -1556,6 +1737,9 @@ In this analysis, I will use the monthly trade data from the previously converte
 
 ::: panel-tabset
 ## Trade
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1588,7 +1772,13 @@ head(trade_mon_calendar)
 
 ```
 
+
+
+
 ## Import
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1621,7 +1811,13 @@ head(im_mon_calendar)
 
 ```
 
+
+
+
 ## Export
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1653,7 +1849,13 @@ ex_mon_calendar <- ex_mon %>%
 head(ex_mon_calendar)
 ```
 
+
+
+
 ## ReExport
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1689,7 +1891,13 @@ head(rex_mon_calendar)
 
 ```
 
+
+
+
 ## ReX Machinery
+
+
+
 
 ```{r}
 #| code-fold: True
@@ -1722,11 +1930,17 @@ rem_mon_calendar <- rem_mon %>%
 head(rem_mon_calendar)
 
 ```
+
+
+
 :::
 
 #### 3.3.2 Plot & Analysis
 
 **Overal trade time-series**
+
+
+
 
 ```{r}
 #| fig-width: 5
@@ -1757,9 +1971,15 @@ ggplot(trade_mon_calendar,
         legend.text = element_text(size = 5))
 ```
 
+
+
+
 <insights> visualisation methods, analysis results (500 words)
 
 **Trade time-series by trade categories**
+
+
+
 
 ```{r}
 #| fig_height: 15
@@ -1869,6 +2089,9 @@ p_rem <- ggplot(rem_mon_calendar,
 p_im | p_ex | p_rex | p_rem
 ```
 
+
+
+
 <insights> visualisation methods, analysis results (500 words)
 
 ### 3.4 Seasonal Trade Pattern by Trading Partner
@@ -1879,12 +2102,21 @@ p_im | p_ex | p_rex | p_rem
 
 In this step, I will convert the tibble objects to tsibble object for all trade categories, using as_tsibble() from R package. In the analysis, only the top 25 partners will be analysed. I will also exclude some countries that are in fact regions, such as total markets, Asia, etc.
 
+
+
+
 ```{r}
 pacman::p_load(fpp3)
 ```
 
+
+
+
 ::: panel-tabset
 ## Import
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -1933,7 +2165,13 @@ im_by_region_long <- im_by_region_tsb %>%
 head(im_by_region_long)
 ```
 
+
+
+
 ## Export
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -1976,7 +2214,13 @@ ex_by_region_long <- ex_by_region_tsb %>%
 head(ex_by_region_long)
 ```
 
+
+
+
 ## Re-Export
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -2018,6 +2262,9 @@ rex_by_region_long <- rex_by_region_tsb %>%
 #tissible object now
 head(rex_by_region_long)
 ```
+
+
+
 :::
 
 #### 3.4.2 Plot & Analysis
@@ -2028,6 +2275,9 @@ head(rex_by_region_long)
 ::: panel-tabset
 ## Time plots
 
+
+
+
 ```{r}
 #| fig-width: 10
 #| fig-height: 8
@@ -2037,9 +2287,15 @@ autoplot(im_by_region_long) +
   theme(legend.position = "bottom")
 ```
 
+
+
+
 ## Trellis plots
 
 Use Trellis plot to visualise each country.
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -2056,7 +2312,13 @@ ggplot(data = im_by_region_long,
         axis.text.y = element_text(size = 5))
 ```
 
+
+
+
 ## Seasonal plots
+
+
+
 
 ```{r}
 #| fig-width: 5
@@ -2066,7 +2328,13 @@ ggplot(data = im_by_region_long,
 im_by_region_long |> gg_season(Value) 
 ```
 
+
+
+
 ## **Seasonal subseries plots**
+
+
+
 
 ```{r}
 #| fig-width: 8
@@ -2081,6 +2349,9 @@ im_by_region_long |> gg_subseries(Value) +
   )
 
 ```
+
+
+
 
 Insight-
 
@@ -2097,6 +2368,9 @@ Feb - Mar -
 
 **Time plots**
 
+
+
+
 ```{r}
 #| fig-width: 10
 #| fig-height: 8
@@ -2106,7 +2380,13 @@ autoplot(ex_by_region_long) +
   theme(legend.position = "bottom")
 ```
 
+
+
+
 **Trellis plots** Use Trellis plot to visualise each country.
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -2123,7 +2403,13 @@ ggplot(data = ex_by_region_long,
         axis.text.y = element_text(size = 5))
 ```
 
+
+
+
 **Seasonal plots**
+
+
+
 
 ```{r}
 #| fig-width: 5
@@ -2133,7 +2419,13 @@ ggplot(data = ex_by_region_long,
 ex_by_region_long |> gg_season(Value) 
 ```
 
+
+
+
 seasonal peaks - no seasonality
+
+
+
 
 ```{r}
 #| fig-width: 8
@@ -2146,7 +2438,13 @@ ex_by_region_long %>%
   autoplot()
 ```
 
+
+
+
 **Seasonal subseries plots**
+
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2162,6 +2460,9 @@ ex_by_region_long |> gg_subseries(Value) +
 
 ```
 
+
+
+
 Insight -
 
 Export trade jumped in recent years for China, Korea, Taiwan, USA. downward for HK, Japana Feb - March
@@ -2169,6 +2470,9 @@ Export trade jumped in recent years for China, Korea, Taiwan, USA. downward for 
 ## Re-Export
 
 **Time plots**
+
+
+
 
 ```{r}
 #| fig-width: 10
@@ -2179,7 +2483,13 @@ autoplot(rex_by_region_long) +
   theme(legend.position = "bottom")
 ```
 
+
+
+
 **Trellis plots** Use Trellis plot to visualise each country.
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -2196,7 +2506,13 @@ ggplot(data = rex_by_region_long,
         axis.text.y = element_text(size = 5))
 ```
 
+
+
+
 **Seasonal plots**
+
+
+
 
 ```{r}
 #| fig-width: 5
@@ -2206,7 +2522,13 @@ ggplot(data = rex_by_region_long,
 rex_by_region_long |> gg_season(Value) 
 ```
 
+
+
+
 seasonal peaks - no seasonality
+
+
+
 
 ```{r}
 #| fig-width: 5
@@ -2217,7 +2539,13 @@ rex_by_region_long %>%
   autoplot()
 ```
 
+
+
+
 **Seasonal subseries plots**
+
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2232,6 +2560,9 @@ ex_by_region_long |> gg_subseries(Value) +
   )
 
 ```
+
+
+
 ::::
 
 ### 3.5 Comparative Analysis of Singapore's Re-export (2019 vs 2024)
@@ -2240,12 +2571,21 @@ ex_by_region_long |> gg_subseries(Value) +
 
 Load pakcage
 
+
+
+
 ```{r}
 pacman::p_load(CGPfunctions, ggthemes)
 ```
 
+
+
+
 ::: panel-tabset
 ## **Commodity**
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -2288,7 +2628,13 @@ head(rex_com_slope)
 
 ```
 
+
+
+
 ## **Machienry & Equip**
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -2322,12 +2668,18 @@ pivot_longer(
 
 head(rex_mac_slope)
 ```
+
+
+
 :::
 
 #### 3.5.2 Plot & Analysis
 
 ::: panel-tabset
 ## Machienry
+
+
+
 
 ```{r}
 #| fig-height: 12
@@ -2359,9 +2711,15 @@ rex_mac_slope %>%
         legend.background = element_rect(fill = "#f1f4f5"))
 ```
 
+
+
+
 Insights: When Singapore exports integrated circuits, the primary items included are semiconductor chips used in a wide range of electronic devices like computers, smartphones, and televisions, essentially representing the core components of modern electronics that perform processing and data storage functions; making Singapore a significant exporter of high-tech microchips globally.
 
 ## Commodity
+
+
+
 
 ```{r}
 #| fig-height: 12
@@ -2389,6 +2747,9 @@ rex_com_slope %>%
         axis.text.y = element_text(size = 6, color = "grey70"),
         axis.title.x = element_text(size = 7))
 ```
+
+
+
 :::
 
 ### 3.6 Trading trend Analysis
@@ -2397,9 +2758,15 @@ rex_com_slope %>%
 
 Data Prep \> Exporatory data analysis \> model fitting \> diagnostic check \> forecasting \> forecasting check
 
+
+
+
 ```{r}
 pacman::p_load(dplyr, tidyr, tsibble, lubridate)
 ```
+
+
+
 
 #### 3.7.1 Time series data sampling
 
@@ -2410,6 +2777,9 @@ In this analysis, I will use the last 12 months for hold-out and the rest for tr
 **Multiple time series**
 
 Data wrangling
+
+
+
 
 ```{r}
 # Create a copy first
@@ -2441,7 +2811,13 @@ im_by_region_tsb <- im_region_df_top %>%
 head(im_by_region_tsb)
 ```
 
+
+
+
 Sampling
+
+
+
 
 ```{r}
 im_top_train <- im_by_region_tsb %>%
@@ -2453,7 +2829,13 @@ im_top_train <- im_by_region_tsb %>%
 head(im_top_train)
 ```
 
+
+
+
 Fit multiple time series
+
+
+
 
 ```{r}
 im_top_fit <- im_top_train %>%
@@ -2463,21 +2845,39 @@ im_top_fit <- im_top_train %>%
   )
 ```
 
+
+
+
 Examine models
+
+
+
 
 ```{r}
 im_top_fit %>%
   glance()
 ```
 
+
+
+
 Extract fitted and residual values
+
+
+
 
 ```{r}
 im_top_fit %>%
   augment()
 ```
 
+
+
+
 Compare fit models Use accuracy() to compare the performance of models
+
+
+
 
 ```{r}
 im_top_fit %>%
@@ -2485,7 +2885,13 @@ im_top_fit %>%
   arrange(Country)
 ```
 
+
+
+
 Forecast future values
+
+
+
 
 ```{r}
 im_top_fc <- im_top_fit %>%
@@ -2493,7 +2899,13 @@ im_top_fc <- im_top_fit %>%
 
 ```
 
+
+
+
 Visualisation
+
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2501,6 +2913,9 @@ Visualisation
 im_top_fc %>%
   autoplot(im_by_region_tsb)
 ```
+
+
+
 
 #### 3.7.2 Exploratory Data Analysis
 
@@ -2518,6 +2933,9 @@ taiwan_train %>%
 
 ## Reference
 
+
+
+
 ```{r}
 rex_by_region_long %>%
   filter(`Country` == "China") %>%
@@ -2533,3 +2951,4 @@ rex_by_region_long %>%
   components() %>%
   autoplot()
 ```
+
