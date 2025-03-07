@@ -1292,11 +1292,7 @@ This analysis aims to examine historical trading patterns and forecast future tr
 
 ### 3.2 Data
 
-The main dataset is the Merchandise Trade Excel files downloaded from [the Department of Statistics Singapore](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data). The Excel file includes 3 sets of data: 
-1. *Merchandise Trade By Region And Selected Market (Imports), Monthly*
-2. *Merchandise Trade By Region And Selected Market (Domestic Exports), Monthly*
-3. *Merchandise Trade By Region And Selected Market (Re-Exports), Monthly.* 
-The data spans from January 2003 to January 2025. However, for most analyses in this report, only data from 2015 to 2025 is used. The dataset covers 160 countries and regions, with some entries representing aggregated data.
+The main dataset is the Merchandise Trade Excel files downloaded from [the Department of Statistics Singapore](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data). The Excel file includes 3 sets of data: 1. *Merchandise Trade By Region And Selected Market (Imports), Monthly* 2. *Merchandise Trade By Region And Selected Market (Domestic Exports), Monthly* 3. *Merchandise Trade By Region And Selected Market (Re-Exports), Monthly.* The data spans from January 2003 to January 2025. However, for most analyses in this report, only data from 2015 to 2025 is used. The dataset covers 160 countries and regions, with some entries representing aggregated data.
 
 **Step 1. Load and launch packages**
 
@@ -1511,7 +1507,6 @@ write.csv(rex_by_mac, "rex_by_mac.csv")
 ## **MARKET SHARE TREND**
 
 The Market Share Trend Analysis in 3.6 aims to understand Singapore trade balance with its trading partners. For this analysis, the dataset derived for heatmaps will be reused for data wrangling.
-
 :::
 
 ### 3.3 Monthly Trade Intensity Analysis
@@ -1684,7 +1679,7 @@ pacman::p_load(ggplot2, patchwork, ggthemes)
 
 **Plot Heatmaps for top 6 markets**
 
-:::::: panel-tabset
+:::::::::::: panel-tabset
 ## **IMPORT**
 
 ```{r}
@@ -1771,6 +1766,7 @@ ggplot(ex_mon_calendar_top6,
         axis.ticks = element_blank(),
         plot.margin = margin( t = 20, r = 5, b = 10, l = 5))
 ```
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -1778,7 +1774,7 @@ Insights
 
 ::: tdgoals-container
 -   **Top 6 markets -** The top six markets by total export trade value since 2015 are China, Indonesia, Hong Kong, Malaysia, Taiwan, and the United States.
--   **Increasing intensity -** Among these markets, only the United States exhibits a clear upward trend in export trade intensity, while the others have remained relatively stable over the past decade. 
+-   **Increasing intensity -** Among these markets, only the United States exhibits a clear upward trend in export trade intensity, while the others have remained relatively stable over the past decade.
 -   **Peak export periods -** No distinct peak year or month is observed. However, exports to the United States tend to show higher intensity in March, April, and July in certain years.
 -   **Taiwan -** While Taiwan ranks among the top six trading partners for both imports and exports, its export trade intensity is the lowest among them. This appears to be different from Import.
 :::
@@ -1820,6 +1816,7 @@ ggplot(ex_mon_calendar_top6,
         axis.ticks = element_blank(),
         plot.margin = margin( t = 20, r = 5, b = 10, l = 5))
 ```
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -1827,11 +1824,11 @@ Insights
 
 ::: tdgoals-container
 -   **Top 6 markets -** The top six markets by total re-export trade value since 2015 is the same as the top 6 for exports. They are China, Indonesia, Hong Kong, Malaysia, Taiwan, and the United States.
--   **Increasing intensity -** Only the United States and Indonesia have shown an obvious increasing trend of intensity, while the rest maintained similar intensity of export trade through the past 10 years. 
+-   **Increasing intensity -** Only the United States and Indonesia have shown an obvious increasing trend of intensity, while the rest maintained similar intensity of export trade through the past 10 years.
 -   **Peak re-export year -** No distinct peak year or month is observed. However, exports to the United States tend to show higher intensity in March, April, and July in certain years. This is highly correlated to the domestic export trade volume.
 :::
 :::::
-::::::
+::::::::::::
 
 ### 3.4 Seasonal Trade Pattern by Trading Partner
 
@@ -1991,13 +1988,16 @@ head(rex_by_region_long)
 :::
 
 #### **3.4.2 Plot & Analysis**
-Below each tab shows the overall Time plot, Composite plot by country, as well as Seasonal subseries plots for a trade category, Import, Export or Re-Export. This helps observe the trend, seasonal and cyclic patterns for top 10 markets in each trade category during 2005 to 2025. 
 
-:::: panel-tabset
+Below each tab shows the overall Time plot, Composite plot by country, as well as Seasonal subseries plots for a trade category, Import, Export or Re-Export. This helps observe the trend, seasonal and cyclic patterns for top 10 markets in each trade category during 2005 to 2025.
+
+::::::::::::::: panel-tabset
 ## **IMPORT**
-The top 10 trade markets for import include China, Japan, Malaysia, Taiwan, UAE, Indonesia, S. Korea, Saudi Arabia, Thailand and the US. 
+
+The top 10 trade markets for import include China, Japan, Malaysia, Taiwan, UAE, Indonesia, S. Korea, Saudi Arabia, Thailand and the US.
 
 **OVERALL TIME PLOT**
+
 ```{r}
 #| fig-width: 7
 #| fig-height: 6
@@ -2010,8 +2010,8 @@ autoplot(im_by_region_long) +
 **COMPOSITE PLOT BY COUNTRY**
 
 ::: panel-tabset
-
 ## CHINA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2019,7 +2019,9 @@ im_by_region_long %>%
   filter(`Country` == "China") %>%
   gg_tsdisplay(Value)
 ```
+
 ## INDONESIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2027,7 +2029,9 @@ im_by_region_long %>%
   filter(`Country` == "Indonesia") %>%
   gg_tsdisplay(Value)
 ```
+
 ## JAPAN
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2035,7 +2039,9 @@ im_by_region_long %>%
   filter(`Country` == "Japan") %>%
   gg_tsdisplay(Value)
 ```
+
 ## KOREA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2043,7 +2049,9 @@ im_by_region_long %>%
   filter(`Country` == "Korea, Rep Of") %>%
   gg_tsdisplay(Value)
 ```
+
 ## TAIWAN
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2051,7 +2059,9 @@ im_by_region_long %>%
   filter(`Country` == "Taiwan") %>%
   gg_tsdisplay(Value)
 ```
+
 ## MALAYSIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2059,7 +2069,9 @@ im_by_region_long %>%
   filter(`Country` == "Malaysia") %>%
   gg_tsdisplay(Value)
 ```
+
 ## SAUDI ARABIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2067,7 +2079,9 @@ im_by_region_long %>%
   filter(`Country` == "Saudi Arabia") %>%
   gg_tsdisplay(Value)
 ```
+
 ## THAILAND
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2075,7 +2089,9 @@ im_by_region_long %>%
   filter(`Country` == "Thailand") %>%
   gg_tsdisplay(Value)
 ```
+
 ## USA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2083,7 +2099,9 @@ im_by_region_long %>%
   filter(`Country` == "United States") %>%
   gg_tsdisplay(Value)
 ```
+
 ## UAE
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2091,8 +2109,8 @@ im_by_region_long %>%
   filter(`Country` == "United Arab Emirates") %>%
   gg_tsdisplay(Value)
 ```
-
 :::
+
 **SEASONAL SUBSERIES PLOTS**
 
 ```{r}
@@ -2111,21 +2129,20 @@ im_by_region_long |> gg_subseries(Value) +
 
 ::::: tdgoals
 ::: tdgoals-header
-Observations | IMPORT
+Observations \| IMPORT
 :::
 
 ::: tdgoals-container
 -   **Widening gap in strong trade markets -** Ahe time plot reveals four markets — **Taiwan, China, the US, Malaysia** - showing a consistent upward trend, creating a growing gap between them and other markets.
 -   **Seasonal patterns -** While most countries show little seasonality in imports, a dip in February is common, possibly due to fewer days. However, **China** and **South Korea** display a distinct spike in July, while **the US** shows dips in February and December, and a spike in August. Both **China** and the **US** also exhibit strong positive autocorrelation at lag 12, indicating a seasonal pattern. **Indonesia** shows sharp drops at lags 3 and 5, suggesting a cyclical pattern or seasonality every 3–5 months.
--   **Trend -** Countries like **China, South Korea, Taiwan, Malaysia, Thailand, the US**, and **UAE** show an increasing trend, supported by slow decay in their ACF plots. In contrast, **Saudi Arabia** demonstrates a decreasing trend. 
-
+-   **Trend -** Countries like **China, South Korea, Taiwan, Malaysia, Thailand, the US**, and **UAE** show an increasing trend, supported by slow decay in their ACF plots. In contrast, **Saudi Arabia** demonstrates a decreasing trend.
 :::
 :::::
-
 
 ## **EXPORT**
 
 **OVERALL TIME PLOTS**
+
 ```{r}
 #| fig-width: 7
 #| fig-height: 6
@@ -2139,6 +2156,7 @@ autoplot(ex_by_region_long) +
 
 ::: panel-tabset
 ## AUSTRALIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2148,6 +2166,7 @@ ex_by_region_long %>%
 ```
 
 ## CHINA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2155,7 +2174,9 @@ ex_by_region_long %>%
   filter(`Country` == "China") %>%
   gg_tsdisplay(Value)
 ```
+
 ## HONG KONG
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2163,7 +2184,9 @@ ex_by_region_long %>%
   filter(`Country` == "Hong Kong") %>%
   gg_tsdisplay(Value)
 ```
+
 ## INDONESIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2173,6 +2196,7 @@ ex_by_region_long %>%
 ```
 
 ## JAPAN
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2182,6 +2206,7 @@ ex_by_region_long %>%
 ```
 
 ## KOREA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2191,6 +2216,7 @@ ex_by_region_long %>%
 ```
 
 ## TAIWAN
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2198,7 +2224,9 @@ ex_by_region_long %>%
   filter(`Country` == "Taiwan") %>%
   gg_tsdisplay(Value)
 ```
+
 ## MALAYSIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2206,7 +2234,9 @@ ex_by_region_long %>%
   filter(`Country` == "Malaysia") %>%
   gg_tsdisplay(Value)
 ```
+
 ## THAILAND
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2214,7 +2244,9 @@ ex_by_region_long %>%
   filter(`Country` == "Thailand") %>%
   gg_tsdisplay(Value)
 ```
+
 ## USA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2222,8 +2254,6 @@ ex_by_region_long %>%
   filter(`Country` == "United States") %>%
   gg_tsdisplay(Value)
 ```
-
-
 :::
 
 **SEASONAL SUBSERIES PLOTS**
@@ -2244,17 +2274,15 @@ ex_by_region_long |> gg_subseries(Value) +
 
 ::::: tdgoals
 ::: tdgoals-header
-Observations | EXPORT
+Observations \| EXPORT
 :::
 
 ::: tdgoals-container
 -   **Consistent gap in strong trade markets -** Unlike Import, the stronger Export trade markets, including **China, Malaysia, the US**, and **Indonesia** maintains a consistent gap between them and other markets. Note that the gap isn't as notable for Indonesia and Malaysia between year 2020-2022.
 -   **Cyclic behaviour -** **Hong Kong** displays cyclical trade patterns with peaks at regular intervals (3, 6, 8, and 11 months), suggesting the influence of seasonality or external cyclical factors on trade. This cyclical behavior is not linked to specific months. Similarly, **South Korea** shows periodic peaks in the ACF plot at lags 3, 6, 9, and 12, indicating a cyclical pattern, with notable dips in February, May, and November, and peaks in March, October, and December. For **Taiwan**, a peak at lag 12 suggests annual seasonality, likely linked to the electronics manufacturing cycle, while **Malaysia’s** peak at lag 7 indicates a semi-annual rhythm, possibly driven by business or industry cycles.
--   **Trend -** Countries such as **Australia, Indonesia, South Korea,** and **the USA** show an increasing trend, supported by slow decay in their ACF plots, indicating stable growth. In contrast, **Hong Kong** displays a declining trend, suggesting shifts in trade dynamics over time. 
+-   **Trend -** Countries such as **Australia, Indonesia, South Korea,** and **the USA** show an increasing trend, supported by slow decay in their ACF plots, indicating stable growth. In contrast, **Hong Kong** displays a declining trend, suggesting shifts in trade dynamics over time.
 :::
 :::::
-
-
 
 ## **RE-EXPORT**
 
@@ -2272,8 +2300,8 @@ autoplot(rex_by_region_long) +
 **COMPOSITE PLOT BY COUNTRY**
 
 ::: panel-tabset
-
 ## CHINA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2281,7 +2309,9 @@ rex_by_region_long %>%
   filter(`Country` == "China") %>%
   gg_tsdisplay(Value)
 ```
+
 ## HONG KONG
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2289,7 +2319,9 @@ rex_by_region_long %>%
   filter(`Country` == "Hong Kong") %>%
   gg_tsdisplay(Value)
 ```
+
 ## INDONESIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2299,6 +2331,7 @@ rex_by_region_long %>%
 ```
 
 ## JAPAN
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2308,6 +2341,7 @@ rex_by_region_long %>%
 ```
 
 ## KOREA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2317,6 +2351,7 @@ rex_by_region_long %>%
 ```
 
 ## TAIWAN
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2324,7 +2359,9 @@ rex_by_region_long %>%
   filter(`Country` == "Taiwan") %>%
   gg_tsdisplay(Value)
 ```
+
 ## MALAYSIA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2332,7 +2369,9 @@ rex_by_region_long %>%
   filter(`Country` == "Malaysia") %>%
   gg_tsdisplay(Value)
 ```
+
 ## THAILAND
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2340,7 +2379,9 @@ rex_by_region_long %>%
   filter(`Country` == "Thailand") %>%
   gg_tsdisplay(Value)
 ```
+
 ## USA
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2350,6 +2391,7 @@ rex_by_region_long %>%
 ```
 
 ## VIETNAM
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -2377,18 +2419,17 @@ rex_by_region_long |> gg_subseries(Value) +
 
 ::::: tdgoals
 ::: tdgoals-header
-Observations | RE-EXPORT
+Observations \| RE-EXPORT
 :::
 
 ::: tdgoals-container
--   **3 distinct trade market bands -** The time plot reveals three distinct bands of trade markets. The first band consists of **Hong Kong** and **China**, which have nearly identical trade values post-2023. With this, China stays as the largest Re-Export trade market. The second band evolves over time—before 2019, it includes **Malaysia** and **Indonesia**, but after 2019, **the USA** joins this group. The third band consists of all remaining markets. The gaps between these bands remained stable before 2019 and after 2020, but post-2023, the distinction between bands 2 and 3 becomes less pronounced, while Malaysia pulls away from band 2, widening its gap. 
+-   **3 distinct trade market bands -** The time plot reveals three distinct bands of trade markets. The first band consists of **Hong Kong** and **China**, which have nearly identical trade values post-2023. With this, China stays as the largest Re-Export trade market. The second band evolves over time—before 2019, it includes **Malaysia** and **Indonesia**, but after 2019, **the USA** joins this group. The third band consists of all remaining markets. The gaps between these bands remained stable before 2019 and after 2020, but post-2023, the distinction between bands 2 and 3 becomes less pronounced, while Malaysia pulls away from band 2, widening its gap.
 -   **Seasonal patterns -** Seasonal trends are evident across many markets. Most countries experience dips in February, likely due to fewer days in the month. **China** and **Hong Kong** show dips in February and June, with peaks in January, March, October, and December in recent years. **Japan** exhibits peaks in March, July, and December, with dips in May. **South Korea** has peaks in March, June, and December, and dips in February, May, and November. **Malaysia** peaks in March and October, while **Thailand** shows peaks in March, June, and October and dips in February and December. **Vietnam** experiences peaks in January, March, August, and December.
--   **Cyclic behaviour -** Many of the Re-export trade partners show cyclic behaviour. **China, Hong Kong, Japan, Korea, Taiwan, Thailand, USA** and **Vietnam**. Their ACF plots refelct the scallop effect at different lags. otable patterns include China (lag 12), Hong Kong (lags 3, 6, 9, 12), and the USA (lags 8 and 12), suggesting periodic trade fluctuations. 
--   **Trend -** All top Re-Export trade markets show a consistent upward trend, indicating sustained growth in re-export activities. 
+-   **Cyclic behaviour -** Many of the Re-export trade partners show cyclic behaviour. **China, Hong Kong, Japan, Korea, Taiwan, Thailand, USA** and **Vietnam**. Their ACF plots refelct the scallop effect at different lags. otable patterns include China (lag 12), Hong Kong (lags 3, 6, 9, 12), and the USA (lags 8 and 12), suggesting periodic trade fluctuations.
+-   **Trend -** All top Re-Export trade markets show a consistent upward trend, indicating sustained growth in re-export activities.
 :::
 :::::
-::::::
-
+:::::::::::::::
 
 ### 3.5 Trading Trend Analysis
 
@@ -2432,17 +2473,17 @@ net_trade_df <- net_trade_df %>%
 head(net_trade_df)
 ```
 
+#### **3.5.2 Plot & Analaysis**
 
-#### 3.5.2 **Plot & Analaysis**
-The analyse the trade trends, a ggHoriPlot will be plotted to observed the trends among Singapore trade partners. This approach is employeed because I would like to see all countries in one view.
-To plot the ggHoriPlot, I will load and launch the following packages: **ggHoriPlot**, **ggthemes** and **tidyverse**.
+The analyse the trade trends, a ggHoriPlot will be plotted to observed the trends among Singapore trade partners. This approach is employeed because I would like to see all countries in one view. To plot the ggHoriPlot, I will load and launch the following packages: **ggHoriPlot**, **ggthemes** and **tidyverse**.
+
 ```{r}
 pacman::p_load(ggHoriPlot, ggthemes, tidyverse)
 ```
 
-In the HotiPlot below, the top and bottom Surplus and Deficit trade partners are plotted in one view. To have a full view of the historical changes of trade balance, all countries are included to the plot in tab 2 "ALL COUNTRIES". All countries are ordered in alphebetical orders. Red dipicts net negative trade (Deficit) and blue means Surplus. Darker colors means larger trade deficit / surplus. 
+In the HotiPlot below, the top and bottom Surplus and Deficit trade partners are plotted in one view. To have a full view of the historical changes of trade balance, all countries are included to the plot in tab 2 "ALL COUNTRIES". All countries are ordered in alphebetical orders. Red dipicts net negative trade (Deficit) and blue means Surplus. Darker colors means larger trade deficit / surplus.
 
-::: panel-tabset
+::::::::: panel-tabset
 ## **TOP BOTTOM 30**
 
 ```{r}
@@ -2502,19 +2543,19 @@ ggplot(filtered_df, aes(x = date, y = net_trade_value_k)) +
                date_labels = "%b%y") +
   labs(title = "Trade Balance of Top & Bottom 30 Singapore Trading Partners \n2015 Jan - 2025 Jan")
 ```
-:::::: tdgoals
+
+::::: tdgoals
 ::: tdgoals-header
 Insights
 :::
 
 ::: tdgoals-container
--   **Persistent Trade Deficit Markets -** Several markets have consistently remained in trade deficit, with occasional surplus periods. These include Bangladesh, Belgium, France, Germany, Guam, Myanmar, New Caledonia, New Zealand, Pakistan, Puerto Rico, and the UK. 
+-   **Persistent Trade Deficit Markets -** Several markets have consistently remained in trade deficit, with occasional surplus periods. These include Bangladesh, Belgium, France, Germany, Guam, Myanmar, New Caledonia, New Zealand, Pakistan, Puerto Rico, and the UK.
 -   **Persistent Trade Surplus Markets -** Conversely, some markets have continuously maintained a trade surplus, with only brief deficit periods. Notable examples include Canada, Cyprus, Greece, Iraq, Libya, Poland, Sweden, and Venezuela.
 -   **Shifting to Surplus -** Certain markets that were once in deficit have transitioned into surplus in recent years. This shift is particularly evident in Fiji, Hong Kong, India, Indonesia, Liberia, Malta, the Marshall Islands, Mexico, Papua New Guinea, and the Philippines, suggesting evolving trade dynamics.
 -   **Shifting to Deficit -** A few key markets, including Brazil, Ireland, South Korea, Taiwan, and Vietnam, were historically surplus trade partners but have now become significant deficit markets or are trending in that direction.
 :::
-
-::::::
+:::::
 
 ## **ALL COUNTRIES**
 
@@ -2563,13 +2604,13 @@ Insights
 
 ::: tdgoals-container
 Generally no obvious Surplus or Deficit trends are observed on the trading markets as a whole, but there are a few interesting patterns to pick up:
--   **Deficit Period (2020–2022) -** A more pronounced trade deficit is observed during this period. This coincide with COVID-19 pandemic. This suggests the impact of external economic shocks or shifts in trade policies. 
+
+-   **Deficit Period (2020–2022) -** A more pronounced trade deficit is observed during this period. This coincide with COVID-19 pandemic. This suggests the impact of external economic shocks or shifts in trade policies.
+
 -   **Stable Trade Positions -** Most countries have maintained a consistent trade balance with Singapore, while some, as identified in previous analyses, exhibit a shifting trend towards either surplus or deficit.
 :::
 :::::
-
-:::
-
+:::::::::
 
 ### 3.6 Trade time-series forecasting
 
@@ -2848,7 +2889,6 @@ rex_com_slope %>%
         axis.title.x = element_text(size = 7))
 ```
 :::
-
 
 ## 4 Conclusion
 
