@@ -201,9 +201,9 @@ div.cell-output pre {
 /* style callout blocks -- BOX*/
 .boxgoals {
   margin: 2em 0;
-  border: 1.5px dashed #C75B7A;
+  border: 1.5px dashed #FADA7A;
   border-radius: 10px;
-  background-color: #D9ABAB;
+  background-color: #B6CBBD;
 }
 
 .boxgoals-header {
@@ -215,7 +215,7 @@ div.cell-output pre {
   font-size: 1.4em;
   font-weight: bold;
   background-size: 100px;
-  background-color: #D9ABAB;
+  background-color: #B6CBBD;
   background-repeat: no-repeat;
   background-position: 15px center;
 }
@@ -225,6 +225,6 @@ div.cell-output pre {
   padding-left: 10px;
   padding-right: 20px;
   color: #343738;
-  background-color: #D9ABAB;
+  background-color: #B6CBBD;
   border-bottom-right-radius: 10px;  
 }

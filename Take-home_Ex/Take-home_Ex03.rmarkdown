@@ -10,6 +10,8 @@ execute:
   freeze: true  
 ---
 
+
+
 ![](images/sg_trade_banner.png){fig-align="center"}
 
 ## 1 Overview
@@ -128,6 +130,8 @@ This means some data wrangling is needed to derive the yearly sum of the trade a
 
 **Step 1. Load and launch packages**
 
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -137,10 +141,14 @@ library(stringr)
 library(knitr)
 ```
 
+
+
 **Step 2. Import the data**
 
 ::::::::: panel-tabset
 ## **IMPORT EXCEL**
+
+
 
 ```{r}
 #| code-fold: True
@@ -153,6 +161,8 @@ head(v1_data)
 
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Observation
@@ -164,6 +174,8 @@ Observation
 :::::
 
 ## **MAKE SUBSET**
+
+
 
 ```{r}
 #| code-fold: True
@@ -190,6 +202,8 @@ kable(head(v1_trans_export))
 
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Observation
@@ -209,6 +223,8 @@ In this step, I will first correct the column names. Then I will extract the yea
 ## MERCHANDISE TRADE
 
 Below code is used to derive the data set for merchandise trade (import & export) yearly totals from 2020-2024.
+
+
 
 ```{r}
 #| code-fold: True
@@ -239,9 +255,13 @@ v1_year_sum <- v1_trans %>%
 head(v1_year_sum)
 ```
 
+
+
 ## IMPORTS
 
 Below code is used to derive the data set for imports yearly totals from 2020-2024.
+
+
 
 ```{r}
 #| code-fold: True
@@ -272,9 +292,13 @@ v1_year_sum_im <- v1_trans_import %>%
 head(v1_year_sum_im)
 ```
 
+
+
 ## EXPORTS
 
 Below code is used to derive the data set for exports yearly totals from 2020-2024.
+
+
 
 ```{r}
 #| code-fold: True
@@ -305,9 +329,13 @@ v1_year_sum_ex <- v1_trans_export %>%
 head(v1_year_sum_ex)
 ```
 
+
+
 ## COMBINED
 
 I will combine Import and Export into one data frame for visualisation.
+
+
 
 ```{r}
 #| code-fold: true
@@ -328,12 +356,16 @@ v1_combined <- v1_combined %>%
 head(v1_combined)
 ```
 
+
+
 \
 :::
 
 #### **2.1.2 Visualisation make-over**
 
 **Step 1. Launch packages**
+
+
 
 ```{r}
 #| code-fold: true
@@ -343,7 +375,11 @@ library(ggtext)
 library(extrafont)
 ```
 
+
+
 **Step 2. Code the visualisation**
+
+
 
 ```{r}
 #| fig-width: 10
@@ -465,6 +501,8 @@ p +
 p_labelled
 ```
 
+
+
 ::::: goals
 ::: tdgoals-header
 Make-over
@@ -542,6 +580,8 @@ The dataset consists of three tabs: Imports, Domestic Exports, and Re-Exports. I
 
 **Step 1. Load and launch packages**
 
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -551,10 +591,14 @@ library(stringr)
 library(knitr)
 ```
 
+
+
 **Step 2. Import the data and make subsets**
 
 :::::: panel-tabset
 ## IMPORT EXCEL
+
+
 
 ```{r}
 #| code-fold: True
@@ -566,6 +610,8 @@ v2_data_reex <- read_xlsx("data/Mtrade_region.xlsx", "T3")
 head(v2_data_im)
 
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -579,6 +625,8 @@ Observation
 
 ## IMPORT
 
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -589,7 +637,11 @@ v2_trans_im <- as.data.frame(v2_trans_matrix_im) #now convert the matrix to df.
 kable(head(v2_trans_im))
 ```
 
+
+
 ## EXPORT
+
+
 
 ```{r}
 #| code-fold: True
@@ -601,7 +653,11 @@ kable(head(v2_trans_ex))
 
 ```
 
+
+
 ## RE-EXPORT
+
+
 
 ```{r}
 #| code-fold: True
@@ -612,6 +668,8 @@ v2_trans_reex <- as.data.frame(v2_trans_matrix_reex) #now convert the matrix to 
 kable(head(v2_trans_reex))
 
 ```
+
+
 ::::::
 
 **Step 3. Data wrangling**
@@ -620,6 +678,8 @@ In this step, I will process the total amount from the year 2024 for each countr
 
 ::: panel-tabset
 ## IMPORT
+
+
 
 ```{r}
 #| code-fold: True
@@ -665,7 +725,11 @@ v2_long_im <- v2_trans_im_2024_sum %>%
 print(head(v2_long_im))
 ```
 
+
+
 ## EXPORT
+
+
 
 ```{r}
 #| code-fold: True
@@ -709,7 +773,11 @@ print(head(v2_long_ex))
 
 ```
 
+
+
 ## RE-EXPORT
+
+
 
 ```{r}
 #| code-fold: True
@@ -753,9 +821,13 @@ print(head(v2_long_reex))
 
 ```
 
+
+
 ## COMBINED
 
 Now I will combine the 3 data sets, and also sum up the Export values. I noticed that the original plot has EU together as a trade partner, so I will also combine the 27 EU countries into one new row "EU".
+
+
 
 ```{r}
 #| code-fold: True
@@ -801,11 +873,15 @@ eu_values <- v2_combine %>%
 v2_con_eu <- bind_rows(v2_combine, eu_values)
 
 ```
+
+
 :::
 
 #### **2.2.4 Visualisation make-over**
 
 **Launch packages**
+
+
 
 ```{r}
 #| code-fold: True
@@ -816,9 +892,13 @@ library(scales)  # For formatting labels
 library(plotly)
 ```
 
+
+
 **Plot the visualisation**
 
 The plot will be a similar scatter plot with new color scheme and interactive tooltip showing more information of the country hovered over. This plot uses **ggplot2** with **ggplotly** to show interactivity of the tooltips.
+
+
 
 ```{r}
 #| fig-width: 12
@@ -932,6 +1012,8 @@ p <- p %>% add_annotations(
 p
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Make-over
@@ -997,6 +1079,8 @@ These improvements make the trade relationships clearer and allow viewers to qui
 
 **Step 1. Load and launch packages**
 
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -1012,10 +1096,14 @@ library(ggiraph)
 library(ggplot2)
 ```
 
+
+
 **Step 2. Import data & make subsets**
 
 :::::: panel-tabset
 ## IMPORT EXCEL
+
+
 
 ```{r}
 #| code-fold: True
@@ -1026,6 +1114,8 @@ v3_data_export <- read_xlsx("data/Mtrade_service.xlsx", "T3")
 head(v3_data_import)
 
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -1043,6 +1133,8 @@ Observation
 
 Make a subset for data wrangling In this step, I will extrac the import data from 2019 and 2023 for all countries.
 
+
+
 ```{r}
 #| code-fold: True
 #| code-summary: "Show the code"
@@ -1058,9 +1150,13 @@ v3_years_im <- v3_subset_im %>%
 head(v3_years_im)
 ```
 
+
+
 ## EXPORT
 
 Make a subset for data wrangling In this step, I will extrac the export data from 2019 and 2023 for all countries.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1076,11 +1172,15 @@ v3_years_ex <- v3_subset_ex %>%
 
 head(v3_years_ex)
 ```
+
+
 ::::::
 
 **Step 3. Data Wrangling**
 
 In this step, I will combine the import and export data into one for ploting a slopegraphic plot.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1154,7 +1254,11 @@ top_countries <- v3_convert %>%
 
 ```
 
+
+
 #### **2.3.4 Visualisation make-over**
+
+
 
 ```{r}
 #| fig-width: 8
@@ -1256,6 +1360,8 @@ girafe(ggobj = p, width_svg = 7, height_svg = 10) %>%
 
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Make-over
@@ -1294,9 +1400,13 @@ The main dataset is the Merchandise Trade Excel files downloaded from [the Depar
 
 **Step 1. Load and launch packages**
 
+
+
 ```{r}
 pacman::p_load(fpp3, readxl, readr, ggplot2, patchwork, stringr, tidyr)
 ```
+
+
 
 **Step 2. Import the data & make subsets**
 
@@ -1304,6 +1414,8 @@ pacman::p_load(fpp3, readxl, readr, ggplot2, patchwork, stringr, tidyr)
 ## **MONTHLY TRADE INSTENSITY**
 
 In 3.3, a calendar heatmap will be plotted to show monthly merchandise trade intensity and by Import, Export, Re-Export categories. Therefore, data will be retrieved from 3 different tabs from the Merchandise Trade by REgion Excel files. The subset will be extracted to separate csv files, and will be read later in resepective data wrangling phase.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1376,9 +1488,13 @@ rex_region_month <- rex_region_month[-1, ]
 
 ```
 
+
+
 ## **SEASONAL TRADE PATTERNS**
 
 To understand seasonal trade patterns by trading partner in 3.4, I will use the Merchandise Trade by Region/Market [dataset](https://tablebuilder.singstat.gov.sg/statistical-tables/downloadMultiple/1JmxrUUC_0a26wjZN4FFXw) from DOS. This data set has the merchandise trade by region and markets for Imports, Export and Re-export. I will combine the subsets into one csv file for the analysis. Similar to Monthly Trade Intensity Analysis, 3 tabs from this Excel file will be imported and make subsets into separate csv files.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1450,9 +1566,13 @@ rex_by_reg <- rex_by_reg %>%
 
 ```
 
+
+
 ## **SINGAPORE RE-EXPORT ANALYSIS**
 
 The fact that Singapore being a pivotal trading hub, the Re-Export data is important to understand what goods have leveraged Singapore as its transition hub to see or forward to other place. 2 data sets from the Merchandise Trade by Commodity Section/Division [Excel file](https://tablebuilder.singstat.gov.sg/statistical-tables/downloadMultiple/5pkkLokpn0a26gjZN4FFXw) will be used.
+
+
 
 ```{r}
 #| code-fold: True
@@ -1502,6 +1622,8 @@ write.csv(rex_by_mac, "rex_by_mac.csv")
 
 ```
 
+
+
 ## **MARKET SHARE TREND**
 
 The Market Share Trend Analysis in 3.6 aims to understand Singapore trade balance with its trading partners. For this analysis, the dataset derived for heatmaps will be reused for data wrangling.
@@ -1515,6 +1637,8 @@ In this analysis, I will use the monthly trade data from the previously converte
 
 ::: panel-tabset
 ## **IMPORT**
+
+
 
 ```{r}
 #| code-fold: True
@@ -1566,7 +1690,11 @@ head(im_mon_calendar_top6)
 
 ```
 
+
+
 ## **EXPORT**
+
+
 
 ```{r}
 #| code-fold: True
@@ -1616,7 +1744,11 @@ head(ex_mon_calendar_top6)
 
 ```
 
+
+
 ## **RE-EXPORT**
+
+
 
 ```{r}
 #| code-fold: True
@@ -1665,20 +1797,28 @@ rex_mon_calendar_top6 <- rex_mon_calendar %>%
 head(rex_mon_calendar_top6)
 
 ```
+
+
 :::
 
 #### **3.3.2 Plot & Analysis**
 
 **Load and launch packages**
 
+
+
 ```{r}
 pacman::p_load(ggplot2, patchwork, ggthemes)
 ```
+
+
 
 **Plot Heatmaps for top 6 markets**
 
 :::::::::::: panel-tabset
 ## **IMPORT**
+
+
 
 ```{r}
 #| fig-width: 10
@@ -1715,6 +1855,8 @@ ggplot(im_mon_calendar_top6,
         plot.margin = margin( t = 20, r = 5, b = 10, l = 5))
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -1729,6 +1871,8 @@ Insights
 :::::
 
 ## **EXPORT**
+
+
 
 ```{r}
 #| fig-width: 10
@@ -1765,6 +1909,8 @@ ggplot(ex_mon_calendar_top6,
         plot.margin = margin( t = 20, r = 5, b = 10, l = 5))
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -1779,6 +1925,8 @@ Insights
 :::::
 
 ## **RE-EXPORT**
+
+
 
 ```{r}
 #| fig-width: 10
@@ -1815,6 +1963,8 @@ ggplot(ex_mon_calendar_top6,
         plot.margin = margin( t = 20, r = 5, b = 10, l = 5))
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -1836,12 +1986,18 @@ Insights
 
 In this step, I will convert the tibble objects to tsibble object for all trade categories, using as_tsibble() from R package. In the analysis, only the top 25 partners will be analysed. I will also exclude some countries that are in fact regions, such as total markets, Asia, etc.
 
+
+
 ```{r}
 pacman::p_load(fpp3, feasts)
 ```
 
+
+
 ::: panel-tabset
 ## **IMPORT**
+
+
 
 ```{r}
 #| code-fold: true
@@ -1893,7 +2049,11 @@ im_by_region_long <- im_by_region_long_data %>%
 head(im_by_region_long)
 ```
 
+
+
 ## **EXPORT**
+
+
 
 ```{r}
 #| code-fold: true
@@ -1938,7 +2098,11 @@ ex_by_region_long <- ex_by_region_long_data %>%
 head(ex_by_region_long)
 ```
 
+
+
 ## **RE-EXPORT**
+
+
 
 ```{r}
 #| code-fold: true
@@ -1983,6 +2147,8 @@ rex_by_region_long <- rex_by_region_long_data %>%
 #tissible object now
 head(rex_by_region_long)
 ```
+
+
 :::
 
 #### **3.4.2 Plot & Analysis**
@@ -1996,6 +2162,8 @@ The top 10 trade markets for import include China, Japan, Malaysia, Taiwan, UAE,
 
 **OVERALL TIME PLOT**
 
+
+
 ```{r}
 #| fig-width: 7
 #| fig-height: 6
@@ -2005,10 +2173,14 @@ autoplot(im_by_region_long) +
   theme(legend.position = "bottom")
 ```
 
+
+
 **COMPOSITE PLOT BY COUNTRY**
 
 ::: panel-tabset
 ## CHINA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2018,7 +2190,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## INDONESIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2028,7 +2204,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## JAPAN
+
+
 
 ```{r}
 #| code-fold: true
@@ -2038,7 +2218,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## KOREA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2048,7 +2232,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## TAIWAN
+
+
 
 ```{r}
 #| code-fold: true
@@ -2058,7 +2246,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## MALAYSIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2068,7 +2260,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## SAUDI ARABIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2078,7 +2274,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## THAILAND
+
+
 
 ```{r}
 #| code-fold: true
@@ -2088,7 +2288,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## USA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2098,7 +2302,11 @@ im_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## UAE
+
+
 
 ```{r}
 #| code-fold: true
@@ -2107,9 +2315,13 @@ im_by_region_long %>%
   filter(`Country` == "United Arab Emirates") %>%
   gg_tsdisplay(Value)
 ```
+
+
 :::
 
 **SEASONAL SUBSERIES PLOTS**
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2124,6 +2336,8 @@ im_by_region_long |> gg_subseries(Value) +
   )
 
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -2143,6 +2357,8 @@ Observations \| IMPORT
 
 **OVERALL TIME PLOTS**
 
+
+
 ```{r}
 #| fig-width: 7
 #| fig-height: 6
@@ -2152,10 +2368,14 @@ autoplot(ex_by_region_long) +
   theme(legend.position = "bottom")
 ```
 
+
+
 **COMPOSITE PLOT BY COUNTRY**
 
 ::: panel-tabset
 ## AUSTRALIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2165,7 +2385,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## CHINA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2175,7 +2399,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## HONG KONG
+
+
 
 ```{r}
 #| code-fold: true
@@ -2185,7 +2413,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## INDONESIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2195,7 +2427,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## JAPAN
+
+
 
 ```{r}
 #| code-fold: true
@@ -2205,7 +2441,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## KOREA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2215,7 +2455,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## TAIWAN
+
+
 
 ```{r}
 #| code-fold: true
@@ -2225,7 +2469,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## MALAYSIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2235,7 +2483,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## THAILAND
+
+
 
 ```{r}
 #| code-fold: true
@@ -2245,7 +2497,11 @@ ex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## USA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2254,9 +2510,13 @@ ex_by_region_long %>%
   filter(`Country` == "United States") %>%
   gg_tsdisplay(Value)
 ```
+
+
 :::
 
 **SEASONAL SUBSERIES PLOTS**
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2271,6 +2531,8 @@ ex_by_region_long |> gg_subseries(Value) +
   )
 
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -2288,6 +2550,8 @@ Observations \| EXPORT
 
 **OVERALL TIME PLOTS**
 
+
+
 ```{r}
 #| fig-width: 7
 #| fig-height: 6
@@ -2297,10 +2561,14 @@ autoplot(rex_by_region_long) +
   theme(legend.position = "bottom")
 ```
 
+
+
 **COMPOSITE PLOT BY COUNTRY**
 
 ::: panel-tabset
 ## CHINA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2310,7 +2578,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## HONG KONG
+
+
 
 ```{r}
 #| code-fold: true
@@ -2320,7 +2592,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## INDONESIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2330,7 +2606,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## JAPAN
+
+
 
 ```{r}
 #| code-fold: true
@@ -2340,7 +2620,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## KOREA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2350,7 +2634,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## TAIWAN
+
+
 
 ```{r}
 #| code-fold: true
@@ -2360,7 +2648,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## MALAYSIA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2370,7 +2662,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## THAILAND
+
+
 
 ```{r}
 #| code-fold: true
@@ -2380,7 +2676,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## USA
+
+
 
 ```{r}
 #| code-fold: true
@@ -2390,7 +2690,11 @@ rex_by_region_long %>%
   gg_tsdisplay(Value)
 ```
 
+
+
 ## VIETNAM
+
+
 
 ```{r}
 #| code-fold: true
@@ -2399,9 +2703,13 @@ rex_by_region_long %>%
   filter(`Country` == "Viet Nam") %>%
   gg_tsdisplay(Value)
 ```
+
+
 :::
 
 **SEASONAL SUBSERIES PLOTS**
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2416,6 +2724,8 @@ rex_by_region_long |> gg_subseries(Value) +
   )
 
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -2437,6 +2747,8 @@ Observations \| RE_EXPORT
 ### 3.5 Trading Trend Analysis
 
 #### **3.5.1 Data Wrangling**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2476,18 +2788,26 @@ net_trade_df <- net_trade_df %>%
 head(net_trade_df)
 ```
 
+
+
 #### 3.5.2 **Plot & Analaysis**
 
 The analyse the trade trends, a ggHoriPlot will be plotted to observed the trends among Singapore trade partners. This approach is employeed because I would like to see all countries in one view. To plot the ggHoriPlot, I will load and launch the following packages: **ggHoriPlot**, **ggthemes** and **tidyverse**.
+
+
 
 ```{r}
 pacman::p_load(ggHoriPlot, ggthemes, tidyverse)
 ```
 
+
+
 In the HotiPlot below, the top and bottom Surplus and Deficit trade partners are plotted in one view. To have a full view of the historical changes of trade balance, all countries are included to the plot in tab 2 "ALL COUNTRIES". All countries are ordered in alphebetical orders. Red dipicts net negative trade (Deficit) and blue means Surplus. Darker colors means larger trade deficit / surplus.
 
 ::::::::: panel-tabset
 ## **TOP BOTTOM 30**
+
+
 
 ```{r}
 #| fig-width: 8
@@ -2547,6 +2867,8 @@ ggplot(filtered_df, aes(x = date, y = net_trade_value_k)) +
   labs(title = "Trade Balance of Top & Bottom 30 Singapore Trading Partners \n2015 Jan - 2025 Jan")
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -2561,6 +2883,8 @@ Insights
 :::::
 
 ## **ALL COUNTRIES**
+
+
 
 ```{r}
 #| fig-width: 8
@@ -2600,6 +2924,8 @@ net_trade_df %>%
 
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Insights
@@ -2621,9 +2947,13 @@ A time-series forecasting will be conducted for Singapore import trade daa by tr
 
 The process is as below: **Data Prep \> Exploratory data analysis (done in 3.4) \> model fitting \> diagnostic check \> forecasting \> forecasting check**
 
+
+
 ```{r}
 pacman::p_load(dplyr, tidyr, tsibble, lubridate, forecast, fable)
 ```
+
+
 
 #### **3.6.1 Time series data sampling**
 
@@ -2632,6 +2962,8 @@ The data set I will be using is a tsibble frame derived from previous analysis v
 In this analysis, I will use the last 12 months for hold-out and the rest for training.
 
 #### **3.6.2 Data wrangling**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2660,7 +2992,11 @@ im_by_region_tsb <- im_region_df_top %>%
 head(im_by_region_tsb)
 ```
 
+
+
 #### **3.6.3 Sampling**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2674,10 +3010,14 @@ im_top_train <- im_by_region_tsb %>%
 head(im_top_train)
 ```
 
+
+
 #### **3.6.4 Fit multiple time series**
 
 ::: panel-tabset
 ## **FIT MODELS**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2689,22 +3029,34 @@ im_top_fit <- im_top_train %>%
   )
 ```
 
+
+
 ## **EXAMINE MODELS**
+
+
 
 ```{r}
 im_top_fit %>%
   glance()
 ```
 
+
+
 ## **EXTRACT FITTED AND RESIDUAL VALUES**
+
+
 
 ```{r}
 im_top_fit %>%
   augment()
 ```
+
+
 :::
 
 #### **3.6.5 Compare fit models Use accuracy() to compare the performance of models**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2715,7 +3067,11 @@ im_top_fit %>%
   kable(digits = 4, caption = "Forecast Accuracy Metrics for Each Country")
 ```
 
+
+
 #### **3.6.6 Forecast future values**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2725,7 +3081,11 @@ im_top_fc <- im_top_fit %>%
 
 ```
 
+
+
 #### **3.6.7 Visualisation**
+
+
 
 ```{r}
 #| fig-width: 6
@@ -2735,6 +3095,8 @@ im_top_fc <- im_top_fit %>%
 im_top_fc %>%
   autoplot(im_by_region_tsb)
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -2758,14 +3120,20 @@ Singapore, as a focal point for international trading, hsa goods come and go. I 
 
 **Load pakcage**
 
+
+
 ```{r}
 pacman::p_load(CGPfunctions, ggthemes)
 ```
+
+
 
 **Import data & Data wrangling**
 
 ::: panel-tabset
 ## **COMMODITY**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2808,7 +3176,11 @@ head(rex_com_slope)
 
 ```
 
+
+
 ## **MACHINERY & EQUIPMENT**
+
+
 
 ```{r}
 #| code-fold: true
@@ -2842,12 +3214,16 @@ pivot_longer(
 
 head(rex_mac_slope)
 ```
+
+
 :::
 
 #### **3.7.2 Plot & Analysis**
 
 ::::::::: panel-tabset
 ## **MACHINERY & EQUIPMENT**
+
+
 
 ```{r}
 #| fig-height: 12
@@ -2876,6 +3252,8 @@ rex_mac_slope %>%
         axis.text.x = element_text(size = 7))
 ```
 
+
+
 ::::: tdgoals
 ::: tdgoals-header
 Analysis \| Re-export Machinery
@@ -2889,6 +3267,8 @@ Analysis \| Re-export Machinery
 :::::
 
 ## **COMMODITY**
+
+
 
 ```{r}
 #| fig-height: 12
@@ -2916,6 +3296,8 @@ rex_com_slope %>%
         axis.text.y = element_text(size = 6, color = "grey70"),
         axis.title.x = element_text(size = 7))
 ```
+
+
 
 ::::: tdgoals
 ::: tdgoals-header
@@ -2970,3 +3352,4 @@ Stalder, T., Holtz, Y. (2021): Extended Dumbbell Plot in R with ggplot2. R graph
 Department of Statistics Singapore. *Singapore’s International Trade*. Singapore Government, <https://www.singstat.gov.sg/modules/infographics/singapore-international-trade>. Accessed 8 Mar. 2025.
 
 Department of Statistics Singapore. *Merchandise Trade – Latest Data*. Singapore Government, <https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data>. Accessed 8 Mar. 2025.
+
