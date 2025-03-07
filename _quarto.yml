@@ -145,6 +145,8 @@ website:
         contents:
           - text: "Take-home_Ex01"
             href: Take-home_Ex/Take-home_Ex01.html
+          - text: "Take-home_Ex02"
+            href: Take-home_Ex/Take-home_Ex02.html
       - text: "About"
         href: about.qmd
 
