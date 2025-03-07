@@ -3248,7 +3248,10 @@ rex_mac_slope %>%
         legend.title = element_text(size = 8),
         legend.position = "bottom",
         axis.text.y = element_text(size = 6, color = "grey70"),
-        axis.text.x = element_text(size = 7))
+        axis.text.x = element_text(size = 7),
+        plot.background = element_rect(fill = "#f1f4f5"),
+        panel.background = element_rect(fill = "#f1f4f5"),
+        legend.background = element_rect(fill = "#f1f4f5"))
 ```
 
 

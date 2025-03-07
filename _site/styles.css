@@ -197,3 +197,34 @@ div.cell-output pre {
   background-color: #ECDFCC;
   border-bottom-right-radius: 10px;  
 }
+
+/* style callout blocks -- BOX*/
+.boxgoals {
+  margin: 2em 0;
+  border: 1.5px dashed #C75B7A;
+  border-radius: 10px;
+  background-color: #D9ABAB;
+}
+
+.boxgoals-header {
+  margin-left: 0em;
+  padding-left: 120px;
+  padding-top: 20px;
+  padding-bottom: 0.1em;
+  color: #66785F;
+  font-size: 1.4em;
+  font-weight: bold;
+  background-size: 100px;
+  background-color: #D9ABAB;
+  background-repeat: no-repeat;
+  background-position: 15px center;
+}
+
+.boxgoals-container {
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
+  color: #343738;
+  background-color: #D9ABAB;
+  border-bottom-right-radius: 10px;  
+}

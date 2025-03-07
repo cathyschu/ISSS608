@@ -16,7 +16,7 @@ execute:
 
 As a visual analytics novice, I will apply newly acquired techniques to explore and analyse the changing trends and patterns of Singapore’s international trade since 2015. Using the [data set](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data) from the Department of Statistics Singapore ([DOS](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade)), I will re-create visualizations, offering critiques of the visualizations shared on the DOS website. In addition, I will analyze key time-series events to uncover insights from the data.
 
-### 1.1 Tasks
+### **Tasks**
 
 There are 2 tasks I will complete in this assignment.
 
@@ -28,7 +28,6 @@ I will select 3 visualisations from the Department of Statistics Singapore websi
 
 I will perform time-series analysis using data visualisation techniques and R packages to uncover insights from the dataset.
 
-### 1.2 Data
 
 ## 2 Visualisation Make-Over
 
@@ -493,7 +492,7 @@ These improvements overall makes the plot more prominent in showing the trends o
 
 ::::::: {.column width="65%"}
 :::::: panel-tabset
-## **Pros**
+## **PROS**
 
 -   **Dual-color background** (blue and green) - shows which trading relationship favour imports and exports.
 
@@ -503,7 +502,7 @@ These improvements overall makes the plot more prominent in showing the trends o
 
 -   **Footnote** - It has also included an explanatory note to clarify how to interpret the bubble positions relative to the diagnol dividing line.
 
-## **Cons**
+## **CONS**
 
 **UGLY**
 
@@ -529,7 +528,7 @@ These improvements overall makes the plot more prominent in showing the trends o
 :::
 :::::
 
-## **Sketch**
+## **SKETCH**
 
 ![](images/sketch2.png){width="700"}
 ::::::
@@ -2881,7 +2880,7 @@ Analysis \| Re-export Machinery
 :::
 
 ::: tdgoals-container
--   **Integrated circuits re-export -** The analysis of Singapore’s RE-exports reveals that **integrated circuits** have dominated the machinery and equipment category since 2019, with values reaching 1,373.6 billion Singapore dollars. This represents approximately six times the value of Telecommunications Equipment, the second-largest export category. These re-exported integrated circuits primarily consist of semiconductor chips used in electronic devices such as computers, smartphones, and televisions. The strong upward trend in the data indicates growing international reliance on Singapore’s transshipment capabilities for distributing these critical components.
+-   **Integrated circuits re-export -** The analysis of Singapore’s RE-exports reveals that **integrated circuits** have dominated the machinery and equipment category since 2019, with values reaching 1,373.6 billion Singapore dollars. This represents approximately six times the value of Telecommunications Equipment, the second-largest export category. These re-exported integrated circuits primarily consist of semiconductor chips used in electronic devices such as computers, smartphones, and televisions. In addition, **Telecommunications equipment and Personal computers** are also growing. The strong upward trend in the data indicates growing international reliance on Singapore’s transshipment capabilities for distributing these critical technology components.
 
 -   **Focal point for trade -** What makes this data particularly significant is that it reflects re-exports rather than domestic exports. This highlights Singapore’s strategic role as a transshipment hub in the global semiconductor supply chain. The timing of this growth in semiconductor re-exports aligns with increased global demand for specialized processing chips, including those used for AI applications. While the data doesn’t explicitly categorize AI-specific chips within the broader integrated circuits category, the substantial volumes flowing through Singapore suggest it **serves as a key node in the distribution network for advanced computing hardware**.
 :::
@@ -2932,6 +2931,34 @@ This divergence in re-export patterns suggests a potential reconfiguration of re
 :::::::::
 
 ## 4 Conclusion
+::::: boxgoals
+::: boxgoals-header
+
+:::
+
+::: boxgoals-container
+The goal of this assignment was to critique and redesign three visualizations of Singapore’s trade market data, followed by a detailed time-series analysis to uncover trends and patterns in trade over time.
+-   **Visualisation redesigns:** The 3 visualisation make-over present more ways to show audience the same set of data and more insightful information. 
+
+-   **Visualisation & insights:** Analysis revealed an upward trend for Singapore's geographically proximate trade partners, including China, Hong Kong, Taiwan, Japan, Korea, Thailand, and the US. Time series decomposition identified distinct seasonality and cyclical patterns in several trading relationships that warrant further investigation.
+
+-   **COVID-19 period: ** The pandemic significantly disrupted global trade flows, clearly visible in the visualizations. Trade volumes decreased across most markets and goods during this period, with varying recovery patterns afterward.
+
+-   **Time series forecasting: **The ARIMA and ETS models employed demonstrated the challenges in accurately forecasting trade volumes, largely due to the complex interplay of economic conditions, policy changes, and external shocks affecting international trade. 
+
+-   **Limitations:** This analysis did not incorporate historical policy decisions or economic events that could provide contextual explanation for the patterns observed in the data.
+
+-   **Recommendation for future analysis**: Future work should include statistical significance testing of the observed patterns and changes. More sophisticated machine learning techniques could be explored for more accurate trade flow predictions. Additionally, incorporating complementary datasets such as GDP, inflation rates, and currency exchange fluctuations would provide a more comprehensive view of Singapore's trade dynamics.
+
+*My eyes soar, and feel the more I learn, the more I do not know. Working with these visualization and analysis techniques has been eye-opening! I'm amazed at how much I've learned, but also how much more there is to discover. Time series analysis is deeper and more complex than I initially thought, and I'm excited to keep exploring new approaches in the future.*
+:::
+:::::
+
 
 ## Reference
+Kam, T. S. (2023, December 4). *R for Visual Analytics*. https://r4va.netlify.app/
+
+Hyndman, R.J., & Athanasopoulos, G. (2021) *Forecasting: principles and practice*, 3rd edition, OTexts: Melbourne, Australia. OTexts.com/fpp3. Accessed on 8 Mar 2025.
+
+Stalder, T., Holtz, Y. (2021): Extended Dumbbell Plot in R with ggplot2. R graph gallery. Access: r-graph-gallery.com/web-extended-dumbbell-plot-ggplot2.html. Date: 08-03-2015.
 
