@@ -2678,7 +2678,7 @@ head(im_top_train)
 
 #### **3.6.4 Fit multiple time series**
 
-:::::::::::::: panel-tabset
+::: panel-tabset
 ## **FIT MODELS**
 
 ```{r}
@@ -2704,6 +2704,7 @@ im_top_fit %>%
 im_top_fit %>%
   augment()
 ```
+:::
 
 #### **3.6.5 Compare fit models Use accuracy() to compare the performance of models**
 
@@ -2750,8 +2751,9 @@ The visualisations also reveal **high uncertainty**, likely due to volatile trad
 :::::
 
 ### 3.7 Comparative Analysis of Singapore's Re-export (2019 vs 2024)
+Singapore, as a focal point for international trading, hsa goods come and go. I am curious to find out what goods have been imported and re-exported. Do they change over time? In this section, I will use slopegraph to display the changes for individual commodity categories between 2019 and 2024.
 
-#### 3.7.1 Data Wrangling
+#### **3.7.1 Data Wrangling**
 
 **Load pakcage**
 
@@ -2841,7 +2843,7 @@ head(rex_mac_slope)
 ```
 :::
 
-#### 3.7.2 Plot & Analysis
+#### **3.7.2 Plot & Analysis**
 
 ::::::::: panel-tabset
 ## **MACHINERY & EQUIPMENT**
@@ -2870,10 +2872,7 @@ rex_mac_slope %>%
         legend.title = element_text(size = 8),
         legend.position = "bottom",
         axis.text.y = element_text(size = 6, color = "grey70"),
-        axis.text.x = element_text(size = 7),
-        plot.background = element_rect(fill = "#f1f4f5"),
-        panel.background = element_rect(fill = "#f1f4f5"),
-        legend.background = element_rect(fill = "#f1f4f5"))
+        axis.text.x = element_text(size = 7))
 ```
 
 ::::: tdgoals
@@ -2935,4 +2934,4 @@ This divergence in re-export patterns suggests a potential reconfiguration of re
 ## 4 Conclusion
 
 ## Reference
-::::::::::::::
+
