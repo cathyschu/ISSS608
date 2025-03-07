@@ -1,0 +1,191 @@
+---
+title: "Slopegraph for take-home"
+---
+
+```{r}
+devtools::install_github('rensa/ggflags')
+
+#load packages
+library(tidyverse)
+library(ggflags) 
+library(countrycode) # to convert country names to country codes
+library(tidytext) # for reorder_within
+library(scales) # for application of common formats to scale labels (e.g., comma, percent, dollar)
+
+```
+
+```{r}
+#| fig-width: 4
+#| fig-height: 6
+#| code-fold: true
+#| code-summary: "Show the code"
+
+library(ggplot2)
+library(ggiraph)
+library(dplyr)
+library(tidyr)
+
+# Create sample data
+data1 <- data.frame(
+  id = LETTERS[1:5],
+  left = c(80, 65, 45, 30, 50),
+  right = c(95, 40, 70, 20, 60)
+)
+
+data2 <- data.frame(
+  id = LETTERS[1:5],
+  left = c(35, 55, 70, 40, 60),
+  right = c(75, 45, 90, 25, 50)
+)
+
+# Add graph identifiers
+data1$graph <- "Graph 1"
+data2$graph <- "Graph 2"
+
+# Combine data and convert to long format
+combined_data <- rbind(data1, data2) %>%
+  pivot_longer(cols = c(left, right), 
+               names_to = "position", 
+               values_to = "value")
+
+# Create the plot with ggiraph
+p <- ggplot(combined_data, aes(x = position, y = value, group = id, color = id)) +
+  geom_line_interactive(aes(tooltip = id, data_id = id), size = 0.5) +
+  geom_point_interactive(aes(tooltip = paste0(id, ": ", value), data_id = id), size = 1) +
+  facet_wrap(~graph, scales = "free_x") +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() +
+  labs(title = "Interactive Slopegraphs", x = "", y = "Value") +
+  theme(legend.position = "none")
+
+girafe(ggobj = p, width_svg = 5, height_svg = 7) %>%
+  girafe_options(
+    opts_sizing(rescale = FALSE),
+    opts_hover(css = "stroke-width:3px;"),
+    opts_hover_inv(css = "opacity:0.2;"),
+    opts_selection(type = "single", only_shiny = FALSE)
+  ) 
+
+```
+
+```{r}
+library(ggplot2)
+library(ggiraph)
+library(dplyr)
+
+# Create data in long format
+data1 <- rbind(
+  data.frame(id = LETTERS[1:5], time = "Start", value = c(80, 65, 45, 30, 50), graph = "Graph 1"),
+  data.frame(id = LETTERS[1:5], time = "End", value = c(95, 40, 70, 20, 60), graph = "Graph 1")
+)
+
+data2 <- rbind(
+  data.frame(id = LETTERS[1:5], time = "Start", value = c(35, 55, 70, 40, 60), graph = "Graph 2"),
+  data.frame(id = LETTERS[1:5], time = "End", value = c(75, 45, 90, 25, 50), graph = "Graph 2")
+)
+
+combined_data <- rbind(data1, data2)
+
+# Create interactive plot
+p <- ggplot(combined_data, aes(x = time, y = value, group = id, color = id)) +
+  geom_line_interactive(aes(data_id = id), size = 1) +
+  geom_point_interactive(aes(data_id = id, tooltip = paste0(id, ": ", value)), size = 3) +
+  geom_text_interactive(data = subset(combined_data, time == "Start"), 
+                        aes(label = id, data_id = id), hjust = 1.5) +
+  facet_wrap(~graph, scales = "free_x") +
+  scale_color_brewer(palette = "Set1") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+girafe(ggobj = p, width_svg = 4, height_svg = 5) %>%
+  girafe_options(
+        opts_sizing(rescale = FALSE),
+    opts_hover(css = "stroke-width:3px;"),
+    opts_hover_inv(css = "opacity:0.2;")
+  )
+```
+
+```{r}
+library(ggflags)
+library(ggiraph)
+library(ggplot2)
+
+# Add country codes to your data
+data1$code <- c("us", "ca", "gb", "de", "fr")
+data2$code <- c("us", "ca", "gb", "de", "fr")
+combined_data <- rbind(data1, data2)
+
+# Create interactive plot with flags
+p <- ggplot(combined_data, aes(x = time, y = value, group = id, color = id)) +
+  geom_line_interactive(aes(data_id = id), size = 1) +
+  geom_point_interactive(aes(data_id = id, tooltip = paste0(id, ": ", value)), size = 3) +
+  # Add country flags
+  geom_flag(data = subset(combined_data, time == "Start"), 
+           aes(country = code), size = 5, hjust = 2.2) +
+  facet_wrap(~graph, scales = "free_x") +
+  scale_color_manual(values = c("A" = "red", "B" = "grey", "C" = "grey", 
+                               "D" = "grey", "E" = "grey")) +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank(),  # Remove minor grid lines
+    panel.grid.major.x = element_line(color = "skyblue"),  # Keep light major x grid
+    panel.grid.major.y = element_line(color = "grey70", linetype = "dotted" ),
+    legend.position = "none",
+    plot.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5"),
+    panel.background = element_rect(fill = "#f1f4f5", color = "#f1f4f5")) 
+
+girafe(ggobj = p, width_svg = 5, height_svg = 7) |>
+  girafe_options(
+    opts_sizing(rescale = FALSE),
+    opts_hover(css = "stroke-width:3px; opacity:1;"),
+    opts_hover_inv(css = "opacity:0.2;")
+  )
+```
+
+```{r}
+library(readxl)
+library(dplyr)
+library(stringr)
+```
+
+```{r}
+v1_data <- read_xlsx("data/Mtrade_commodity.xlsx", "T1")
+head(v1_data)
+v1_subset <- v1_data[c(10, 11),]
+```
+
+```{r}
+#| code-fold: True
+#| code-summary: "Show the code"
+
+v1_trans_matrix <- t(v1_subset) #after transpose, the data is a matrix.
+v1_trans <- as.data.frame(v1_trans_matrix) #now convert the matrix to df.
+
+# Correct the column name
+real_column_names <- as.character(v1_trans[1, ])
+colnames(v1_trans) <- real_column_names
+
+# remove the first row
+v1_trans <- v1_trans[-1, ]
+
+# Extract year first
+v1_trans$Year <- substr(v1_trans$`Data Series`, 1, 4)
+print(v1_trans)
+
+v1_trans$Year <- as.numeric(v1_trans$Year)
+
+# Convert type
+v1_trans$`Total Merchandise Trade, (At Current Prices)` <- 
+  as.numeric(v1_trans$`Total Merchandise Trade, (At Current Prices)`)
+
+# This is the data frame for visual 1
+v1_year_sum <- v1_trans %>%
+  filter(Year >= 2020 & Year <= 2024) %>%
+  group_by(Year) %>%
+  summarise(
+    YearTotal = sum(`Total Merchandise Trade, (At Current Prices)`, na.rm = TRUE))
+
+
+```
+
+

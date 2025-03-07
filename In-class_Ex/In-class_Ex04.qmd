@@ -1,0 +1,124 @@
+---
+title: "In-class_Ex04"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+🎯 Use Tool to install packages first before running the code. Helps reduce missing packages.
+
+```{r}
+pacman:::p_load(haven, SmartEDA, tidyverse, ggdist,
+                tidymodels, ggridges, colorspace, ggthemes)
+
+```
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+Before plotting ridgeline plots, we plot boxplot first to have a preview.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(exam_data,
+       aes(x = ENGLISH,
+           y = CLASS)) +
+  geom_boxplot() +
+  labs(title = "Boxplot showing distribution")
+```
+
+Now, we plot the ridgeline plot.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(exam_data,
+       aes(x = ENGLISH,
+           y = CLASS)) +
+  #create ridgeline
+  geom_density_ridges( 
+    scale = 3,
+    rel_min_height = 0.01,
+    bandwidth = 2.5,
+    fill = lighten("pink", .3),
+    color = "white"
+  ) +
+  #extension of ggplot
+  scale_x_continuous(
+    name = "English grades",
+    expand = c(0,0),
+  ) +
+  scale_y_discrete(name = "Class", expand = expansion(add=c(0.2, 2.6))) +
+  labs(title = "Visualising Distribution with Ridgeline Plot") +
+  theme_ridges()
+```
+
+Below is with quantile lines:
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(exam_data,
+       aes(x = ENGLISH, 
+           y = CLASS, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  labs(title = "Ridgeline Plot with Quantile Lines") +
+  theme_ridges()
+```
+
+Here, we can use half-eye plot to see the distribution:
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(exam_data, 
+       aes(x = RACE, 
+           y = ENGLISH)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) + #see no outliers.
+  geom_boxplot(width = .20, #not overly crowded.
+               outlier.shape = NA) + #see no outliers.
+  coord_flip() +
+  labs(title = "Half-eye Graph") 
+```
+
+Next we add dot plots with `stat_dots()`. This gives better clarify.
+
+-   High-level distribution of probability density\> This smooths out. Is it skewed or normal distributed.
+
+-   Dots: provides the detail of it. With this we can observe that for some categories like "Others" has very small sample.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(exam_data, 
+       aes(x = RACE, 
+           y = ENGLISH)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = NA, #suggested to put all dots in the range.
+            dotsize = 1.3) + #can apply transparency if too many.
+  coord_flip() + #this is to flip into horizontal graph
+  labs(title = "Adding dot plots to the Raincloud Plot") 
+```
