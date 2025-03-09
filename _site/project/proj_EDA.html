@@ -1,0 +1,2896 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Cathy C.">
+
+<title>Project EDA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="..//images/dragon.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-41bc50089c071b6cb71e65e5834af25e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/dino.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><strong>Hands-on Exercise</strong></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html">
+ <span class="dropdown-text">Hands-on_Ex00</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+ <span class="dropdown-text">1 A Layered Grammar of Graphics: ggplot2 methods.</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+ <span class="dropdown-text">2 Beyond ggplot2 Fundamentals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html">
+ <span class="dropdown-text">3_1 Interactive Data Visualisation with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html">
+ <span class="dropdown-text">3_2 Animated Statistical Graphics with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html">
+ <span class="dropdown-text">4_1 Visualising Distribution</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html">
+ <span class="dropdown-text">4_2 Visual Statistical Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html">
+ <span class="dropdown-text">4_3 Visualising Uncertainty</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html">
+ <span class="dropdown-text">4_4 Building Funnel Plot with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.html">
+ <span class="dropdown-text">5_1 Building Ternary Plot with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.html">
+ <span class="dropdown-text">5_2 Visual Correlation Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.html">
+ <span class="dropdown-text">5_3 Visual Multivariate Analysis with Heatmap</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.html">
+ <span class="dropdown-text">5_4 Visual Multivariate Analysis with Parallel Coordinates Plot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html">
+ <span class="dropdown-text">5_5 Treemap Visualisation with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
+ <span class="dropdown-text">7 Visualising time-oriented data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><strong>In-class Exercise</strong></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex01.html">
+ <span class="dropdown-text">In-class Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex02.html">
+ <span class="dropdown-text">In-class Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex03.html">
+ <span class="dropdown-text">In-class Exercise 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex04.html">
+ <span class="dropdown-text">In-class Exercise 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex05.html">
+ <span class="dropdown-text">In-class Exercise 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../In-class_Ex/In-class_Ex07.html">
+ <span class="dropdown-text">In-class Exercise 7</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text"><strong>Take-home Exercise</strong></span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../Take-home_Ex/Take-home_Ex01.html">
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Take-home_Ex/Take-home_Ex02.html">
+ <span class="dropdown-text">Take-home Exercise 2</span></a>
+  </li>  
+        <li class="dropdown-header">Take-home Exercise 3</li>
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text"><img src="../images/house.svg" class="img-fluid"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text"><img src="../images/person.svg" class="img-fluid"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Project EDA</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+  <div id="quarto-announcement" data-announcement-id="e6a177f3154fde6521a8285e622efd05" class="alert alert-primary hidden"><i class="bi bi-rocket-takeoff-fill quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>NEW (08/03)</strong> - <a href="https://cathyc.netlify.app/take-home_ex/take-home_ex02"><strong>Take-home Exercise 2</strong></a> are published!</p>
+</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on_Ex00</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex00/Hands-on_Ex00.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 0</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 3-1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 3-2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 4-1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 4-2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 4-3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 4-4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 5-1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 5-2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 5-3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 5-4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 5-5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 7</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 8-1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 8-2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hands-on Exercise 8-3</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">In-class Exercise</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../In-class_Ex/In-class_Ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class_Ex1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../In-class_Ex/In-class_Ex02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class_Ex2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../In-class_Ex/In-class_Ex03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class_Ex3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../In-class_Ex/In-class_Ex04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class_Ex4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../In-class_Ex/In-class_Ex05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In-class_Ex5</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Take-home Exercise</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Take-home_Ex/Take-home_Ex01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Take-home_Ex01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Take-home_Ex/Take-home_Ex02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Take-home_Ex02</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#import-file" id="toc-import-file" class="nav-link" data-scroll-target="#import-file">Import file</a></li>
+  <li><a href="#eda" id="toc-eda" class="nav-link" data-scroll-target="#eda">EDA</a>
+  <ul class="collapse">
+  <li><a href="#check-missing-values" id="toc-check-missing-values" class="nav-link" data-scroll-target="#check-missing-values">1 Check missing values</a></li>
+  <li><a href="#number-of-agencies-suppliers" id="toc-number-of-agencies-suppliers" class="nav-link" data-scroll-target="#number-of-agencies-suppliers">2 Number of agencies, suppliers</a></li>
+  <li><a href="#awards-amount" id="toc-awards-amount" class="nav-link" data-scroll-target="#awards-amount">3 Awards amount</a></li>
+  <li><a href="#tender-count" id="toc-tender-count" class="nav-link" data-scroll-target="#tender-count">4 Tender count</a></li>
+  </ul></li>
+  <li><a href="#unknown-suppliers" id="toc-unknown-suppliers" class="nav-link" data-scroll-target="#unknown-suppliers">5 Unknown suppliers</a></li>
+  <li><a href="#by-year" id="toc-by-year" class="nav-link" data-scroll-target="#by-year">6 By year</a></li>
+  <li><a href="#to-do" id="toc-to-do" class="nav-link" data-scroll-target="#to-do">To-do</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project EDA</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Cathy C. </p>
+          </div>
+  </div>
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">March 9, 2025</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggplot2, tidyverse, ggthemes, dplyr, tidyr, knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="import-file" class="level2">
+<h2 class="anchored" data-anchor-id="import-file">Import file</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>g2b_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/GovBIZ.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(g2b_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 57%">
+<col style="width: 12%">
+<col style="width: 3%">
+<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">tender_no</th>
+<th style="text-align: left;">tender_description</th>
+<th style="text-align: left;">agency</th>
+<th style="text-align: left;">award_date</th>
+<th style="text-align: left;">tender_detail_status</th>
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">awarded_amt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ACR000ETT18300010</td>
+<td style="text-align: left;">SUPPLY, DESIGN, DEVELOPMENT, CUSTOMIZATION, DELIVERY, INSTALLATION, TESTING, COMMISSIONING AND MAINTENANCE OF A VARIABLE CAPITAL COMPANIES (VCC) SYSTEM FOR ACCOUNTING AND CORPORATE REGULARTORY AUTHORITY</td>
+<td style="text-align: left;">Accounting And Corporate Regulatory Authority</td>
+<td style="text-align: left;">11/6/2019</td>
+<td style="text-align: left;">Awarded to Suppliers</td>
+<td style="text-align: left;">AZAAS PTE. LTD.</td>
+<td style="text-align: right;">2305880</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ACR000ETT18300011</td>
+<td style="text-align: left;">APPLICATION ENHANCEMENT, CUSTOMISATION, MIGRATION, DELIVERY, INSTALLATION, TESTING AND COMMISSIONING OF THE FULLY OPERATIONAL BIZFINx 2.0 APPLICATION SYSTEM WITH AN OPTION FOR MAINTENANCE</td>
+<td style="text-align: left;">Accounting And Corporate Regulatory Authority</td>
+<td style="text-align: left;">10/5/2019</td>
+<td style="text-align: left;">Awarded to No Suppliers</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ACR000ETT19300001</td>
+<td style="text-align: left;">PROVISION OF CONSULTANCY SERVICES FOR STRATEGIC BUSINESS PROCESSES RE-ENGINEERING (SBPR) AND ACRA’S IT INFRASTRUCTURE</td>
+<td style="text-align: left;">Accounting And Corporate Regulatory Authority</td>
+<td style="text-align: left;">30/4/2019</td>
+<td style="text-align: left;">Awarded to Suppliers</td>
+<td style="text-align: left;">ACCENTURE SG SERVICES PTE. LTD.</td>
+<td style="text-align: right;">2035000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ACR000ETT19300002</td>
+<td style="text-align: left;">SUPPLY, DELIVERY, DESIGN, CUSTOMISATION, INSTALLATION, CONFIGURATION, TESTING, COMMISSIONING OF A FULLY OPERATIONAL BIZFILE+ WITH AN OPTION FOR MAINTENANCE</td>
+<td style="text-align: left;">Accounting And Corporate Regulatory Authority</td>
+<td style="text-align: left;">29/8/2019</td>
+<td style="text-align: left;">Awarded to Suppliers</td>
+<td style="text-align: left;">TECH MAHINDRA LIMITED (SINGAPORE BRANCH)</td>
+<td style="text-align: right;">30700374</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ACR000ETT19300003</td>
+<td style="text-align: left;">PROVISION OF MEDIA MONITORING SERVICES FOR A PERIOD OF TWO YEARS WITH OPTION TO EXTEND FOR UP TO ONE YEAR</td>
+<td style="text-align: left;">Accounting And Corporate Regulatory Authority</td>
+<td style="text-align: left;">6/8/2019</td>
+<td style="text-align: left;">Awarded to Suppliers</td>
+<td style="text-align: left;">INSIGHTMATRIX</td>
+<td style="text-align: right;">178800</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ACR000ETT19300004</td>
+<td style="text-align: left;">INVITATION TO TENDER FOR THE PROVISION OF CALL CENTRE SERVICES FOR ACCOUNTING AND CORPORATE REGULATORY AUTHORITY FOR A PERIOD OF 3 YEARS WITH OPTION OF UP TO 2 EXTENSIONS OF 2 YEARS EACH</td>
+<td style="text-align: left;">Accounting And Corporate Regulatory Authority</td>
+<td style="text-align: left;">5/11/2019</td>
+<td style="text-align: left;">Awarded to Suppliers</td>
+<td style="text-align: left;">TDCX (SG) PTE. LTD.</td>
+<td style="text-align: right;">8566831</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="eda" class="level2">
+<h2 class="anchored" data-anchor-id="eda">EDA</h2>
+<section id="check-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="check-missing-values">1 Check missing values</h3>
+<p>There is no missing values. Award date is character form, so <strong>need to change to <code>date</code>.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(g2b_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  tender_no         tender_description    agency           award_date       
+ Length:18638       Length:18638       Length:18638       Length:18638      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ tender_detail_status supplier_name       awarded_amt       
+ Length:18638         Length:18638       Min.   :0.000e+00  
+ Class :character     Class :character   1st Qu.:7.000e+03  
+ Mode  :character     Mode  :character   Median :1.647e+05  
+                                         Mean   :5.540e+06  
+                                         3rd Qu.:8.227e+05  
+                                         Max.   :1.493e+09  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(g2b_data<span class="sc">$</span>awarded_amt))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18638</code></pre>
+</div>
+</div>
+</section>
+<section id="number-of-agencies-suppliers" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-agencies-suppliers">2 Number of agencies, suppliers</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>agency_count <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(g2b_data<span class="sc">$</span>agency))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>supplier_count <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(g2b_data<span class="sc">$</span>supplier_name))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"# agency: "</span>, agency_count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "# agency:  113"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"# supplier: "</span>, supplier_count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "# supplier:  6230"</code></pre>
+</div>
+</div>
+</section>
+<section id="awards-amount" class="level3">
+<h3 class="anchored" data-anchor-id="awards-amount">3 Awards amount</h3>
+<section id="award-amount-in-descending-order-supplier" class="level4">
+<h4 class="anchored" data-anchor-id="award-amount-in-descending-order-supplier">3.1 Award amount in descending order (supplier)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>desc_supp_award <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(supplier_name) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_award_amt =</span> <span class="fu">sum</span>(awarded_amt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_award_amt)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(desc_supp_award))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">total_award_amt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PENTA-OCEAN CONSTRUCTION COMPANY LIMITED</td>
+<td style="text-align: right;">2703160550</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WOH HUP (PRIVATE) LIMITED</td>
+<td style="text-align: right;">2241896200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CHINA COMMUNICATIONS CONSTRUCTION COMPANY LTD.</td>
+<td style="text-align: right;">1836067980</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RICH CONSTRUCTION COMPANY PTE. LTD.</td>
+<td style="text-align: right;">1733331271</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SHANGHAI TUNNEL ENGINEERING CO (SINGAPORE) PTE LTD</td>
+<td style="text-align: right;">1682948000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KEPPEL SEGHERS ENGINEERING SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">1493179167</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="top-10-suppliers-by-total-award-amount" class="level4">
+<h4 class="anchored" data-anchor-id="top-10-suppliers-by-total-award-amount">3.2 Top 10 suppliers by total award amount</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>award_supp_top10 <span class="ot">&lt;-</span> desc_supp_award <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_award_amt_mil =</span> <span class="fu">round</span>(total_award_amt <span class="sc">/</span> <span class="dv">1000000</span>, <span class="dv">4</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(award_supp_top10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 58%">
+<col style="width: 18%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">total_award_amt</th>
+<th style="text-align: right;">total_award_amt_mil</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PENTA-OCEAN CONSTRUCTION COMPANY LIMITED</td>
+<td style="text-align: right;">2703160550</td>
+<td style="text-align: right;">2703.161</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WOH HUP (PRIVATE) LIMITED</td>
+<td style="text-align: right;">2241896200</td>
+<td style="text-align: right;">2241.896</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CHINA COMMUNICATIONS CONSTRUCTION COMPANY LTD.</td>
+<td style="text-align: right;">1836067980</td>
+<td style="text-align: right;">1836.068</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RICH CONSTRUCTION COMPANY PTE. LTD.</td>
+<td style="text-align: right;">1733331271</td>
+<td style="text-align: right;">1733.331</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SHANGHAI TUNNEL ENGINEERING CO (SINGAPORE) PTE LTD</td>
+<td style="text-align: right;">1682948000</td>
+<td style="text-align: right;">1682.948</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KEPPEL SEGHERS ENGINEERING SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">1493179167</td>
+<td style="text-align: right;">1493.179</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KAY LIM CONSTRUCTION &amp; TRADING PTE LTD</td>
+<td style="text-align: right;">1394038000</td>
+<td style="text-align: right;">1394.038</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CES ENGINEERING &amp; CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">1223080000</td>
+<td style="text-align: right;">1223.080</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CES_SDC PTE. LTD.</td>
+<td style="text-align: right;">1222110222</td>
+<td style="text-align: right;">1222.110</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NEWCON BUILDERS PTE. LTD.</td>
+<td style="text-align: right;">1217160000</td>
+<td style="text-align: right;">1217.160</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="award-amount-in-descending-order-agency" class="level4">
+<h4 class="anchored" data-anchor-id="award-amount-in-descending-order-agency">3.3 Award amount in descending order (agency)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>desc_agency_award <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_award_amt =</span> <span class="fu">sum</span>(awarded_amt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_award_amt)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(desc_agency_award))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">agency</th>
+<th style="text-align: right;">total_award_amt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: right;">34726217484</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: right;">24360961781</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: right;">6915032835</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: right;">5298569358</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: right;">3906638541</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: right;">3548646218</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="top-10-agencies-by-total-award-amount" class="level4">
+<h4 class="anchored" data-anchor-id="top-10-agencies-by-total-award-amount">3.4 Top 10 agencies by total award amount</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>award_agency_top10 <span class="ot">&lt;-</span> desc_agency_award <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_award_amt_mil =</span> <span class="fu">round</span>(total_award_amt <span class="sc">/</span> <span class="dv">1000000</span>, <span class="dv">4</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(award_agency_top10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 58%">
+<col style="width: 18%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">agency</th>
+<th style="text-align: right;">total_award_amt</th>
+<th style="text-align: right;">total_award_amt_mil</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: right;">34726217484</td>
+<td style="text-align: right;">34726.217</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: right;">24360961781</td>
+<td style="text-align: right;">24360.962</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: right;">6915032835</td>
+<td style="text-align: right;">6915.033</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: right;">5298569358</td>
+<td style="text-align: right;">5298.569</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: right;">3906638541</td>
+<td style="text-align: right;">3906.639</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: right;">3548646218</td>
+<td style="text-align: right;">3548.646</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: right;">3487028931</td>
+<td style="text-align: right;">3487.029</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: right;">2882060629</td>
+<td style="text-align: right;">2882.061</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: right;">1319919400</td>
+<td style="text-align: right;">1319.919</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: right;">1005716884</td>
+<td style="text-align: right;">1005.717</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="top-10-suppliers-from-top-10-agencies-by-award-amount" class="level4">
+<h4 class="anchored" data-anchor-id="top-10-suppliers-from-top-10-agencies-by-award-amount">3.5 Top 10 suppliers from top 10 agencies by award amount</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>top_agencies_award <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_awarded_amt =</span> <span class="fu">sum</span>(awarded_amt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_awarded_amt, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#filter only the top 10 agencies and get top 10 suppliers for each</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>top_suppliers_award <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(agency <span class="sc">%in%</span> top_agencies_award<span class="sc">$</span>agency) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency, supplier_name) <span class="sc">%&gt;%</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_award_amt =</span> <span class="fu">sum</span>(awarded_amt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency) <span class="sc">%&gt;%</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">order_by =</span> total_award_amt, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_award_amt_mil =</span> <span class="fu">round</span>(total_award_amt <span class="sc">/</span> <span class="dv">1000000</span>, <span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(top_suppliers_award)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 57%">
+<col style="width: 7%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">agency</th>
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">total_award_amt</th>
+<th style="text-align: right;">total_award_amt_mil</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">KAY LIM CONSTRUCTION &amp; TRADING PTE LTD</td>
+<td style="text-align: right;">1394038000</td>
+<td style="text-align: right;">1394.0380</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">CES ENGINEERING &amp; CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">1223080000</td>
+<td style="text-align: right;">1223.0800</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">NEWCON BUILDERS PTE. LTD.</td>
+<td style="text-align: right;">1144780000</td>
+<td style="text-align: right;">1144.7800</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">QINGJIAN INTERNATIONAL (SOUTH PACIFIC) GROUP DEVELOPMENT CO., PTE. LTD.</td>
+<td style="text-align: right;">1076400000</td>
+<td style="text-align: right;">1076.4000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">TEAMBUILD ENGINEERING &amp; CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">1026354989</td>
+<td style="text-align: right;">1026.3550</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">WELLTECH CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">975087000</td>
+<td style="text-align: right;">975.0870</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">LBD ENGINEERING PTE. LTD.</td>
+<td style="text-align: right;">887860000</td>
+<td style="text-align: right;">887.8600</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">RICH CONSTRUCTION COMPANY PTE. LTD.</td>
+<td style="text-align: right;">862394000</td>
+<td style="text-align: right;">862.3940</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">HI-TEK CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">790167000</td>
+<td style="text-align: right;">790.1670</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">CHIU TENG CONSTRUCTION CO. PTE. LTD.</td>
+<td style="text-align: right;">716712000</td>
+<td style="text-align: right;">716.7120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">WOH HUP (PRIVATE) LIMITED</td>
+<td style="text-align: right;">997690200</td>
+<td style="text-align: right;">997.6902</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">RICH CONSTRUCTION COMPANY PTE. LTD.</td>
+<td style="text-align: right;">567545199</td>
+<td style="text-align: right;">567.5452</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">CHINA STATE CONSTRUCTION ENGINEERING CORPORATION LIMITED SINGAPORE BRANCH</td>
+<td style="text-align: right;">321519100</td>
+<td style="text-align: right;">321.5191</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">TIONG SENG CONTRACTORS (PRIVATE) LIMITED</td>
+<td style="text-align: right;">287501000</td>
+<td style="text-align: right;">287.5010</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">C&amp;W SERVICES (S) PTE. LTD.</td>
+<td style="text-align: right;">167784009</td>
+<td style="text-align: right;">167.7840</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">JONES LANG LASALLE PROPERTY CONSULTANTS PTE LTD</td>
+<td style="text-align: right;">135371047</td>
+<td style="text-align: right;">135.3710</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">CBRE GWS PTE. LTD.</td>
+<td style="text-align: right;">111848872</td>
+<td style="text-align: right;">111.8489</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">KTC CIVIL ENGINEERING &amp; CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">94209600</td>
+<td style="text-align: right;">94.2096</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">PENTA-OCEAN CONSTRUCTION COMPANY LIMITED</td>
+<td style="text-align: right;">73755400</td>
+<td style="text-align: right;">73.7554</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">QXY RESOURCES PTE. LTD.</td>
+<td style="text-align: right;">69607100</td>
+<td style="text-align: right;">69.6071</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">CHINA COMMUNICATIONS CONSTRUCTION COMPANY LTD.</td>
+<td style="text-align: right;">1836067980</td>
+<td style="text-align: right;">1836.0680</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">SHANGHAI TUNNEL ENGINEERING CO (SINGAPORE) PTE LTD</td>
+<td style="text-align: right;">1566948000</td>
+<td style="text-align: right;">1566.9480</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">PENTA-OCEAN CONSTRUCTION COMPANY LIMITED</td>
+<td style="text-align: right;">1457887000</td>
+<td style="text-align: right;">1457.8870</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">WOH HUP (PRIVATE) LIMITED</td>
+<td style="text-align: right;">1244206000</td>
+<td style="text-align: right;">1244.2060</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">TAISEI CORPORATION</td>
+<td style="text-align: right;">1118625616</td>
+<td style="text-align: right;">1118.6256</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">CHINA JINGYE ENGINEERING CORPORATION LIMITED (SINGAPORE BRANCH)</td>
+<td style="text-align: right;">1050500000</td>
+<td style="text-align: right;">1050.5000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">TOWER TRANSIT SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">1025102939</td>
+<td style="text-align: right;">1025.1029</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">Daewoo Engineering &amp; Construction Co., Ltd.&nbsp;- Dongah Geological Engineering Co., Ltd, Singapore Branch Joint Venture</td>
+<td style="text-align: right;">979762000</td>
+<td style="text-align: right;">979.7620</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">GAMUDA BERHAD SINGAPORE BRANCH</td>
+<td style="text-align: right;">976577368</td>
+<td style="text-align: right;">976.5774</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">CHINA RAILWAY 11 BUREAU GROUP CORPORATION (SINGAPORE BRANCH)</td>
+<td style="text-align: right;">949620700</td>
+<td style="text-align: right;">949.6207</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">KWAN YONG CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">256600000</td>
+<td style="text-align: right;">256.6000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">FONDA GLOBAL ENGINEERING PTE. LTD.</td>
+<td style="text-align: right;">177615400</td>
+<td style="text-align: right;">177.6154</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">WEISHEN INDUSTRIAL SERVICES PTE LTD</td>
+<td style="text-align: right;">161202674</td>
+<td style="text-align: right;">161.2027</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">TRUST-BUILD ENGINEERING &amp; CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">153582575</td>
+<td style="text-align: right;">153.5826</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">APRO-ASIAN PROTECTION PTE LTD</td>
+<td style="text-align: right;">135765000</td>
+<td style="text-align: right;">135.7650</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">EXCELTEC PROPERTY MANAGEMENT PTE LTD</td>
+<td style="text-align: right;">130739800</td>
+<td style="text-align: right;">130.7398</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">G4S SECURE SOLUTIONS (SINGAPORE) PTE. LTD.</td>
+<td style="text-align: right;">115374984</td>
+<td style="text-align: right;">115.3750</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">SMM PTE. LTD.</td>
+<td style="text-align: right;">110034138</td>
+<td style="text-align: right;">110.0341</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">MKV ENGINEERING AND TRADING SERVICES PTE. LTD.</td>
+<td style="text-align: right;">106955956</td>
+<td style="text-align: right;">106.9560</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">SOVERUS PTE. LTD.</td>
+<td style="text-align: right;">98148300</td>
+<td style="text-align: right;">98.1483</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">PENTA-OCEAN CONSTRUCTION COMPANY LIMITED</td>
+<td style="text-align: right;">886124150</td>
+<td style="text-align: right;">886.1242</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">KILOWATTS ENGINEERING AND CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">281190600</td>
+<td style="text-align: right;">281.1906</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">GUAN HO CONSTRUCTION CO (PTE) LTD</td>
+<td style="text-align: right;">159413166</td>
+<td style="text-align: right;">159.4132</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">KWAN YONG CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">137573949</td>
+<td style="text-align: right;">137.5739</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">NGEE CHENG ELECTRIC COMPANY (PRIVATE) LIMITED</td>
+<td style="text-align: right;">127230000</td>
+<td style="text-align: right;">127.2300</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">ZHENG KENG ENGINEERING &amp; CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">121487830</td>
+<td style="text-align: right;">121.4878</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">H P CONSTRUCTION &amp; ENGINEERING PTE LTD</td>
+<td style="text-align: right;">80276800</td>
+<td style="text-align: right;">80.2768</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">KURIHARA KOGYO CO., LTD.</td>
+<td style="text-align: right;">77312744</td>
+<td style="text-align: right;">77.3127</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">ZAP PILING PTE LTD</td>
+<td style="text-align: right;">74009281</td>
+<td style="text-align: right;">74.0093</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Health-Ministry Headquarter</td>
+<td style="text-align: left;">SHIMIZU CORPORATION</td>
+<td style="text-align: right;">66269000</td>
+<td style="text-align: right;">66.2690</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">SHIMIZU CORPORATION</td>
+<td style="text-align: right;">503533000</td>
+<td style="text-align: right;">503.5330</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">IDEMIA SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">404654736</td>
+<td style="text-align: right;">404.6547</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">CHINA CONSTRUCTION (SOUTH PACIFIC) DEVELOPMENT CO. PTE. LTD.</td>
+<td style="text-align: right;">247796420</td>
+<td style="text-align: right;">247.7964</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">SMM PTE. LTD.</td>
+<td style="text-align: right;">157826438</td>
+<td style="text-align: right;">157.8264</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">NCS PTE. LTD.</td>
+<td style="text-align: right;">121982933</td>
+<td style="text-align: right;">121.9829</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">TOPPAN NEXT PTE. LTD.</td>
+<td style="text-align: right;">103473685</td>
+<td style="text-align: right;">103.4737</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">KIM SENG HENG ENGINEERING CONSTRUCTION (PTE) LTD</td>
+<td style="text-align: right;">101669932</td>
+<td style="text-align: right;">101.6699</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">SIIX SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">95330200</td>
+<td style="text-align: right;">95.3302</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">CBM PTE. LTD.</td>
+<td style="text-align: right;">90294364</td>
+<td style="text-align: right;">90.2944</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">PANASONIC ASIA PACIFIC PTE. LTD.</td>
+<td style="text-align: right;">90021180</td>
+<td style="text-align: right;">90.0212</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">PENTA-OCEAN CONSTRUCTION COMPANY LIMITED</td>
+<td style="text-align: right;">285394000</td>
+<td style="text-align: right;">285.3940</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">LUNG-TEH SHIPBUILDING CO., LTD.</td>
+<td style="text-align: right;">183390298</td>
+<td style="text-align: right;">183.3903</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">INDECO ENGINEERS (PTE) LTD</td>
+<td style="text-align: right;">121373337</td>
+<td style="text-align: right;">121.3733</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">CERTIS INTEGRATED FACILITIES MANAGEMENT PTE. LTD.</td>
+<td style="text-align: right;">81006654</td>
+<td style="text-align: right;">81.0067</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">HYTECH BUILDERS PTE LTD</td>
+<td style="text-align: right;">79793080</td>
+<td style="text-align: right;">79.7931</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">CPG CONSULTANTS PTE LTD</td>
+<td style="text-align: right;">46741800</td>
+<td style="text-align: right;">46.7418</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">HWEE JAN (S) PTE LTD</td>
+<td style="text-align: right;">43228080</td>
+<td style="text-align: right;">43.2281</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">ST ENGINEERING ADVANCED NETWORKS &amp; SENSORS PTE. LTD.</td>
+<td style="text-align: right;">31065474</td>
+<td style="text-align: right;">31.0655</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">KOYO ENGINEERING (S.E. ASIA) PTE. LTD.</td>
+<td style="text-align: right;">30799900</td>
+<td style="text-align: right;">30.7999</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs-Ministry Headquarter</td>
+<td style="text-align: left;">SMM PTE. LTD.</td>
+<td style="text-align: right;">27511200</td>
+<td style="text-align: right;">27.5112</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">KEPPEL SEGHERS ENGINEERING SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">1493179167</td>
+<td style="text-align: right;">1493.1792</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">CHYE THIAM MAINTENANCE PTE LTD</td>
+<td style="text-align: right;">1122278139</td>
+<td style="text-align: right;">1122.2781</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">SEMBWASTE PTE. LTD.</td>
+<td style="text-align: right;">564461722</td>
+<td style="text-align: right;">564.4617</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">ALBA GROUP PLC &amp; CO. KG</td>
+<td style="text-align: right;">486268009</td>
+<td style="text-align: right;">486.2680</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">UES HOLDINGS PTE. LTD.</td>
+<td style="text-align: right;">428077651</td>
+<td style="text-align: right;">428.0777</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">800 SUPER WASTE MANAGEMENT PTE LTD</td>
+<td style="text-align: right;">335203790</td>
+<td style="text-align: right;">335.2038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">PEOPLE ADVANTAGE PTE. LTD.</td>
+<td style="text-align: right;">52790195</td>
+<td style="text-align: right;">52.7902</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">KTC CIVIL ENGINEERING &amp; CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">45300000</td>
+<td style="text-align: right;">45.3000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">QUEK &amp; QUEK CIVIL ENGINEERING PTE LTD</td>
+<td style="text-align: right;">42614928</td>
+<td style="text-align: right;">42.6149</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">PRIMECH A &amp; P PTE. LTD.</td>
+<td style="text-align: right;">41295420</td>
+<td style="text-align: right;">41.2954</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">RS FACILITIES SERVICES PRIVATE LIMITED</td>
+<td style="text-align: right;">99528344</td>
+<td style="text-align: right;">99.5283</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">KIAN HIAP CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">86456000</td>
+<td style="text-align: right;">86.4560</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CHL CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">79731600</td>
+<td style="text-align: right;">79.7316</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">QING FENG CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">40378000</td>
+<td style="text-align: right;">40.3780</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">RAMO INDUSTRIES PTE. LTD.</td>
+<td style="text-align: right;">36575144</td>
+<td style="text-align: right;">36.5751</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">SUNCITY CONTRACTS PTE LTD</td>
+<td style="text-align: right;">33102270</td>
+<td style="text-align: right;">33.1023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">TAT HIN BUILDERS PTE LTD</td>
+<td style="text-align: right;">32800000</td>
+<td style="text-align: right;">32.8000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">FUCOM CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">17223889</td>
+<td style="text-align: right;">17.2239</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CONCORDE SECURITY PTE. LTD.</td>
+<td style="text-align: right;">17117088</td>
+<td style="text-align: right;">17.1171</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CBM PTE. LTD.</td>
+<td style="text-align: right;">16868951</td>
+<td style="text-align: right;">16.8690</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">KOH BROTHERS BUILDING &amp; CIVIL ENGINEERING CONTRACTOR (PTE.) LTD.</td>
+<td style="text-align: right;">868938000</td>
+<td style="text-align: right;">868.9380</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">SINOHYDRO CORPORATION LIMITED (SINGAPORE BRANCH)</td>
+<td style="text-align: right;">449631701</td>
+<td style="text-align: right;">449.6317</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">UES HOLDINGS PTE. LTD.</td>
+<td style="text-align: right;">444434722</td>
+<td style="text-align: right;">444.4347</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">CES_SDC PTE. LTD.</td>
+<td style="text-align: right;">433000000</td>
+<td style="text-align: right;">433.0000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">CH2M HILL SINGAPORE PRIVATE LIMITED</td>
+<td style="text-align: right;">259921029</td>
+<td style="text-align: right;">259.9210</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">CHINA STATE CONSTRUCTION ENGINEERING CORPORATION LIMITED SINGAPORE BRANCH</td>
+<td style="text-align: right;">237600000</td>
+<td style="text-align: right;">237.6000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">AH BOON CIVIL ENGINEERING &amp; BUILDING CONTRACTOR PTE LTD</td>
+<td style="text-align: right;">218996588</td>
+<td style="text-align: right;">218.9966</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">CHYE JOO CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">209647375</td>
+<td style="text-align: right;">209.6474</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">SHINGDA CONSTRUCTION PTE. LTD.</td>
+<td style="text-align: right;">209011590</td>
+<td style="text-align: right;">209.0116</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">ED. ZUBLIN AG, SINGAPORE BRANCH</td>
+<td style="text-align: right;">201778000</td>
+<td style="text-align: right;">201.7780</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="tender-count" class="level3">
+<h3 class="anchored" data-anchor-id="tender-count">4 Tender count</h3>
+<section id="tender-count-in-descending-order-supplier" class="level4">
+<h4 class="anchored" data-anchor-id="tender-count-in-descending-order-supplier">4.1 Tender count in descending order (supplier)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>supp_tender_counts <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(supplier_name) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tender_count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tender_count))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(supp_tender_counts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">tender_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">783</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NCS PTE. LTD.</td>
+<td style="text-align: right;">139</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">108</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KPMG SERVICES PTE. LTD.</td>
+<td style="text-align: right;">99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ERNST &amp; YOUNG ADVISORY PTE. LTD.</td>
+<td style="text-align: right;">88</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FUJITSU ASIA PTE LTD</td>
+<td style="text-align: right;">67</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="top-10-suppliers-by-total-tender-count" class="level4">
+<h4 class="anchored" data-anchor-id="top-10-suppliers-by-total-tender-count">4.2 Top 10 suppliers by total tender count</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tender_supp_top10 <span class="ot">&lt;-</span> supp_tender_counts <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tender_supp_top10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">tender_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">783</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NCS PTE. LTD.</td>
+<td style="text-align: right;">139</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">108</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KPMG SERVICES PTE. LTD.</td>
+<td style="text-align: right;">99</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ERNST &amp; YOUNG ADVISORY PTE. LTD.</td>
+<td style="text-align: right;">88</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FUJITSU ASIA PTE LTD</td>
+<td style="text-align: right;">67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AECOM SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AGILENT TECHNOLOGIES SINGAPORE (SALES) PTE. LTD.</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SINGAPORE TELECOMMUNICATIONS LIMITED</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SURBANA JURONG CONSULTANTS PTE. LTD.</td>
+<td style="text-align: right;">49</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="tender-count-in-descending-order-agency" class="level4">
+<h4 class="anchored" data-anchor-id="tender-count-in-descending-order-agency">4.3 Tender count in descending order (agency)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>agency_tender_counts <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tender_count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(tender_count))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(agency_tender_counts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">agency</th>
+<th style="text-align: right;">tender_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: right;">1218</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: right;">938</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: right;">931</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: right;">884</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: right;">753</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: right;">647</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="top-10-agencies-by-tender-count" class="level4">
+<h4 class="anchored" data-anchor-id="top-10-agencies-by-tender-count">4.4 Top 10 agencies by tender count</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tender_agency_top10 <span class="ot">&lt;-</span> agency_tender_counts <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n=</span><span class="dv">10</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tender_agency_top10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">agency</th>
+<th style="text-align: right;">tender_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: right;">1218</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: right;">938</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: right;">931</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: right;">884</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: right;">753</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: right;">647</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: right;">626</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: right;">589</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: right;">508</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: right;">465</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="top-10-supplies-from-top-10-agencies-by-tender-count" class="level4">
+<h4 class="anchored" data-anchor-id="top-10-supplies-from-top-10-agencies-by-tender-count">4.5 Top 10 supplies from top 10 agencies by tender count</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>top_agencies <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_tenders =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_tenders)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(agency)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the top 10 suppliers for each of the top 10 agencies based on tender count</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>top_suppliers_per_agency <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(agency <span class="sc">%in%</span> top_agencies) <span class="sc">%&gt;%</span>  </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency, supplier_name) <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tender_count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(agency, <span class="fu">desc</span>(tender_count)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agency) <span class="sc">%&gt;%</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span>  <span class="co"># Select top 10 suppliers per agency</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># View result</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(top_suppliers_per_agency)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 45%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">agency</th>
+<th style="text-align: left;">supplier_name</th>
+<th style="text-align: right;">tender_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">FUJITSU ASIA PTE LTD</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">RESEARCH INSTRUMENTS PTE LTD</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">AIR LIQUIDE SINGAPORE PRIVATE LIMITED</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">SCIMED (ASIA) PTE LTD</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">AGILENT TECHNOLOGIES SINGAPORE (SALES) PTE. LTD.</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">KEYSIGHT TECHNOLOGIES SINGAPORE (SALES) PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">LEEDEN NATIONAL OXYGEN LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">TAKASAGO SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agency for Science, Technology and Research</td>
+<td style="text-align: left;">ZUELLIG PHARMA PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">BUREAU VERITAS BUILDINGS &amp; INFRASTRUCTURE PTE. LTD.</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">FONG CONSULT PTE. LTD.</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">PH CONSULTING PTE. LTD.</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">SH INTEGRATED SERVICES PTE. LTD.</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">GUTHRIE FMC PTE. LTD.</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">SETSCO SERVICES PTE LTD</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">DIGO CORPORATION PTE. LTD.</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Housing and Development Board</td>
+<td style="text-align: left;">ORIENT NATURAL RESOURCES PTE. LTD.</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">DHI WATER &amp; ENVIRONMENT (S) PTE. LTD.</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">C&amp;W SERVICES (S) PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">ABL CONSULTANTS PTE. LTD.</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">AECOM SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">EXECUTIVE DECISIONS INC. LLP</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">CBRE PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">NCS PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jurong Town Corporation</td>
+<td style="text-align: left;">QXY RESOURCES PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">RYOBI GEOTECHNIQUE INTERNATIONAL PTE. LTD.</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">ST ENGINEERING URBAN SOLUTIONS LTD.</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">AECOM SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">CCECC SINGAPORE PTE LTD</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">WSP CONSULTANCY PTE. LTD.</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">BUREAU VERITAS BUILDINGS &amp; INFRASTRUCTURE PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">GEOMOTION (SINGAPORE) PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">T.Y.LIN INTERNATIONAL PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Land Transport Authority</td>
+<td style="text-align: left;">ACCENTURE PTE LTD</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">CPG CONSULTANTS PTE LTD</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">DELOITTE &amp; TOUCHE ENTERPRISE RISK SERVICES PTE LTD</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">CHILD EDUCATIONAL CO. PTE LTD</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">ERNST &amp; YOUNG ADVISORY PTE. LTD.</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">SURBANA JURONG CONSULTANTS PTE. LTD.</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">LEARNING NEEDS CENTRE PTE LTD</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">NCS PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">PRICEWATERHOUSECOOPERS RISK SERVICES PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Education</td>
+<td style="text-align: left;">THE HOMELAB PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">VISION STATIONERY AND TRADING COMPANY</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">01 COMPUTER SYSTEM PTE LTD</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">AV MEDIA PTE LTD</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">AV-SCIENCE MARKETING PTE LTD</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">PACIFIC BOOKSTORES PTE. LTD.</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">AMARA SINGAPORE</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">ANDAZ SINGAPORE</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">BENCOOL LA PTE. LTD.</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">BOO HAN HOLDINGS PTE LTD</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Finance - Vital</td>
+<td style="text-align: left;">CAPELLA HOTEL, SINGAPORE</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">NCS PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">POLWEL Co-operative Society Limited</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">ACCENTURE SG SERVICES PTE. LTD.</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">ATT SYSTEMS (S’PORE) PTE LTD</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">COSEM SAFETY &amp; SECURITY SERVICES PTE. LTD.</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">CYCLE &amp; CARRIAGE INDUSTRIES PTE. LIMITED</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">KAISER-SGI (ASIA) PTE. LTD.</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ministry of Home Affairs - Ministry Headquarter 1</td>
+<td style="text-align: left;">PRECISION TECHNOLOGIES PTE LTD</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">ANSAC TECHNOLOGY (S) PTE LTD</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">TAY HAO PAINT WORKS PTE LTD</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">WINSYS TECHNOLOGY PTE LTD</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">MARCHWOOD LABORATORY SERVICES PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">QIAGEN SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">LIFE TECHNOLOGIES HOLDINGS PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">VWR SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Environment Agency</td>
+<td style="text-align: left;">ASIA PACIFIC AIR QUALITY GROUP PTE. LTD.</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CUSTOMADE COSTUME &amp; MERCHANDISE PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CA FACILITIES PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">NINEMER COMMUNICATIONS PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">Q’S ADVERTISING PTE. LTD.</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">THE ONLINE EDITION</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">ACE RECRUITERS</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">ARTBEATZ PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CBM PTE. LTD.</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">People’s Association</td>
+<td style="text-align: left;">CHL CONSTRUCTION PTE LTD</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">Unknown</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">CH2M HILL SINGAPORE PRIVATE LIMITED</td>
+<td style="text-align: right;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">AECOM SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">SANLI M&amp;E ENGINEERING PTE. LTD.</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">TAIKO MARKETING (S) PTE LTD</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">CHEMICAL INDUSTRIES (FAR EAST) LIMITED.</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">DHI WATER &amp; ENVIRONMENT (S) PTE. LTD.</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">WINSYS TECHNOLOGY PTE LTD</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">WSH EXPERTS PTE. LTD.</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public Utilities Board</td>
+<td style="text-align: left;">BINNIES SINGAPORE PTE. LTD.</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="unknown-suppliers" class="level2">
+<h2 class="anchored" data-anchor-id="unknown-suppliers">5 Unknown suppliers</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>unknown_data <span class="ot">&lt;-</span> g2b_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(supplier_name <span class="sc">==</span> <span class="st">"Unknown"</span>) </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>unknown_count <span class="ot">=</span> <span class="fu">nrow</span>(unknown_data)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Count of unknown suppliers:"</span>, unknown_count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Count of unknown suppliers: 783"</code></pre>
+</div>
+</div>
+</section>
+<section id="by-year" class="level2">
+<h2 class="anchored" data-anchor-id="by-year">6 By year</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>g2b_data_backup <span class="ot">&lt;-</span> g2b_data</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert award_date to Date and extract the year</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>g2b_data_backup<span class="sc">$</span>award_date <span class="ot">&lt;-</span> <span class="fu">dmy</span>(g2b_data_backup<span class="sc">$</span>award_date)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>g2b_data_backup<span class="sc">$</span>award_year <span class="ot">&lt;-</span> <span class="fu">year</span>(g2b_data_backup<span class="sc">$</span>award_date)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing dates and award_year values</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>missing_dates <span class="ot">&lt;-</span> g2b_data_backup <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(award_date))</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>missing_years <span class="ot">&lt;-</span> g2b_data_backup <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(award_year))</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Missing dates:"</span>, <span class="fu">nrow</span>(missing_dates), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Missing dates: 0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Missing award_years:"</span>, <span class="fu">nrow</span>(missing_years), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Missing award_years: 0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure there are no missing values for the year column</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(missing_years) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"Rows with missing years:"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(missing_years)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get top 10 agencies by total tender count per year</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  top_agencies <span class="ot">&lt;-</span> g2b_data_backup <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(award_year, agency) <span class="sc">%&gt;%</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">total_tenders =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(award_year, <span class="fu">desc</span>(total_tenders)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(award_year) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)  <span class="co"># Select top 10 agencies per year</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get top 10 suppliers for each of the top 10 agencies per year by tender count</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  top_suppliers_per_agency <span class="ot">&lt;-</span> g2b_data_backup <span class="sc">%&gt;%</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(top_agencies, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"award_year"</span>, <span class="st">"agency"</span>)) <span class="sc">%&gt;%</span> <span class="co"># Filter to top agencies per year</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(award_year, agency, supplier_name) <span class="sc">%&gt;%</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">total_tenders =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(award_year, agency, <span class="fu">desc</span>(total_tenders)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(award_year, agency) <span class="sc">%&gt;%</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)  <span class="co"># Select top 10 suppliers per agency per year</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split data into a list of tables, one for each year</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  tables_by_year <span class="ot">&lt;-</span> top_suppliers_per_agency <span class="sc">%&gt;%</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(award_year) <span class="sc">%&gt;%</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_split</span>()</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check the number of tables and the unique years again</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>  unique_years <span class="ot">&lt;-</span> <span class="fu">unique</span>(top_suppliers_per_agency<span class="sc">$</span>award_year)</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Length of tables_by_year:"</span>, <span class="fu">length</span>(tables_by_year), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Number of unique years:"</span>, <span class="fu">length</span>(unique_years), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Assign meaningful names to each table based on award_year</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(tables_by_year) <span class="sc">==</span> <span class="fu">length</span>(unique_years)) {</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(tables_by_year) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(unique_years)</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Print each year's table</span></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (year <span class="cf">in</span> <span class="fu">names</span>(tables_by_year)) {</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">### Top 10 Agencies &amp; Suppliers for Year:"</span>, year, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kable</span>(tables_by_year[[year]])</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"Mismatch between unique years and the number of tables"</span>)</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Length of tables_by_year: 6 
+Number of unique years: 6 
+
+
+### Top 10 Agencies &amp; Suppliers for Year: 2019 
+
+
+### Top 10 Agencies &amp; Suppliers for Year: 2020 
+
+
+### Top 10 Agencies &amp; Suppliers for Year: 2021 
+
+
+### Top 10 Agencies &amp; Suppliers for Year: 2022 
+
+
+### Top 10 Agencies &amp; Suppliers for Year: 2023 
+
+
+### Top 10 Agencies &amp; Suppliers for Year: 2024 </code></pre>
+</div>
+</div>
+</section>
+<section id="to-do" class="level2">
+<h2 class="anchored" data-anchor-id="to-do">To-do</h2>
+<ol type="1">
+<li>convert award_date data type</li>
+<li>extract year</li>
+<li>extract month</li>
+<li>remove unknown suppliers entry</li>
+</ol>
+<p>Shiny - option to exclude Unknown suppliers</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Made with 💚 and Quarto</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

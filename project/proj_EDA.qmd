@@ -1,0 +1,318 @@
+---
+title: "Project EDA"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+## Load packages
+
+```{r}
+pacman::p_load(ggplot2, tidyverse, ggthemes, dplyr, tidyr, knitr)
+```
+
+## Import file
+
+```{r}
+g2b_data <- read_csv("data/GovBIZ.csv")
+
+kable(head(g2b_data))
+```
+
+## EDA
+
+### 1 Check missing values
+
+There is no missing values. Award date is character form, so **need to change to `date`.**
+
+```{r}
+summary(g2b_data)
+
+sum(!is.na(g2b_data$awarded_amt))
+```
+
+### 2 Number of agencies, suppliers
+
+```{r}
+agency_count <- length(unique(g2b_data$agency))
+supplier_count <- length(unique(g2b_data$supplier_name))
+
+print(paste("# agency: ", agency_count))
+print(paste("# supplier: ", supplier_count))
+
+```
+
+### 3 Awards amount 
+
+#### 3.1 Award amount in descending order (supplier)
+
+```{r}
+library(dplyr)
+
+desc_supp_award <- g2b_data %>%
+  group_by(supplier_name) %>%
+  summarise(total_award_amt = sum(awarded_amt, na.rm = TRUE)) %>%
+  arrange(desc(total_award_amt)) %>%
+  ungroup()
+kable(head(desc_supp_award))
+
+```
+
+#### 3.2 Top 10 suppliers by total award amount
+
+```{r}
+award_supp_top10 <- desc_supp_award %>%
+  slice_head(n=10) %>%
+  mutate(total_award_amt_mil = round(total_award_amt / 1000000, 4))
+kable(award_supp_top10)
+```
+
+#### 3.3 Award amount in descending order (agency)
+
+```{r}
+desc_agency_award <- g2b_data %>%
+  group_by(agency) %>%
+  summarise(total_award_amt = sum(awarded_amt, na.rm = TRUE)) %>%
+  arrange(desc(total_award_amt)) %>%
+  ungroup()
+kable(head(desc_agency_award))
+```
+
+#### 3.4 Top 10 agencies by total award amount
+
+```{r}
+award_agency_top10 <- desc_agency_award %>%
+  slice_head(n=10) %>%
+  mutate(total_award_amt_mil = round(total_award_amt / 1000000, 4))
+kable(award_agency_top10)
+```
+
+#### 3.5 Top 10 suppliers from top 10 agencies by award amount
+
+```{r}
+
+top_agencies_award <- g2b_data %>%
+  group_by(agency) %>%
+  summarise(total_awarded_amt = sum(awarded_amt, na.rm = TRUE), .groups = "drop") %>%
+  slice_max(order_by = total_awarded_amt, n = 10)
+
+#filter only the top 10 agencies and get top 10 suppliers for each
+top_suppliers_award <- g2b_data %>%
+  filter(agency %in% top_agencies_award$agency) %>%
+  
+  group_by(agency, supplier_name) %>%
+  summarise(total_award_amt = sum(awarded_amt, na.rm = TRUE), .groups = "drop") %>%
+  
+  group_by(agency) %>%
+  slice_max(order_by = total_award_amt, n = 10) %>%
+  mutate(total_award_amt_mil = round(total_award_amt / 1000000, 4)) %>%
+  ungroup()
+
+kable(top_suppliers_award)
+```
+
+### 4 Tender count
+
+#### 4.1 Tender count in descending order (supplier)
+
+```{r}
+supp_tender_counts <- g2b_data %>%
+  group_by(supplier_name) %>%
+  summarise(tender_count = n(), .groups = "drop") %>%
+  arrange(desc(tender_count))
+
+kable(head(supp_tender_counts))
+```
+
+#### 4.2 Top 10 suppliers by total tender count
+
+```{r}
+tender_supp_top10 <- supp_tender_counts %>%
+  slice_head(n=10) 
+
+kable(tender_supp_top10)
+```
+
+#### 4.3 Tender count in descending order (agency)
+
+```{r}
+agency_tender_counts <- g2b_data %>%
+  group_by(agency) %>%
+  summarise(tender_count = n(), .groups = "drop") %>%
+  arrange(desc(tender_count))
+
+kable(head(agency_tender_counts))
+```
+
+#### 4.4 Top 10 agencies by tender count
+
+```{r}
+tender_agency_top10 <- agency_tender_counts %>%
+  slice_head(n=10)
+
+kable(tender_agency_top10)
+```
+
+#### 4.5 Top 10 supplies from top 10 agencies by tender count
+
+```{r}
+top_agencies <- g2b_data %>%
+  group_by(agency) %>%
+  summarise(total_tenders = n(), .groups = "drop") %>%
+  arrange(desc(total_tenders)) %>%
+  slice_head(n = 10) %>%
+  pull(agency)
+
+# Get the top 10 suppliers for each of the top 10 agencies based on tender count
+top_suppliers_per_agency <- g2b_data %>%
+  filter(agency %in% top_agencies) %>%  
+  group_by(agency, supplier_name) %>%
+  summarise(tender_count = n(), .groups = "drop") %>%
+  arrange(agency, desc(tender_count)) %>%  
+  group_by(agency) %>%
+  slice_head(n = 10) %>%  # Select top 10 suppliers per agency
+  ungroup()
+
+# View result
+kable(top_suppliers_per_agency)
+```
+
+## 5 Unknown suppliers
+
+```{r}
+unknown_data <- g2b_data %>%
+  filter(supplier_name == "Unknown") 
+
+unknown_count = nrow(unknown_data)
+print(paste("Count of unknown suppliers:", unknown_count))
+
+```
+
+## 6 By year
+```{r}
+# Convert award_date to Date format and extract the award year
+g2b_data$award_date <- dmy(g2b_data$award_date)
+g2b_data$award_year <- year(g2b_data$award_date)
+
+# Get top 10 agencies by total tender count per year
+top_agencies <- g2b_data %>%
+  group_by(award_year, agency) %>%
+  summarise(total_tenders = n(), .groups = "drop") %>%
+  arrange(award_year, desc(total_tenders)) %>%
+  group_by(award_year) %>%
+  slice_head(n = 10)  # Select top 10 agencies per year
+
+# Get top 10 suppliers for each of the top 10 agencies per year by tender count
+top_suppliers_per_agency <- g2b_data %>%
+  inner_join(top_agencies, by = c("award_year", "agency")) %>% # Filter to top agencies per year
+  group_by(award_year, agency, supplier_name) %>%
+  summarise(total_tenders = n(), .groups = "drop") %>%
+  arrange(award_year, agency, desc(total_tenders)) %>%
+  group_by(award_year, agency) %>%
+  slice_head(n = 10)  # Select top 10 suppliers per agency per year
+
+# Split data into a list of tables, one for each year
+tables_by_year <- top_suppliers_per_agency %>%
+  group_split(award_year)
+
+  # Assign meaningful names to each table based on award_year
+  if (length(tables_by_year) == length(unique_years)) {
+    names(tables_by_year) <- as.character(unique_years)
+
+    # Print each year's table
+    for (year in names(tables_by_year)) {
+      cat("\n\n### Top 10 Agencies & Suppliers for Year:", year, "\n")
+      print(kable(tables_by_year[[year]]))
+    }
+  } else {
+    print("Mismatch between unique years and the number of tables")
+  }
+
+
+# Loop through specific years (2019 to 2023) and print each year as a kable table
+for (year in 2019:2023) {
+  if (as.character(year) %in% names(tables_by_year)) {
+    cat("\n\n### Top 10 Agencies & Suppliers for Year:", year, "\n")
+    # Render each table with kable
+    print(kable(tables_by_year[[as.character(year)]], caption = paste("Top 10 Agencies & Suppliers for Year", year)))
+  } else {
+    cat("\n\n### No data for Year:", year, "\n")
+  }
+}
+```
+
+```{r}
+library(dplyr)
+library(lubridate)
+g2b_data_backup <- g2b_data
+
+# Convert award_date to Date and extract the year
+g2b_data_backup$award_date <- dmy(g2b_data_backup$award_date)
+g2b_data_backup$award_year <- year(g2b_data_backup$award_date)
+
+# Check for missing dates and award_year values
+missing_dates <- g2b_data_backup %>% filter(is.na(award_date))
+missing_years <- g2b_data_backup %>% filter(is.na(award_year))
+cat("Missing dates:", nrow(missing_dates), "\n")
+cat("Missing award_years:", nrow(missing_years), "\n")
+
+# Ensure there are no missing values for the year column
+if (nrow(missing_years) > 0) {
+  print("Rows with missing years:")
+  print(missing_years)
+} else {
+  # Get top 10 agencies by total tender count per year
+  top_agencies <- g2b_data_backup %>%
+    group_by(award_year, agency) %>%
+    summarise(total_tenders = n(), .groups = "drop") %>%
+    arrange(award_year, desc(total_tenders)) %>%
+    group_by(award_year) %>%
+    slice_head(n = 10)  # Select top 10 agencies per year
+
+  # Get top 10 suppliers for each of the top 10 agencies per year by tender count
+  top_suppliers_per_agency <- g2b_data_backup %>%
+    inner_join(top_agencies, by = c("award_year", "agency")) %>% # Filter to top agencies per year
+    group_by(award_year, agency, supplier_name) %>%
+    summarise(total_tenders = n(), .groups = "drop") %>%
+    arrange(award_year, agency, desc(total_tenders)) %>%
+    group_by(award_year, agency) %>%
+    slice_head(n = 10)  # Select top 10 suppliers per agency per year
+
+  # Split data into a list of tables, one for each year
+  tables_by_year <- top_suppliers_per_agency %>%
+    group_by(award_year) %>%
+    group_split()
+
+  # Check the number of tables and the unique years again
+  unique_years <- unique(top_suppliers_per_agency$award_year)
+  cat("Length of tables_by_year:", length(tables_by_year), "\n")
+  cat("Number of unique years:", length(unique_years), "\n")
+
+
+  # Assign meaningful names to each table based on award_year
+  if (length(tables_by_year) == length(unique_years)) {
+    names(tables_by_year) <- as.character(unique_years)
+
+    # Print each year's table
+    for (year in names(tables_by_year)) {
+      cat("\n\n### Top 10 Agencies & Suppliers for Year:", year, "\n")
+      print(kable(tables_by_year[[year]]))
+    }
+  } else {
+    print("Mismatch between unique years and the number of tables")
+  }
+}
+```
+
+## To-do
+
+1.  convert award_date data type
+2.  extract year
+3.  extract month
+4.  remove unknown suppliers entry
+
+Shiny - option to exclude Unknown suppliers
