@@ -395,5 +395,26 @@
     "title": "Project EDA",
     "section": "6 By year",
     "text": "6 By year\n\nlibrary(dplyr)\nlibrary(lubridate)\ng2b_data_backup &lt;- g2b_data\n\n# Convert award_date to Date and extract the year\ng2b_data_backup$award_date &lt;- dmy(g2b_data_backup$award_date)\ng2b_data_backup$award_year &lt;- year(g2b_data_backup$award_date)\n\n# Check for missing dates and award_year values\nmissing_dates &lt;- g2b_data_backup %&gt;% filter(is.na(award_date))\nmissing_years &lt;- g2b_data_backup %&gt;% filter(is.na(award_year))\ncat(\"Missing dates:\", nrow(missing_dates), \"\\n\")\n\nMissing dates: 0 \n\ncat(\"Missing award_years:\", nrow(missing_years), \"\\n\")\n\nMissing award_years: 0 \n\n# Ensure there are no missing values for the year column\nif (nrow(missing_years) &gt; 0) {\n  print(\"Rows with missing years:\")\n  print(missing_years)\n} else {\n  # Get top 10 agencies by total tender count per year\n  top_agencies &lt;- g2b_data_backup %&gt;%\n    group_by(award_year, agency) %&gt;%\n    summarise(total_tenders = n(), .groups = \"drop\") %&gt;%\n    arrange(award_year, desc(total_tenders)) %&gt;%\n    group_by(award_year) %&gt;%\n    slice_head(n = 10)  # Select top 10 agencies per year\n\n  # Get top 10 suppliers for each of the top 10 agencies per year by tender count\n  top_suppliers_per_agency &lt;- g2b_data_backup %&gt;%\n    inner_join(top_agencies, by = c(\"award_year\", \"agency\")) %&gt;% # Filter to top agencies per year\n    group_by(award_year, agency, supplier_name) %&gt;%\n    summarise(total_tenders = n(), .groups = \"drop\") %&gt;%\n    arrange(award_year, agency, desc(total_tenders)) %&gt;%\n    group_by(award_year, agency) %&gt;%\n    slice_head(n = 10)  # Select top 10 suppliers per agency per year\n\n  # Split data into a list of tables, one for each year\n  tables_by_year &lt;- top_suppliers_per_agency %&gt;%\n    group_by(award_year) %&gt;%\n    group_split()\n\n  # Check the number of tables and the unique years again\n  unique_years &lt;- unique(top_suppliers_per_agency$award_year)\n  cat(\"Length of tables_by_year:\", length(tables_by_year), \"\\n\")\n  cat(\"Number of unique years:\", length(unique_years), \"\\n\")\n\n\n  # Assign meaningful names to each table based on award_year\n  if (length(tables_by_year) == length(unique_years)) {\n    names(tables_by_year) &lt;- as.character(unique_years)\n\n    # Print each year's table\n    for (year in names(tables_by_year)) {\n      cat(\"\\n\\n### Top 10 Agencies & Suppliers for Year:\", year, \"\\n\")\n      kable(tables_by_year[[year]])\n    }\n  } else {\n    print(\"Mismatch between unique years and the number of tables\")\n  }\n}\n\nLength of tables_by_year: 6 \nNumber of unique years: 6 \n\n\n### Top 10 Agencies & Suppliers for Year: 2019 \n\n\n### Top 10 Agencies & Suppliers for Year: 2020 \n\n\n### Top 10 Agencies & Suppliers for Year: 2021 \n\n\n### Top 10 Agencies & Suppliers for Year: 2022 \n\n\n### Top 10 Agencies & Suppliers for Year: 2023 \n\n\n### Top 10 Agencies & Suppliers for Year: 2024"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex_09.html",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex_09.html",
+    "title": "Hands-on_Ex_09",
+    "section": "",
+    "text": "Learning objectives include the following:\n\ncreate graph object data frames, manipulate them using appropriate functions of dplyr, lubridate, and tidygraph.\nbuild network graph visualisation using appropriate function of ggraph\ncompute network geometrics using tidygraph\nbuild advanced gragh visualisation by incorporating the network geometrics\nbuild interactive network visualisation using visNetwork package\n\n\n\n\n4 network data modeling and visualisation packages will be installed and launched. They are igraph, tidygraph, ggraph and visNetwork. In addition, tidyverse and lubridate (specially designed to handle and wrangling time data) will be installed and launched, too."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex_09.html#overview",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex_09.html#overview",
+    "title": "Hands-on_Ex_09",
+    "section": "",
+    "text": "Learning objectives include the following:\n\ncreate graph object data frames, manipulate them using appropriate functions of dplyr, lubridate, and tidygraph.\nbuild network graph visualisation using appropriate function of ggraph\ncompute network geometrics using tidygraph\nbuild advanced gragh visualisation by incorporating the network geometrics\nbuild interactive network visualisation using visNetwork package"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex_09.html#getting-started",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex_09.html#getting-started",
+    "title": "Hands-on_Ex_09",
+    "section": "",
+    "text": "4 network data modeling and visualisation packages will be installed and launched. They are igraph, tidygraph, ggraph and visNetwork. In addition, tidyverse and lubridate (specially designed to handle and wrangling time data) will be installed and launched, too."
   }
 ]
