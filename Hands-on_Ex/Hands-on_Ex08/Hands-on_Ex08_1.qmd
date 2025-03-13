@@ -297,7 +297,158 @@ tm_shape(mpsz_pop2020)+
   tm_borders(lwd = 0.1,  fill_alpha = 1)
 ```
 
+::::: goals
+::: goals-header
+Learning
+:::
+
+::: goals-container
+-   Light-gray border lines have been added on the choropleth map.
+
+-   The alpha argument is used to define transparency number between 0 (totally transparent) and 1 (not transparent). By default, the alpha value of the col is used (normally 1).
+
+-   Beside alpha argument, there are three other arguments for *tm_borders()*, they are:
+
+    -   col = border colour
+    -   lwd = border line width. The default is 1
+    -   lty = border line type. The default is “solid”
+:::
+:::::
+
 ### 4.3 **Data classification methods of tmap**
+
+Most choropleth maps employ some methods of data classification. The point of classification is to take a large number of observations and group them into data ranges or classes.
+
+**tmap** provides a total ten data classification methods, namely: *fixed*, *sd*, *equal*, *pretty* (default), *quantile*, *kmeans*, *hclust*, *bclust*, *fisher*, and *jenks*.
+
+To define a data classification method, the *style* argument of *tm_fill()* or *tm_polygons()* will be used.
+
+#### 4.3.1 Plotting choropleth maps with built-in classification methods
+
+The code chunk below shows a quantile data classification that used 5 classes.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+In the code chunk below, *equal* data classification method is used.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "equal") +
+  tm_borders(alpha = 0.5)
+```
+
+Notice that the distribution of **quantile data classification** method are more evenly distributed then e**qual data classification** method.
+
+### DIY 1
+
+Using what you had learned, prepare choropleth maps by using different classification methods supported by tmap and compare their differences. ::: panel-tabset
+
+::: panel-tabset
+## pretty
+
+Creates "pretty" breaks that are easy to understand
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "pretty") +
+  tm_borders(alpha = 0.5)
+```
+
+## sd
+
+Creates classes based on standard deviation from the mean
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "sd") +
+  tm_borders(alpha = 0.5)
+```
+
+## fixed
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "fixed",
+          breaks = c(0, 100, 500, 1000, 5000)) +
+  tm_borders(alpha = 0.5)
+```
+
+:::
+
+### DIY 2
+
+Preparing choropleth maps by using similar classification method but with different numbers of classes (i.e. 2, 6, 10, 20). Compare the output maps, what observation can you draw? ::: panel-tabset \## n = 2
+
+::: panel-tabset
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 2,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+## n = 3
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 3,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+## n = 4
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 4,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+## n = 5
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+## n =6
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 10,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+:::
+
+#### 4.3.2 Plotting choropleth map with custome break
+
+For all the built-in styles, the category breaks are computed internally. In order to override these defaults, the breakpoints can be set explicitly by means of the *breaks* argument to the *tm_fill()*. It is important to note that, in **tmap** the breaks include a minimum and maximum. As a result, in order to end up with n categories, n+1 elements must be specified in the *breaks* option (the values must be in increasing order).
+
+Before we get started, it is always a good practice to get some descriptive statistics on the variable before setting the break points. Code chunk below will be used to compute and display the descriptive statistics of **DEPENDENCY** field.
 
 ### 4.4 Color scheme
 
@@ -309,10 +460,4 @@ tm_shape(mpsz_pop2020)+
 
 ## Reference
 
-### 5.5 Plotting the cycle plot
-
-## 6 Plotting Slopegraph
-
-### 6.1 Data import
-
-### 6.2 Plotting the slopegraph
+### 
