@@ -455,7 +455,7 @@ tm_shape(mpsz_pop2020)+
 
 #### **4.4.1 Using ColourBrewer palette**
 
-To change the colour, we assign the preferred colour to *palette* argument of *tm_fill()* as shown in the code chunk below.
+To change the colour, we assign the preferred colour to *palette* argument of *tm_fill()* as shown in the code chunk below. ::: panel-tabset \## Reds
 
 ```{r}
 tm_shape(mpsz_pop2020)+
@@ -465,6 +465,8 @@ tm_shape(mpsz_pop2020)+
           palette = "Reds") +
   tm_borders(alpha = 0.5)
 ```
+
+## -Reds
 
 To reverse the colour sharing, add a '-' prefix.
 
@@ -478,6 +480,8 @@ tm_shape(mpsz_pop2020)+
 ```
 
 Now the colour scheme has been reversed!
+
+:::
 
 ### 4.5 **Map Layouts**
 
@@ -507,3 +511,64 @@ tm_shape(mpsz_pop2020)+
             frame = FALSE) +
   tm_borders(alpha = 0.5)
 ```
+
+#### 4.5.2 Map style
+
+**tmap** allows a wide variety of layout settings to be changed. They can be called by using *tmap_style()*.
+
+The code chunk below shows the *classic* style is used.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "-Greens") +
+  tm_borders(alpha = 0.5) +
+  tmap_style("classic")
+```
+
+#### 4.5.3 Cartographic furniture
+
+Beside map style, **tmap** also also provides arguments to draw other map furniture such as compass, scale bar and grid lines.
+
+In the code chunk below, *tm_compass()*, *tm_scale_bar()* and *tm_grid()* are used to add compass, scale bar and grid lines onto the choropleth map.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "No. of persons") +
+  tm_layout(main.title = "Distribution of Dependency Ratio \nby planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar(width = 0.15) +
+  tm_grid(lwd = 0.1, alpha = 0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and Population data from Department of Statistics DOS", 
+             position = c("left", "bottom"))
+```
+
+To reset the default style, we will use:
+
+```{r}
+tmap_style("white")
+```
+
+### 4.6 Drawing Small Multiple Choropleth Maps
+
+**Small multiple maps**, also referred to as **facet maps**, are composed of many maps arrange side-by-side, and sometimes stacked vertically. Small multiple maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.
+
+In **tmap**, small multiple maps can be plotted in three ways:
+
+-   by assigning multiple values to at least one of the asthetic arguments,
+-   by defining a group-by variable in *tm_facets()*, and
+-   by creating multiple stand-alone maps with *tmap_arrange()*.
