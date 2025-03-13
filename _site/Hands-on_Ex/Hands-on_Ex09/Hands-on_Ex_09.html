@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -463,13 +497,28 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">1 Overview</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting started</a></li>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">3 The data</a></li>
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">3 The data</a>
+  <ul class="collapse">
+  <li><a href="#the-edges-data" id="toc-the-edges-data" class="nav-link" data-scroll-target="#the-edges-data">3.1 The edges data</a></li>
+  <li><a href="#the-nodes-data" id="toc-the-nodes-data" class="nav-link" data-scroll-target="#the-nodes-data">3.2 The nodes data</a></li>
+  <li><a href="#importing-network-data-from-files" id="toc-importing-network-data-from-files" class="nav-link" data-scroll-target="#importing-network-data-from-files">3.3 Importing network data from files</a></li>
+  <li><a href="#reviewing-the-imported-data" id="toc-reviewing-the-imported-data" class="nav-link" data-scroll-target="#reviewing-the-imported-data">3.4 Reviewing the imported data</a></li>
+  <li><a href="#wrangling-time" id="toc-wrangling-time" class="nav-link" data-scroll-target="#wrangling-time">3.5 Wrangling time</a></li>
+  <li><a href="#reviewomg-the-revised-date-fields" id="toc-reviewomg-the-revised-date-fields" class="nav-link" data-scroll-target="#reviewomg-the-revised-date-fields">3.6 Reviewomg the revised date fields</a></li>
+  <li><a href="#wrangling-attributes" id="toc-wrangling-attributes" class="nav-link" data-scroll-target="#wrangling-attributes">3.7 Wrangling attributes</a></li>
+  <li><a href="#reviewing-the-revised-edges-file" id="toc-reviewing-the-revised-edges-file" class="nav-link" data-scroll-target="#reviewing-the-revised-edges-file">3.8 Reviewing the revised edges file</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  </ul></li>
   <li><a href="#creating-network-objects-using-tidygraph" id="toc-creating-network-objects-using-tidygraph" class="nav-link" data-scroll-target="#creating-network-objects-using-tidygraph">4 Creating network objects using <strong>tidygraph</strong></a></li>
   <li><a href="#plotting-static-network-graphs-with-ggraph-package" id="toc-plotting-static-network-graphs-with-ggraph-package" class="nav-link" data-scroll-target="#plotting-static-network-graphs-with-ggraph-package">5 Plotting static network graphs with <strong>ggraph</strong> package</a></li>
   <li><a href="#creating-face-graphs" id="toc-creating-face-graphs" class="nav-link" data-scroll-target="#creating-face-graphs">6 Creating face graphs</a></li>
   <li><a href="#network-metrics-analysis" id="toc-network-metrics-analysis" class="nav-link" data-scroll-target="#network-metrics-analysis">7 Network metrics analysis</a></li>
   <li><a href="#building-interactive-network-graph-with-visnetwork" id="toc-building-interactive-network-graph-with-visnetwork" class="nav-link" data-scroll-target="#building-interactive-network-graph-with-visnetwork">8 Building interactive network graph with visNetwork</a></li>
   <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">9 Reference</a></li>
+  </ul></li>
+  <li><a href="#study" id="toc-study" class="nav-link" data-scroll-target="#study">STUDY</a>
+  <ul class="collapse">
+  <li><a href="#the-dplyr-verbs" id="toc-the-dplyr-verbs" class="nav-link" data-scroll-target="#the-dplyr-verbs">The dplyr verbs</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -497,7 +546,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 9, 2025</p>
+      <p class="date-modified">March 10, 2025</p>
     </div>
   </div>
     
@@ -523,10 +572,41 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">2 Getting started</h2>
-<p>4 network data modeling and visualisation packages will be installed and launched. They are <strong>igraph, tidygraph, ggraph</strong> and <strong>visNetwork.</strong> In addition, <strong>tidyverse</strong> and <strong>lubridate</strong> (specially designed to handle and wrangling time data) will be installed and launched, too.</p>
+<p>Four network data modeling and visualisation packages will be installed and launched. They are <strong>igraph, tidygraph, ggraph</strong> and <strong>visNetwork.</strong> In addition, <strong>tidyverse</strong> and <strong>lubridate</strong> (specially designed to handle and wrangling time data) will be installed and launched, too.</p>
 </section>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">3 The data</h2>
+<p>The data sets used in this hands-on exercise is from an oil exploration and extraction company. There are two data sets. One contains the nodes data and the other contains the edges (also know as link) data.</p>
+<section id="the-edges-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-edges-data">3.1 The edges data</h3>
+<ul>
+<li><em>GAStech-email_edges.csv</em> which consists of two weeks of 9063 emails correspondances between 55 employees.</li>
+</ul>
+</section>
+<section id="the-nodes-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-nodes-data">3.2 The nodes data</h3>
+</section>
+<section id="importing-network-data-from-files" class="level3">
+<h3 class="anchored" data-anchor-id="importing-network-data-from-files">3.3 Importing network data from files</h3>
+</section>
+<section id="reviewing-the-imported-data" class="level3">
+<h3 class="anchored" data-anchor-id="reviewing-the-imported-data">3.4 Reviewing the imported data</h3>
+</section>
+<section id="wrangling-time" class="level3">
+<h3 class="anchored" data-anchor-id="wrangling-time">3.5 Wrangling time</h3>
+</section>
+<section id="reviewomg-the-revised-date-fields" class="level3">
+<h3 class="anchored" data-anchor-id="reviewomg-the-revised-date-fields">3.6 Reviewomg the revised date fields</h3>
+</section>
+<section id="wrangling-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="wrangling-attributes">3.7 Wrangling attributes</h3>
+</section>
+<section id="reviewing-the-revised-edges-file" class="level3">
+<h3 class="anchored" data-anchor-id="reviewing-the-revised-edges-file">3.8 Reviewing the revised edges file</h3>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+</section>
 </section>
 <section id="creating-network-objects-using-tidygraph" class="level2">
 <h2 class="anchored" data-anchor-id="creating-network-objects-using-tidygraph">4 Creating network objects using <strong>tidygraph</strong></h2>
@@ -545,6 +625,232 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="reference" class="level2">
 <h2 class="anchored" data-anchor-id="reference">9 Reference</h2>
+</section>
+</section>
+<section id="study" class="level1">
+<h1>STUDY</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_ring</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tbl_graph: 10 nodes and 10 edges
+#
+# An undirected simple graph with 1 component
+#
+# Node Data: 10 × 0 (active)
+#
+# Edge Data: 10 × 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     1     2
+2     2     3
+3     3     4
+# ℹ 7 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris_clust <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>iris_tree <span class="ot">&lt;-</span> <span class="fu">as_tbl_graph</span>(iris_clust)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>iris_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tbl_graph: 299 nodes and 298 edges
+#
+# A rooted tree
+#
+# Node Data: 299 × 4 (active)
+   height leaf  label members
+    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;   &lt;int&gt;
+ 1  0     TRUE  "108"       1
+ 2  0     TRUE  "131"       1
+ 3  0.265 FALSE ""          2
+ 4  0     TRUE  "103"       1
+ 5  0     TRUE  "126"       1
+ 6  0     TRUE  "130"       1
+ 7  0.346 FALSE ""          2
+ 8  0.520 FALSE ""          3
+ 9  0.557 FALSE ""          5
+10  0     TRUE  "119"       1
+# ℹ 289 more rows
+#
+# Edge Data: 298 × 2
+   from    to
+  &lt;int&gt; &lt;int&gt;
+1     3     1
+2     3     2
+3     7     5
+# ℹ 295 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>iris_tree <span class="sc">%&gt;%</span> <span class="fu">activate</span>(edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tbl_graph: 299 nodes and 298 edges
+#
+# A rooted tree
+#
+# Edge Data: 298 × 2 (active)
+    from    to
+   &lt;int&gt; &lt;int&gt;
+ 1     3     1
+ 2     3     2
+ 3     7     5
+ 4     7     6
+ 5     8     4
+ 6     8     7
+ 7     9     3
+ 8     9     8
+ 9    13    11
+10    13    12
+# ℹ 288 more rows
+#
+# Node Data: 299 × 4
+  height leaf  label members
+   &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;   &lt;int&gt;
+1  0     TRUE  "108"       1
+2  0     TRUE  "131"       1
+3  0.265 FALSE ""          2
+# ℹ 296 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(iris_tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 299 × 4
+   height leaf  label members
+    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;   &lt;int&gt;
+ 1  0     TRUE  "108"       1
+ 2  0     TRUE  "131"       1
+ 3  0.265 FALSE ""          2
+ 4  0     TRUE  "103"       1
+ 5  0     TRUE  "126"       1
+ 6  0     TRUE  "130"       1
+ 7  0.346 FALSE ""          2
+ 8  0.520 FALSE ""          3
+ 9  0.557 FALSE ""          5
+10  0     TRUE  "119"       1
+# ℹ 289 more rows</code></pre>
+</div>
+</div>
+<section id="the-dplyr-verbs" class="level2">
+<h2 class="anchored" data-anchor-id="the-dplyr-verbs">The dplyr verbs</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>iris_tree <span class="ot">&lt;-</span> iris_tree <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Species =</span> <span class="fu">ifelse</span>(leaf, <span class="fu">as.character</span>(iris<span class="sc">$</span>Species)[label], <span class="cn">NA</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">to_setose =</span> <span class="fu">.N</span>()<span class="sc">$</span>Species[to] <span class="sc">==</span> <span class="st">'setosa'</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>iris_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tbl_graph: 299 nodes and 298 edges
+#
+# A rooted tree
+#
+# Edge Data: 298 × 3 (active)
+    from    to to_setose
+   &lt;int&gt; &lt;int&gt; &lt;lgl&gt;    
+ 1     3     1 NA       
+ 2     3     2 NA       
+ 3     7     5 NA       
+ 4     7     6 NA       
+ 5     8     4 NA       
+ 6     8     7 NA       
+ 7     9     3 NA       
+ 8     9     8 NA       
+ 9    13    11 NA       
+10    13    12 NA       
+# ℹ 288 more rows
+#
+# Node Data: 299 × 5
+  height leaf  label members Species
+   &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;  
+1  0     TRUE  "108"       1 &lt;NA&gt;   
+2  0     TRUE  "131"       1 &lt;NA&gt;   
+3  0.265 FALSE ""          2 &lt;NA&gt;   
+# ℹ 296 more rows</code></pre>
+</div>
+</div>
+<p><code>.N()</code> function is used to gain access to the node data while manipulating the edge data. Similarly <code>.E()</code> will give you the edge data and <code>.G()</code> will give you the <code>tbl_graph</code> object itself.</p>
+<p>While one might expect all of <code>dplyr</code>s verbs to be supported in that manner, there is a clear limitation in the relational data structure that requires rows to maintain their identity. Thus, <code>summarise()</code> and <code>do()</code> are not allowed as there is no clear interpretation of how alterations on the node and edge data with these verbs should be interpreted. If these operations are required I suggest applying them to a tibble representation and then joining the result back in.</p>
+<p>Speaking of joining, all joins from <code>dplyr</code> are supported. Nodes and edges are added and removed as required by the join. New edge data to be joined in must have a <code>to</code> and <code>from</code> column referencing valid nodes in the existing graph.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>iris_sum <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise_all</span>(mean) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>iris_tree <span class="ot">&lt;-</span> iris_tree <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(iris_sum)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>iris_tree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tbl_graph: 299 nodes and 298 edges
+#
+# A rooted tree
+#
+# Node Data: 299 × 9 (active)
+   height leaf  label members Species Sepal.Length Sepal.Width Petal.Length
+    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+ 1  0     TRUE  "108"       1 &lt;NA&gt;              NA          NA           NA
+ 2  0     TRUE  "131"       1 &lt;NA&gt;              NA          NA           NA
+ 3  0.265 FALSE ""          2 &lt;NA&gt;              NA          NA           NA
+ 4  0     TRUE  "103"       1 &lt;NA&gt;              NA          NA           NA
+ 5  0     TRUE  "126"       1 &lt;NA&gt;              NA          NA           NA
+ 6  0     TRUE  "130"       1 &lt;NA&gt;              NA          NA           NA
+ 7  0.346 FALSE ""          2 &lt;NA&gt;              NA          NA           NA
+ 8  0.520 FALSE ""          3 &lt;NA&gt;              NA          NA           NA
+ 9  0.557 FALSE ""          5 &lt;NA&gt;              NA          NA           NA
+10  0     TRUE  "119"       1 &lt;NA&gt;              NA          NA           NA
+# ℹ 289 more rows
+# ℹ 1 more variable: Petal.Width &lt;dbl&gt;
+#
+# Edge Data: 298 × 3
+   from    to to_setose
+  &lt;int&gt; &lt;int&gt; &lt;lgl&gt;    
+1     3     1 NA       
+2     3     2 NA       
+3     7     5 NA       
+# ℹ 295 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>gr1 <span class="ot">&lt;-</span> <span class="fu">create_notable</span>(<span class="st">'bull'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>gr2 <span class="ot">&lt;-</span> <span class="fu">create_ring</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name =</span> letters[<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>gr1 <span class="sc">%&gt;%</span> <span class="fu">bind_graphs</span>(gr2) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">'kk'</span>) <span class="sc">+</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>() <span class="sc">+</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_point</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">colour =</span> <span class="st">'steelblue'</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">colour =</span> <span class="st">'white'</span>, <span class="at">vjust =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'Binding graphs'</span>) <span class="sc">+</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_graph</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex_09_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gr1 <span class="sc">%&gt;%</span> <span class="fu">graph_join</span>(gr2) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">'kk'</span>) <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>() <span class="sc">+</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_point</span>(<span class="at">size =</span> <span class="dv">8</span>, <span class="at">colour =</span> <span class="st">'steelblue'</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">colour =</span> <span class="st">'white'</span>, <span class="at">vjust =</span> <span class="fl">0.4</span>) <span class="sc">+</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'Joining graphs'</span>) <span class="sc">+</span> </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_graph</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Hands-on_Ex_09_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
