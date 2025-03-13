@@ -308,20 +308,19 @@ tm_shape(mpsz_pop2020)+
   tm_borders(lwd = 0.1,  fill_alpha = 1)
 
 ```
+
 ::::: goals
 ::: goals-header
 Learning
 :::
 
 ::: goals-container
-
-- Light-gray border lines have been added on the choropleth map.
-- The alpha argument is used to define transparency number between 0 (totally transparent) and 1 (not transparent). By default, the alpha value of the col is used (normally 1).
-- Beside alpha argument, there are three other arguments for *tm_borders()*, they are:
-    - col = border colour
-    - lwd = border line width. The default is 1
-    - lty = border line type. The default is “solid”
-    
+-   Light-gray border lines have been added on the choropleth map.
+-   The alpha argument is used to define transparency number between 0 (totally transparent) and 1 (not transparent). By default, the alpha value of the col is used (normally 1).
+-   Beside alpha argument, there are three other arguments for *tm_borders()*, they are:
+    -   col = border colour
+    -   lwd = border line width. The default is 1
+    -   lty = border line type. The default is “solid”
 :::
 :::::
 
@@ -356,22 +355,24 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 
 ```
+
 Note that the distribution of quantile data classification method are **more evenly distributed** than equal data classification method.
 
 ### DIY 1
 
-Using what you had learned, prepare choropleth maps by using different classification methods supported by tmap and compare their differences. 
+Using what you had learned, prepare choropleth maps by using different classification methods supported by tmap and compare their differences.
 
 ::: panel-tabset
-
 ## pretty
 
 Creates "pretty" breaks that are easy to understand.
+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 5,
-          style = "pretty") +
+          style = "pretty",
+          palette = "Greens") +
   tm_borders(alpha = 0.5)
 
 ```
@@ -379,42 +380,50 @@ tm_shape(mpsz_pop2020)+
 ## sd
 
 Creates classes based on standard deviation from the mean.
+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 5,
-          style = "sd") +
+          style = "sd",
+          palette = "Greens") +
   tm_borders(alpha = 0.5)
 
 ```
 
 ## n=2
+
 Preparing choropleth maps by using similar classification method but with different numbers of classes (i.e. 2, 6, 10, 20). Compare the output maps, what observation can you draw?
 
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 2,
-          style = "jenks") +
+          style = "jenks",
+          palette = "Oranges") +
   tm_borders(alpha = 0.5)
 
 ```
 
 ## n=6
+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 6,
-          style = "jenks") +
+          style = "jenks",
+          palette = "Oranges") +
   tm_borders(alpha = 0.5)
 ```
 
 ## n=10
+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
           n = 10,
-          style = "jenks") +
+          style = "jenks",
+          palette = "Oranges") +
   tm_borders(alpha = 0.5)
 ```
 :::
@@ -423,6 +432,78 @@ tm_shape(mpsz_pop2020)+
 
 For all the built-in styles, the category breaks are computed internally. In order to override these defaults, the breakpoints can be set explicitly by means of the *breaks* argument to the *tm_fill()*. It is important to note that, in **tmap** the breaks include a minimum and maximum. As a result, in order to end up with n categories, n+1 elements must be specified in the *breaks* option (the values must be in increasing order).
 
-Before we get started, it is always a good practice to get some descriptive statistics on the variable before setting the break points. Code chunk below will be used to compute and display the descriptive statistics of **DEPENDENCY** field.
+Before we get started, it is always a good practice to get some **descriptive statistics** on the variable before setting the break points. Code chunk below will be used to compute and display the descriptive statistics of **DEPENDENCY** field.
 
+```{r}
+summary(mpsz_pop2020$DEPENDENCY)
+```
 
+With reference to the results above, we set break point at **0.60, 0.70, 0.80, and 0.90**. In addition, we also need to include a minimum and maximum, which we set at 0 and 100. Our breaks vector is thus c(0, 0.60, 0.70, 0.80, 0.90, 1.00)
+
+Now, we will plot the choropleth map by using the code chunk below.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          breaks = c(0, 0.60, 0.70, 0.80, 0.90, 1.00)) +
+  tm_borders(alpha = 0.5)
+```
+
+### 4.4 Color Scheme
+
+**tmap** supports colour ramps either defined by the user or a set of predefined colour ramps from the **RColorBrewer** package.
+
+#### **4.4.1 Using ColourBrewer palette**
+
+To change the colour, we assign the preferred colour to *palette* argument of *tm_fill()* as shown in the code chunk below.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 6,
+          style = "quantile",
+          palette = "Reds") +
+  tm_borders(alpha = 0.5)
+```
+
+To reverse the colour sharing, add a '-' prefix.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 6,
+          style = "quantile",
+          palette = "-Reds") +
+  tm_borders(alpha = 0.5)
+```
+
+Now the colour scheme has been reversed!
+
+### 4.5 **Map Layouts**
+
+Map layout refers to the combination of all map elements into a cohensive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.
+
+#### 4.5.1 Map legend
+
+In **tmap**, several *legend* options are provided to change the placement, format and appearance of the legend.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "jenks", 
+          palette = "Purples", 
+          legend.hist = TRUE, 
+          legend.is.portrait = TRUE,
+          legend.hist.z = 0.1) +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone \n(Jenks classification)",
+            main.title.position = "center",
+            main.title.size = 1,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            legend.outside = FALSE,
+            legend.position = c("right", "bottom"),
+            frame = FALSE) +
+  tm_borders(alpha = 0.5)
+```
