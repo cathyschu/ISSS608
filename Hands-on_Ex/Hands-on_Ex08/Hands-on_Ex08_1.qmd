@@ -632,6 +632,8 @@ tmap_arrange(map1, map2)
 Below multiple small choropleth maps are created by using **tm_facets()**.
 
 ```{r}
+#| code-fold: TRUE
+#| code-summary: "Show the code"
 # Try explicitly creating a list of maps by region
 library(dplyr)
 
