@@ -1,0 +1,3 @@
+./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_4_files/figure-html
+./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04_2_files/figure-html
+# ... (and all other paths from your list)

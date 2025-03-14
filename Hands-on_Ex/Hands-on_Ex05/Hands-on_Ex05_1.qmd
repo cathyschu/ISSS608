@@ -1,0 +1,205 @@
+---
+title: "Hands-on_Ex05-1"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true 
+---
+
+# **Creating Ternary Plot with R**
+
+## 1 Overview
+
+Ternary plots are a way of displaying the **distribution** and **variability** of **three-part compositional data**. (For example, the proportion of aged, economy active and young population or sand, silt, and clay in soil.)
+
+The display is a triangle with sides scaled from 0 to 1. Each side represents one of the three components. A point is plotted so that a line drawn perpendicular from the point to each leg of the triangle intersect at the component values of the point.
+
+In this hands-on, I will build ternary plot programmatically using R for visualising and analysing population structure of Singapore. Here are the 4 steps:
+
+1.  Install and launch **tidyverse** and **ggtern** packages.
+2.  Derive three new measures using *`mutate()`* function of **dplyr** package.
+3.  Build a static ternary plot using *`ggtern()`* function of **ggtern** package.
+4.  Build an interactive ternary plot using *`plot-ly()`* function of **Plotly R** package.
+
+## 2 Install and Launch R Packages
+
+2 main R packages will be used.
+
++--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| **R Package**                        | **Overview**                                                                                                            |
++======================================+=========================================================================================================================+
+| [**ggtern**](http://www.ggtern.com/) | a ggplot extension that plots ternary diagrams. The package will be used to plot static ternary plots.                  |
++--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| [**Plotply R**](https://plot.ly/r/)  | an R package for creating interactive web-based graphs via plotly's JavaScript graphing library, plotly.js.             |
+|                                      |                                                                                                                         |
+|                                      | The **plotly R** library contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object. |
++--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| **tidyverse**                        | selected tidyverse family packages: **readr**, **dplyr** and **tidyr** are installed and loaded.                        |
++--------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+
+: {.striped .hover}
+
+Version 3.2.1 of **ggplot2** will be installed instead of the latest version of **ggplot2**, because the current version of **ggtern** package is not compatible to the latest version of **ggplot2**.
+
+```{r}
+pacman::p_load(plotly, ggtern, tidyverse)
+```
+
+## 3 Data Preparation
+
+### 3.1 Data
+
+The [Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018](https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data) data will be used.
+
+File name: *respopagsex2000to2018_tidy.csv*
+
+::: panel-tabset
+## Import data
+
+```{r}
+pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv")
+head(pop_data)
+```
+
+## Prepare data
+
+Use `mutate()` function of **dplyr** package to derive 3 new measures, namely: young, active and old.
+
+```{r}
+#Deriving the young, economy active and old measures
+agpop_mutated <- pop_data %>%
+  mutate(`Year` = as.character(Year)) %>%
+  spread(AG, Population) %>% #turn the values in Population col into AG cols.
+  mutate(YOUNG = rowSums(.[4:8])) %>% #Age 0-24
+  mutate(ACTIVE = rowSums(.[9:16])) %>% #Age 25-64
+  mutate(OLD = rowSums(.[17:21])) %>% #Age >65
+  mutate(TOTAL = rowSums(.[22:24])) %>% #Age 
+  filter(Year == 2018) %>%
+  filter(TOTAL >0)
+
+```
+:::
+
+::: column-margin
+#### 🎯 **Useful mutate functions**
+
+-   [`+`](https://rdrr.io/r/base/Arithmetic.html), [`-`](https://rdrr.io/r/base/Arithmetic.html), [`log()`](https://rdrr.io/r/base/Log.html), etc., for their usual mathematical meanings
+
+-   [`lead()`](https://dplyr.tidyverse.org/reference/lead-lag.html), [`lag()`](https://dplyr.tidyverse.org/reference/lead-lag.html)
+
+-   [`dense_rank()`](https://dplyr.tidyverse.org/reference/row_number.html), [`min_rank()`](https://dplyr.tidyverse.org/reference/row_number.html), [`percent_rank()`](https://dplyr.tidyverse.org/reference/percent_rank.html), [`row_number()`](https://dplyr.tidyverse.org/reference/row_number.html), [`cume_dist()`](https://dplyr.tidyverse.org/reference/percent_rank.html), [`ntile()`](https://dplyr.tidyverse.org/reference/ntile.html)
+
+-   [`cumsum()`](https://rdrr.io/r/base/cumsum.html), [`cummean()`](https://dplyr.tidyverse.org/reference/cumall.html), [`cummin()`](https://rdrr.io/r/base/cumsum.html), [`cummax()`](https://rdrr.io/r/base/cumsum.html), [`cumany()`](https://dplyr.tidyverse.org/reference/cumall.html), [`cumall()`](https://dplyr.tidyverse.org/reference/cumall.html)
+
+-   [`na_if()`](https://dplyr.tidyverse.org/reference/na_if.html), [`coalesce()`](https://dplyr.tidyverse.org/reference/coalesce.html)
+
+-   [`if_else()`](https://dplyr.tidyverse.org/reference/if_else.html), [`recode()`](https://dplyr.tidyverse.org/reference/recode.html), [`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)
+
+#### **Grouped tibbles**
+
+Because mutating expressions are computed within groups, they may yield different results on grouped tibbles. This will be the case as soon as an aggregating, lagging, or ranking function is involved. Compare this ungrouped mutate:
+
+```         
+starwars %>%
+  select(name, mass, species) %>%
+  mutate(mass_norm = mass / mean(mass, na.rm = TRUE))
+```
+
+#### With the grouped equivalent:
+
+```         
+starwars %>%
+  select(name, mass, species) %>%
+  group_by(species) %>%
+  mutate(mass_norm = mass / mean(mass, na.rm = TRUE))
+```
+
+The former normalises `mass` by the global average whereas the latter normalises by the averages within species levels.
+:::
+
+## 4 Plot Ternary Diagram with R
+
+### 4.1 Plot a static ternary diagram
+
+Use ***ggtern()*** function of **ggtern** package to create a simple ternary plot:
+
+::: panel-tabset
+## Classic
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+#Building the static ternary plot
+ggtern(data=agpop_mutated, 
+       aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point()
+```
+
+## theme_rgbw()
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggtern(data = agpop_mutated, 
+       aes(
+         x = YOUNG, y = ACTIVE, z = OLD
+)) +
+  geom_point() +
+  labs(title = "Popultation structure, 2015") +
+  theme_rgbw()
+```
+
+## Interactive
+
+Use `plot_ly()` to create an interactive plot.:
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Function for creating annotation object too
+label <- function(txt) {
+  list(
+    text = txt, 
+    x = 0.1, y = 1, #Position of the annotation in the plot
+    ax = 0, ay = 0, #annotation has no arrow
+    xref = "paper", yref = "paper",  #Positioning is relative to the entire figure, not data points
+    align = "center",
+    font = list(family = "Calibri", size = 15, color = "white"),
+    bgcolor = "#000000", # Background color of the annotation box (light gray)
+    bordercolor = "black", 
+    borderwidth = 2
+  )
+}
+
+# Function for creating axis formatting too
+axis <- function(txt) {
+  list(
+    title = txt, tickformat = ".0%", tickfont = list(size = 10)
+  )
+}
+
+ternaryAxes <- list(
+  aaxis = axis("Young"), 
+  baxis = axis("Active"), 
+  caxis = axis("Old")
+)
+
+# Initiate a plotly visualization
+plot_ly(
+  agpop_mutated, 
+  a = ~YOUNG, 
+  b = ~ACTIVE, 
+  c = ~OLD, 
+  color = I("black"), 
+  type = "scatterternary"
+) %>%
+  layout(
+    annotations = label("Ternary Markers"), 
+    ternary = ternaryAxes
+  )
+```
+:::

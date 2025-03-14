@@ -1,0 +1,21 @@
+---
+title: "test"
+author: "Cathy C."
+---
+
+``` r
+#install.packages(c(
+#  "gapminder", "ggforce", "gh", "globals", "openintro", "profvis", "RSQLite",
+#  "shiny", "shinycssloaders", "shinyFeedback", "shinythemes", "testthat", 
+#  "thematic", "tidyverse", "vroom", "waiter", "xml2", "zeallor"
+#))
+```
+
+```{r}
+#library(shiny)
+#runExample("01_hello")
+```
+
+``` r
+#runExample("02_text")
+```

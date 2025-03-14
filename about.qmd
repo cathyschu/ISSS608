@@ -1,0 +1,37 @@
+---
+title: "Cathy C."
+subtitle: "Data Analytics"
+image: cathy_profile.jpeg
+about:
+  template: trestles
+  image-width: 15em
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/cathyschu
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/cathycrimson/
+---
+
+My name is Cathy.
+
+::: {#hero-heading}
+I've had the privilege of working in training, project & program management roles across both public institutions and the private sector. What I've enjoyed most about these diverse experiences is meeting incredible people from different cultures and background, making lasting friendships, and constantly being inspired by new perspectives. This inspiration sparked my official journey into Analytics, a field I'm deeply passionate about. I'm always excited to explore both the possible and the impossible in this ever-evolving discipline.
+
+With data, I learn a great deal about solving business problems and am inspired to think differently for life.
+
+## Education
+
+**Singapore Management University** \| Masters of IT in Business \| Expected Dec 2025
+
+## Experience
+
+**Multiple MNCs** \| Program Manager, Training instructor \| Singapore
+:::
+
+------------------------------------------------------------------------
+
+![](images/banner_tomatohead-01.png){width="1000"}
+
+*Creating cute illustrations in my spare time is one of my favourite hobbies.*

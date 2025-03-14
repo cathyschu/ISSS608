@@ -1,0 +1,78 @@
+---
+title: "Hands-on_Ex08_3"
+author: "Cathy Chu"
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+# **Analytical Mapping**
+
+## 1 Overview
+
+### 1.1 **Objectives**
+
+-   Importing geospatial data in rds format into R environment.
+
+-   Creating cartographic quality choropleth maps by using appropriate tmap functions.
+
+-   Creating rate map
+
+-   Creating percentile map
+
+-   Creating boxmap
+
+## 2 Getting Started
+
+### 2.1 Install and load packages
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse)
+```
+
+### 2.1 Import data to R
+
+For the purpose of this hands-on exercise, a prepared data set called *NGA_wp.rds* will be used. The data set is a polygon feature data.frame providing information on water point of Nigeria at the LGA level.
+
+```{r}
+nga_wp <- read_rds("data/rds/NGA_wp.rds")
+```
+
+## 3 Basic choropleth mapping
+
+### 3.1 **Visualising distribution of non-functional water point**
+
+## 4 **Choropleth Map for Rates**
+
+### 4.4 **Deriving Proportion of Functional Water Points and Non-Functional Water Points**
+
+### 4.5 **Plotting map of rate**
+
+## 5 **Extreme Value Maps**
+
+### 5.1 **Percentile Map**
+
+#### **5.1.1 Data Preparation**
+
+#### **5.1.2 Why writing functions?**
+
+#### **5.1.3 Creating the get.var function**
+
+#### **5.1.4 A percentile mapping function**
+
+### 5.2 **Box map**
+
+#### **5.2.1 Creating the boxbreaks function**
+
+#### **5.2.2 Creating the get.var function**
+
+#### **5.2.3 Test drive the newly created function**
+
+#### **5.2.4 Boxmap function**
+
+## Reference
+
+### 

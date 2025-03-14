@@ -1,0 +1,15 @@
+{
+  "hash": "409c4a431c29805371bc4bde42192dd2",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands-on_Ex01\"\nauthor: \"Cathy Chu\"\ndate-modified: \"last-modified\" \nexecute:\n  echo: true \n  eval: true \n  warning: false \n  freeze: true  \n---\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(tidyverse, ggplot2, ggthemes, ggrepel, patchwork, haven, sas7bdat,\n               RevoScaleR)\n```\n:::\n\n\n\n\nRevoScaleR - read sas file\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n#sch_data <- read_sas(\"data/CY08MSP_SCH_QQQ.SAS7BDAT\")\n#write.csv(sch_data, \"sch_data.csv\")\nsch_data_csv <- read_csv(\"data/sch_data.csv\")\nview(sch_data_csv)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ngov_data <- read_csv(\"data/GovProc.csv\")\nsummary(gov_data)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n  tender_no         tender_description    agency           award_date       \n Length:18638       Length:18638       Length:18638       Length:18638      \n Class :character   Class :character   Class :character   Class :character  \n Mode  :character   Mode  :character   Mode  :character   Mode  :character  \n                                                                            \n                                                                            \n                                                                            \n tender_detail_status supplier_name       awarded_amt       \n Length:18638         Length:18638       Min.   :0.000e+00  \n Class :character     Class :character   1st Qu.:7.000e+03  \n Mode  :character     Mode  :character   Median :1.647e+05  \n                                         Mean   :5.540e+06  \n                                         3rd Qu.:8.227e+05  \n                                         Max.   :1.493e+09  \n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlength(unique(gov_data$agency))\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 113\n```\n\n\n:::\n\n```{.r .cell-code}\nlength(unique(gov_data$supplier_name))\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 6230\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,30 @@
+---
+title: "Hands-on_Ex_08_test2"
+author: "Cathy C."
+date-modified: "last-modified" 
+execute:
+  echo: true 
+  eval: true 
+  warning: false 
+  freeze: true  
+---
+
+# **Choropleth Mapping with R**
+
+## 1 Overview
+
+Choropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors.
+
+For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary.
+
+We will learn how to plot functional and truthful choropleth maps by using an R package called [**tmap**](https://cran.r-project.org/web/packages/tmap/) package.
+
+::::: goals
+::: goals-header
+Tips
+:::
+
+::: goals-container
+Read each functional description before use.
+:::
+:::::
